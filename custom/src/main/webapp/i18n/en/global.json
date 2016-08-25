@@ -10,11 +10,14 @@
                 "globalConfiguration": "Global Configuration",
                 "country": "Country",
                 "client": "Client",
+                "licenseType": "License Type",
+                "company": "Company",
+                "licenses": "Licenses",
                 "checklist": "Checklist",
                 "checklistQuestion": "Checklist Question",
                 "auditQuestionResponse": "Audit Question Response",
                 "auditProfile": "Audit Profile",
-                "profile": "Profile",
+                "userProfile": "User Profile",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

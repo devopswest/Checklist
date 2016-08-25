@@ -1,0 +1,156 @@
+/**
+ * Types
+ **/
+enum ChecklistStatus {
+    DRAFT,
+    PUBLISHED
+}
+
+enum ResponseStatus {
+    DRAFT,
+    FINISH
+}
+
+
+/**
+ * Global Config
+ **/
+ entity GlobalConfiguration {
+    propertyKey String,
+    propertyValue String
+}
+
+/**
+ * Lookups
+ **/
+entity Country {
+    code String,
+    name String
+}
+
+entity Client {
+    code String,
+    name String
+}
+
+
+/**
+  * License Management
+  **/
+entity LicenseType {
+    code String,
+    name String,
+    description String
+}
+
+entity Company {
+    code String,
+    name String
+}
+
+entity Licenses {
+     contactName String,
+     contactEmail String,
+     activationToken String
+}
+
+relationship OneToMany {
+    Company to Licenses{company(name)}
+}
+
+
+/**
+ * Checklist
+ **/
+entity Checklist {
+    name String,
+    description String,
+    version String,
+    status ChecklistStatus
+}
+
+entity ChecklistQuestion {
+    code String,
+    question String
+}
+
+relationship OneToMany {
+    Checklist to ChecklistQuestion{checklist(name)}
+}
+
+relationship OneToMany {
+    Country to Checklist{country(name)}
+}
+
+relationship OneToMany {
+    ChecklistQuestion{child} to ChecklistQuestion{parent(code)}
+}
+
+
+/**
+ * Response Responses
+ **/
+entity AuditProfile {
+    fiscalYear String,
+    description String,
+    status ResponseStatus
+}
+
+relationship OneToMany{
+    Client to AuditProfile{client(name)}
+}
+
+relationship OneToMany{
+    Checklist to AuditProfile{checklist(name)}
+}
+
+
+/**
+  *
+  * How to handle question responses as part of the relaqionship?
+  *
+  */
+
+relationship ManyToMany {
+    AuditProfile{question(question)} to ChecklistQuestion{auditProfile}
+}
+
+
+
+entity AuditQuestionResponse {
+    questionResponse String
+}
+relationship OneToMany{
+    ChecklistQuestion to AuditQuestionResponse{question(question)}
+}
+
+
+relationship ManyToMany {
+    AuditProfile{auditQuestionResponse(questionResponse)} to AuditQuestionResponse{auditProfile}
+}
+
+
+
+
+/**
+ * Access Control
+ **/
+entity UserProfile {
+    firstName String,
+    lastName String,
+    phone String,
+    email String
+}
+relationship OneToOne{
+    UserProfile{user(login)} to User
+}
+
+
+/**
+ * Options
+ *
+ * paginate * with pager
+ * dto * with mapstruct
+ **/
+paginate * with pager
+

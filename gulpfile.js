@@ -66,6 +66,25 @@ gulp.task('images', function () {
         .pipe(browserSync.reload({stream: true}));
 });
 
+
+gulp.task('copy:slide', copy.slide);
+
+gulp.task('slide', function () {
+    return gulp.src(config.app + 'content/slide/**')
+        .pipe(plumber({errorHandler: handleErrors}))
+        .pipe(changed(config.dist + 'content/slide'))
+        .pipe(imagemin({optimizationLevel: 5, progressive: true, interlaced: true}))
+        .pipe(rev())
+        .pipe(gulp.dest(config.dist + 'content/slide'))
+        .pipe(rev.manifest(config.revManifest, {
+            base: config.dist,
+            merge: true
+        }))
+        .pipe(gulp.dest(config.dist))
+        .pipe(browserSync.reload({stream: true}));
+});
+
+
 gulp.task('sass', function () {
     return es.merge(
         gulp.src(config.sassSrc)
@@ -101,7 +120,7 @@ gulp.task('inject:test', inject.test);
 
 gulp.task('inject:troubleshoot', inject.troubleshoot);
 
-gulp.task('assets:prod', ['images', 'styles', 'html', 'copy:swagger', 'copy:images'], build);
+gulp.task('assets:prod', ['images', 'slide','styles', 'html', 'copy:swagger', 'copy:images', 'copy:slide'], build);
 
 gulp.task('html', function () {
     return gulp.src(config.app + 'app/**/*.html')
@@ -193,6 +212,11 @@ gulp.task('watch', function () {
     gulp.watch(['gulpfile.js', 'build.gradle'], ['ngconstant:dev']);
     gulp.watch(config.sassSrc, ['styles']);
     gulp.watch(config.app + 'content/images/**', ['images']);
+
+    gulp.watch(config.app + 'content/slide/**', ['slide']);
+
+    gulp.watch(config.app + 'content/menu/**', ['styles']);
+
     gulp.watch(config.app + 'app/**/*.js', ['inject:app']);
     gulp.watch([config.app + '*.html', config.app + 'app/**', config.app + 'i18n/**']).on('change', browserSync.reload);
 });
