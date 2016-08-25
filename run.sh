@@ -21,7 +21,7 @@ JAVA_DEBUG_OPTS="-Xdebug \
  -Xrunjdwp:server=y,transport=dt_socket,address=4000,suspend=n"
 
 SERVICE_OPTS="--server.port=$SERVICE_PORT \
- --db.url=jdbc:mysql://$DB_URL?useUnicode=true&characterEncoding=utf8&useSSL=false \
+ --db.url=jdbc:postgresql://$DB_URL \
  --db.username=$DB_USER \
  --db.password=$DB_PASSWORD \
  --spring.profiles.active=$SERVICE_ENV"
