@@ -1,0 +1,28 @@
+{
+    "checklistApp": {
+        "auditProfile" : {
+            "home": {
+                "title": "Audit Profiles",
+                "createLabel": "Create a new Audit Profile",
+                "createOrEditLabel": "Create or edit a Audit Profile",
+                "search": "Search for Audit Profile"
+            },
+            "created": "A new Audit Profile is created with identifier {{ param }}",
+            "updated": "A Audit Profile is updated with identifier {{ param }}",
+            "deleted": "A Audit Profile is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Audit Profile {{ id }}?"
+            },
+            "detail": {
+                "title": "Audit Profile"
+            },
+            "fiscalYear": "Fiscal Year",
+            "description": "Description",
+            "status": "Status",
+            "question": "Question",
+            "auditQuestionResponse": "Audit Question Response",
+            "client": "Client",
+            "checklist": "Checklist"
+        }
+    }
+}

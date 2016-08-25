@@ -1,0 +1,9 @@
+{
+    "checklistApp": {
+        "ResponseStatus" : {
+            "null": "",
+            "DRAFT": "DRAFT",
+            "FINISH": "FINISH"
+        }
+    }
+}

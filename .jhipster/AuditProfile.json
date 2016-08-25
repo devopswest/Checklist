@@ -1,0 +1,58 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-many",
+      "relationshipName": "question",
+      "otherEntityName": "checklistQuestion",
+      "otherEntityField": "question",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-many",
+      "relationshipName": "auditQuestionResponse",
+      "otherEntityName": "auditQuestionResponse",
+      "otherEntityField": "questionResponse",
+      "ownerSide": true
+    },
+    {
+      "relationshipId": 3,
+      "relationshipType": "many-to-one",
+      "relationshipName": "client",
+      "otherEntityName": "client",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipId": 4,
+      "relationshipType": "many-to-one",
+      "relationshipName": "checklist",
+      "otherEntityName": "checklist",
+      "otherEntityField": "name"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "fiscalYear",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "status",
+      "fieldType": "ResponseStatus",
+      "fieldValues": "DRAFT,FINISH"
+    }
+  ],
+  "changelogDate": "20160825130700",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "javadoc": "Response Responses",
+  "entityTableName": "audit_profile"
+}

@@ -1,0 +1,28 @@
+{
+    "checklistApp": {
+        "checklistQuestion" : {
+            "home": {
+                "title": "Checklist Questions",
+                "createLabel": "Create a new Checklist Question",
+                "createOrEditLabel": "Create or edit a Checklist Question",
+                "search": "Search for Checklist Question"
+            },
+            "created": "A new Checklist Question is created with identifier {{ param }}",
+            "updated": "A Checklist Question is updated with identifier {{ param }}",
+            "deleted": "A Checklist Question is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Checklist Question {{ id }}?"
+            },
+            "detail": {
+                "title": "Checklist Question"
+            },
+            "code": "Code",
+            "question": "Question",
+            "child": "Child",
+            "auditQuestionResponse": "Audit Question Response",
+            "checklist": "Checklist",
+            "parent": "Parent",
+            "auditProfile": "Audit Profile"
+        }
+    }
+}

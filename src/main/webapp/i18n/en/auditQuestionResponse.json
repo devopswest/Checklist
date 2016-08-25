@@ -1,0 +1,24 @@
+{
+    "checklistApp": {
+        "auditQuestionResponse" : {
+            "home": {
+                "title": "Audit Question Responses",
+                "createLabel": "Create a new Audit Question Response",
+                "createOrEditLabel": "Create or edit a Audit Question Response",
+                "search": "Search for Audit Question Response"
+            },
+            "created": "A new Audit Question Response is created with identifier {{ param }}",
+            "updated": "A Audit Question Response is updated with identifier {{ param }}",
+            "deleted": "A Audit Question Response is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Audit Question Response {{ id }}?"
+            },
+            "detail": {
+                "title": "Audit Question Response"
+            },
+            "questionResponse": "Question Response",
+            "question": "Question",
+            "auditProfile": "Audit Profile"
+        }
+    }
+}

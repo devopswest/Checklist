@@ -33,6 +33,32 @@ entity Client {
     name String
 }
 
+
+/**
+  * License Management
+  **/
+entity LicenseType {
+    code String,
+    name String,
+    description String
+}
+
+entity Company {
+    code String,
+    name String
+}
+
+entity Licenses {
+     contactName String,
+     contactEmail String,
+     activationToken String
+}
+
+relationship OneToMany {
+    Company to Licenses{company(name)}
+}
+
+
 /**
  * Checklist
  **/
@@ -53,7 +79,7 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-    Country to Checklist{Country(name)}
+    Country to Checklist{country(name)}
 }
 
 relationship OneToMany {

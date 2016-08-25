@@ -1,0 +1,28 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-many",
+      "relationshipName": "licenses",
+      "otherEntityName": "licenses",
+      "otherEntityRelationshipName": "company"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160825130756",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "entityTableName": "company"
+}

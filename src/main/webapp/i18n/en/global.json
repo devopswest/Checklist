@@ -7,6 +7,17 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "globalConfiguration": "Global Configuration",
+                "country": "Country",
+                "client": "Client",
+                "licenseType": "License Type",
+                "company": "Company",
+                "licenses": "Licenses",
+                "checklist": "Checklist",
+                "checklistQuestion": "Checklist Question",
+                "auditQuestionResponse": "Audit Question Response",
+                "auditProfile": "Audit Profile",
+                "userProfile": "User Profile",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

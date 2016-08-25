@@ -1,0 +1,21 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "propertyKey",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "propertyValue",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160825130752",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "javadoc": "Global Config",
+  "entityTableName": "global_configuration"
+}

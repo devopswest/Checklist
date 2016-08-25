@@ -1,0 +1,9 @@
+{
+    "checklistApp": {
+        "ChecklistStatus" : {
+            "null": "",
+            "DRAFT": "DRAFT",
+            "PUBLISHED": "PUBLISHED"
+        }
+    }
+}

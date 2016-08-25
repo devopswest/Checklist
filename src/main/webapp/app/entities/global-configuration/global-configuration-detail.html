@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span translate="checklistApp.globalConfiguration.detail.title">Global Configuration</span> {{vm.globalConfiguration.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.globalConfiguration.propertyKey">Property Key</span></dt>
+        <dd>
+            <span>{{vm.globalConfiguration.propertyKey}}</span>
+        </dd>
+        <dt><span translate="checklistApp.globalConfiguration.propertyValue">Property Value</span></dt>
+        <dd>
+            <span>{{vm.globalConfiguration.propertyValue}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="global-configuration-detail.edit({id:vm.globalConfiguration.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

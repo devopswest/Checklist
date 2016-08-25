@@ -1,0 +1,25 @@
+{
+    "checklistApp": {
+        "licenses" : {
+            "home": {
+                "title": "Licenses",
+                "createLabel": "Create a new Licenses",
+                "createOrEditLabel": "Create or edit a Licenses",
+                "search": "Search for Licenses"
+            },
+            "created": "A new Licenses is created with identifier {{ param }}",
+            "updated": "A Licenses is updated with identifier {{ param }}",
+            "deleted": "A Licenses is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Licenses {{ id }}?"
+            },
+            "detail": {
+                "title": "Licenses"
+            },
+            "contactName": "Contact Name",
+            "contactEmail": "Contact Email",
+            "activationToken": "Activation Token",
+            "company": "Company"
+        }
+    }
+}
