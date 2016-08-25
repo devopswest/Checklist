@@ -34,7 +34,7 @@ docker -H tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243 service create -
 java -jar ./build/libs/checklist-0.0.1-SNAPSHOT.war --server.port=9090  --db.url=jdbc:mysql://adc-database.eastus.cloudapp.azure.com:3306/Checklist?useUnicode=true&characterEncoding=UTF-8  --db.username=root  --db.password=pwc123  --spring.profiles.active=prod
 
 
-java -jar ./build/libs/checklist-0.0.1-SNAPSHOT.war --server.port=9090  --db.url=jdbc:postgresql://localhost:5432/Checklist  --db.username=postgres  --db.password=pwc123  --spring.profiles.active=prod
+java -jar ./build/libs/checklist-0.0.1-SNAPSHOT.war --server.port=9090  --db.url=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist  --db.username=postgres  --db.password=pwc123  --spring.profiles.active=prod
 
 
 #Gradle

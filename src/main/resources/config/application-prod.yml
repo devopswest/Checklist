@@ -19,10 +19,10 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist
+        url: jdbc:postgresql://localhost:5432/Checklist
         name:
         username: postgres
-        password: pwc123
+        password: postgres
     jpa:
         database-platform: com.pwc.assurance.adc.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
