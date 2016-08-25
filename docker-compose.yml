@@ -394,30 +394,41 @@ services:
             dockerfile: Dockerfile
         image: 'andresfuentes/checklist'
         environment:
-            - 'SERVICE_PORT=8080'
+            - 'SERVICE_ENV=prod'
+            - 'SERVICE_PORT=9090'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
             - 'DB_PASSWORD=pwc123'
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
         ports:
-            - '8090:8080'
+            - '8090:9090'
 
     app:
         build:
             context: .
             dockerfile: Dockerfile
-        image: 'andresfuentes/checklist:{version}'
+        #image: 'andresfuentes/checklist:{version}'
+        image: 'andresfuentes/checklist'
         hostname: $HOSTNAME
         environment:
-            - 'SERVICE_PORT=8080'
+            - 'SERVICE_ENV=prod'
+            - 'SERVICE_PORT=9090'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
             - 'DB_PASSWORD=pwc123'
+
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
             - 'constraint:tier.app==true'
             - 'affinity:container!=~*app*'
         ports:
-            - '8090:8080'
+            - '8090:9090'
         restart: always
 
 
