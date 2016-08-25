@@ -404,6 +404,9 @@ services:
             - '8090:8080'
 
     app:
+        build:
+            context: .
+            dockerfile: Dockerfile
         image: 'andresfuentes/checklist:{version}'
         hostname: $HOSTNAME
         environment:
