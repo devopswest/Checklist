@@ -1,0 +1,8 @@
+FROM library/postgres:9.4
+MAINTAINER code348.com
+
+ADD init.sql /docker-entrypoint-initdb.d/
+
+ENV SERVICE_ENV prod
+ENV SERVICE_NAME database
+ENV SERVICE_PORT 5342

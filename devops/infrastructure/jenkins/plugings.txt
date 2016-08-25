@@ -1,0 +1,10 @@
+managed-scripts:1.2.1
+github:1.19.3
+test-results-analyzer:0.3.4
+jacoco:2.0.1
+findbugs:4.65
+checkstyle:3.46
+fortify-on-demand-uploader:1.10
+analysis-collector:1.48
+pmd:3.45
+build-pipeline-plugin:1.5.4

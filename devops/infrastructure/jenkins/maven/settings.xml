@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <servers>
+   <server>
+     <username>us-tda-poc-jenkins-azure-build-master</username>
+     <password>APvgjyKQRKxRPFfHTAYQWaYukjHgHoRyQbAQjp53iXVgXqea</password>
+     <id>central</id>
+   </server>
+   <server>
+     <username>us-tda-poc-jenkins-azure-build-master</username>
+     <password>APvgjyKQRKxRPFfHTAYQWaYukjHgHoRyQbAQjp53iXVgXqea</password>
+     <id>snapshots</id>
+   </server>
+ </servers>
+ <profiles>
+   <profile>
+     <repositories>
+       <repository>
+         <snapshots>
+           <enabled>false</enabled>
+         </snapshots>
+         <id>central</id>
+         <name>pwc-maven-libs-release-gcp</name>
+         <url>https://nisappsec.pwc.com:443/artifactory/pwc-maven-libs-release-gcp</url>
+       </repository>
+       <repository>
+         <snapshots />
+         <id>snapshots</id>
+         <name>pwc-maven-libs-snapshot-gcp</name>
+         <url>https://nisappsec.pwc.com:443/artifactory/pwc-maven-libs-snapshot-gcp</url>
+       </repository>
+     </repositories>
+     <pluginRepositories>
+       <pluginRepository>
+         <snapshots>
+           <enabled>false</enabled>
+         </snapshots>
+         <id>central</id>
+         <name>pwc-maven-plugins-release-gcp</name>
+         <url>https://nisappsec.pwc.com:443/artifactory/pwc-maven-plugins-release-gcp</url>
+       </pluginRepository>
+       <pluginRepository>
+         <snapshots />
+         <id>snapshots</id>
+         <name>pwc-maven-plugins-snapshot-gcp</name>
+         <url>https://nisappsec.pwc.com:443/artifactory/pwc-maven-plugins-snapshot-gcp</url>
+       </pluginRepository>
+     </pluginRepositories>
+     <id>artifactory</id>
+   </profile>
+ </profiles>
+ <activeProfiles>
+   <activeProfile>artifactory</activeProfile>
+ </activeProfiles>
+</settings>

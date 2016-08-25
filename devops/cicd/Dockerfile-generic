@@ -1,0 +1,31 @@
+FROM ubuntu:xenial
+
+MAINTAINER me@andresfuentes.com
+
+##
+## Install required dependencies
+##
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install sudo apt-utils
+
+
+#
+# Add required tools
+#
+RUN apt-get -y install curl sudo procps wget
+
+#
+# Copy Tools
+#
+RUN mkdir -p /var/app
+RUN mkdir -p /var/app/ssl
+WORKDIR /var/app
+
+RUN cd /var/app
+ADD *.sh /var/app/
+ADD ssl/ /var/app/ssl/
+
+RUN chmod +x /var/app/*.sh
+
+CMD ["echo", "Please specifu the command to execute.."]
