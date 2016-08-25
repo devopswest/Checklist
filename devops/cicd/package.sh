@@ -1,6 +1,6 @@
 #!/bin/sh
 
-appname=todos
+appname=$APP_NAME
 #
 # Create Docker Image
 #

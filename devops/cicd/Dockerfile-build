@@ -90,18 +90,18 @@ WORKDIR /var/app
 
 
 RUN cd /var/app
-RUN git clone https://github.com/andresfuentes/ToDos.git
+RUN git clone https://github.com/andresfuentes/Checklist.git
 
 RUN \
     echo "Installing Gulp" && \
-    cd /var/app/ToDos && \
+    cd /var/app/Checklist && \
     gradle installGulp
 
-VOLUME ["/var/app/ToDos"]
+VOLUME ["/var/app/Checklist"]
 
 
-RUN chmod +x /var/app/ToDos/*.sh
+RUN chmod +x /var/app/Checklist/*.sh
 
-CMD ["/var/app/ToDos/build.sh"]
+CMD ["/var/app/Checklist/build.sh"]
 
 
