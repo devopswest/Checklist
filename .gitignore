@@ -3,6 +3,8 @@
 ######################
 /src/main/webapp/content/css/main.css
 /build/www/**
+/build/**
+/target/**
 
 ######################
 # Node
