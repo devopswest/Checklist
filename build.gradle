@@ -184,7 +184,7 @@ dependencies {
         exclude module: 'mapstruct'
     }
     
-    compile "mysql:mysql-connector-java"
+    compile "org.postgresql:postgresql"
     compile "com.h2database:h2"
     compile "fr.ippon.spark.metrics:metrics-spark-reporter:${metrics_spark_reporter_version}"
     compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"

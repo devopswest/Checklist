@@ -3,19 +3,19 @@ services:
     checklist-app:
         image: checklist
         external_links:
-            - checklist-mysql:mysql
+            - checklist-postgresql:postgresql
             - checklist-elasticsearch:elasticsearch
         environment:
             - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/checklist?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/Checklist
             - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
             - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
         ports:
             - 8080:8080
-    checklist-mysql:
+    checklist-postgresql:
         extends:
-            file: mysql.yml
-            service: checklist-mysql
+            file: postgresql.yml
+            service: checklist-postgresql
     checklist-elasticsearch:
         extends:
             file: elasticsearch.yml

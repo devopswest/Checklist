@@ -19,19 +19,13 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/Checklist?useUnicode=true&characterEncoding=utf8&useSSL=false
+        url: jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist
         name:
-        username: root
-        password:
-        hikari:
-            data-source-properties:
-                cachePrepStmts: true
-                prepStmtCacheSize: 250
-                prepStmtCacheSqlLimit: 2048
-                useServerPrepStmts: true
+        username: postgres
+        password: pwc123
     jpa:
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        database: MYSQL
+        database-platform: com.pwc.assurance.adc.domain.util.FixedPostgreSQL82Dialect
+        database: POSTGRESQL
         show-sql: false
         properties:
             hibernate.cache.use_second_level_cache: true
