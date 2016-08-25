@@ -54,7 +54,7 @@
             <label class="control-label" translate="checklistApp.checklist.status" for="field_status">Status</label>
             <select class="form-control" name="status" ng-model="vm.checklist.status" id="field_status">
                 <option value="DRAFT" translate="checklistApp.ChecklistStatus.DRAFT">DRAFT</option>
-                <option value="PUBLISHED" translate="checklistApp.ChecklistStatus.PUBLISHED">PUBLISHED</option>
+                <option value="PUBLISHED" translate="checklistApp.ChecklistStatus.PUBLISHED">REALEASED</option>
             </select>
         </div>
 
@@ -104,6 +104,8 @@
 
         </div>
     </div>
+
+
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
