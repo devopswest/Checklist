@@ -130,5 +130,10 @@
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Flag as Final</span>
         </button>
 
+
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
+        </button>
+
     </div>
 </form>
