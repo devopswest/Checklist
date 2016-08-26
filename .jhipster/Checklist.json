@@ -42,7 +42,7 @@
       "fieldId": 4,
       "fieldName": "status",
       "fieldType": "ChecklistStatus",
-      "fieldValues": "DRAFT,PUBLISHED"
+      "fieldValues": "DRAFT,RELEASED"
     }
   ],
   "changelogDate": "20160825130758",

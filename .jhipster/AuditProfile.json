@@ -46,7 +46,7 @@
       "fieldId": 3,
       "fieldName": "status",
       "fieldType": "ResponseStatus",
-      "fieldValues": "DRAFT,FINISH"
+      "fieldValues": "DRAFT,FINAL"
     }
   ],
   "changelogDate": "20160825130700",
