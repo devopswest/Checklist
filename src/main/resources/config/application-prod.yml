@@ -21,8 +21,8 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:postgresql://localhost:5432/Checklist
         name:
-        username: postgres
-        password: postgres
+        username: Checklist
+        password:
     jpa:
         database-platform: com.pwc.assurance.adc.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
