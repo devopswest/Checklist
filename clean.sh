@@ -6,5 +6,5 @@ cp -r custom/* .
 
 gulp build
 
-#gradle assemble
+gradle assemble
 gradle
