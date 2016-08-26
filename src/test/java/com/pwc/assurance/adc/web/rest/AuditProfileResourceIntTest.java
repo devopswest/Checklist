@@ -44,7 +44,7 @@ public class AuditProfileResourceIntTest {
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     private static final ResponseStatus DEFAULT_STATUS = ResponseStatus.DRAFT;
-    private static final ResponseStatus UPDATED_STATUS = ResponseStatus.FINISH;
+    private static final ResponseStatus UPDATED_STATUS = ResponseStatus.FINAL;
 
     @Inject
     private AuditProfileRepository auditProfileRepository;

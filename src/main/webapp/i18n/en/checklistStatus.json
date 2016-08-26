@@ -3,7 +3,7 @@
         "ChecklistStatus" : {
             "null": "",
             "DRAFT": "DRAFT",
-            "PUBLISHED": "PUBLISHED"
+            "RELEASED": "RELEASED"
         }
     }
 }

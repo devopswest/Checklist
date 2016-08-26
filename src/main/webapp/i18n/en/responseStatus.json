@@ -3,7 +3,7 @@
         "ResponseStatus" : {
             "null": "",
             "DRAFT": "DRAFT",
-            "FINISH": "FINISH"
+            "FINAL": "FINAL"
         }
     }
 }

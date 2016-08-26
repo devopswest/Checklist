@@ -46,7 +46,7 @@ public class ChecklistResourceIntTest {
     private static final String UPDATED_VERSION = "BBBBB";
 
     private static final ChecklistStatus DEFAULT_STATUS = ChecklistStatus.DRAFT;
-    private static final ChecklistStatus UPDATED_STATUS = ChecklistStatus.PUBLISHED;
+    private static final ChecklistStatus UPDATED_STATUS = ChecklistStatus.RELEASED;
 
     @Inject
     private ChecklistRepository checklistRepository;
