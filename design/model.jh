@@ -3,12 +3,12 @@
  **/
 enum ChecklistStatus {
     DRAFT,
-    PUBLISHED
+    RELEASED
 }
 
 enum ResponseStatus {
     DRAFT,
-    FINISH
+    FINAL
 }
 
 
