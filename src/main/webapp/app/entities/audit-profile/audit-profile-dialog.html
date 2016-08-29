@@ -1,4 +1,4 @@
-<script type="text/ng-template" id="nodes_renderer.html">
+ <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content">
     <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="vm.toggle(this)"><span
         class="glyphicon"
@@ -54,18 +54,9 @@
             <label class="control-label" translate="checklistApp.auditProfile.status" for="field_status">Status</label>
             <select class="form-control" name="status" ng-model="vm.auditProfile.status" id="field_status">
                 <option value="DRAFT" translate="checklistApp.ResponseStatus.DRAFT">DRAFT</option>
-                <option value="FINISH" translate="checklistApp.ResponseStatus.FINISH">FINAL</option>
+                <option value="FINAL" translate="checklistApp.ResponseStatus.FINAL">FINAL</option>
             </select>
         </div>
-<!--
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.question" for="field_question">Question</label>
-            <select class="form-control" id="field_question" multiple name="question" ng-model="vm.auditProfile.questions" ng-options="checklistQuestion as checklistQuestion.question for checklistQuestion in vm.checklistquestions track by checklistQuestion.id"></select>
-        </div>
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.auditQuestionResponse" for="field_auditQuestionResponse">Audit Question Response</label>
-            <select class="form-control" id="field_auditQuestionResponse" multiple name="auditQuestionResponse" ng-model="vm.auditProfile.auditQuestionResponses" ng-options="auditQuestionResponse as auditQuestionResponse.questionResponse for auditQuestionResponse in vm.auditquestionresponses track by auditQuestionResponse.id"></select>
-        </div> -->
 
 
         <div class="form-group">
@@ -80,6 +71,13 @@
                 <option value=""></option>
             </select>
         </div>
+        <div class="form-group">
+            <label translate="checklistApp.auditProfile.workflow" for="field_workflow">Workflow</label>
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.auditProfile.workflow" ng-options="workflow as workflow.name for workflow in vm.workflows track by workflow.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
 
 
 <div class="form-group">
@@ -117,7 +115,6 @@
 </div>
 
 
-    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
@@ -134,6 +131,7 @@
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
         </button>
+
 
     </div>
 </form>

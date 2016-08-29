@@ -1,0 +1,53 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "child",
+            "otherEntityName": "taxonomy",
+            "otherEntityRelationshipName": "parent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "license",
+            "otherEntityName": "license",
+            "otherEntityRelationshipName": "licenseType"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "label",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 50
+        }
+    ],
+    "changelogDate": "20160829135150",
+    "javadoc": "Lookups",
+    "entityTableName": "taxonomy",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

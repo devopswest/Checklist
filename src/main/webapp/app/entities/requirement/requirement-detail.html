@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span translate="checklistApp.requirement.detail.title">Requirement</span> {{vm.requirement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.requirement.code">Code</span></dt>
+        <dd>
+            <span>{{vm.requirement.code}}</span>
+        </dd>
+        <dt><span translate="checklistApp.requirement.description">Description</span></dt>
+        <dd>
+            <span>{{vm.requirement.description}}</span>
+        </dd>
+        <dt><span translate="checklistApp.requirement.question">Question</span></dt>
+        <dd>
+            <span ng-repeat="question in vm.requirement.questions">
+                <a ui-sref="question-detail({id: question.id})">{{question.question}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="requirement-detail.edit({id:vm.requirement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

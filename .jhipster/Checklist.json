@@ -1,54 +1,48 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "one-to-many",
-      "relationshipName": "checklistQuestion",
-      "otherEntityName": "checklistQuestion",
-      "otherEntityRelationshipName": "checklist"
-    },
-    {
-      "relationshipId": 2,
-      "relationshipType": "one-to-many",
-      "relationshipName": "auditProfile",
-      "otherEntityName": "auditProfile",
-      "otherEntityRelationshipName": "checklist"
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "country",
-      "otherEntityName": "country",
-      "otherEntityField": "name"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "name",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 2,
-      "fieldName": "description",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 3,
-      "fieldName": "version",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 4,
-      "fieldName": "status",
-      "fieldType": "ChecklistStatus",
-      "fieldValues": "DRAFT,RELEASED"
-    }
-  ],
-  "changelogDate": "20160825130758",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "javadoc": "Checklist",
-  "entityTableName": "checklist"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "checklistQuestion",
+            "otherEntityName": "checklistQuestion",
+            "otherEntityRelationshipName": "checklist"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "otherEntityRelationshipName": "checklist"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "country",
+            "otherEntityName": "country",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "version",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ChecklistStatus",
+            "fieldValues": "DRAFT,RELEASED"
+        }
+    ],
+    "changelogDate": "20160829135159",
+    "javadoc": "ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists",
+    "entityTableName": "checklist",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

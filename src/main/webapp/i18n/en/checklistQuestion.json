@@ -17,11 +17,11 @@
                 "title": "Checklist Question"
             },
             "code": "Code",
-            "question": "Question",
             "child": "Child",
             "auditQuestionResponse": "Audit Question Response",
             "checklist": "Checklist",
             "parent": "Parent",
+            "question": "Question",
             "auditProfile": "Audit Profile"
         }
     }

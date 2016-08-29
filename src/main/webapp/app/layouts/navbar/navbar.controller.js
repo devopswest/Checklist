@@ -24,6 +24,18 @@
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
 
+        vm.menu = [
+           {
+                "label":"Audit"
+           },
+           {
+                "label":"Library"
+           },
+           {
+                "label":"License"
+           }
+        ];
+
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });

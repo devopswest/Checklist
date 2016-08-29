@@ -125,7 +125,6 @@
                         entity: function () {
                             return {
                                 code: null,
-                                question: null,
                                 id: null
                             };
                         }

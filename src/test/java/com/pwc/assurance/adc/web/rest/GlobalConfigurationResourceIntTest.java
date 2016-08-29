@@ -80,9 +80,9 @@ public class GlobalConfigurationResourceIntTest {
      */
     public static GlobalConfiguration createEntity(EntityManager em) {
         GlobalConfiguration globalConfiguration = new GlobalConfiguration();
-        globalConfiguration = new GlobalConfiguration();
-        globalConfiguration.setPropertyKey(DEFAULT_PROPERTY_KEY);
-        globalConfiguration.setPropertyValue(DEFAULT_PROPERTY_VALUE);
+        globalConfiguration = new GlobalConfiguration()
+                .propertyKey(DEFAULT_PROPERTY_KEY)
+                .propertyValue(DEFAULT_PROPERTY_VALUE);
         return globalConfiguration;
     }
 
@@ -164,8 +164,9 @@ public class GlobalConfigurationResourceIntTest {
 
         // Update the globalConfiguration
         GlobalConfiguration updatedGlobalConfiguration = globalConfigurationRepository.findOne(globalConfiguration.getId());
-        updatedGlobalConfiguration.setPropertyKey(UPDATED_PROPERTY_KEY);
-        updatedGlobalConfiguration.setPropertyValue(UPDATED_PROPERTY_VALUE);
+        updatedGlobalConfiguration
+                .propertyKey(UPDATED_PROPERTY_KEY)
+                .propertyValue(UPDATED_PROPERTY_VALUE);
 
         restGlobalConfigurationMockMvc.perform(put("/api/global-configurations")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

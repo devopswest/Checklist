@@ -1,7 +1,22 @@
 /**
+  * Retrention (7y +1 = 8y), Purge, review steps needs to be cofigured
+  * CLient Metadata... MDM ?
+  * Business Engine. Business engine cicle, workflow, wizzard.
+  *
+  * quetions matriz vs disculose requirements
+  *
+  **/
+
+
+/**
  * Types
  **/
 enum ChecklistStatus {
+    DRAFT,
+    RELEASED
+}
+
+enum QuestionStatus {
     DRAFT,
     RELEASED
 }
@@ -11,6 +26,25 @@ enum ResponseStatus {
     FINAL
 }
 
+enum WorkflowTaskStatus {
+    PENDING,
+    COMPLETED
+}
+
+enum WorkflowAuthorities {
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_PWC_ENGAGEMENT_TEAM,
+    ROLE_PWC_PERSSONEL_US,
+    ROLE_PWC_PERSSONEL_TERRITORY,
+    ROLE_PWC_MANAGEMENT,
+    ROLE_CLIENT_ADMIN,
+    ROLE_CLIENT_USER,
+    ROLE_LICENSED_ADMIN,
+    ROLE_LICENSED_USER,
+    ROLE_LPS_ADMIN,
+    ROLE_LPS_USER
+}
 
 /**
  * Global Config
@@ -23,44 +57,138 @@ enum ResponseStatus {
 /**
  * Lookups
  **/
+
+entity Taxonomy {
+    code String  required  minlength(1)  maxlength(20) ,
+    label String  required  minlength(1)  maxlength(50)
+}
+
+relationship OneToMany {
+    Taxonomy{child} to Taxonomy{parent(label)}
+}
+
+
 entity Country {
     code String,
     name String
 }
 
+/**
+ * Client
+ *
+ * TODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)
+ *
+ **/
 entity Client {
     code String,
     name String
 }
 
+/*
+entity ClientMetadata {
+    metadataValue String
+}
+
+relationship OneToMany {
+    Taxonomy to ClientMetadata{metadataProperty(label)}
+}
+
+
+relationship ManyToMany {
+    Client{metadata(label)} to ClientMetadata{client}
+}
+*/
+
 
 /**
-  * License Management
-  **/
-entity LicenseType {
-    code String,
-    name String,
-    description String
-}
+ * Licenses & Company
+ *
+ **/
 
 entity Company {
     code String,
     name String
 }
 
-entity Licenses {
+entity License {
      contactName String,
      contactEmail String,
      activationToken String
 }
 
 relationship OneToMany {
-    Company to Licenses{company(name)}
+    Company to License{company(name)}
+}
+
+relationship OneToMany {
+    Taxonomy to License{licenseType(label)}
 }
 
 
 /**
+ * Library
+ *
+ * TODO: Questions, Diclosure Requirements, Matrix
+ * Matrix vs Client metaada
+ *
+ **/
+
+entity Question {
+    code String,
+    question String
+}
+
+entity Requirement {
+    code String,
+    description String
+}
+
+relationship ManyToMany {
+    Requirement{question(question)} to Question{requirement}
+}
+
+
+/**
+ * Workflow
+ *
+ * TODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or client
+ * engagement.
+ *
+ **/
+entity Workflow {
+    name String,
+    description String
+}
+
+
+entity WorkflowStep {
+    name String,
+    description String,
+    authority WorkflowAuthorities
+}
+
+/*
+ * SHould be thru table but JHIPSTER is not exposing authorities entity
+ *
+relationship OneToMany{
+    Authority to WorkflowStep{authority(name)}
+}
+*/
+
+
+relationship ManyToMany {
+    Workflow{workflowStep(name)} to WorkflowStep{workflow}
+}
+
+
+
+
+/**
  * Checklist
+ *
+ * TODO: Workflow review tracking, questions help or guidance fields.
+ * Main/core checlists, Supplemental Checklists
+ *
  **/
 entity Checklist {
     name String,
@@ -70,8 +198,7 @@ entity Checklist {
 }
 
 entity ChecklistQuestion {
-    code String,
-    question String
+    code String
 }
 
 relationship OneToMany {
@@ -86,9 +213,16 @@ relationship OneToMany {
     ChecklistQuestion{child} to ChecklistQuestion{parent(code)}
 }
 
+relationship OneToMany {
+    Question to ChecklistQuestion{question(question)}
+}
+
 
 /**
  * Response Responses
+ *
+ * TODO: Workflow review tracking
+ *
  **/
 entity AuditProfile {
     fiscalYear String,
@@ -104,6 +238,9 @@ relationship OneToMany{
     Checklist to AuditProfile{checklist(name)}
 }
 
+relationship OneToMany{
+    Workflow to AuditProfile{workflow(name)}
+}
 
 /**
   *
@@ -130,11 +267,24 @@ relationship ManyToMany {
 }
 
 
+entity AuditProfileLogEntry {
+    happened ZonedDateTime,
+    description String
+}
+
+relationship OneToOne{
+    AuditProfileLogEntry{who(login)} to User
+}
+
+relationship OneToMany {
+    AuditProfile{log(description)} to AuditProfileLogEntry
+}
 
 
 /**
  * Access Control
  **/
+ /*
 entity UserProfile {
     firstName String,
     lastName String,
@@ -144,7 +294,7 @@ entity UserProfile {
 relationship OneToOne{
     UserProfile{user(login)} to User
 }
-
+*/
 
 /**
  * Options

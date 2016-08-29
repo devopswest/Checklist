@@ -1,7 +1,6 @@
 package com.pwc.assurance.adc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -13,12 +12,8 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * Lookups                                                                     
- * 
+ * A Country.
  */
-@ApiModel(description = ""
-    + "Lookups                                                                "
-    + "")
 @Entity
 @Table(name = "country")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -54,6 +49,11 @@ public class Country implements Serializable {
         return code;
     }
 
+    public Country code(String code) {
+        this.code = code;
+        return this;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
@@ -62,12 +62,34 @@ public class Country implements Serializable {
         return name;
     }
 
+    public Country name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public Set<Checklist> getChecklists() {
         return checklists;
+    }
+
+    public Country checklists(Set<Checklist> checklists) {
+        this.checklists = checklists;
+        return this;
+    }
+
+    public Country addChecklist(Checklist checklist) {
+        checklists.add(checklist);
+        checklist.setCountry(this);
+        return this;
+    }
+
+    public Country removeChecklist(Checklist checklist) {
+        checklists.remove(checklist);
+        checklist.setCountry(null);
+        return this;
     }
 
     public void setChecklists(Set<Checklist> checklists) {

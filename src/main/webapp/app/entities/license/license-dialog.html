@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myLicenseLabel" translate="checklistApp.license.home.createOrEditLabel">Create or edit a License</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.license.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.license.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.license.contactName" for="field_contactName">Contact Name</label>
+            <input type="text" class="form-control" name="contactName" id="field_contactName"
+                    ng-model="vm.license.contactName"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.license.contactEmail" for="field_contactEmail">Contact Email</label>
+            <input type="text" class="form-control" name="contactEmail" id="field_contactEmail"
+                    ng-model="vm.license.contactEmail"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.license.activationToken" for="field_activationToken">Activation Token</label>
+            <input type="text" class="form-control" name="activationToken" id="field_activationToken"
+                    ng-model="vm.license.activationToken"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="checklistApp.license.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" ng-model="vm.license.company" ng-options="company as company.name for company in vm.companies track by company.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.license.licenseType" for="field_licenseType">License Type</label>
+            <select class="form-control" id="field_licenseType" name="licenseType" ng-model="vm.license.licenseType" ng-options="taxonomy as taxonomy.label for taxonomy in vm.taxonomies track by taxonomy.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

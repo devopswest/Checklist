@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "requirement",
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "otherEntityField": "question",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135156",
+    "entityTableName": "requirement",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

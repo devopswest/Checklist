@@ -80,9 +80,9 @@ public class CompanyResourceIntTest {
      */
     public static Company createEntity(EntityManager em) {
         Company company = new Company();
-        company = new Company();
-        company.setCode(DEFAULT_CODE);
-        company.setName(DEFAULT_NAME);
+        company = new Company()
+                .code(DEFAULT_CODE)
+                .name(DEFAULT_NAME);
         return company;
     }
 
@@ -164,8 +164,9 @@ public class CompanyResourceIntTest {
 
         // Update the company
         Company updatedCompany = companyRepository.findOne(company.getId());
-        updatedCompany.setCode(UPDATED_CODE);
-        updatedCompany.setName(UPDATED_NAME);
+        updatedCompany
+                .code(UPDATED_CODE)
+                .name(UPDATED_NAME);
 
         restCompanyMockMvc.perform(put("/api/companies")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

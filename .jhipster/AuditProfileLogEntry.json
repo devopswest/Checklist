@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "who",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "auditProfileLogEntry"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "happened",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135103",
+    "entityTableName": "audit_profile_log_entry",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

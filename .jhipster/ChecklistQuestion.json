@@ -1,57 +1,53 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "one-to-many",
-      "relationshipName": "child",
-      "otherEntityName": "checklistQuestion",
-      "otherEntityRelationshipName": "parent"
-    },
-    {
-      "relationshipId": 2,
-      "relationshipType": "one-to-many",
-      "relationshipName": "auditQuestionResponse",
-      "otherEntityName": "auditQuestionResponse",
-      "otherEntityRelationshipName": "question"
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "checklist",
-      "otherEntityName": "checklist",
-      "otherEntityField": "name"
-    },
-    {
-      "relationshipId": 4,
-      "relationshipType": "many-to-one",
-      "relationshipName": "parent",
-      "otherEntityName": "checklistQuestion",
-      "otherEntityField": "code"
-    },
-    {
-      "relationshipId": 5,
-      "relationshipType": "many-to-many",
-      "relationshipName": "auditProfile",
-      "otherEntityName": "auditProfile",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "question"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "code",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 2,
-      "fieldName": "question",
-      "fieldType": "String"
-    }
-  ],
-  "changelogDate": "20160825130759",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "checklist_question"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "child",
+            "otherEntityName": "checklistQuestion",
+            "otherEntityRelationshipName": "parent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "auditQuestionResponse",
+            "otherEntityName": "auditQuestionResponse",
+            "otherEntityRelationshipName": "question"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklist",
+            "otherEntityName": "checklist",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "checklistQuestion",
+            "otherEntityField": "code"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "otherEntityField": "question"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "question"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135100",
+    "entityTableName": "checklist_question",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

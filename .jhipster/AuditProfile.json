@@ -1,58 +1,66 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "many-to-many",
-      "relationshipName": "question",
-      "otherEntityName": "checklistQuestion",
-      "otherEntityField": "question",
-      "ownerSide": true
-    },
-    {
-      "relationshipId": 2,
-      "relationshipType": "many-to-many",
-      "relationshipName": "auditQuestionResponse",
-      "otherEntityName": "auditQuestionResponse",
-      "otherEntityField": "questionResponse",
-      "ownerSide": true
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "client",
-      "otherEntityName": "client",
-      "otherEntityField": "name"
-    },
-    {
-      "relationshipId": 4,
-      "relationshipType": "many-to-one",
-      "relationshipName": "checklist",
-      "otherEntityName": "checklist",
-      "otherEntityField": "name"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "fiscalYear",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 2,
-      "fieldName": "description",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 3,
-      "fieldName": "status",
-      "fieldType": "ResponseStatus",
-      "fieldValues": "DRAFT,FINAL"
-    }
-  ],
-  "changelogDate": "20160825130700",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "javadoc": "Response Responses",
-  "entityTableName": "audit_profile"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "log",
+            "otherEntityName": "auditProfileLogEntry",
+            "otherEntityRelationshipName": "auditProfile"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "auditProfile",
+            "relationshipName": "question",
+            "otherEntityName": "checklistQuestion",
+            "otherEntityField": "question",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "auditProfile",
+            "relationshipName": "auditQuestionResponse",
+            "otherEntityName": "auditQuestionResponse",
+            "otherEntityField": "questionResponse",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklist",
+            "otherEntityName": "checklist",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "workflow",
+            "otherEntityName": "workflow",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fiscalYear",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ResponseStatus",
+            "fieldValues": "DRAFT,FINAL"
+        }
+    ],
+    "changelogDate": "20160829135101",
+    "javadoc": "Response ResponsesTODO: Workflow review tracking",
+    "entityTableName": "audit_profile",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

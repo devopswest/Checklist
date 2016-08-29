@@ -15,11 +15,11 @@ import java.util.Objects;
 import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
 
 /**
- * Checklist                                                                   
+ * ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists
  * 
  */
 @ApiModel(description = ""
-    + "Checklist                                                              "
+    + "ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists"
     + "")
 @Entity
 @Table(name = "checklist")
@@ -71,12 +71,22 @@ public class Checklist implements Serializable {
         return name;
     }
 
+    public Checklist name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public Checklist description(String description) {
+        this.description = description;
+        return this;
     }
 
     public void setDescription(String description) {
@@ -87,12 +97,22 @@ public class Checklist implements Serializable {
         return version;
     }
 
+    public Checklist version(String version) {
+        this.version = version;
+        return this;
+    }
+
     public void setVersion(String version) {
         this.version = version;
     }
 
     public ChecklistStatus getStatus() {
         return status;
+    }
+
+    public Checklist status(ChecklistStatus status) {
+        this.status = status;
+        return this;
     }
 
     public void setStatus(ChecklistStatus status) {
@@ -103,6 +123,23 @@ public class Checklist implements Serializable {
         return checklistQuestions;
     }
 
+    public Checklist checklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
+        this.checklistQuestions = checklistQuestions;
+        return this;
+    }
+
+    public Checklist addChecklistQuestion(ChecklistQuestion checklistQuestion) {
+        checklistQuestions.add(checklistQuestion);
+        checklistQuestion.setChecklist(this);
+        return this;
+    }
+
+    public Checklist removeChecklistQuestion(ChecklistQuestion checklistQuestion) {
+        checklistQuestions.remove(checklistQuestion);
+        checklistQuestion.setChecklist(null);
+        return this;
+    }
+
     public void setChecklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
         this.checklistQuestions = checklistQuestions;
     }
@@ -111,12 +148,34 @@ public class Checklist implements Serializable {
         return auditProfiles;
     }
 
+    public Checklist auditProfiles(Set<AuditProfile> auditProfiles) {
+        this.auditProfiles = auditProfiles;
+        return this;
+    }
+
+    public Checklist addAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.add(auditProfile);
+        auditProfile.setChecklist(this);
+        return this;
+    }
+
+    public Checklist removeAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.remove(auditProfile);
+        auditProfile.setChecklist(null);
+        return this;
+    }
+
     public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
         this.auditProfiles = auditProfiles;
     }
 
     public Country getCountry() {
         return country;
+    }
+
+    public Checklist country(Country country) {
+        this.country = country;
+        return this;
     }
 
     public void setCountry(Country country) {

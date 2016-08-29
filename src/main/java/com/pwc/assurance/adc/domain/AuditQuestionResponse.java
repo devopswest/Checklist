@@ -49,6 +49,11 @@ public class AuditQuestionResponse implements Serializable {
         return questionResponse;
     }
 
+    public AuditQuestionResponse questionResponse(String questionResponse) {
+        this.questionResponse = questionResponse;
+        return this;
+    }
+
     public void setQuestionResponse(String questionResponse) {
         this.questionResponse = questionResponse;
     }
@@ -57,12 +62,34 @@ public class AuditQuestionResponse implements Serializable {
         return question;
     }
 
+    public AuditQuestionResponse question(ChecklistQuestion checklistQuestion) {
+        this.question = checklistQuestion;
+        return this;
+    }
+
     public void setQuestion(ChecklistQuestion checklistQuestion) {
         this.question = checklistQuestion;
     }
 
     public Set<AuditProfile> getAuditProfiles() {
         return auditProfiles;
+    }
+
+    public AuditQuestionResponse auditProfiles(Set<AuditProfile> auditProfiles) {
+        this.auditProfiles = auditProfiles;
+        return this;
+    }
+
+    public AuditQuestionResponse addAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.add(auditProfile);
+        auditProfile.getAuditQuestionResponses().add(this);
+        return this;
+    }
+
+    public AuditQuestionResponse removeAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.remove(auditProfile);
+        auditProfile.getAuditQuestionResponses().remove(this);
+        return this;
     }
 
     public void setAuditProfiles(Set<AuditProfile> auditProfiles) {

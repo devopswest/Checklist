@@ -29,9 +29,6 @@ public class ChecklistQuestion implements Serializable {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "question")
-    private String question;
-
     @OneToMany(mappedBy = "parent")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -47,6 +44,9 @@ public class ChecklistQuestion implements Serializable {
 
     @ManyToOne
     private ChecklistQuestion parent;
+
+    @ManyToOne
+    private Question question;
 
     @ManyToMany(mappedBy = "questions")
     @JsonIgnore
@@ -65,20 +65,34 @@ public class ChecklistQuestion implements Serializable {
         return code;
     }
 
+    public ChecklistQuestion code(String code) {
+        this.code = code;
+        return this;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public Set<ChecklistQuestion> getChildren() {
         return children;
+    }
+
+    public ChecklistQuestion children(Set<ChecklistQuestion> checklistQuestions) {
+        this.children = checklistQuestions;
+        return this;
+    }
+
+    public ChecklistQuestion addChecklistQuestion(ChecklistQuestion checklistQuestion) {
+        children.add(checklistQuestion);
+        checklistQuestion.setParent(this);
+        return this;
+    }
+
+    public ChecklistQuestion removeChecklistQuestion(ChecklistQuestion checklistQuestion) {
+        children.remove(checklistQuestion);
+        checklistQuestion.setParent(null);
+        return this;
     }
 
     public void setChildren(Set<ChecklistQuestion> checklistQuestions) {
@@ -89,12 +103,34 @@ public class ChecklistQuestion implements Serializable {
         return auditQuestionResponses;
     }
 
+    public ChecklistQuestion auditQuestionResponses(Set<AuditQuestionResponse> auditQuestionResponses) {
+        this.auditQuestionResponses = auditQuestionResponses;
+        return this;
+    }
+
+    public ChecklistQuestion addAuditQuestionResponse(AuditQuestionResponse auditQuestionResponse) {
+        auditQuestionResponses.add(auditQuestionResponse);
+        auditQuestionResponse.setQuestion(this);
+        return this;
+    }
+
+    public ChecklistQuestion removeAuditQuestionResponse(AuditQuestionResponse auditQuestionResponse) {
+        auditQuestionResponses.remove(auditQuestionResponse);
+        auditQuestionResponse.setQuestion(null);
+        return this;
+    }
+
     public void setAuditQuestionResponses(Set<AuditQuestionResponse> auditQuestionResponses) {
         this.auditQuestionResponses = auditQuestionResponses;
     }
 
     public Checklist getChecklist() {
         return checklist;
+    }
+
+    public ChecklistQuestion checklist(Checklist checklist) {
+        this.checklist = checklist;
+        return this;
     }
 
     public void setChecklist(Checklist checklist) {
@@ -105,12 +141,47 @@ public class ChecklistQuestion implements Serializable {
         return parent;
     }
 
+    public ChecklistQuestion parent(ChecklistQuestion checklistQuestion) {
+        this.parent = checklistQuestion;
+        return this;
+    }
+
     public void setParent(ChecklistQuestion checklistQuestion) {
         this.parent = checklistQuestion;
     }
 
+    public Question getQuestion() {
+        return question;
+    }
+
+    public ChecklistQuestion question(Question question) {
+        this.question = question;
+        return this;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     public Set<AuditProfile> getAuditProfiles() {
         return auditProfiles;
+    }
+
+    public ChecklistQuestion auditProfiles(Set<AuditProfile> auditProfiles) {
+        this.auditProfiles = auditProfiles;
+        return this;
+    }
+
+    public ChecklistQuestion addAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.add(auditProfile);
+        auditProfile.getQuestions().add(this);
+        return this;
+    }
+
+    public ChecklistQuestion removeAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.remove(auditProfile);
+        auditProfile.getQuestions().remove(this);
+        return this;
     }
 
     public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
@@ -142,7 +213,6 @@ public class ChecklistQuestion implements Serializable {
         return "ChecklistQuestion{" +
             "id=" + id +
             ", code='" + code + "'" +
-            ", question='" + question + "'" +
             '}';
     }
 }

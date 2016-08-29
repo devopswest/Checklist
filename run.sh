@@ -28,9 +28,12 @@ JAVA_DEBUG_OPTS="-Xdebug \
  -Xrunjdwp:server=y,transport=dt_socket,address=4000,suspend=n"
 
 SERVICE_OPTS="--server.port=$SERVICE_PORT \
- --db.url=jdbc:postgresql://$DB_URL \
+ --db.url=$SERVICE_DB \
  --db.username=$DB_USER \
  --db.password=$DB_PASSWORD \
+ --spring.datasource.url=$SERVICE_DB \
+ --spring.datasource.username=$DB_USER \
+ --spring.datasource.password=$DB_PASSWORD \
  --spring.data.elasticsearch.cluster-name=$SERVICE_ES_CLUSTER \
  --spring.data.elasticsearch.cluster-nodes=$SERVICE_ES_NODE \
  --spring.profiles.active=$SERVICE_ENV"

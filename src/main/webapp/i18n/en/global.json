@@ -6,18 +6,22 @@
             "home": "Home",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "View",
+                "main": "Entities",
+                "checklistQuestion": "Checklist Question",
+                "auditProfile": "Audit Profile",
+                "auditQuestionResponse": "Audit Question Response",
+                "auditProfileLogEntry": "Audit Profile Log Entry",
                 "globalConfiguration": "Global Configuration",
+                "taxonomy": "Taxonomy",
                 "country": "Country",
                 "client": "Client",
-                "licenseType": "License Type",
                 "company": "Company",
-                "licenses": "Licenses",
+                "license": "License",
+                "question": "Question",
+                "requirement": "Requirement",
+                "workflow": "Workflow",
+                "workflowStep": "Workflow Step",
                 "checklist": "Checklist",
-                "checklistQuestion": "Checklist Question",
-                "auditQuestionResponse": "Audit Question Response",
-                "auditProfile": "Audit Profile",
-                "userProfile": "User Profile",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -99,7 +103,6 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "publish": "Save & Relese",
             "view": "View"
         },
         "detail": {

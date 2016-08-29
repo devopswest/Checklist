@@ -39,8 +39,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ChecklistQuestionResourceIntTest {
     private static final String DEFAULT_CODE = "AAAAA";
     private static final String UPDATED_CODE = "BBBBB";
-    private static final String DEFAULT_QUESTION = "AAAAA";
-    private static final String UPDATED_QUESTION = "BBBBB";
 
     @Inject
     private ChecklistQuestionRepository checklistQuestionRepository;
@@ -80,9 +78,8 @@ public class ChecklistQuestionResourceIntTest {
      */
     public static ChecklistQuestion createEntity(EntityManager em) {
         ChecklistQuestion checklistQuestion = new ChecklistQuestion();
-        checklistQuestion = new ChecklistQuestion();
-        checklistQuestion.setCode(DEFAULT_CODE);
-        checklistQuestion.setQuestion(DEFAULT_QUESTION);
+        checklistQuestion = new ChecklistQuestion()
+                .code(DEFAULT_CODE);
         return checklistQuestion;
     }
 
@@ -109,7 +106,6 @@ public class ChecklistQuestionResourceIntTest {
         assertThat(checklistQuestions).hasSize(databaseSizeBeforeCreate + 1);
         ChecklistQuestion testChecklistQuestion = checklistQuestions.get(checklistQuestions.size() - 1);
         assertThat(testChecklistQuestion.getCode()).isEqualTo(DEFAULT_CODE);
-        assertThat(testChecklistQuestion.getQuestion()).isEqualTo(DEFAULT_QUESTION);
 
         // Validate the ChecklistQuestion in ElasticSearch
         ChecklistQuestion checklistQuestionEs = checklistQuestionSearchRepository.findOne(testChecklistQuestion.getId());
@@ -127,8 +123,7 @@ public class ChecklistQuestionResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(checklistQuestion.getId().intValue())))
-                .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
-                .andExpect(jsonPath("$.[*].question").value(hasItem(DEFAULT_QUESTION.toString())));
+                .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())));
     }
 
     @Test
@@ -142,8 +137,7 @@ public class ChecklistQuestionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(checklistQuestion.getId().intValue()))
-            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
-            .andExpect(jsonPath("$.question").value(DEFAULT_QUESTION.toString()));
+            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()));
     }
 
     @Test
@@ -164,8 +158,8 @@ public class ChecklistQuestionResourceIntTest {
 
         // Update the checklistQuestion
         ChecklistQuestion updatedChecklistQuestion = checklistQuestionRepository.findOne(checklistQuestion.getId());
-        updatedChecklistQuestion.setCode(UPDATED_CODE);
-        updatedChecklistQuestion.setQuestion(UPDATED_QUESTION);
+        updatedChecklistQuestion
+                .code(UPDATED_CODE);
 
         restChecklistQuestionMockMvc.perform(put("/api/checklist-questions")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -177,7 +171,6 @@ public class ChecklistQuestionResourceIntTest {
         assertThat(checklistQuestions).hasSize(databaseSizeBeforeUpdate);
         ChecklistQuestion testChecklistQuestion = checklistQuestions.get(checklistQuestions.size() - 1);
         assertThat(testChecklistQuestion.getCode()).isEqualTo(UPDATED_CODE);
-        assertThat(testChecklistQuestion.getQuestion()).isEqualTo(UPDATED_QUESTION);
 
         // Validate the ChecklistQuestion in ElasticSearch
         ChecklistQuestion checklistQuestionEs = checklistQuestionSearchRepository.findOne(testChecklistQuestion.getId());
@@ -218,7 +211,6 @@ public class ChecklistQuestionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(checklistQuestion.getId().intValue())))
-            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
-            .andExpect(jsonPath("$.[*].question").value(hasItem(DEFAULT_QUESTION.toString())));
+            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())));
     }
 }

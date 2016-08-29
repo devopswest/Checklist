@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span translate="checklistApp.workflow.detail.title">Workflow</span> {{vm.workflow.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.workflow.name">Name</span></dt>
+        <dd>
+            <span>{{vm.workflow.name}}</span>
+        </dd>
+        <dt><span translate="checklistApp.workflow.description">Description</span></dt>
+        <dd>
+            <span>{{vm.workflow.description}}</span>
+        </dd>
+        <dt><span translate="checklistApp.workflow.workflowStep">Workflow Step</span></dt>
+        <dd>
+            <span ng-repeat="workflowStep in vm.workflow.workflowSteps">
+                <a ui-sref="workflow-step-detail({id: workflowStep.id})">{{workflowStep.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="workflow-detail.edit({id:vm.workflow.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

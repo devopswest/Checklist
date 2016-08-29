@@ -1,6 +1,7 @@
 package com.pwc.assurance.adc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -12,8 +13,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Company.
+ * Licenses & Company                                                          
+ * 
  */
+@ApiModel(description = ""
+    + "Licenses & Company                                                     "
+    + "")
 @Entity
 @Table(name = "company")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -35,7 +40,7 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Licenses> licenses = new HashSet<>();
+    private Set<License> licenses = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -49,6 +54,11 @@ public class Company implements Serializable {
         return code;
     }
 
+    public Company code(String code) {
+        this.code = code;
+        return this;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
@@ -57,15 +67,37 @@ public class Company implements Serializable {
         return name;
     }
 
+    public Company name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public Set<Licenses> getLicenses() {
+    public Set<License> getLicenses() {
         return licenses;
     }
 
-    public void setLicenses(Set<Licenses> licenses) {
+    public Company licenses(Set<License> licenses) {
+        this.licenses = licenses;
+        return this;
+    }
+
+    public Company addLicense(License license) {
+        licenses.add(license);
+        license.setCompany(this);
+        return this;
+    }
+
+    public Company removeLicense(License license) {
+        licenses.remove(license);
+        license.setCompany(null);
+        return this;
+    }
+
+    public void setLicenses(Set<License> licenses) {
         this.licenses = licenses;
     }
 

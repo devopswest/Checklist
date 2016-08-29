@@ -5,7 +5,7 @@ services:
     #         context: .
     #         dockerfile: Dockerfile
     #     image: 'andresfuentes/checklist'
-    #     hostname: $HOSTNAME
+    #     #hostname: $HOSTNAME
     #     environment:
     #         - 'constraint:tier.app==true'
     #         - 'affinity:container!=~*app*'
@@ -406,7 +406,7 @@ services:
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
         ports:
-            - '8090:9090'
+            - '8080:9090'
 
     app:
         build:
@@ -414,10 +414,11 @@ services:
             dockerfile: Dockerfile
         #image: 'andresfuentes/checklist:{version}'
         image: 'andresfuentes/checklist'
-        hostname: $HOSTNAME
+        #hostname: $HOSTNAME
         environment:
             - 'SERVICE_ENV=prod'
             - 'SERVICE_PORT=9090'
+            - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
             - 'DB_PASSWORD=pwc123'
@@ -428,8 +429,8 @@ services:
             - 'constraint:tier.app==true'
             - 'affinity:container!=~*app*'
         ports:
-            - '8090:9090'
-        restart: always
+            - '8080:9090'
+        #restart: always
 
 
 

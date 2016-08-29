@@ -19,10 +19,12 @@
             "fiscalYear": "Fiscal Year",
             "description": "Description",
             "status": "Status",
+            "log": "Log",
             "question": "Question",
             "auditQuestionResponse": "Audit Question Response",
             "client": "Client",
-            "checklist": "Checklist"
+            "checklist": "Checklist",
+            "workflow": "Workflow"
         }
     }
 }

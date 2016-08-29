@@ -78,8 +78,8 @@ public class AuditQuestionResponseResourceIntTest {
      */
     public static AuditQuestionResponse createEntity(EntityManager em) {
         AuditQuestionResponse auditQuestionResponse = new AuditQuestionResponse();
-        auditQuestionResponse = new AuditQuestionResponse();
-        auditQuestionResponse.setQuestionResponse(DEFAULT_QUESTION_RESPONSE);
+        auditQuestionResponse = new AuditQuestionResponse()
+                .questionResponse(DEFAULT_QUESTION_RESPONSE);
         return auditQuestionResponse;
     }
 
@@ -158,7 +158,8 @@ public class AuditQuestionResponseResourceIntTest {
 
         // Update the auditQuestionResponse
         AuditQuestionResponse updatedAuditQuestionResponse = auditQuestionResponseRepository.findOne(auditQuestionResponse.getId());
-        updatedAuditQuestionResponse.setQuestionResponse(UPDATED_QUESTION_RESPONSE);
+        updatedAuditQuestionResponse
+                .questionResponse(UPDATED_QUESTION_RESPONSE);
 
         restAuditQuestionResponseMockMvc.perform(put("/api/audit-question-responses")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

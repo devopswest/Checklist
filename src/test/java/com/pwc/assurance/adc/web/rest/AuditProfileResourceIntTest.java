@@ -84,10 +84,10 @@ public class AuditProfileResourceIntTest {
      */
     public static AuditProfile createEntity(EntityManager em) {
         AuditProfile auditProfile = new AuditProfile();
-        auditProfile = new AuditProfile();
-        auditProfile.setFiscalYear(DEFAULT_FISCAL_YEAR);
-        auditProfile.setDescription(DEFAULT_DESCRIPTION);
-        auditProfile.setStatus(DEFAULT_STATUS);
+        auditProfile = new AuditProfile()
+                .fiscalYear(DEFAULT_FISCAL_YEAR)
+                .description(DEFAULT_DESCRIPTION)
+                .status(DEFAULT_STATUS);
         return auditProfile;
     }
 
@@ -172,9 +172,10 @@ public class AuditProfileResourceIntTest {
 
         // Update the auditProfile
         AuditProfile updatedAuditProfile = auditProfileRepository.findOne(auditProfile.getId());
-        updatedAuditProfile.setFiscalYear(UPDATED_FISCAL_YEAR);
-        updatedAuditProfile.setDescription(UPDATED_DESCRIPTION);
-        updatedAuditProfile.setStatus(UPDATED_STATUS);
+        updatedAuditProfile
+                .fiscalYear(UPDATED_FISCAL_YEAR)
+                .description(UPDATED_DESCRIPTION)
+                .status(UPDATED_STATUS);
 
         restAuditProfileMockMvc.perform(put("/api/audit-profiles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

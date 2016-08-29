@@ -1,6 +1,7 @@
 package com.pwc.assurance.adc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -12,8 +13,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Client.
+ * ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)
+ * 
  */
+@ApiModel(description = ""
+    + "ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)"
+    + "")
 @Entity
 @Table(name = "client")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -49,6 +54,11 @@ public class Client implements Serializable {
         return code;
     }
 
+    public Client code(String code) {
+        this.code = code;
+        return this;
+    }
+
     public void setCode(String code) {
         this.code = code;
     }
@@ -57,12 +67,34 @@ public class Client implements Serializable {
         return name;
     }
 
+    public Client name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public Set<AuditProfile> getAuditProfiles() {
         return auditProfiles;
+    }
+
+    public Client auditProfiles(Set<AuditProfile> auditProfiles) {
+        this.auditProfiles = auditProfiles;
+        return this;
+    }
+
+    public Client addAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.add(auditProfile);
+        auditProfile.setClient(this);
+        return this;
+    }
+
+    public Client removeAuditProfile(AuditProfile auditProfile) {
+        auditProfiles.remove(auditProfile);
+        auditProfile.setClient(null);
+        return this;
     }
 
     public void setAuditProfiles(Set<AuditProfile> auditProfiles) {

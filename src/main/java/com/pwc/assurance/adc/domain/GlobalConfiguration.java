@@ -46,12 +46,22 @@ public class GlobalConfiguration implements Serializable {
         return propertyKey;
     }
 
+    public GlobalConfiguration propertyKey(String propertyKey) {
+        this.propertyKey = propertyKey;
+        return this;
+    }
+
     public void setPropertyKey(String propertyKey) {
         this.propertyKey = propertyKey;
     }
 
     public String getPropertyValue() {
         return propertyValue;
+    }
+
+    public GlobalConfiguration propertyValue(String propertyValue) {
+        this.propertyValue = propertyValue;
+        return this;
     }
 
     public void setPropertyValue(String propertyValue) {

@@ -1,28 +1,27 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "one-to-many",
-      "relationshipName": "auditProfile",
-      "otherEntityName": "auditProfile",
-      "otherEntityRelationshipName": "client"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "code",
-      "fieldType": "String"
-    },
-    {
-      "fieldId": 2,
-      "fieldName": "name",
-      "fieldType": "String"
-    }
-  ],
-  "changelogDate": "20160825130754",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "client"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "otherEntityRelationshipName": "client"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135152",
+    "javadoc": "ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)",
+    "entityTableName": "client",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

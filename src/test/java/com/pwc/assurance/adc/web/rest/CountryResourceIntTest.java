@@ -80,9 +80,9 @@ public class CountryResourceIntTest {
      */
     public static Country createEntity(EntityManager em) {
         Country country = new Country();
-        country = new Country();
-        country.setCode(DEFAULT_CODE);
-        country.setName(DEFAULT_NAME);
+        country = new Country()
+                .code(DEFAULT_CODE)
+                .name(DEFAULT_NAME);
         return country;
     }
 
@@ -164,8 +164,9 @@ public class CountryResourceIntTest {
 
         // Update the country
         Country updatedCountry = countryRepository.findOne(country.getId());
-        updatedCountry.setCode(UPDATED_CODE);
-        updatedCountry.setName(UPDATED_NAME);
+        updatedCountry
+                .code(UPDATED_CODE)
+                .name(UPDATED_NAME);
 
         restCountryMockMvc.perform(put("/api/countries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

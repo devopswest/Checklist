@@ -1,0 +1,25 @@
+{
+    "checklistApp": {
+        "workflowStep" : {
+            "home": {
+                "title": "Workflow Steps",
+                "createLabel": "Create a new Workflow Step",
+                "createOrEditLabel": "Create or edit a Workflow Step",
+                "search": "Search for Workflow Step"
+            },
+            "created": "A new Workflow Step is created with identifier {{ param }}",
+            "updated": "A Workflow Step is updated with identifier {{ param }}",
+            "deleted": "A Workflow Step is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Workflow Step {{ id }}?"
+            },
+            "detail": {
+                "title": "Workflow Step"
+            },
+            "name": "Name",
+            "description": "Description",
+            "authority": "Authority",
+            "workflow": "Workflow"
+        }
+    }
+}

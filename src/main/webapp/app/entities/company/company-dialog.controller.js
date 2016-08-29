@@ -5,15 +5,15 @@
         .module('checklistApp')
         .controller('CompanyDialogController', CompanyDialogController);
 
-    CompanyDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Company', 'Licenses'];
+    CompanyDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Company', 'License'];
 
-    function CompanyDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Company, Licenses) {
+    function CompanyDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Company, License) {
         var vm = this;
 
         vm.company = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.licenses = Licenses.query();
+        vm.licenses = License.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

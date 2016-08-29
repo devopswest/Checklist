@@ -1,31 +1,29 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "many-to-one",
-      "relationshipName": "question",
-      "otherEntityName": "checklistQuestion",
-      "otherEntityField": "question"
-    },
-    {
-      "relationshipId": 2,
-      "relationshipType": "many-to-many",
-      "relationshipName": "auditProfile",
-      "otherEntityName": "auditProfile",
-      "ownerSide": false,
-      "otherEntityRelationshipName": "auditQuestionResponse"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "questionResponse",
-      "fieldType": "String"
-    }
-  ],
-  "changelogDate": "20160825130701",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "audit_question_response"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "question",
+            "otherEntityName": "checklistQuestion",
+            "otherEntityField": "question"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "auditQuestionResponse"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "questionResponse",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135102",
+    "entityTableName": "audit_question_response",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

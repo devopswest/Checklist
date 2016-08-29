@@ -1,0 +1,36 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "licenseType",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "contactName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "contactEmail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "activationToken",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135154",
+    "entityTableName": "license",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

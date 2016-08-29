@@ -64,7 +64,7 @@ services:
         restart: always
 
     search:
-        image: 'elasticsearch:1.7.3'
+        image: 'elasticsearch:2.3.5'
         hostname: $HOSTNAME
         volumes:
              - /var/data/search:/usr/share/elastichsearch/data/

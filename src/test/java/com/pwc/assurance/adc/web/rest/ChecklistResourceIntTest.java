@@ -86,11 +86,11 @@ public class ChecklistResourceIntTest {
      */
     public static Checklist createEntity(EntityManager em) {
         Checklist checklist = new Checklist();
-        checklist = new Checklist();
-        checklist.setName(DEFAULT_NAME);
-        checklist.setDescription(DEFAULT_DESCRIPTION);
-        checklist.setVersion(DEFAULT_VERSION);
-        checklist.setStatus(DEFAULT_STATUS);
+        checklist = new Checklist()
+                .name(DEFAULT_NAME)
+                .description(DEFAULT_DESCRIPTION)
+                .version(DEFAULT_VERSION)
+                .status(DEFAULT_STATUS);
         return checklist;
     }
 
@@ -178,10 +178,11 @@ public class ChecklistResourceIntTest {
 
         // Update the checklist
         Checklist updatedChecklist = checklistRepository.findOne(checklist.getId());
-        updatedChecklist.setName(UPDATED_NAME);
-        updatedChecklist.setDescription(UPDATED_DESCRIPTION);
-        updatedChecklist.setVersion(UPDATED_VERSION);
-        updatedChecklist.setStatus(UPDATED_STATUS);
+        updatedChecklist
+                .name(UPDATED_NAME)
+                .description(UPDATED_DESCRIPTION)
+                .version(UPDATED_VERSION)
+                .status(UPDATED_STATUS);
 
         restChecklistMockMvc.perform(put("/api/checklists")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

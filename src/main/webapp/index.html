@@ -12,17 +12,15 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css">
-
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
-
-    <link rel="stylesheet" href="content/css/custom.css">
-
-
+	<!-- build:css content/css/custom.css -->
+	<link rel=stylesheet href=content/css/custom.css>
+	<!-- endbuild -->
 </head>
 <body ng-app="checklistApp" ng-strict-di>
     <!--[if lt IE 9]>
@@ -36,9 +34,9 @@
         </div>
 
         <div class="footer" ng-cloak>
-            <!-- p translate="footer">This is your footer</p -->
-
-
+            <p translate="footer">This is your footer</p>
+        </div>
+    </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -73,7 +71,6 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
@@ -102,27 +99,48 @@
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
-    <script src="app/entities/user-profile/user-profile-dialog.controller.js"></script>
-    <script src="app/entities/user-profile/user-profile-detail.controller.js"></script>
-    <script src="app/entities/user-profile/user-profile-delete-dialog.controller.js"></script>
-    <script src="app/entities/user-profile/user-profile.state.js"></script>
-    <script src="app/entities/user-profile/user-profile.service.js"></script>
-    <script src="app/entities/user-profile/user-profile.search.service.js"></script>
-    <script src="app/entities/user-profile/user-profile.controller.js"></script>
-    <script src="app/entities/licenses/licenses-dialog.controller.js"></script>
-    <script src="app/entities/licenses/licenses-detail.controller.js"></script>
-    <script src="app/entities/licenses/licenses-delete-dialog.controller.js"></script>
-    <script src="app/entities/licenses/licenses.state.js"></script>
-    <script src="app/entities/licenses/licenses.service.js"></script>
-    <script src="app/entities/licenses/licenses.search.service.js"></script>
-    <script src="app/entities/licenses/licenses.controller.js"></script>
-    <script src="app/entities/license-type/license-type-dialog.controller.js"></script>
-    <script src="app/entities/license-type/license-type-detail.controller.js"></script>
-    <script src="app/entities/license-type/license-type-delete-dialog.controller.js"></script>
-    <script src="app/entities/license-type/license-type.state.js"></script>
-    <script src="app/entities/license-type/license-type.service.js"></script>
-    <script src="app/entities/license-type/license-type.search.service.js"></script>
-    <script src="app/entities/license-type/license-type.controller.js"></script>
+    <script src="app/entities/workflow-step/workflow-step-dialog.controller.js"></script>
+    <script src="app/entities/workflow-step/workflow-step-detail.controller.js"></script>
+    <script src="app/entities/workflow-step/workflow-step-delete-dialog.controller.js"></script>
+    <script src="app/entities/workflow-step/workflow-step.state.js"></script>
+    <script src="app/entities/workflow-step/workflow-step.service.js"></script>
+    <script src="app/entities/workflow-step/workflow-step.search.service.js"></script>
+    <script src="app/entities/workflow-step/workflow-step.controller.js"></script>
+    <script src="app/entities/workflow/workflow-dialog.controller.js"></script>
+    <script src="app/entities/workflow/workflow-detail.controller.js"></script>
+    <script src="app/entities/workflow/workflow-delete-dialog.controller.js"></script>
+    <script src="app/entities/workflow/workflow.state.js"></script>
+    <script src="app/entities/workflow/workflow.service.js"></script>
+    <script src="app/entities/workflow/workflow.search.service.js"></script>
+    <script src="app/entities/workflow/workflow.controller.js"></script>
+    <script src="app/entities/taxonomy/taxonomy-dialog.controller.js"></script>
+    <script src="app/entities/taxonomy/taxonomy-detail.controller.js"></script>
+    <script src="app/entities/taxonomy/taxonomy-delete-dialog.controller.js"></script>
+    <script src="app/entities/taxonomy/taxonomy.state.js"></script>
+    <script src="app/entities/taxonomy/taxonomy.service.js"></script>
+    <script src="app/entities/taxonomy/taxonomy.search.service.js"></script>
+    <script src="app/entities/taxonomy/taxonomy.controller.js"></script>
+    <script src="app/entities/requirement/requirement-dialog.controller.js"></script>
+    <script src="app/entities/requirement/requirement-detail.controller.js"></script>
+    <script src="app/entities/requirement/requirement-delete-dialog.controller.js"></script>
+    <script src="app/entities/requirement/requirement.state.js"></script>
+    <script src="app/entities/requirement/requirement.service.js"></script>
+    <script src="app/entities/requirement/requirement.search.service.js"></script>
+    <script src="app/entities/requirement/requirement.controller.js"></script>
+    <script src="app/entities/question/question-dialog.controller.js"></script>
+    <script src="app/entities/question/question-detail.controller.js"></script>
+    <script src="app/entities/question/question-delete-dialog.controller.js"></script>
+    <script src="app/entities/question/question.state.js"></script>
+    <script src="app/entities/question/question.service.js"></script>
+    <script src="app/entities/question/question.search.service.js"></script>
+    <script src="app/entities/question/question.controller.js"></script>
+    <script src="app/entities/license/license-dialog.controller.js"></script>
+    <script src="app/entities/license/license-detail.controller.js"></script>
+    <script src="app/entities/license/license-delete-dialog.controller.js"></script>
+    <script src="app/entities/license/license.state.js"></script>
+    <script src="app/entities/license/license.service.js"></script>
+    <script src="app/entities/license/license.search.service.js"></script>
+    <script src="app/entities/license/license.controller.js"></script>
     <script src="app/entities/global-configuration/global-configuration-dialog.controller.js"></script>
     <script src="app/entities/global-configuration/global-configuration-detail.controller.js"></script>
     <script src="app/entities/global-configuration/global-configuration-delete-dialog.controller.js"></script>
@@ -173,6 +191,13 @@
     <script src="app/entities/audit-question-response/audit-question-response.service.js"></script>
     <script src="app/entities/audit-question-response/audit-question-response.search.service.js"></script>
     <script src="app/entities/audit-question-response/audit-question-response.controller.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-dialog.controller.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-detail.controller.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-delete-dialog.controller.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.state.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.service.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.search.service.js"></script>
+    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.controller.js"></script>
     <script src="app/entities/audit-profile/audit-profile-dialog.controller.js"></script>
     <script src="app/entities/audit-profile/audit-profile-detail.controller.js"></script>
     <script src="app/entities/audit-profile/audit-profile-delete-dialog.controller.js"></script>

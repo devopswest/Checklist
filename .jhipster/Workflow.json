@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "otherEntityRelationshipName": "workflow"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "workflow",
+            "relationshipName": "workflowStep",
+            "otherEntityName": "workflowStep",
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160829135157",
+    "javadoc": "WorkflowTODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or clientengagement.",
+    "entityTableName": "workflow",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

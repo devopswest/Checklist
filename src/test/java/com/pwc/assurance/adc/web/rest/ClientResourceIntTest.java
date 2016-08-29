@@ -80,9 +80,9 @@ public class ClientResourceIntTest {
      */
     public static Client createEntity(EntityManager em) {
         Client client = new Client();
-        client = new Client();
-        client.setCode(DEFAULT_CODE);
-        client.setName(DEFAULT_NAME);
+        client = new Client()
+                .code(DEFAULT_CODE)
+                .name(DEFAULT_NAME);
         return client;
     }
 
@@ -164,8 +164,9 @@ public class ClientResourceIntTest {
 
         // Update the client
         Client updatedClient = clientRepository.findOne(client.getId());
-        updatedClient.setCode(UPDATED_CODE);
-        updatedClient.setName(UPDATED_NAME);
+        updatedClient
+                .code(UPDATED_CODE)
+                .name(UPDATED_NAME);
 
         restClientMockMvc.perform(put("/api/clients")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
