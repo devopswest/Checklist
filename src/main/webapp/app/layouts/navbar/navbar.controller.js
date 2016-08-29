@@ -26,13 +26,38 @@
 
         vm.menu = [
            {
-                "label":"Audit"
+                "id":"library",
+                "label":"Library",
+                "uiclass":"glyphicon glyphicon-th-list",
+                "options" : [
+                    {
+                        "id":"country",
+                        "label":"Country",
+                        "uiclass" : "glyphicon glyphicon-asterisk"
+                    },
+                    {
+                        "id":"checklist",
+                        "label":"Checklist",
+                        "uiclass" : "glyphicon glyphicon-asterisk"
+                    }
+                ]
            },
            {
-                "label":"Library"
-           },
-           {
-                "label":"License"
+                "id":"audit",
+                "label":"Audit",
+                "uiclass":"glyphicon glyphicon-th-list",
+                "options" : [
+                    {
+                        "id":"client",
+                        "label": "Client",
+                        "uiclass" : "glyphicon glyphicon-asterisk"
+                    },
+                    {
+                        "id":"audit-profile",
+                        "label": "Audit Profile",
+                        "uiclass" : "glyphicon glyphicon-asterisk"
+                    }
+                ]
            }
         ];
 

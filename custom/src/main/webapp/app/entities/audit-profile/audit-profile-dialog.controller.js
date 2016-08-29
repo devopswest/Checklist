@@ -5,18 +5,20 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'ChecklistQuestion', 'AuditQuestionResponse', 'Client', 'Checklist'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'ChecklistQuestion', 'AuditQuestionResponse', 'Client', 'Checklist', 'Workflow'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, ChecklistQuestion, AuditQuestionResponse, Client, Checklist) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, ChecklistQuestion, AuditQuestionResponse, Client, Checklist, Workflow) {
         var vm = this;
 
         vm.auditProfile = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.auditprofilelogentries = AuditProfileLogEntry.query();
         vm.checklistquestions = ChecklistQuestion.query();
         vm.auditquestionresponses = AuditQuestionResponse.query();
         vm.clients = Client.query();
         vm.checklists = Checklist.query();
+        vm.workflows = Workflow.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -44,6 +46,7 @@
         function onSaveError () {
             vm.isSaving = false;
         }
+
 
 ///Tree
 vm.treedata =
@@ -130,7 +133,6 @@ vm.expandAll=expandAll;
      function expandAll () {
         $scope.$broadcast('angular-ui-tree:expand-all');
       };
-
 
 
     }

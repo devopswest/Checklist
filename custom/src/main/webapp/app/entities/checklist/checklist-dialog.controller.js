@@ -17,10 +17,6 @@
         vm.auditprofiles = AuditProfile.query();
         vm.countries = Country.query();
 
-
-
-
-
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -47,7 +43,6 @@
         function onSaveError () {
             vm.isSaving = false;
         }
-
 
 ///Tree
 vm.treedata =
@@ -136,7 +131,7 @@ vm.expandAll=expandAll;
       };
 
 
+
+
     }
-
-
 })();
