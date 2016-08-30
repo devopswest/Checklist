@@ -67,7 +67,7 @@ docker -H tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243 service create -
 
 
 
-docker run -d -p 9090:9090 --name checklist -e SERVICE_ENV=prod -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300 andresfuentes/checklist 
+docker run -d -p 9090:9090 --name checklist -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300 andresfuentes/checklist 
 
 
 
