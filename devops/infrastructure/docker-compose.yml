@@ -41,7 +41,7 @@ services:
         environment:
             #- 'VIRTUAL_HOST=iw2p2-database-dev.code348.com'
              - 'POSTGRES_PASSWORD={pwc-password}'
-             - 'PGDATA=/data/rfc'
+             - 'PGDATA=/data'
         volumes:
              - /var/data/postgresql:/data
         ports:
