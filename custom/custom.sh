@@ -6,6 +6,8 @@
 bower install angular-ui-tree --save
 sed -i "s/angular-loading-bar/angular-loading-bar',\n\t\t\t'ui.tree/" src/main/webapp/app/app.module.js
 
+# Ad textEditor
+bower install textAngular --save
 
 #
 # CSS - Add Custom styles
@@ -66,7 +68,7 @@ sed -i "s|<li ng-class=\"{active: vm.\$state.includes('account')}\" uib-dropdown
 # Change Account top label to show user o nit when logged in
 #
 
-sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"account-menu\">\)\(\([\\n]\)?\|\(.\(?\!<a\)\)\)*\(<\/a>\)|XXX|" src/main/webapp/app/layouts/navbar/navbar.html
+sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"account-menu\">\)\(\([\\n]\)\?\|\(.\(\?\!<a\)\)\)*\(<\/a>\)|XXX|" src/main/webapp/app/layouts/navbar/navbar.html
 
 sed -i -e 's|\(<a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">\)\(\([\n]\)?|\(.\(?!<a\)\)\)*\(<\/a>\)| \
 <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu"> \
