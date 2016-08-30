@@ -111,20 +111,7 @@ vm.toggle=toggle;
       function toggle (scope) {
         scope.toggle();
       };
-vm.moveLastToTheBeginning=moveLastToTheBeginning;
-      function moveLastToTheBeginning () {
-        var a = $scope.data.pop();
-        $scope.data.splice(0, 0, a);
-      };
-vm.newSubItem=newSubItem;
-      function newSubItem (scope) {
-        var nodeData = scope.$modelValue;
-        nodeData.nodes.push({
-          id: nodeData.id * 10 + nodeData.nodes.length,
-          title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-          nodes: []
-        });
-      };
+
 vm.collapseAll=collapseAll;
       function collapseAll () {
         $scope.$broadcast('angular-ui-tree:collapse-all');
