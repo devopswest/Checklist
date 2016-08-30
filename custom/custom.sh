@@ -68,26 +68,27 @@ sed -i "s|<li ng-class=\"{active: vm.\$state.includes('account')}\" uib-dropdown
 #
 # Change Account top label to show user o nit when logged in
 #
-
+# <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
+#
 sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"account-menu\">\)\(\([\\n]\)\?\|\(.\(\?\!<a\)\)\)*\(<\/a>\)|XXX|" src/main/webapp/app/layouts/navbar/navbar.html
 
-sed -i -e 's|\(<a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">\)\(\([\n]\)?|\(.\(?!<a\)\)\)*\(<\/a>\)| \
-<a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu"> \
-                        <span ng-switch-when="true"> \
-                            <span class="glyphicon glyphicon-user"></span> \
-                            <span class="hidden-sm" translateXX="global.menu.account.main"> \
-                                {{vm.account.firstName}} \
+sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"account-menu\">\)\(\([\\n]\)\?\|\(.\(\?\!<a\)\)\)*\(<\/a>\)| \
+<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"account-menu\"> \
+                        <span ng-switch-when=\"true\"> \
+                            <span class=\"glyphicon glyphicon-user\"></span> \
+                            <span class=\"hidden-sm\" translateXX=\"global.menu.account.main\"> \
+                                {{vm.account.firstName}} {{vm.account.lastName}}\
                             </span> \
-                            <b class="caret"></b> \
+                            <b class=\"caret\"></b> \
                         </span> \
-                         <span ng-switch-when="false"> \
-                            <span class="glyphicon glyphicon-user"></span> \
-                            <span class="hidden-sm" translate="global.menu.account.main"> \
+                         <span ng-switch-when=\"false\"> \
+                            <span class=\"glyphicon glyphicon-user\"></span> \
+                            <span class=\"hidden-sm\" translate=\"global.menu.account.main\"> \
                                 Account \
                             </span> \
-                            <b class="caret"></b> \
+                            <b class=\"caret\"></b> \
                         </span> \
-                    </a>|' src/main/webapp/app/layouts/navbar/navbar.html
+                    </a>|" src/main/webapp/app/layouts/navbar/navbar.html
 
 
 
