@@ -394,7 +394,7 @@ services:
             dockerfile: Dockerfile
         image: 'andresfuentes/checklist'
         environment:
-            - 'SERVICE_ENV=prod'
+            - 'SERVICE_ENV=prod,SERVICE_ENV'
             - 'SERVICE_PORT=9090'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
@@ -416,7 +416,7 @@ services:
         image: 'andresfuentes/checklist'
         #hostname: $HOSTNAME
         environment:
-            - 'SERVICE_ENV=prod'
+            - 'SERVICE_ENV=prod,swagger'
             - 'SERVICE_PORT=9090'
             - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
