@@ -68,7 +68,17 @@ public class ChecklistResourceExtended {
   "questions":[
      {
        "id":9901,
-       "question":"Some question"
+       "question":"Some question",
+       "paren": null,
+       "questions" : [
+       {
+       "id":9903,
+       "question":"Some question",
+       "parent" : 9901
+     }
+
+       ]
+
      },
      {
        "id":9902,
@@ -85,7 +95,7 @@ public class ChecklistResourceExtended {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistDTO> getChecklist(@PathVariable Long id) {
+    public ResponseEntity<Checklist> getChecklist(@PathVariable Long id) {
         log.debug("REST request to get Checklist : {}", id);
         Checklist checklist = checklistRepository.findOne(id);
 
