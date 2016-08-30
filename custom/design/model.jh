@@ -239,7 +239,7 @@ relationship OneToMany{
 }
 
 relationship OneToMany{
-    Workflow to AuditProfile{workflow(name)}
+    Workflow to AuditProfile{workflow(description)}
 }
 
 /**
