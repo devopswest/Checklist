@@ -51,7 +51,7 @@
   background: #f8faff;
   border: 1px solid #dae2ea;
   color: #7c9eb2;
-  padding: 10px 10px; }
+  padding: 2px 1px; }
 
 .angular-ui-tree-handle:hover {
   color: #438eb9;
@@ -82,7 +82,7 @@ tr.angular-ui-tree-empty {
   background-color: #f2dede; }
 
 .tree-node-content {
-  margin: 10px; }
+  margin: 2px; }
 
 .tree-handle {
   padding: 10px;
@@ -96,3 +96,16 @@ tr.angular-ui-tree-empty {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+body {
+  font-size: 12px;
+  line-height: 1; }
+
+.form-control {
+  height: 26px; }
+
+.form-group {
+  margin-bottom: 5px; }
+
+label {
+  margin-bottom: 1px; }
