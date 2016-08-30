@@ -52,50 +52,116 @@
 vm.treedata =
 [
   {
-    "id": 1,
-    "title": "node1",
+    "id": "SECTION A",
+    "title": "INTRODUCTION",
     "nodes": [
       {
-        "id": 11,
+        "id": "1.1",
         "title": "node1.1",
         "nodes": [
           {
-            "id": 111,
+            "id": "1.1.1",
             "title": "node1.1.1",
             "nodes": []
           }
         ]
       },
       {
-        "id": 12,
+        "id": "1.2",
         "title": "node1.2",
         "nodes": []
       }
     ]
   },
   {
-    "id": 2,
-    "title": "node2",
+    "id": "SECTION B",
+    "title": "BALANCE SHEET",
     "nodrop": true,
     "nodes": [
       {
-        "id": 21,
+        "id": "2.1",
         "title": "node2.1",
         "nodes": []
       },
       {
-        "id": 22,
+        "id": "2.2",
         "title": "node2.2",
         "nodes": []
       }
     ]
   },
   {
-    "id": 3,
-    "title": "node3",
+    "id": "SECTION C",
+    "title": "INCOME STATEMENT",
     "nodes": [
       {
-        "id": 31,
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION D",
+    "title": "STATEMENT OF CASH FLOWS",
+    "nodes": [
+      {
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION E",
+    "title": "STATEMENT OF STAKEHOLDERS EQUITY",
+    "nodes": [
+      {
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION F",
+    "title": "COMPRENHENSIVE INCOME",
+    "nodes": [
+      {
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION G",
+    "title": "OTHER STATEMENT FINANCIAL DISCLOSURES",
+    "nodes": [
+      {
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION H",
+    "title": "OTHER INFORMATION REQUIRED IN ANNUAL REPORT TO STAKEHOLDERS",
+    "nodes": [
+      {
+        "id": "3.1",
+        "title": "node3.1",
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "id": "SECTION I",
+    "title": "INFORMATION TO BE FURNISHED",
+    "nodes": [
+      {
+        "id": "3.1",
         "title": "node3.1",
         "nodes": []
       }

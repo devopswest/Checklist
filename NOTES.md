@@ -67,7 +67,7 @@ docker -H tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243 service create -
 
 
 
-docker run -d -p 9090:9090 --name checklist -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300 andresfuentes/checklist 
+docker run -d -p 9090:9090 --restart=always --name checklist -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300 andresfuentes/checklist 
 
 
 
@@ -78,8 +78,9 @@ docker run -d -p 9090:9090 --name checklist -e SERVICE_ENV=prod,swagger -e DB_US
 
 
 
+docker run -d --name database-es -v /var/data/search:/usr/share/elastichsearch/data/  -p 9200:9200 -p 9300:9300 --restart=always elasticsearch:2.3.5
 
-docker run -d --name database-es -v /var/data/search:/usr/share/elastichsearch/data/ -p 9200:9200 -p 9300:9300 --restart=always elasticsearch:2.3.5
+docker run -d --name database-pg -v /var/data/postgresql:/data -p 5432:5432 --restart=always -e POSTGRES_PASSWORD=pwc123 -e PGDATA=/data postgres
 
 
 
