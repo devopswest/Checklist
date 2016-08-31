@@ -47,7 +47,7 @@ public class Checklist implements Serializable {
     private ChecklistStatus status;
 
     @OneToMany(mappedBy = "checklist")
-    @JsonIgnore
+    //@JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
 
