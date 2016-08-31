@@ -17,6 +17,7 @@
                 "title": "Checklist Question"
             },
             "code": "Code",
+            "description": "Description",
             "child": "Child",
             "auditQuestionResponse": "Audit Question Response",
             "checklist": "Checklist",
