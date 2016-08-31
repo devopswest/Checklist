@@ -26,7 +26,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135157",
+    "changelogDate": "20160830234044",
     "javadoc": "WorkflowTODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or clientengagement.",
     "entityTableName": "workflow",
     "dto": "no",

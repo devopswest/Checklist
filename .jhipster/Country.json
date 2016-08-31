@@ -18,7 +18,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135151",
+    "changelogDate": "20160830234038",
     "entityTableName": "country",
     "dto": "no",
     "pagination": "pager",

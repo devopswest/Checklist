@@ -21,7 +21,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135102",
+    "changelogDate": "20160830234049",
     "entityTableName": "audit_question_response",
     "dto": "no",
     "pagination": "pager",

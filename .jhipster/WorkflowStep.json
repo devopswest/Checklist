@@ -24,7 +24,7 @@
             "fieldValues": "ROLE_ADMIN,ROLE_USER,ROLE_PWC_ENGAGEMENT_TEAM,ROLE_PWC_PERSSONEL_US,ROLE_PWC_PERSSONEL_TERRITORY,ROLE_PWC_MANAGEMENT,ROLE_CLIENT_ADMIN,ROLE_CLIENT_USER,ROLE_LICENSED_ADMIN,ROLE_LICENSED_USER,ROLE_LPS_ADMIN,ROLE_LPS_USER"
         }
     ],
-    "changelogDate": "20160829135158",
+    "changelogDate": "20160830234045",
     "entityTableName": "workflow_step",
     "dto": "no",
     "pagination": "pager",

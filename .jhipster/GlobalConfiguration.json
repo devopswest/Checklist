@@ -11,7 +11,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135149",
+    "changelogDate": "20160830234036",
     "javadoc": "Global Config",
     "entityTableName": "global_configuration",
     "dto": "no",

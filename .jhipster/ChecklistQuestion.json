@@ -23,7 +23,7 @@
             "relationshipType": "many-to-one",
             "relationshipName": "parent",
             "otherEntityName": "checklistQuestion",
-            "otherEntityField": "code"
+            "otherEntityField": "description"
         },
         {
             "relationshipType": "many-to-one",
@@ -43,9 +43,13 @@
         {
             "fieldName": "code",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135100",
+    "changelogDate": "20160830234047",
     "entityTableName": "checklist_question",
     "dto": "no",
     "pagination": "pager",

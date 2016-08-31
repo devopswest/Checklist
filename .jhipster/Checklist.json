@@ -39,7 +39,7 @@
             "fieldValues": "DRAFT,RELEASED"
         }
     ],
-    "changelogDate": "20160829135159",
+    "changelogDate": "20160830234046",
     "javadoc": "ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists",
     "entityTableName": "checklist",
     "dto": "no",

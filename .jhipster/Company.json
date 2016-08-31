@@ -18,7 +18,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135153",
+    "changelogDate": "20160830234040",
     "javadoc": "Licenses & Company",
     "entityTableName": "company",
     "dto": "no",

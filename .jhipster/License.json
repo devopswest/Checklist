@@ -28,7 +28,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160829135154",
+    "changelogDate": "20160830234041",
     "entityTableName": "license",
     "dto": "no",
     "pagination": "pager",
