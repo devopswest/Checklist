@@ -92,7 +92,10 @@ sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"a
 
 
 
-
+#
+# Copy entities
+#
+cp -r custom/src/main/webapp/app/entities src/main/webapp/app
 
 #
 # Update gulpfile
