@@ -19,6 +19,12 @@
                     ng-model="vm.checklistQuestion.code"
                      />
         </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistQuestion.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.checklistQuestion.description"
+                     />
+        </div>
 
         <div class="form-group">
             <label translate="checklistApp.checklistQuestion.checklist" for="field_checklist">Checklist</label>
@@ -28,7 +34,7 @@
         </div>
         <div class="form-group">
             <label translate="checklistApp.checklistQuestion.parent" for="field_parent">Parent</label>
-            <select class="form-control" id="field_parent" name="parent" ng-model="vm.checklistQuestion.parent" ng-options="checklistQuestion as checklistQuestion.code for checklistQuestion in vm.checklistquestions track by checklistQuestion.id">
+            <select class="form-control" id="field_parent" name="parent" ng-model="vm.checklistQuestion.parent" ng-options="checklistQuestion as checklistQuestion.description for checklistQuestion in vm.checklistquestions track by checklistQuestion.id">
                 <option value=""></option>
             </select>
         </div>

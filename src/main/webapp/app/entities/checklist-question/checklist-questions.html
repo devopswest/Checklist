@@ -37,8 +37,9 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="code"><span translate="checklistApp.checklistQuestion.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span translate="checklistApp.checklistQuestion.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="checklist.name"><span translate="checklistApp.checklistQuestion.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="parent.code"><span translate="checklistApp.checklistQuestion.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="parent.description"><span translate="checklistApp.checklistQuestion.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="question.question"><span translate="checklistApp.checklistQuestion.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -47,11 +48,12 @@
                 <tr ng-repeat="checklistQuestion in vm.checklistQuestions track by checklistQuestion.id">
                     <td><a ui-sref="checklist-question-detail({id:checklistQuestion.id})">{{checklistQuestion.id}}</a></td>
                     <td>{{checklistQuestion.code}}</td>
+                    <td>{{checklistQuestion.description}}</td>
                     <td>
                         <a ui-sref="checklist-detail({id:checklistQuestion.checklist.id})">{{checklistQuestion.checklist.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="checklist-question-detail({id:checklistQuestion.parent.id})">{{checklistQuestion.parent.code}}</a>
+                        <a ui-sref="checklist-question-detail({id:checklistQuestion.parent.id})">{{checklistQuestion.parent.description}}</a>
                     </td>
                     <td>
                         <a ui-sref="question-detail({id:checklistQuestion.question.id})">{{checklistQuestion.question.question}}</a>

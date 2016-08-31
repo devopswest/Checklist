@@ -8,13 +8,17 @@
         <dd>
             <span>{{vm.checklistQuestion.code}}</span>
         </dd>
+        <dt><span translate="checklistApp.checklistQuestion.description">Description</span></dt>
+        <dd>
+            <span>{{vm.checklistQuestion.description}}</span>
+        </dd>
         <dt><span translate="checklistApp.checklistQuestion.checklist">Checklist</span></dt>
         <dd>
             <a ui-sref="checklist-detail({id:vm.checklistQuestion.checklist.id})">{{vm.checklistQuestion.checklist.name}}</a>
         </dd>
         <dt><span translate="checklistApp.checklistQuestion.parent">Parent</span></dt>
         <dd>
-            <a ui-sref="checklist-question-detail({id:vm.checklistQuestion.parent.id})">{{vm.checklistQuestion.parent.code}}</a>
+            <a ui-sref="checklist-question-detail({id:vm.checklistQuestion.parent.id})">{{vm.checklistQuestion.parent.description}}</a>
         </dd>
         <dt><span translate="checklistApp.checklistQuestion.question">Question</span></dt>
         <dd>
