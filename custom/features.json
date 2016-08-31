@@ -1,0 +1,147 @@
+/**
+  * This file describe the applicatin features
+  *
+  */
+{
+
+  "features": [
+    {
+        "id": "css-theme",
+        "name":"CSS There",
+        "description": "This feature modify default JHIPSTER theme and customize it based on PwC brand colors and logo",
+
+        //Folder where feature implementation is stored
+        "path": "css-theme",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "dynamic-menu",
+        "name":"Dynamic Menu",
+        "description": "This feature change the default menu andrender the application options from the controller",
+
+        //Folder where feature implementation is stored
+        "path": "dynamic-menu",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "add-angular-tree",
+        "name":"Add angular-tree dependencies",
+        "description": "This feature add the capability to use the angular-tree component",
+
+        //Folder where feature implementation is stored
+        "path": "add-angular-tree",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "load-initial-data",
+        "name":"Load Data",
+        "description": "This feature configures liquidbase to pre-load data when the application starts for the first time.. Adding the required change logs",
+
+        //Folder where feature implementation is stored
+        "path": "load-initial-data",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "checklist-tree",
+        "name":"Checklist Tree",
+        "description": "Add Angular Tree Capabilities when creating the checklist",
+
+        //Folder where feature implementation is stored
+        "path": "checklist-tree",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+            "css-theme",
+            "add-angular-tree"
+        ]
+    },
+
+    {
+        "id" : "audit-profile-tree",
+        "name":"Audit Profile Tree",
+        "description": "Add Angular Tree Capabilities when creating the audit profile",
+
+        //Folder where feature implementation is stored
+        "path": "audit-profile-tree",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+            "css-theme",
+            "add-angular-tree"
+        ]
+    },
+
+    {
+        "id" : "application-settings",
+        "name":"Application Settings Changes",
+        "description": "This Feature changes default settings configuration",
+
+        //Folder where feature implementation is stored
+        "path": "application-settings",
+
+        //Script to run to apply & revert feature
+        "scripts": {
+            "apply": "apply-feature.sh",
+            //"rollback": "rollback-feature.sh"
+        },
+
+        //Dependenceis/Other Features that are required  before appliying this feature
+        "dependencies": [
+
+        ]
+    }
+
+  ]
+}
