@@ -41,7 +41,7 @@
                     <th jh-sort-by="status"><span translate="checklistApp.auditProfile.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="client.name"><span translate="checklistApp.auditProfile.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="checklist.name"><span translate="checklistApp.auditProfile.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="workflow.name"><span translate="checklistApp.auditProfile.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflow.description"><span translate="checklistApp.auditProfile.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -58,7 +58,7 @@
                         <a ui-sref="checklist-detail({id:auditProfile.checklist.id})">{{auditProfile.checklist.name}}</a>
                     </td>
                     <td>
-                        <a ui-sref="workflow-detail({id:auditProfile.workflow.id})">{{auditProfile.workflow.name}}</a>
+                        <a ui-sref="workflow-detail({id:auditProfile.workflow.id})">{{auditProfile.workflow.description}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

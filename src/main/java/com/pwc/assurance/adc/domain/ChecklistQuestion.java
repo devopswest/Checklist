@@ -29,6 +29,9 @@ public class ChecklistQuestion implements Serializable {
     @Column(name = "code")
     private String code;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "parent")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -72,6 +75,19 @@ public class ChecklistQuestion implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ChecklistQuestion description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<ChecklistQuestion> getChildren() {
@@ -213,6 +229,7 @@ public class ChecklistQuestion implements Serializable {
         return "ChecklistQuestion{" +
             "id=" + id +
             ", code='" + code + "'" +
+            ", description='" + description + "'" +
             '}';
     }
 }
