@@ -1,0 +1,115 @@
+{
+
+  "features": [
+    {
+        "id": "css-theme",
+        "name":"CSS There",
+        "description": "This feature modify default JHIPSTER theme and customize it based on PwC brand colors and logo",
+        "path": "css-theme",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "dynamic-menu",
+        "name":"Dynamic Menu",
+        "description": "This feature change the default menu andrender the application options from the controller",
+        "path": "dynamic-menu",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "add-angular-tree",
+        "name":"Add angular-tree dependencies",
+        "description": "This feature add the capability to use the angular-tree component",
+        "path": "add-angular-tree",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "add-rish-text-editor",
+        "name":"Add textAngular dependencies",
+        "description": "This feature add the capability to use the textAngular component",
+        "path": "add-rish-text-editor",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+
+    {
+        "id" : "load-initial-data",
+        "name":"Load Data",
+        "description": "This feature configures liquidbase to pre-load data when the application starts for the first time.. Adding the required change logs",
+        "path": "load-initial-data",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+    {
+        "id" : "checklist-tree",
+        "name":"Checklist Tree",
+        "description": "Add Angular Tree Capabilities when creating the checklist",
+        "path": "checklist-tree",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+            "css-theme",
+            "add-angular-tree"
+        ]
+    },
+
+    {
+        "id" : "audit-profile-tree",
+        "name":"Audit Profile Tree",
+        "description": "Add Angular Tree Capabilities when creating the audit profile",
+        "path": "audit-profile-tree",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+            "css-theme",
+            "add-angular-tree"
+        ]
+    },
+
+    {
+        "id" : "application-settings",
+        "name":"Application Settings Changes",
+        "description": "This Feature changes default settings configuration",
+        "path": "application-settings",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+
+        ]
+    }
+
+  ]
+}
