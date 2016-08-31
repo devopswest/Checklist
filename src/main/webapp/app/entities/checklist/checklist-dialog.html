@@ -13,22 +13,25 @@
         </a>
 
 
-    <input type="text" ng-if="node.nodes && node.nodes.length > 0"
-         size="10%" name="nodeValue" id="field_nodeValue" value="{{node.id}}"/>
+    <input type="text"
+         size="10%" name="nodeValue" id="field_id" value="{{node.id}}"/>
 
-    <input type="text" ng-if="node.nodes && node.nodes.length > 0"
-         size="70%" name="nodeValue" id="field_nodeValue" value="{{node.title}}"/>
+    <input type="text"
+         size="70%" name="nodeValue" id="field_value" value="{{node.title}}"/>
 
-    <div style="width: 90%" ng-if="node.nodes && node.nodes.length == 0" text-angular ng-model="node.title">
+<!--     <div style="width: 90%" ng-if="node.nodes && node.nodes.length == 0" text-angular ng-model="node.title">     </div> -->
 
-    </div>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-edit"></span></a>
 
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a>
 
 
     <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)"><span
         class="glyphicon glyphicon-remove"></span></a>
-    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
-        class="glyphicon glyphicon-plus"></span></a>
+
+
 
 
   </div>
