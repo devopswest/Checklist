@@ -26,6 +26,12 @@
                   tableName="checklist">
         </loadData>
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/checklist_question.csv"
+                  separator=";"
+                  tableName="checklist_question">
+        </loadData>
+
 
     </changeSet>
 
