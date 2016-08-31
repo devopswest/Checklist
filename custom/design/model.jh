@@ -198,7 +198,8 @@ entity Checklist {
 }
 
 entity ChecklistQuestion {
-    code String
+    code String,
+    description String
 }
 
 relationship OneToMany {
@@ -210,7 +211,7 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-    ChecklistQuestion{child} to ChecklistQuestion{parent(code)}
+    ChecklistQuestion{child} to ChecklistQuestion{parent(description)}
 }
 
 relationship OneToMany {
