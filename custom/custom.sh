@@ -18,7 +18,7 @@ cp -r custom/src/main/webapp/content src/main/webapp
 cp -r custom/src/main/webapp/app/home src/main/webapp/app
 
 
-sed -i "s|</head>|\t<!-- build:css content/css/custom.css -->\n\t<link rel="stylesheet" href="content/css/custom.css">\n\t<!-- endbuild -->\n</head>|" src/main/webapp/index.html
+sed -i "s|</head>|\t<\!-- build:css content/css/custom.css -->\n\t<link rel="stylesheet" href="content/css/custom.css">\n\t<\!-- endbuild -->\n</head>|" src/main/webapp/index.html
 
 
 #
