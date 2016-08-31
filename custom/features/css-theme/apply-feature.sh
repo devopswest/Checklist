@@ -1,3 +1,7 @@
+echo "******************************"
+echo "**** ADD CSS CUSTOM THEME ****"
+echo "******************************"
+
 #
 # CSS - Add Custom styles
 #

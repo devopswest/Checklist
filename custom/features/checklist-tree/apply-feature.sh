@@ -1,3 +1,7 @@
+echo "************************"
+echo "**** CHECKLIST TREE ****"
+echo "************************"
+
 #
 # Copy entities
 #

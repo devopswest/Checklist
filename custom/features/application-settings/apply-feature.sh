@@ -1,3 +1,7 @@
+echo "**************************************"
+echo "**** UPDATE APPLICATION SETTINGS  ****"
+echo "**************************************"
+
 #
 # Copy Properties
 #

@@ -1,3 +1,8 @@
+echo "****************************"
+echo "**** AUDIT-PROFILE TREE ****"
+echo "****************************"
+
+
 #
 # Copy entities
 #
