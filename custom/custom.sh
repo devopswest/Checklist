@@ -97,6 +97,18 @@ sed -i -e "s|\(<a class=\"dropdown-toggle\" uib-dropdown-toggle href=\"\" id=\"a
 #
 cp -r custom/src/main/webapp/app/entities src/main/webapp/app
 
+
+#
+# DB Updates
+#
+cp -r custom/src/main/resources/config/liquibase src/main/resources/config
+
+#
+# Java Updates
+#
+cp -r custom/src/main/java src/main
+
+
 #
 # Update gulpfile
 #

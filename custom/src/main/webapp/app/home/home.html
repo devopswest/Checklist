@@ -11,7 +11,21 @@
 
 <div ng-cloak>
     <div class="row">
- <div class="col-md-12">
+
+    <div ng-switch="vm.isAuthenticated()">
+     <div class="col-md-8"> </div>
+       <div class="col-md-4">
+                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated" translate-compile>
+                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                </div>
+            </div>
+        </div>
+
+    <div class="col-md-12">
+
+
 
                  <!-- Slideshow -->
 
