@@ -57,7 +57,7 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160830234048",
+    "changelogDate": "20160831131250",
     "javadoc": "Response ResponsesTODO: Workflow review tracking",
     "entityTableName": "audit_profile",
     "dto": "no",

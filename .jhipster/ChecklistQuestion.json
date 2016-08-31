@@ -49,7 +49,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160830234047",
+    "changelogDate": "20160831131249",
     "entityTableName": "checklist_question",
     "dto": "no",
     "pagination": "pager",

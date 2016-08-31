@@ -18,7 +18,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160830234039",
+    "changelogDate": "20160831131241",
     "javadoc": "ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)",
     "entityTableName": "client",
     "dto": "no",
