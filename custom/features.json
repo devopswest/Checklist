@@ -41,6 +41,20 @@
     },
 
     {
+        "id" : "add-rish-text-editor",
+        "name":"Add textAngular dependencies",
+        "description": "This feature add the capability to use the textAngular component",
+        "path": "add-rish-text-editor",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+
+    {
         "id" : "load-initial-data",
         "name":"Load Data",
         "description": "This feature configures liquidbase to pre-load data when the application starts for the first time.. Adding the required change logs",
