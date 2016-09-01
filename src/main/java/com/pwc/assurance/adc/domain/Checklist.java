@@ -48,7 +48,6 @@ public class Checklist implements Serializable {
 
     @OneToMany(mappedBy = "checklist", fetch=FetchType.EAGER)
     @JsonIgnore
-
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
 

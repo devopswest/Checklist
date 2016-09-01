@@ -4,6 +4,8 @@ import com.pwc.assurance.adc.domain.*;
 import com.pwc.assurance.adc.service.dto.ChecklistQuestionDTO;
 
 import org.mapstruct.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +24,50 @@ public interface ChecklistQuestionMapper {
     @Mapping(source = "children", target = "children")
     ChecklistQuestionDTO checklistQuestionToChecklistQuestionDTO(ChecklistQuestion checklistQuestion);
 
-    List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions);
-    List<ChecklistQuestionDTO> map(Set<ChecklistQuestion> value);
+    //List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions);
+    default List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions) {
+    	System.out.println("***** I AM HERE 1");
+        if ( checklistQuestions == null ) {
+            return null;
+        }
+
+        List<ChecklistQuestionDTO> list = new ArrayList<ChecklistQuestionDTO>();
+        for ( ChecklistQuestion checklistQuestion : checklistQuestions ) {
+        	ChecklistQuestionDTO dto = checklistQuestionToChecklistQuestionDTO( checklistQuestion );
+            list.add( dto );
+            
+            if (checklistQuestion.getChildren() != null && checklistQuestion.getChildren().size()>0) {
+            	List<ChecklistQuestionDTO> children =  checklistQuestionsToChecklistQuestionDTOs(checklistQuestion.getChildren());
+            	dto.setChildren(children);
+            }
+        }
+
+        return list;
+    }
     
+    //List<ChecklistQuestionDTO> map(Set<ChecklistQuestion> value);
+    default List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(Set<ChecklistQuestion> checklistQuestions) {
+    	System.out.println("***** I AM HERE 2");
+
+        if ( checklistQuestions == null ) {
+            return null;
+        }
+
+        List<ChecklistQuestionDTO> list = new ArrayList<ChecklistQuestionDTO>();
+        for ( ChecklistQuestion checklistQuestion : checklistQuestions ) {
+        	ChecklistQuestionDTO dto = checklistQuestionToChecklistQuestionDTO( checklistQuestion );
+            list.add( dto );
+            
+            if (checklistQuestion.getChildren() != null && checklistQuestion.getChildren().size()>0) {
+            	System.out.println("***** I AM HERE 2 -- Have Children");
+            	List<ChecklistQuestionDTO> children =  checklistQuestionsToChecklistQuestionDTOs(checklistQuestion.getChildren());
+            	dto.setChildren(children);
+            }
+        }
+
+        return list;
+    }
+   
     //@Mapping(target = "children", ignore = true)
     @Mapping(source = "children", target = "children")
     @Mapping(target = "auditQuestionResponses", ignore = true)

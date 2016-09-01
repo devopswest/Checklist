@@ -34,12 +34,11 @@ public class ChecklistQuestion implements Serializable {
 
     @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
     @JsonIgnore
-
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> children = new HashSet<>();
 
     @OneToMany(mappedBy = "question")
-    //@JsonIgnore
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AuditQuestionResponse> auditQuestionResponses = new HashSet<>();
 
