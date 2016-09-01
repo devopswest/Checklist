@@ -2,13 +2,8 @@ echo "************************"
 echo "**** CHECKLIST TREE ****"
 echo "************************"
 
-#
-# Copy entities
-#
-cp -r custom/features/checklist-tree/src/main/webapp/app/entities src/main/webapp/app
-
 
 #
-# Java Updates
+# Source Code  Updates
 #
-cp -r custom/features/checklist-tree/src/main/java src/main
+cp -r custom/features/checklist-tree/src/main src
