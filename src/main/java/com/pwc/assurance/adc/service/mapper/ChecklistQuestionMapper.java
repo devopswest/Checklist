@@ -19,14 +19,14 @@ public interface ChecklistQuestionMapper {
     @Mapping(source = "parent.description", target = "parentDescription")
     @Mapping(source = "question.id", target = "questionId")
     @Mapping(source = "question.question", target = "questionQuestion")
+    @Mapping(source = "children", target = "children")
     ChecklistQuestionDTO checklistQuestionToChecklistQuestionDTO(ChecklistQuestion checklistQuestion);
 
     List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions);
     List<ChecklistQuestionDTO> map(Set<ChecklistQuestion> value);
     
     //@Mapping(target = "children", ignore = true)
-  //@Mapping(source = "children", target = "children")
-    
+    @Mapping(source = "children", target = "children")
     @Mapping(target = "auditQuestionResponses", ignore = true)
     @Mapping(source = "checklistId", target = "checklist")
     @Mapping(source = "parentId", target = "parent")
