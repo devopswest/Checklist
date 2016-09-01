@@ -1,0 +1,436 @@
+version: '2'
+services:
+    # app:
+    #     build:
+    #         context: .
+    #         dockerfile: Dockerfile
+    #     image: 'andresfuentes/checklist'
+    #     #hostname: $HOSTNAME
+    #     environment:
+    #         - 'constraint:tier.app==true'
+    #         - 'affinity:container!=~*app*'
+    #     ports:
+    #         - '9090:9090'
+    #     extra_hosts:
+    #         - 'database:adc-database.eastus.cloudapp.azure.com'
+    #     # links:
+    #     #     - 'database:database-mysql'
+    #     restart: always
+
+
+    compile:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***         COMPILING CODE          ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            apt-get clean &&
+            gradle compileJava
+            '
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            #- "./volumen:/var/app/adc"
+
+    scan:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***          SCANNING CODE          ***" &&
+            echo "***            1. checkstyle        ***" &&
+            echo "***            2. lint              ***" &&
+            echo "***            3. findbugs          ***" &&
+            echo "***            4. sonarq            ***" &&
+            echo "***            5. fortify           ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            apt-get clean &&
+            gradle sonar:sonar
+            '
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+
+    test:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           TESTING CODE          ***" &&
+            echo "***            1. junit             ***" &&
+            echo "***            2. karma             ***" &&
+            echo "***            3. cucumber          ***" &&
+            echo "***            4. protractor        ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            apt-get clean &&
+            gradle test
+            '
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+
+    static-analisys:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***         DEEP CODE ANALISYS      ***" &&
+            echo "***            1. findbugs          ***" &&
+            echo "***            2. checkstyle        ***" &&
+            echo "***            3. pmd               ***" &&
+            echo "***            4. fortify           ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            apt-get clean &&
+            npm update &&
+            gradle findbugsMain checkstyleMain checkThePMD fortifyReport
+            '
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+
+    package:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'APP_NAME=checklist'
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***         PACKAGING CODE          ***" &&
+            echo "***            1. create war        ***" &&
+            echo "***            2. version war       ***" &&
+            echo "***            3. create image      ***" &&
+            echo "***            4. push image        ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            apt-get clean &&
+            gradle assemble &&
+            ./devops/cicd/package.sh
+            '
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+
+
+    deploy:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+            - 'HEALTH_CHECK=http://adc-swarm-master.eastus.cloudapp.azure.com:8080/management/health'
+
+            - 'API_KEY={api-key}'
+            - 'API_KEY_SECRET={api-secret}'
+            - 'RFC_CREATE_IMPLEMENTATION_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/changeImplementation'
+            - 'RFC_EVALUATION_CLOSED_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/closeWithEvaluation'
+
+            - 'briefDescription=Deployment of CMA BSL component in BSL Stage environment'
+            - 'category=Application Infrastructure Management'
+            - 'subcategory=US Lombardi'
+            - 'assignmentGroup=US IT APP SPT - ENVOY'
+            - 'initiatedBy=ssingh145'
+            - 'changeCoordinator=rmaheshwar008'
+            - 'reason=business'
+            - 'service=Envoy'
+            - 'requestedEndDate=2016-07-18T04:12:32.065Z'
+            - 'backoutComplexity=Low'
+            - 'impact=3'
+            - 'urgency=3'
+            - 'riskAssessment=3'
+            - 'description="This RFC has been created for the purpose of deploying CMA BSL component on BSL Stage environment.","The deployment is required to deploy the latest CMA BSL code on Stage environment so that instance migration testing can be done on Stage environment for next CMA release."'
+            - 'affectedCI="matlkgsswwhs011","matlkgsswwhs012"'
+            - 'lifeCycleStatus=Live'
+            - 'environment=Stage'
+            - 'plan=Test deployment plan.'
+            - 'backoutPlan=Test backout plan.'
+            - 'plannedStartDate=2016-07-17T18:12:32.065Z'
+            - 'plannedEndDate=2016-07-18T03:12:32.065Z'
+            - 'changeImplementer=ssingh145'
+            - 'template=Standard RFC Template'
+            - 'riskAssessmentMitigation="Sample Risk Assessment and Mitigation comments."'
+
+            - 'startDate=2016-07-17T18:15:00.000Z'
+            - 'endDate=2016-07-18T02:00:00.000Z'
+            - 'closureComments="RFC Implemented Successfully."'
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           DEPLOY APP            ***" &&
+            echo "***            1. create RFC        ***" &&
+            echo "***            2. pull image        ***" &&
+            echo "***            3. deploy to swarm   ***" &&
+            echo "***            4. healthcheck       ***" &&
+            echo "***            5. closr RFC|Revert  ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            ./devops/cicd/deploy.sh
+            '
+
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+
+
+
+
+    develop:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+            - 'HEALTH_CHECK=http://adc-swarm-master.eastus.cloudapp.azure.com:8080/management/health'
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-dtr.eastus.cloudapp.azure.com:9300'
+
+            - 'API_KEY={api-key}'
+            - 'API_KEY_SECRET={api-secret}'
+            - 'RFC_CREATE_IMPLEMENTATION_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/changeImplementation'
+            - 'RFC_EVALUATION_CLOSED_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/closeWithEvaluation'
+
+            - 'briefDescription=Deployment of CMA BSL component in BSL Stage environment'
+            - 'category=Application Infrastructure Management'
+            - 'subcategory=US Lombardi'
+            - 'assignmentGroup=US IT APP SPT - ENVOY'
+            - 'initiatedBy=ssingh145'
+            - 'changeCoordinator=rmaheshwar008'
+            - 'reason=business'
+            - 'service=Envoy'
+            - 'requestedEndDate=2016-07-18T04:12:32.065Z'
+            - 'backoutComplexity=Low'
+            - 'impact=3'
+            - 'urgency=3'
+            - 'riskAssessment=3'
+            - 'description="This RFC has been created for the purpose of deploying CMA BSL component on BSL Stage environment.","The deployment is required to deploy the latest CMA BSL code on Stage environment so that instance migration testing can be done on Stage environment for next CMA release."'
+            - 'affectedCI="matlkgsswwhs011","matlkgsswwhs012"'
+            - 'lifeCycleStatus=Live'
+            - 'environment=Stage'
+            - 'plan=Test deployment plan.'
+            - 'backoutPlan=Test backout plan.'
+            - 'plannedStartDate=2016-07-17T18:12:32.065Z'
+            - 'plannedEndDate=2016-07-18T03:12:32.065Z'
+            - 'changeImplementer=ssingh145'
+            - 'template=Standard RFC Template'
+            - 'riskAssessmentMitigation="Sample Risk Assessment and Mitigation comments."'
+
+            - 'startDate=2016-07-17T18:15:00.000Z'
+            - 'endDate=2016-07-18T02:00:00.000Z'
+            - 'closureComments="RFC Implemented Successfully."'
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           DEPLOY APP [DEV]      ***" &&
+            echo "***            1. create RFC        ***" &&
+            echo "***            2. pull image        ***" &&
+            echo "***            3. deploy to swarm   ***" &&
+            echo "***            4. healthcheck       ***" &&
+            echo "***            5. closr RFC|Revert  ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            ./devops/cicd/deploy.sh
+            '
+    qa:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=tst'
+            - 'DOCKER_USER={docker-user}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           DEPLOY APP [QA]       ***" &&
+            echo "***            1. create RFC        ***" &&
+            echo "***            2. pull image        ***" &&
+            echo "***            3. deploy to swarm   ***" &&
+            echo "***            4. healthcheck       ***" &&
+            echo "***            5. closr RFC|Revert  ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            ./devops/cicd/deploy.sh
+            '
+
+    uat:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=uat'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           DEPLOY APP [UAT]      ***" &&
+            echo "***            1. create RFC        ***" &&
+            echo "***            2. pull image        ***" &&
+            echo "***            3. deploy to swarm   ***" &&
+            echo "***            4. healthcheck       ***" &&
+            echo "***            5. closr RFC|Revert  ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            ./devops/cicd/deploy.sh
+            '
+
+    master:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'DEPLOY_TO_SERVER=prd'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        command: >
+            bash -c '
+            echo "***************************************" &&
+            echo "***           DEPLOY APP [PROD]     ***" &&
+            echo "***            1. create RFC        ***" &&
+            echo "***            2. pull image        ***" &&
+            echo "***            3. deploy to swarm   ***" &&
+            echo "***            4. healthcheck       ***" &&
+            echo "***            5. closr RFC|Revert  ***" &&
+            echo "***************************************" &&
+            cd /var/app/adc &&
+            git checkout *.sh &&
+            git pull &&
+            chmod +x *.sh &&
+            chmod +x cicd/*.sh &&
+            ./devops/cicd/deploy.sh
+            '
+
+    package-app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: 'andresfuentes/checklist'
+        environment:
+            - 'SERVICE_ENV=prod,SERVICE_ENV'
+            - 'SERVICE_PORT=9090'
+            - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
+            - 'DB_USER=postgres'
+            - 'DB_PASSWORD=pwc123'
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        ports:
+            - '8080:9090'
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        #image: 'andresfuentes/checklist:{version}'
+        image: 'andresfuentes/checklist'
+        #hostname: $HOSTNAME
+        environment:
+            - 'SERVICE_ENV=prod,swagger'
+            - 'SERVICE_PORT=9090'
+            - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
+            - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
+            - 'DB_USER=postgres'
+            - 'DB_PASSWORD=pwc123'
+
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+            - 'constraint:tier.app==true'
+            - 'affinity:container!=~*app*'
+        ports:
+            - '8080:9090'
+        #restart: always
+
+
+
