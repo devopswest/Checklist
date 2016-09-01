@@ -2,6 +2,9 @@
 # Depends on jq
 #
 # sudo apt-get install jq.
+#
+# https://stedolan.github.io/jq/download/
+#
 
 # ./features/application-settings/apply-feature.sh
 # ./features/css-theme/apply-feature.sh
