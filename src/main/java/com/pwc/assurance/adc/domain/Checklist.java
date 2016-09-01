@@ -16,7 +16,7 @@ import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
 
 /**
  * ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists
- * 
+ *
  */
 @ApiModel(description = ""
     + "ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists"
@@ -48,6 +48,7 @@ public class Checklist implements Serializable {
 
     @OneToMany(mappedBy = "checklist", fetch=FetchType.EAGER)
     @JsonIgnore
+
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
 
