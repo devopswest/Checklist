@@ -16,6 +16,12 @@
         vm.checklistquestions = ChecklistQuestion.query();
         vm.auditprofiles = AuditProfile.query();
         vm.countries = Country.query();
+        
+        vm.treedata = [];  
+    	vm.checklistquestions.$promise.then(function (result) {
+    		vm.treedata = transformToTree(result);
+    		collapseAll();
+    	});
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -43,6 +49,20 @@
         function onSaveError () {
             vm.isSaving = false;
         }
+        
+        function transformToTree(result){
+       	 var treedata = [];        	 
+       	 for(var l=0;l<result.length;l++){
+           	 var question = {
+                        "id": result[l].id,
+                        "title": result[l].code + ":" + result[l].description,
+                        "description": result[l].description,
+                        "nodes": transformToTree(result[l].children)
+                };
+                treedata.push(question);        		 
+       	 }        	 
+       	 return treedata;
+       }
 
 ///Tree
 vm.treedata =
