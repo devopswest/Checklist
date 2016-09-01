@@ -14,8 +14,8 @@
 # ./features/checklist-tree/apply-feature.sh
 # ./features/audit-profile-tree/apply-feature.sh
 
-cat features.json |jq '.features[] | "./features/" + .path + "/" + .scripts.apply'|awk '{system(" chmod +x "$1)}'
-cat features.json |jq '.features[] | "./features/" + .path + "/" + .scripts.apply'|awk '{system($1)}'
+cat custom/features.json |jq '.features[] | "./custom/features/" + .path + "/" + .scripts.apply'|awk '{system(" chmod +x "$1)}'
+cat custom/features.json |jq '.features[] | "./custom/features/" + .path + "/" + .scripts.apply'|awk '{system($1)}'
 
 #
 # Update gulpfile
