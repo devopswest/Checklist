@@ -4,6 +4,8 @@ import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Checklist;
 import com.pwc.assurance.adc.repository.ChecklistRepository;
 import com.pwc.assurance.adc.repository.search.ChecklistSearchRepository;
+import com.pwc.assurance.adc.service.dto.ChecklistDTO;
+import com.pwc.assurance.adc.service.mapper.ChecklistMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +54,9 @@ public class ChecklistResourceIntTest {
     private ChecklistRepository checklistRepository;
 
     @Inject
+    private ChecklistMapper checklistMapper;
+
+    @Inject
     private ChecklistSearchRepository checklistSearchRepository;
 
     @Inject
@@ -73,6 +78,7 @@ public class ChecklistResourceIntTest {
         ChecklistResource checklistResource = new ChecklistResource();
         ReflectionTestUtils.setField(checklistResource, "checklistSearchRepository", checklistSearchRepository);
         ReflectionTestUtils.setField(checklistResource, "checklistRepository", checklistRepository);
+        ReflectionTestUtils.setField(checklistResource, "checklistMapper", checklistMapper);
         this.restChecklistMockMvc = MockMvcBuilders.standaloneSetup(checklistResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -106,10 +112,11 @@ public class ChecklistResourceIntTest {
         int databaseSizeBeforeCreate = checklistRepository.findAll().size();
 
         // Create the Checklist
+        ChecklistDTO checklistDTO = checklistMapper.checklistToChecklistDTO(checklist);
 
         restChecklistMockMvc.perform(post("/api/checklists")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(checklist)))
+                .content(TestUtil.convertObjectToJsonBytes(checklistDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Checklist in the database
@@ -183,10 +190,11 @@ public class ChecklistResourceIntTest {
                 .description(UPDATED_DESCRIPTION)
                 .version(UPDATED_VERSION)
                 .status(UPDATED_STATUS);
+        ChecklistDTO checklistDTO = checklistMapper.checklistToChecklistDTO(updatedChecklist);
 
         restChecklistMockMvc.perform(put("/api/checklists")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedChecklist)))
+                .content(TestUtil.convertObjectToJsonBytes(checklistDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Checklist in the database

@@ -304,4 +304,6 @@ relationship OneToOne{
  * dto * with mapstruct
  **/
 paginate * with pager
+dto Checklist with mapstruct
+dto ChecklistQuestion with mapstruct
 

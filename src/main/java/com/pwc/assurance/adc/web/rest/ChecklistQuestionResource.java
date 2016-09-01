@@ -7,6 +7,8 @@ import com.pwc.assurance.adc.repository.ChecklistQuestionRepository;
 import com.pwc.assurance.adc.repository.search.ChecklistQuestionSearchRepository;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.ChecklistQuestionDTO;
+import com.pwc.assurance.adc.service.mapper.ChecklistQuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,26 +43,31 @@ public class ChecklistQuestionResource {
     private ChecklistQuestionRepository checklistQuestionRepository;
 
     @Inject
+    private ChecklistQuestionMapper checklistQuestionMapper;
+
+    @Inject
     private ChecklistQuestionSearchRepository checklistQuestionSearchRepository;
 
     /**
      * POST  /checklist-questions : Create a new checklistQuestion.
      *
-     * @param checklistQuestion the checklistQuestion to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new checklistQuestion, or with status 400 (Bad Request) if the checklistQuestion has already an ID
+     * @param checklistQuestionDTO the checklistQuestionDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new checklistQuestionDTO, or with status 400 (Bad Request) if the checklistQuestion has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/checklist-questions",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistQuestion> createChecklistQuestion(@RequestBody ChecklistQuestion checklistQuestion) throws URISyntaxException {
-        log.debug("REST request to save ChecklistQuestion : {}", checklistQuestion);
-        if (checklistQuestion.getId() != null) {
+    public ResponseEntity<ChecklistQuestionDTO> createChecklistQuestion(@RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
+        log.debug("REST request to save ChecklistQuestion : {}", checklistQuestionDTO);
+        if (checklistQuestionDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("checklistQuestion", "idexists", "A new checklistQuestion cannot already have an ID")).body(null);
         }
-        ChecklistQuestion result = checklistQuestionRepository.save(checklistQuestion);
-        checklistQuestionSearchRepository.save(result);
+        ChecklistQuestion checklistQuestion = checklistQuestionMapper.checklistQuestionDTOToChecklistQuestion(checklistQuestionDTO);
+        checklistQuestion = checklistQuestionRepository.save(checklistQuestion);
+        ChecklistQuestionDTO result = checklistQuestionMapper.checklistQuestionToChecklistQuestionDTO(checklistQuestion);
+        checklistQuestionSearchRepository.save(checklistQuestion);
         return ResponseEntity.created(new URI("/api/checklist-questions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("checklistQuestion", result.getId().toString()))
             .body(result);
@@ -68,25 +76,27 @@ public class ChecklistQuestionResource {
     /**
      * PUT  /checklist-questions : Updates an existing checklistQuestion.
      *
-     * @param checklistQuestion the checklistQuestion to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated checklistQuestion,
-     * or with status 400 (Bad Request) if the checklistQuestion is not valid,
-     * or with status 500 (Internal Server Error) if the checklistQuestion couldnt be updated
+     * @param checklistQuestionDTO the checklistQuestionDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated checklistQuestionDTO,
+     * or with status 400 (Bad Request) if the checklistQuestionDTO is not valid,
+     * or with status 500 (Internal Server Error) if the checklistQuestionDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/checklist-questions",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistQuestion> updateChecklistQuestion(@RequestBody ChecklistQuestion checklistQuestion) throws URISyntaxException {
-        log.debug("REST request to update ChecklistQuestion : {}", checklistQuestion);
-        if (checklistQuestion.getId() == null) {
-            return createChecklistQuestion(checklistQuestion);
+    public ResponseEntity<ChecklistQuestionDTO> updateChecklistQuestion(@RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
+        log.debug("REST request to update ChecklistQuestion : {}", checklistQuestionDTO);
+        if (checklistQuestionDTO.getId() == null) {
+            return createChecklistQuestion(checklistQuestionDTO);
         }
-        ChecklistQuestion result = checklistQuestionRepository.save(checklistQuestion);
-        checklistQuestionSearchRepository.save(result);
+        ChecklistQuestion checklistQuestion = checklistQuestionMapper.checklistQuestionDTOToChecklistQuestion(checklistQuestionDTO);
+        checklistQuestion = checklistQuestionRepository.save(checklistQuestion);
+        ChecklistQuestionDTO result = checklistQuestionMapper.checklistQuestionToChecklistQuestionDTO(checklistQuestion);
+        checklistQuestionSearchRepository.save(checklistQuestion);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("checklistQuestion", checklistQuestion.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("checklistQuestion", checklistQuestionDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,28 +111,29 @@ public class ChecklistQuestionResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<ChecklistQuestion>> getAllChecklistQuestions(Pageable pageable)
+    public ResponseEntity<List<ChecklistQuestionDTO>> getAllChecklistQuestions(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of ChecklistQuestions");
         Page<ChecklistQuestion> page = checklistQuestionRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/checklist-questions");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(checklistQuestionMapper.checklistQuestionsToChecklistQuestionDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
     /**
      * GET  /checklist-questions/:id : get the "id" checklistQuestion.
      *
-     * @param id the id of the checklistQuestion to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the checklistQuestion, or with status 404 (Not Found)
+     * @param id the id of the checklistQuestionDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the checklistQuestionDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/checklist-questions/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistQuestion> getChecklistQuestion(@PathVariable Long id) {
+    public ResponseEntity<ChecklistQuestionDTO> getChecklistQuestion(@PathVariable Long id) {
         log.debug("REST request to get ChecklistQuestion : {}", id);
         ChecklistQuestion checklistQuestion = checklistQuestionRepository.findOne(id);
-        return Optional.ofNullable(checklistQuestion)
+        ChecklistQuestionDTO checklistQuestionDTO = checklistQuestionMapper.checklistQuestionToChecklistQuestionDTO(checklistQuestion);
+        return Optional.ofNullable(checklistQuestionDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +143,7 @@ public class ChecklistQuestionResource {
     /**
      * DELETE  /checklist-questions/:id : delete the "id" checklistQuestion.
      *
-     * @param id the id of the checklistQuestion to delete
+     * @param id the id of the checklistQuestionDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/checklist-questions/{id}",
@@ -159,12 +170,12 @@ public class ChecklistQuestionResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<ChecklistQuestion>> searchChecklistQuestions(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<ChecklistQuestionDTO>> searchChecklistQuestions(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of ChecklistQuestions for query {}", query);
         Page<ChecklistQuestion> page = checklistQuestionSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/checklist-questions");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(checklistQuestionMapper.checklistQuestionsToChecklistQuestionDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
 

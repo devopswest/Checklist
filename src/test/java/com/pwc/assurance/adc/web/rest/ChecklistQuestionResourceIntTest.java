@@ -4,6 +4,8 @@ import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.ChecklistQuestion;
 import com.pwc.assurance.adc.repository.ChecklistQuestionRepository;
 import com.pwc.assurance.adc.repository.search.ChecklistQuestionSearchRepository;
+import com.pwc.assurance.adc.service.dto.ChecklistQuestionDTO;
+import com.pwc.assurance.adc.service.mapper.ChecklistQuestionMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +48,9 @@ public class ChecklistQuestionResourceIntTest {
     private ChecklistQuestionRepository checklistQuestionRepository;
 
     @Inject
+    private ChecklistQuestionMapper checklistQuestionMapper;
+
+    @Inject
     private ChecklistQuestionSearchRepository checklistQuestionSearchRepository;
 
     @Inject
@@ -67,6 +72,7 @@ public class ChecklistQuestionResourceIntTest {
         ChecklistQuestionResource checklistQuestionResource = new ChecklistQuestionResource();
         ReflectionTestUtils.setField(checklistQuestionResource, "checklistQuestionSearchRepository", checklistQuestionSearchRepository);
         ReflectionTestUtils.setField(checklistQuestionResource, "checklistQuestionRepository", checklistQuestionRepository);
+        ReflectionTestUtils.setField(checklistQuestionResource, "checklistQuestionMapper", checklistQuestionMapper);
         this.restChecklistQuestionMockMvc = MockMvcBuilders.standaloneSetup(checklistQuestionResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -98,10 +104,11 @@ public class ChecklistQuestionResourceIntTest {
         int databaseSizeBeforeCreate = checklistQuestionRepository.findAll().size();
 
         // Create the ChecklistQuestion
+        ChecklistQuestionDTO checklistQuestionDTO = checklistQuestionMapper.checklistQuestionToChecklistQuestionDTO(checklistQuestion);
 
         restChecklistQuestionMockMvc.perform(post("/api/checklist-questions")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(checklistQuestion)))
+                .content(TestUtil.convertObjectToJsonBytes(checklistQuestionDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the ChecklistQuestion in the database
@@ -167,10 +174,11 @@ public class ChecklistQuestionResourceIntTest {
         updatedChecklistQuestion
                 .code(UPDATED_CODE)
                 .description(UPDATED_DESCRIPTION);
+        ChecklistQuestionDTO checklistQuestionDTO = checklistQuestionMapper.checklistQuestionToChecklistQuestionDTO(updatedChecklistQuestion);
 
         restChecklistQuestionMockMvc.perform(put("/api/checklist-questions")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedChecklistQuestion)))
+                .content(TestUtil.convertObjectToJsonBytes(checklistQuestionDTO)))
                 .andExpect(status().isOk());
 
         // Validate the ChecklistQuestion in the database

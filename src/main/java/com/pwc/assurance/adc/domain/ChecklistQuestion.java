@@ -32,7 +32,7 @@ public class ChecklistQuestion implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> children = new HashSet<>();
