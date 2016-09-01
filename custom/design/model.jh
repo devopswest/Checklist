@@ -46,6 +46,13 @@ enum WorkflowAuthorities {
     ROLE_LPS_USER
 }
 
+enum EngagementAuthorities {
+    ROLE_PWC_ENGAGEMENT_TEAM,
+    ROLE_PWC_PERSSONEL_US,
+    ROLE_PWC_PERSSONEL_TERRITORY,
+    ROLE_PWC_MANAGEMENT
+}
+
 /**
  * Global Config
  **/
@@ -128,8 +135,7 @@ relationship OneToMany {
 /**
  * Library
  *
- * TODO: Questions, Diclosure Requirements, Matrix
- * Matrix vs Client metaada
+ * TODO: Matrix vs Client metaada
  *
  **/
 
@@ -151,8 +157,7 @@ relationship ManyToMany {
 /**
  * Workflow
  *
- * TODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or client
- * engagement.
+ * TODO: Workflow review tracking
  *
  **/
 entity Workflow {
@@ -186,7 +191,7 @@ relationship ManyToMany {
 /**
  * Checklist
  *
- * TODO: Workflow review tracking, questions help or guidance fields.
+ * TODO: Questions help or guidance fields.
  * Main/core checlists, Supplemental Checklists
  *
  **/
@@ -199,7 +204,7 @@ entity Checklist {
 
 entity ChecklistQuestion {
     code String,
-    description String
+    description String minlength(1) maxlength(4000)
 }
 
 relationship OneToMany {
@@ -218,12 +223,43 @@ relationship OneToMany {
     Question to ChecklistQuestion{question(question)}
 }
 
+/**
+ * Engagement
+ *
+ *
+ **/
+entity Engagement {
+    fiscalYear String,
+    description String,
+    status ResponseStatus
+}
+
+relationship OneToMany{
+    Client to Engagement{client(name)}
+}
+
+
+entity EngagementMember {
+    firstName String,
+    lastName String,
+    phone String,
+    email String,
+    authority EngagementAuthorities
+}
+relationship OneToOne{
+    EngagementMember{user(login)} to User
+}
+
+relationship ManyToMany {
+    Engagement{engagementMember(firstName)} to EngagementMember{engagement}
+}
+
+
 
 /**
  * Response Responses
  *
- * TODO: Workflow review tracking
- *
+*
  **/
 entity AuditProfile {
     fiscalYear String,
@@ -232,7 +268,7 @@ entity AuditProfile {
 }
 
 relationship OneToMany{
-    Client to AuditProfile{client(name)}
+    Engagement to AuditProfile{engagement(description)}
 }
 
 relationship OneToMany{
