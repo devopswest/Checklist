@@ -1,7 +1,7 @@
 <script type="text/ng-template" id="nodes_renderer.html">
-  <div style="vertical-align:top" ui-tree-handle class="tree-node tree-node-content">
+  <div style="vertical-align:top; diplay:block" ui-tree-handle class="tree-node tree-node-content">
 
-    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="vm.toggle(this)">
+        <a class="btn btn-success btn-xs" ng-hide="node.nodes && node.nodes.length == 0" data-nodrag ng-click="vm.toggle(this)">
     <span
         class="glyphicon"
         ng-class="{
@@ -11,35 +11,42 @@
 
         </span>
         </a>
+        <a class="btn btn-danger btn-xs" ng-show="node.nodes && node.nodes.length == 0" data-nodrag">
+    <span
+        class="glyphicon glyphicon-chevron-down">
 
+        </span>
+        </a>
 
-    <input type="text"
-         size="10%" name="nodeValue" id="field_id" value="{{node.id}}"/>
-
-    <input type="text"
-         size="70%" name="nodeValue" id="field_value" value="{{node.title}}"/>
-
-<!--     <div style="width: 90%" ng-if="node.nodes && node.nodes.length == 0" text-angular ng-model="node.title">     </div> -->
-
-    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
-        class="glyphicon glyphicon-edit"></span></a>
-
-    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
+        <input type="text" data-nodrag
+            size="10%" name="nodeValue" id="field_nodeValue" value="{{node.id}}"/>
+        <input type="text" data-nodrag
+         size="60%" name="nodeValue" id="field_nodeValue" value="{{node.title}}"/>
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 4px;"><span
         class="glyphicon glyphicon-plus"></span></a>
 
+    <uib-accordion ng-if="node.nodes && node.nodes.length == 0">
+        <div uib-accordion-group class="panel-default" heading="Add Description" data-nodrag>
+            <div style="width: 90%" text-angular ng-model="node.title" />
+        </div>
+    </uib-accordion>
 
-    <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)"><span
-        class="glyphicon glyphicon-remove"></span></a>
-
-
-
+    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.nodes" collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
 
   </div>
-  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-    </li>
-  </ol>
+
 </script>
+
+<style type="text/css">
+.panel-title {
+ font-size:14px!important;
+}
+</style>
 
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
@@ -105,6 +112,10 @@
             <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Collapse All</span>
         </button>
 
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.addQuestion()">
+            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Add Question</span>
+        </button>
+
 
 </div>
 
@@ -116,7 +127,7 @@
   <div class="col-sm-10">
     <div ui-tree id="tree-root">
       <ol ui-tree-nodes ng-model="vm.treedata">
-        <li ng-repeat="node in vm.treedata" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        <li ng-repeat="node in vm.treedata" collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'"></li>
       </ol>
     </div>
   </div>
@@ -129,7 +140,6 @@
 
         </div>
     </div>
-
 
 
     <div class="modal-footer">
@@ -145,4 +155,6 @@
         </button>
 
     </div>
+
+
 </form>

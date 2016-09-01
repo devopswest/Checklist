@@ -59,7 +59,12 @@ vm.treedata =
             "id": "1.1.1",
             "title": "node1.1.1",
             "nodes": []
-          }
+          },
+          {
+              "id": "1.1.2",
+              "title": "node1.1.2",
+              "nodes": []
+            }
         ]
       },
       {
@@ -186,6 +191,7 @@ vm.newSubItem=newSubItem;
           title: nodeData.title + '.' + (nodeData.nodes.length + 1),
           nodes: []
         });
+        scope.collapsed = false;
       };
 vm.collapseAll=collapseAll;
       function collapseAll () {
@@ -195,9 +201,17 @@ vm.expandAll=expandAll;
      function expandAll () {
         $scope.$broadcast('angular-ui-tree:expand-all');
       };
+vm.addQuestion=addQuestion;
+    function addQuestion () {
+        var newQuestion = {
+                "id": 'id ' + vm.treedata.length + 1,
+                "title": 'title ' + vm.treedata.length + 1,
+                "nodes": []
+                    };
+        vm.treedata.push(newQuestion);
+    }
 
-
-
+    //collapseAll();
 
     }
 })();
