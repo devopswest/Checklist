@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -59,7 +60,7 @@ public class ChecklistQuestionResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistQuestionDTO> createChecklistQuestion(@RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
+    public ResponseEntity<ChecklistQuestionDTO> createChecklistQuestion(@Valid @RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
         log.debug("REST request to save ChecklistQuestion : {}", checklistQuestionDTO);
         if (checklistQuestionDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("checklistQuestion", "idexists", "A new checklistQuestion cannot already have an ID")).body(null);
@@ -86,7 +87,7 @@ public class ChecklistQuestionResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<ChecklistQuestionDTO> updateChecklistQuestion(@RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
+    public ResponseEntity<ChecklistQuestionDTO> updateChecklistQuestion(@Valid @RequestBody ChecklistQuestionDTO checklistQuestionDTO) throws URISyntaxException {
         log.debug("REST request to update ChecklistQuestion : {}", checklistQuestionDTO);
         if (checklistQuestionDTO.getId() == null) {
             return createChecklistQuestion(checklistQuestionDTO);

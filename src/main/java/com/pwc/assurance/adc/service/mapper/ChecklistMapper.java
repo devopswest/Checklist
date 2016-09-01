@@ -14,7 +14,7 @@ import com.pwc.assurance.adc.service.dto.ChecklistQuestionDTO;
 
 /**
  * Mapper for the entity Checklist and its DTO ChecklistDTO.
- */ //@Mapper(componentModel = "spring", uses = {ChecklistQuestionMapper.class})
+ */
 @Mapper(componentModel = "spring", uses = {ChecklistQuestionMapper.class})
 public interface ChecklistMapper {
 
@@ -25,16 +25,13 @@ public interface ChecklistMapper {
     List<ChecklistDTO> checklistsToChecklistDTOs(List<Checklist> checklists);
 
     @Mapping(target = "checklistQuestions", ignore = true)
-  //@Mapping(source ="checklistQuestions", target = "checklistQuestions")
-    
+
     @Mapping(target = "auditProfiles", ignore = true)
     @Mapping(source = "countryId", target = "country")
     Checklist checklistDTOToChecklist(ChecklistDTO checklistDTO);
 
     List<Checklist> checklistDTOsToChecklists(List<ChecklistDTO> checklistDTOs);
 
-    //List<ChecklistQuestionDTO> map(Set<ChecklistQuestion> value);
-    
     default Country countryFromId(Long id) {
         if (id == null) {
             return null;
