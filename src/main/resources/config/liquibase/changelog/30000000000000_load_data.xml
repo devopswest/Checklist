@@ -28,17 +28,19 @@
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/checklist_question.csv"
-                  separator=";"
+                  separator="~"
                   tableName="checklist_question">
         </loadData>
 
+<!--
         <loadData encoding="UTF-8"
                   file="config/liquibase/checklist_question_deep.csv"
-                  separator=";"
+                  separator="~"
                   tableName="checklist_question">
-        </loadData>
+        </loadData> -->
 
 
     </changeSet>
+
 
 </databaseChangeLog>
