@@ -19,7 +19,10 @@ version="$(sed -n "s/.*\"\([0-9]*.[0-9]*.[0-9]*-[A-Z]*\).*/\1/p" < src/main/weba
 v1="$(echo $version|awk -F'.' '{print $1}')"
 v2="$(echo $version|awk -F'.' '{print $2}')"
 v3="$(echo $version|awk -F'.' '{print $3}')"
-v3="$(echo $v3|awk -F'-' '{print $1}')"
+v3a="$(echo $v3|awk -F'-' '{print $1}')"
+v3b="$(echo $v3|awk -F'-' '{print $2}')"
+
+v3=v3a
 
 if [ "$increase" = "MAJOR" ]; then
   echo "INCREATE MAJOR"
@@ -36,13 +39,13 @@ fi;
 
 newVersion=$v1"."$v2"."$v3
 echo "COMMAND: $increase"
-echo "OLD: $version | NEW: $newVersion"
+echo "OLD: $version | NEW: $newVersion-$v3b"
 #
 # Code updates
 #
 
-sed -i "s|version = '$version'|version = '$newVersion-SNAPSHOT'|" build.gradle
-sed -i "s|<version>$version</version>|<version>$newVersion-SNAPSHOT</version>|" pom.xml
-sed -i "s|$version|$newVersion-SNAPSHOT|" src/main/webapp/app/app.constants.js
+sed -i "s|version = '$version'|version = '$newVersion-$v3b'|" build.gradle
+sed -i "s|<version>$version</version>|<version>$newVersion-$v3b</version>|" pom.xml
+sed -i "s|$version|$newVersion-$v3b|" src/main/webapp/app/app.constants.js
 
 cat src/main/webapp/app/app.constants.js
