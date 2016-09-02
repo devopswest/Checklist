@@ -41,8 +41,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ChecklistQuestionResourceIntTest {
     private static final String DEFAULT_CODE = "AAAAA";
     private static final String UPDATED_CODE = "BBBBB";
-    private static final String DEFAULT_DESCRIPTION = "AAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBB";
+    private static final String DEFAULT_DESCRIPTION = "A";
+    private static final String UPDATED_DESCRIPTION = "B";
 
     @Inject
     private ChecklistQuestionRepository checklistQuestionRepository;

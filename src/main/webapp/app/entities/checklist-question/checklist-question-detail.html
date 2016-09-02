@@ -14,15 +14,15 @@
         </dd>
         <dt><span translate="checklistApp.checklistQuestion.checklist">Checklist</span></dt>
         <dd>
-            <a ui-sref="checklist-detail({id:vm.checklistQuestion.checklist.id})">{{vm.checklistQuestion.checklist.name}}</a>
+            <a ui-sref="checklist-detail({id:vm.checklistQuestion.checklistId})">{{vm.checklistQuestion.checklistName}}</a>
         </dd>
         <dt><span translate="checklistApp.checklistQuestion.parent">Parent</span></dt>
         <dd>
-            <a ui-sref="checklist-question-detail({id:vm.checklistQuestion.parent.id})">{{vm.checklistQuestion.parent.description}}</a>
+            <a ui-sref="checklist-question-detail({id:vm.checklistQuestion.parentId})">{{vm.checklistQuestion.parentDescription}}</a>
         </dd>
         <dt><span translate="checklistApp.checklistQuestion.question">Question</span></dt>
         <dd>
-            <a ui-sref="question-detail({id:vm.checklistQuestion.question.id})">{{vm.checklistQuestion.question.question}}</a>
+            <a ui-sref="question-detail({id:vm.checklistQuestion.questionId})">{{vm.checklistQuestion.questionQuestion}}</a>
         </dd>
     </dl>
 
