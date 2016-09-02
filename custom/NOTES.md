@@ -87,3 +87,38 @@ docker run -d --name database-pg -v /var/data/postgresql:/data -p 5432:5432 --re
 docker run -p 8080:9090 --name checklist -e SERVICE_PORT=9090 -e DB_USER=root -e DB_PASSWORD=pwc123 -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300 -e SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist  andresfuentes/checklist 
 
 
+-----
+
+JHIPSTER MARKETPLACE APPs
+
+
+npm install -g generator-jhipster-entity-audit
+npm install -g generator-jhipster-bootstrap-material-design
+npm install -g generator-jhipster-swagger-cli
+npm install -g generator-jhipster-docker
+npm install -g generator-jhipster-elasticsearch-reindexer
+npm install -g generator-jhipster-swagger2markup
+npm install -g generator-jhipster-module
+npm install -g generator-jhipster-basic-auth
+npm install -g generator-jhipster-react
+npm install -g generator-jhipster-bootswatch
+npm install -g generator-jhipster-leaflet
+npm install -g generator-jhipster-angular-ui
+npm install -g generator-jhipster-mssql
+npm install -g generator-jhipster-gitlab-ci-build-status
+npm install -g generator-jhipster-ci
+npm install -g generator-jhipster-google-maps
+npm install -g generator-jhipster-fortune
+npm install -g generator-jhipster-google-analytics
+
+
+---
+npm install -g generator-jhipster-debian-packager
+dpkg-i target/myapp_0.0.1~SNAPSHOT_all.deb
+sudo service <appname> start
+
+-- ionic
+npm install -g ionic yo bower gulp
+npm install -g generator-jhipster-ionic
+yo jhipster-ionic --force
+
