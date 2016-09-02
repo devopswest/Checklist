@@ -38,7 +38,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class AuditProfileResource {
 
     private final Logger log = LoggerFactory.getLogger(AuditProfileResource.class);
-        
+
     @Inject
     private AuditProfileRepository auditProfileRepository;
 
@@ -114,7 +114,7 @@ public class AuditProfileResource {
     public ResponseEntity<List<AuditProfileDTO>> getAllAuditProfiles(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of AuditProfiles");
-        Page<AuditProfile> page = auditProfileRepository.findAll(pageable);
+        Page<AuditProfile> page = auditProfileRepository.findAllWithEagerRelationships(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/audit-profiles");
         return new ResponseEntity<>(auditProfileMapper.auditProfilesToAuditProfileDTOs(page.getContent()), headers, HttpStatus.OK);
     }
@@ -161,7 +161,7 @@ public class AuditProfileResource {
      * SEARCH  /_search/audit-profiles?query=:query : search for the auditProfile corresponding
      * to the query.
      *
-     * @param query the query of the auditProfile search 
+     * @param query the query of the auditProfile search
      * @param pageable the pagination information
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers

@@ -14,11 +14,11 @@ import com.pwc.assurance.adc.domain.AuditProfile;
 @SuppressWarnings("unused")
 public interface AuditProfileRepository extends JpaRepository<AuditProfile,Long> {
 
-    @Query(value = "select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.questions left join fetch auditProfile.auditQuestionResponses",
+    @Query(value = "select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses",
             countQuery = "select count(auditProfile) from AuditProfile auditProfile")
     Page<AuditProfile> findAllWithEagerRelationships(Pageable pageable);
 
 
-    @Query("select auditProfile from AuditProfile auditProfile left join fetch auditProfile.questions left join fetch auditProfile.auditQuestionResponses where auditProfile.id =:id")
+    @Query("select auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses where auditProfile.id =:id")
     AuditProfile findOneWithEagerRelationships(@Param("id") Long id);
 }

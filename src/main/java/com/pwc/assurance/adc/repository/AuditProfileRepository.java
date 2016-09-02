@@ -1,11 +1,12 @@
 package com.pwc.assurance.adc.repository;
 
-import com.pwc.assurance.adc.domain.AuditProfile;
-
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import com.pwc.assurance.adc.domain.AuditProfile;
 
 /**
  * Spring Data JPA repository for the AuditProfile entity.
@@ -13,10 +14,11 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface AuditProfileRepository extends JpaRepository<AuditProfile,Long> {
 
-    @Query("select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses")
-    List<AuditProfile> findAllWithEagerRelationships();
+    @Query(value = "select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses",
+            countQuery = "select count(auditProfile) from AuditProfile auditProfile")
+    Page<AuditProfile> findAllWithEagerRelationships(Pageable pageable);
+
 
     @Query("select auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses where auditProfile.id =:id")
     AuditProfile findOneWithEagerRelationships(@Param("id") Long id);
-
 }
