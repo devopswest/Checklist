@@ -16,6 +16,20 @@
     },
 
     {
+        "id": "change-banner",
+        "name":"Change Banner",
+        "description": "Change banner",
+        "path": "change-banner",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ],
+        "active" : "true"
+    },
+
+    {
         "id" : "application-settings",
         "name":"Application Settings Changes",
         "description": "This Feature changes default settings configuration",
