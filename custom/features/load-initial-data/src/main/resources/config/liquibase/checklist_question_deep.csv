@@ -566,6 +566,13 @@ checklist_id~parent_id~id~code~description
 1~566~567~B|B24.|(b)|(5)|a.~The corresponding entry.
 1~566~568~B|B24.|(b)|(5)|b.~Where the entry was recorded in the financial statements.
 1~566~569~B|B24.|(b)|(5)|b.~<U>Note</U>: The above guidance and disclosures in (b) above (ASC 405-40-50-1) do not apply to asset retirement and environmental obligations under ASC 410, contingencies under ASC 450, guarantees under ASC 460, retirement benefits under ASC 715, and income taxes under ASC 740.
+1~80~570~B|B25.~<B>Commitments and Contingent Liabilities:</B>
+1~80~571~B|B25.~Show caption on face of balance sheet and describe in the notes. (See checklist items G23, Accounting for the Impairment or Disposal of Long-Lived Assets under ASC 360, and G24, Leases.)
+1~80~572~B|B26.~<B>Deferred Credits:</B>
+1~80~573~B|B26.~State separately in the balance sheet:
+1~572~574~B|B26.|(a)~Deferred income taxes.
+1~572~575~B|B26.|(b)~Material items of deferred income.
+1~572~576~B|B26.|(c)~Deferred tax (investment) credits.
 1~80~577~B|B27.~<B>Non-Controlling Interest in Consolidated Subsidiaries:</B>
 1~577~578~B|B27.|(a)~The noncontrolling interest shall be reported in the consolidated statement of financial position within equity, separately from the parent's equity. That amount shall be clearly identified and labeled, for example, as noncontrolling interest in subsidiaries (see ASC 810-10-55-4I). An entity with noncontrolling interests in more than one subsidiary may present those interests in aggregate in the consolidated financial statements.
 1~577~579~B|B27.|(b)~Classify as last item before "shareholders' equity" section or "redeemable equity securities/preferred stock" as applicable.
@@ -950,12 +957,16 @@ checklist_id~parent_id~id~code~description
 1~959~960~D|D3A.|(c)|(6)|a.~Payments to settle lawsuits;
 1~959~961~D|D3A.|(c)|(6)|b.~Cash contributions to charities; and
 1~959~962~D|D3A.|(c)|(6)|c.~Cash refunds to customers.
+1~894~963~D|D3B.~<B>Reconciling Net Cash Flow from Operating Activities to Net Income:</B>
+1~963~964~D|D3B.|(a)~Provide a reconciliation of net cash flow from operating activities to net income regardless of whether the direct or indirect method of reporting net cash flow from operating activities is used.
 1~964~965~D|D3B.|(a)|(1)~If the direct method is used, the reconciliation must be presented in a separate schedule.
 1~964~966~D|D3B.|(a)|(2)~If the indirect method is used, the reconciliation can be presented within the statement or in a separate schedule, with the statement reporting only the net cash flow from operating activities.
+1~963~967~D|D3B.|(b)~The reconciliation shall separately disclose all major classes of reconciling items. At a minimum, disclose separately changes during the period in:
 1~967~968~D|D3B.|(b)|(1)~Receivables pertaining to operating activities.
 1~967~969~D|D3B.|(b)|(2)~Inventory.
 1~967~970~D|D3B.|(b)|(3)~Payables pertaining to operating activities.
 1~967~971~D|D3B.|(b)|(4)~Reconciling items for changes in assets and liabilities should be presented net of the effects of purchased and disposed businesses.
+1~963~972~D|D3B.|(c)~Other typical reconciling items might include:
 1~972~973~D|D3B.|(c)|(1)~Accruals of expected future operating cash receipts and payments:
 1~973~974~D|D3B.|(c)|(1)|a.~Notes receivable from customers arising from sale of goods or services.
 1~973~975~D|D3B.|(c)|(1)|b.~Interest receivable.
@@ -989,6 +1000,8 @@ checklist_id~parent_id~id~code~description
 1~999~1003~D|D3B.|(c)|(4)|d.~Sale of debt (other than cash equivalents, certain debt instruments that are acquired specifically for resale, and securities classified as trading securities) or equity securities of other entities.
 1~999~1004~D|D3B.|(c)|(4)|e.~Collection/sale of loans.
 1~999~1005~D|D3B.|(c)|(4)|f.~Return of an investment, such as a liquidating dividend.
+1~894~1006~D|D4.~<B>Investing Activities:</B>
+1~1006~1007~D|D4.|(a)~Cash paid to:
 1~1007~1008~D|D4.|(a)|(1)~Acquire property, plant, and equipment and other productive assets (including capitalized interest) provided the cash is paid soon before, at the time of, or soon after the purchase.
 1~1007~1009~D|D4.|(a)|(2)~Acquire intangible assets.
 1~1007~1010~D|D4.|(a)|(3)~Acquire a business. (However, the net effect on the changes in current assets and liabilities acquired should be excluded from cash flows from operating activities.)
@@ -997,6 +1010,7 @@ checklist_id~parent_id~id~code~description
 1~1007~1013~D|D4.|(a)|(6)~Make loans to another entity.
 1~1007~1014~D|D4.|(a)|(7)~Make investments in and advances to affiliates (except for subsidiaries in a consolidated group).
 1~1007~1015~D|D4.|(a)|(8)~Make leasehold improvements, lease commissions, and similar costs that are initially deferred or capitalized.
+1~1006~1016~D|D4.|(b)~Cash received from:
 1~1016~1017~D|D4.|(b)|(1)~Sale of property, plant, and equipment and other productive assets.
 1~1016~1018~D|D4.|(b)|(2)~Sale of a business unit, such as a subsidiary or division.
 1~1016~1019~D|D4.|(b)|(3)~Sale or maturity of debt (other than cash equivalents, certain debt instruments acquired specifically for resale, and securities classified as trading) or sale of equity securities of other entities.
@@ -1115,6 +1129,11 @@ checklist_id~parent_id~id~code~description
 1~1133~1134~F|F1.|(g)|(2)|a.~Present significant amounts by each component of accumulated other comprehensive income and provide a subtotal of each component of comprehensive income. The subtotals for each component must agree with the requirements in (f) above (ASC 220-10-45-14A). Both before-tax and net-of-tax presentations are permitted, provided the entity complies with the requirements in ASC 220-10-45-12.
 1~1133~1135~F|F1.|(g)|(2)|b.~For each significant reclassification amount, identify, for those amounts that are required by other guidance under GAAP to be reclassified to net income in their entirety in the same reporting period, each line item affected by the reclassification on the statement where net income is presented. For any significant reclassification for which other guidance under GAAP does not require that reclassification to net income in its entirety in the same reporting period, cross-reference to the note where additional details about the effect of the reclassifications are disclosed.
 1~1133~1136~F|F1.|(g)|(2)|b.~
+1~1137~1138~G|G1.~<B>Accounting Policies and Methods of Application:</B>
+1~1137~1139~G|G1.~Describe all accounting principles and methods of applying them in use that materially affect the entity's financial position, results of operations, cash flows, or comprehensive income. The disclosure should include important judgments as to the appropriateness of principles relating to revenue recognition and allocation of costs to current and future periods, with particular focus on principles that are either (i) a selection from acceptable alternatives, (ii) peculiar to the industry in which the entity operates, or (iii) unusual or innovative applications of GAAP. These disclosures shall also be made where one or more of the basic statements are issued without the others and purport to present fairly the information in accordance with GAAP.
+1~1137~1140~G|G1.~These might include:
+1~1138~1141~G|G1.|(a)~Basis of consolidation. Please see item G13, Variable Interest Entities, for disclosures required for variable interest entities.
+1~1138~1142~G|G1.|(b)~Revenue recognition.
 1~1142~1143~G|G1.|(b)|(1)~Disclosure should include company specific disclosure regarding the nature, terms, and activities from which revenue is generated and the accounting policies for each material revenue generating activity such as:
 1~1143~1144~G|G1.|(b)|(1)|a.~Multiple element arrangements including a description of the nature of such arrangements, including performance-, cancellation-, termination-, or refund-type provisions.
 1~1143~1145~G|G1.|(b)|(1)|b.~Arrangements resulting in deferred revenue.
@@ -1145,13 +1164,35 @@ checklist_id~parent_id~id~code~description
 1~1169~1170~G|G1.|(b)|(6)|a.~Accounting policy for incremental direct costs (consider criteria for assets under CON 6).
 1~1169~1171~G|G1.|(b)|(6)|b.~Accounting policies for determining which costs to capitalize as contract acquisition and origination costs.
 1~1142~1172~G|G1.|(b)|(7)~Companies that sell vaccines to the Federal government and have elected the alternative accounting treatment as provided by the SEC should make those disclosures addressed in "SEC Guidance Regarding Accounting for Sales of Vaccines and Bioterror Countermeasures to the Federal Government for Placement into the Pediatric Vaccine Stockpile or the Strategic National Stockpile."
+1~1138~1173~G|G1.|(c)~Depreciation methods.
+1~1138~1174~G|G1.|(d)~Research and development:
 1~1174~1175~G|G1.|(d)|(1)~Policies for internal research and development expenditures, research and development conducted for others, and research and development services for which the company has contracted.
 1~1174~1176~G|G1.|(d)|(2)~The types of costs included in R&D costs, including salaries, contractor fees, building costs, utilities, administrative expenses, and allocations of corporate costs.
+1~1138~1177~G|G1.|(e)~Inventory pricing.
+1~1138~1178~G|G1.|(f)~Method of accounting for investment tax credits.
+1~1138~1179~G|G1.|(g)~Recognition of profits on long-term construction-type contracts.
+1~1138~1180~G|G1.|(h)~Retirement or disposition of fixed assets and related gains and losses.
+1~1138~1181~G|G1.|(i)~Tooling costs.
+1~1138~1182~G|G1.|(j)~Pre-production costs related to long-term supply arrangements.
 1~1182~1183~G|G1.|(j)|(1)~Disclose the following:
 1~1183~1184~G|G1.|(j)|(1)|a.~The accounting policy for pre-production design and development costs;
 1~1183~1185~G|G1.|(j)|(1)|b.~Assets recognized pursuant to agreements that provide for contractual reimbursement of pre-production design and development costs;
 1~1183~1186~G|G1.|(j)|(1)|c.~Assets recognized for molds, dies, and other tools that the supplier owns; and;
 1~1183~1187~G|G1.|(j)|(1)|d.~Assets recognized for molds, dies, and other tools that the supplier does not own.
+1~1138~1188~G|G1.|(k)~Advertising and sales promotion costs (unless incurred for purposes required to be expensed directly). Also refer to checklist Item 6 of this Section.
+1~1138~1189~G|G1.|(l)~By-product revenues.
+1~1138~1190~G|G1.|(m)~Computer software costs (other than those considered research and development costs). Also refer to checklist Item 8 of this Section.
+1~1138~1191~G|G1.|(n)~Forward contracts and standby contracts.
+1~1138~1192~G|G1.|(o)~Accounting for US government contracts.
+1~1138~1193~G|G1.|(p)~For tax leases, disclose the method of accounting for the lease and for recognizing revenue and allocating income tax benefits and asset costs to current and future periods.
+1~1138~1194~G|G1.|(q)~Accounting for anticipated prepayments of principal amounts of loans.
+1~1138~1195~G|G1.|(r)~Policy for determining which items are treated as cash equivalents.
+1~1138~1196~G|G1.|(s)~Method of allocating interest to discontinued operations in determining the gain or loss from discontinuation.
+1~1138~1197~G|G1.|(t)~Financial statements prepared (by mutual life and other regulated enterprises) based on regulatory accounting practices that differ from GAAP should not be described as prepared "in conformity with generally accepted accounting principles."
+1~1138~1198~G|G1.|(u)~Policy for credit card fees and costs for both purchased and originated cards along with the net amount capitalized at the balance sheet date and the amortization period(s).
+1~1138~1199~G|G1.|(v)~For entities that elect to early adopt ASU 2015-10, Technical Corrections and Improvements (effective for all entities that are public business entities for annual periods ending after December 15, 2016), instead of disclosing (v) above, disclose the policy for credit card fees and costs for both purchased and originated cards that are not private label credit cards along with the net amount capitalized at the balance sheet date and the amortization period(s).
+1~1138~1200~G|G1.|(w)~Policy for all derivative financial instruments.
+1~1138~1201~G|G1.|(x)~<B>(REQUIRED FOR SRCs.)</B> The SEC also requires the following disclosures pursuant to S-X 4-08(n):
 1~1201~1202~G|G1.|(x)|(1)~Disclose descriptions of the accounting policies used and the methods of applying those policies that materially affect the determination of financial position, cash flows, or results of operations. The description shall include, to the extent material, each of the following items:
 1~1202~1203~G|G1.|(x)|(1)|a.~the accounting method for each derivative instrument.
 1~1202~1204~G|G1.|(x)|(1)|b.~the types of derivatives accounted for under each method.
@@ -1161,8 +1202,19 @@ checklist_id~parent_id~id~code~description
 1~1202~1208~G|G1.|(x)|(1)|f.~the accounting method used for derivatives when the designated hedged item matures, is sold, is extinguished, or is terminated; or a hedged anticipated transaction is no longer likely to occur.
 1~1202~1209~G|G1.|(x)|(1)|g.~where and when derivatives and their related gains and losses are reported in the statements of financial position, cash flows, and results of operations.
 1~1201~1210~G|G1.|(x)|(2)~For disclosure guidelines b., c., d., and g. above, the disclosures should be presented separately for derivatives entered into for trading purposes and those entered into for purposes other than trading.
+1~1138~1211~G|G1.|(y)~Method of accounting for premiums paid (time value) to acquire options that are classified as held-to-maturity or available-for-sale.
+1~1138~1212~G|G1.|(z)~Method for recognizing lease termination penalties (i.e., discounted or undiscounted basis).
+1~1138~1213~G|G1.|(aa)~Policies for specific contingencies such as product warranties, litigation, patent infringement, environmental matters, and contingent commissions.
+1~1138~1214~G|G1.|(ab)~The SEC staff believes that disclosure of the accounting policy for legal costs expected to be incurred in connection with a loss contingency should be provided.
+1~1138~1215~G|G1.|(ac)~Disclose the accounting policies for the following items relating to real estate development and construction cost activities:
 1~1215~1216~G|G1.|(ac)|(1)~Capitalization of project costs (e.g., pre-acquisition, acquisition, development, and construction costs).
 1~1215~1217~G|G1.|(ac)|(2)~Capitalization of interest costs.
+1~1138~1218~G|G1.|(ad)~Policy for classification of shipping and handling costs.
+1~1138~1219~G|G1.|(ae)~The method of recognizing compensation cost for fixed stock option awards with pro-rata vesting.
+1~1138~1220~G|G1.|(af)~The method used to account for stock-based employee compensation (see item G27, Share-Based Payment (ASC 718)).
+1~1138~1221~G|G1.|(ag)~Disclose the accounting policy for life settlement contracts including the classification of cash receipts and cash disbursements in statement of cash flows.
+1~1138~1222~G|G1.|(ah)~The accounting policy for presentation of taxes assessed by a governmental authority that is both imposed on and concurrent with a specific revenue-producing transaction between a seller and a customer either on a gross basis or a net basis.
+1~1138~1223~G|G1.|(ah)~<U>Note</U>: Financial statement disclosure of accounting policies shall not duplicate details (for example, composition of inventories or of plant assets) presented elsewhere as part of the financial statements. In some cases, the disclosure of accounting policies shall refer to related details presented elsewhere as part of the financial statements; for example, changes in accounting policies during the period shall be described with cross-reference to the disclosure required by ASC 250.
 1~1137~1224~G|G2.~<B>Financing Receivables</B>
 1~1224~1225~G|G2.|(a)~The accounting policy for loans and trade receivables, including:
 1~1225~1226~G|G2.|(a)|(1)~The guidance in ASC 310-10-50-6 through 50-8 does not apply to loans acquired with deteriorated credit quality (accounted for under ASC 310-30).
@@ -1295,6 +1347,15 @@ checklist_id~parent_id~id~code~description
 1~1351~1353~G|G5.|(a)|(6)|b.~Revenue from particular products, services, or fund-raising events.
 1~1351~1354~G|G5.|(a)|(6)|c.~Available sources of supply of materials, labor, services, licenses, or other rights used in the entity's operations.
 1~1351~1355~G|G5.|(a)|(6)|d.~Market or geographic area in which an entity conducts its operations.
+1~1137~1356~G|G6.~<B>Advertising Costs and Revenues:</B>
+1~1137~1357~G|G6.~Disclose the following:
+1~1356~1358~G|G6.|(a)~The accounting policy for reporting advertising (refer to the two alternatives in ASC 720-35-25-1), indicating whether such costs are expensed as incurred or the first time the advertising takes place.
+1~1356~1359~G|G6.|(b)~A description of the direct-response advertising reported as assets (if any), the accounting policy for it, and the amortization period.
+1~1356~1360~G|G6.|(c)~The total amount charged to advertising expense for each income statement presented, with separate disclosure of amounts, if any, representing a write-down to net realizable value.
+1~1356~1361~G|G6.|(d)~The total amount of advertising reported as assets in each balance sheet presented.
+1~1356~1362~G|G6.|(d)~<U>Note</U>: The SEC staff has indicated that if the period over which deferred advertising costs will be amortized exceeds twelve months, no portion of the deferred costs should be classified as current assets.
+1~1356~1363~G|G6.|(e)~The amount of revenue and expense recognized from advertising barter transactions for each income statement period presented.
+1~1356~1364~G|G6.|(f)~Information regarding the volume and type of advertising surrendered and received in advertising barter transactions for which the fair value is not determinable for each income statement presented.
 1~1137~1365~G|G7.~<B>Research and Development Costs:</B>
 1~1365~1366~G|G7.|(a)~Disclose total research and development (R&D) costs charged to expense in each period for which an income statement is presented.
 1~1365~1367~G|G7.|(b)~For R&D arrangements that are accounted for as contracts to perform R&D for others, disclose:
@@ -1316,6 +1377,11 @@ checklist_id~parent_id~id~code~description
 1~1371~1383~G|G7.|(c)|(12)~In subsequent filings:
 1~1383~1384~G|G7.|(c)|(12)|a.~Continue disclosure of status of efforts to complete the R&D projects and the impact any delays may have.
 1~1383~1385~G|G7.|(c)|(12)|b.~Explain any material variations between projected results and actual results, and how failure to achieve projected results impacted (or will impact) the company's expected return on investment, future results, and financial condition.
+1~1137~1386~G|G8.~<B>Computer Software Costs:</B>
+1~1386~1387~G|G8.|(a)~For software to be sold, leased, or otherwise marketed, disclose unamortized computer software costs included in each balance sheet presented.
+1~1386~1388~G|G8.|(b)~For software to be sold, leased, or otherwise marketed, disclose the total amount charged to expense in each income statement presented for amortization of capitalized computer software costs and for amounts written down to net realizable value. The amortization and write-down amounts may be combined with only the total of the two expenses disclosed.
+1~1386~1389~G|G8.|(c)~Provide disclosures related to existing authoritative literature (ASC 275, ASC 730-10, ASC 235 and ASC 360-10) for costs of computer software developed or obtained for internal use. For reference, ASC 360-10-50-1 requires disclosure of depreciation expense, balances of major classes of depreciable assets by nature or function, accumulated depreciation either by major classes of depreciable assets or in total, and a general description of the method or methods used in computing depreciation with respect to major classes of depreciable assets.
+1~1386~1390~G|G8.|(c)~<U>Note</U>: The disclosure requirements for research and development costs in ASC 730-10-50-1 (see item G6, Advertising Costs and Revenues) apply to research and development costs incurred for a computer software product to be sold, leased, or otherwise marketed.
 1~1137~1391~G|G9.~<B>Long-Term Contracts:</B>
 1~1391~1392~G|G9.|(a)~Disclose the following:
 1~1392~1393~G|G9.|(a)|(1)~Method of accounting used in calculating income (ASC 605-35-50), including principal assumptions (including total expected unit sales, units sold to date and units on order) underlying a total program or similar basis of accounting where an estimated average cost per unit for the program is used as a basis for removing cost from inventories.
@@ -1827,6 +1893,10 @@ checklist_id~parent_id~id~code~description
 1~1887~1899~G|G20B.|(c)|(2)~For each class of servicing assets and servicing liabilities, the fair value of recognized servicing assets and servicing liabilities at the beginning and end of the period.
 1~1887~1900~G|G20B.|(c)|(3)~The risk characteristics of the underlying financial assets used to stratify recognized servicing assets for purposes of measuring impairment in accordance with ASC 860-50-35-9.
 1~1887~1901~G|G20B.|(c)|(4)~If the predominant risk characteristics in (3) above and resulting stratums are changed, that fact and the reasons for those changes shall be included in the disclosures about the risk characteristics of the underlying financial assets used to stratify the recognized servicing assets.
+1~1887~1902~G|G20B.|(c)|(5)~For each period for which results of operations are presented, the activity by class in any valuation allowance for impairment of recognized servicing assets, including:
+1~1902~1903~G|G20B.|(c)|(5)|a.~Beginning and ending balances.
+1~1902~1904~G|G20B.|(c)|(5)|b.~Aggregate additions charged and recoveries credited to operations.
+1~1902~1905~G|G20B.|(c)|(5)|c.~Aggregate write-downs charged against the allowance.
 1~1868~1906~G|G20B.|(d)~In determining whether to aggregate the disclosures for multiple transfers, the reporting entity shall consider quantitative and qualitative information about the characteristics of the transferred financial assets, including all of the following:
 1~1906~1907~G|G20B.|(d)|(1)~The nature of the transferor's continuing involvement.
 1~1906~1908~G|G20B.|(d)|(2)~The types of financial assets transferred.
@@ -1871,6 +1941,9 @@ checklist_id~parent_id~id~code~description
 1~1935~1947~G|G21.|(a)|b.~Further, for those loans that are not accounted for as debt securities, disclose:
 1~1947~1948~G|G21.|(a)|b.|i)~The amount of (a) any expense recognized pursuant to ASC 310-30 and (b) any reductions of the allowance recognized pursuant to ASC 310-30 for each period for which an income statement is presented.
 1~1947~1949~G|G21.|(a)|b.|ii)~The amount of the allowance for uncollectible accounts at the beginning and end of the period.
+1~1137~1950~G|G22.~<B>Troubled Debt Restructurings:</B>
+1~1137~1951~G|G22.~For debtors, disclose the following information required by ASC 470-60.
+1~1950~1952~G|G22.|(a)~Disclose the following:
 1~1952~1953~G|G22.|(a)|(1)~For each restructuring: the principal changes in terms, the major features of settlement, or both.
 1~1952~1954~G|G22.|(a)|(2)~Aggregate gain on restructuring of payables, including per share amounts.
 1~1952~1955~G|G22.|(a)|(3)~Aggregate net gain or loss on assets transferred in full or partial settlement of debt.
@@ -1904,6 +1977,8 @@ checklist_id~parent_id~id~code~description
 1~1979~1983~G|G23.|(e)|(2)~For all other entities, both of the following:
 1~1983~1984~G|G23.|(e)|(2)|a.~The pretax profit or loss of the individually significant component of an entity for the period in which it is disposed of or is classified as held for sale.
 1~1983~1985~G|G23.|(e)|(2)|b.~If the individually significant component of an entity includes a noncontrolling interest, the pretax profit or loss attributable to the parent for the period in which it is disposed of or is classified as held for sale.
+1~1137~1986~G|G24.~<B>Leases:</B>
+1~1986~1987~G|G24.|(a)~Disclosures by lessees:
 1~1987~1988~G|G24.|(a)|(1)~For capital leases, disclose on the face of the lessee's financial statements or in the notes:
 1~1988~1989~G|G24.|(a)|(1)|a.~The gross amount of assets recorded under capital leases as of the date of each balance sheet presented by major classes according to nature or function. This information may be combined with the comparable information for owned assets.
 1~1988~1990~G|G24.|(a)|(1)|b.~Future minimum lease payments as of the latest balance sheet date in the aggregate and for each of the five succeeding fiscal years, with separate deductions from the total for executory costs included in the minimum lease payments and for the amount of the imputed interest necessary to reduce the net minimum lease payments to present value.
@@ -1932,6 +2007,8 @@ checklist_id~parent_id~id~code~description
 1~2011~2013~G|G24.|(a)|(4)|b.~For sale/leaseback transactions involving real estate accounted for by the deposit method or as a financing, disclose:
 1~2013~2014~G|G24.|(a)|(4)|b.|i)~Future minimum lease payments as of the latest balance sheet, in the aggregate and for each of the five succeeding years.
 1~2013~2015~G|G24.|(a)|(4)|b.|ii)~Total future minimum rentals under noncancelable subleases as of the latest balance sheet, in the aggregate and for each of the five succeeding years.
+1~1986~2016~G|G24.|(b)~Disclosures by lessors:
+1~2016~2017~G|G24.|(b)|(1)~For sales-type and direct financing leases, disclose:
 1~2017~2018~G|G24.|(b)|(1)|a.~The components of the net investment in sales-type and direct financing leases as of the date of each balance sheet presented:
 1~2018~2019~G|G24.|(b)|(1)|a.|i)~The future minimum lease payments to be received, with separate deductions for:
 1~2019~2020~G|G24.|(b)|(1)|a.|i)|1)~Amounts representing executory costs (including profit thereon) included in the minimum lease payments.
@@ -1941,11 +2018,15 @@ checklist_id~parent_id~id~code~description
 1~2019~2024~G|G24.|(b)|(1)|a.|i)|5)~Unearned income.
 1~2017~2025~G|G24.|(b)|(1)|b.~Future minimum lease payments to be received for each of the five succeeding fiscal years as of the date of the latest balance sheet presented.
 1~2017~2026~G|G24.|(b)|(1)|c.~Total contingent rentals included in income for each period for which an income statement is presented.
+1~2016~2027~G|G24.|(b)|(2)~For operating leases, disclose:
 1~2027~2028~G|G24.|(b)|(2)|a.~The cost and carrying amount, if different, of property on lease or held for leasing by major classes of property according to nature or function, and the amount of accumulated depreciation in total as of the date of the latest balance sheet presented.
 1~2027~2029~G|G24.|(b)|(2)|b.~Minimum future rentals on noncancelable leases as of the date of the latest balance sheet presented in the aggregate and for each of the five succeeding fiscal years.
 1~2027~2030~G|G24.|(b)|(2)|c.~Total contingent rentals included in income for each period for which an income statement is presented.
+1~2016~2031~G|G24.|(b)|(3)~For leveraged leases:
 1~2031~2032~G|G24.|(b)|(3)|a.~Disclose the components of the company's net investment in leveraged leases in the notes.
 1~2031~2033~G|G24.|(b)|(3)|b.~For purposes of presenting the investment in a leveraged lease in the lessor's balance sheet, the amount of related deferred taxes shall be presented separately (from the remainder of the net investment). In the income statement or the notes, separate presentation (from each other) shall be made of pretax income from the leveraged lease, the tax effect of pretax income, and the amount of investment tax credit recognized as income during the period.
+1~1137~2034~G|G25.~<B>Disclosure of Commitments and Contingencies:</B>
+1~2034~2035~G|G25.|(a)~For loss contingencies:
 1~2035~2036~G|G25.|(a)|(1)~If an accrual is made, disclose the nature and amount of the accrual if necessary for the financial statements not to be misleading.
 1~2035~2037~G|G25.|(a)|(2)~Provide additional disclosures for loss contingencies to ensure that the financial statements are not misleading and provide readers with the range of reasonably possible outcomes that could materially impact the financial statements, including:
 1~2037~2038~G|G25.|(a)|(2)|a.~Circumstances affecting the reliability and precision of loss estimates.
@@ -1965,12 +2046,16 @@ checklist_id~parent_id~id~code~description
 1~2050~2052~G|G25.|(a)|(4)|b.~Management should have a reliable basis for disclosing that a contingency will not have a material effect and that such basis should be verifiable.
 1~2050~2053~G|G25.|(a)|(4)|c.~If a registrant concludes its disclosure by indicating that the ultimate resolution of the uncertainty is not expected to be material, that conclusion should extend to results of operations, cash flows or any other decision to buy or sell the registrants' securities as well as financial position.
 1~2050~2054~G|G25.|(a)|(4)|d.~Registrants must present the gross liability and related claim for recovery.
+1~2034~2055~G|G25.|(b)~Disclose unresolved pre-quasi-reorganization contingencies subsequent to the date of the reorganization as long as such contingencies remain outstanding.
+1~2034~2056~G|G25.|(c)~Disclose gain contingencies, but avoid misleading implications about the likelihood of realization.
+1~2034~2057~G|G25.|(d)~Disclose nature and amount of commitments and guarantees (whether oral or written), including, but not limited to:
 1~2057~2058~G|G25.|(d)|(1)~Direct and indirect guarantees of indebtedness of others.
 1~2057~2059~G|G25.|(d)|(2)~Guarantees to repurchase receivables.
 1~2057~2060~G|G25.|(d)|(3)~Unused letters of credit.
 1~2057~2061~G|G25.|(d)|(4)~Plant acquisition.
 1~2057~2062~G|G25.|(d)|(5)~Guarantees relating to the sale of a business or operating assets to a highly leveraged entity.
 1~2057~2063~G|G25.|(d)|(6)~Disclose nature of bank support of money market mutual funds. The SEC's Office of the Chief Accountant believes that on-balance sheet accounting for supported money market funds is not required if the sponsoring financial institution does not absorb the majority of the expected future risk associated with the money market fund's assets, including interest rate, liquidity, credit and other relevant risks that are expected to impact the value of the money market fund assets.
+1~2034~2064~G|G25.|(e)~Guarantor and product warranty disclosures:
 1~2064~2065~G|G25.|(e)|(1)~A guarantor shall disclose the following information about each guarantee, or each group of similar guarantees, even if the likelihood of the guarantor's having to make any payments under the guarantee is remote:
 1~2065~2066~G|G25.|(e)|(1)|a.~The nature of the guarantee, including the approximate term of the guarantee, how the guarantee arose, and the events or circumstances that would require the guarantor to perform under the guarantee.
 1~2065~2067~G|G25.|(e)|(1)|b.~The maximum potential amount of future payments (undiscounted) the guarantor could be required to make under the guarantee. That maximum potential amount of future payments shall not be reduced by the effect of any amounts that may possibly be recovered under recourse or collateralization provisions in the guarantee. If the terms of the guarantee provide for no limitation to the maximum potential future payments under the guarantee, that fact shall be disclosed. If the guarantor is unable to develop an estimate of the maximum potential amount of future payments under its guarantee, the guarantor shall disclose the reasons why it cannot estimate the maximum potential amount.
@@ -1987,6 +2072,12 @@ checklist_id~parent_id~id~code~description
 1~2064~2078~G|G25.|(e)|(3)~The disclosures required by ASC 460 do not eliminate or affect the requirement in ASC 825-10 that certain entities disclose the fair value of their financial guarantees issued.
 1~2064~2079~G|G25.|(e)|(4)~Some guarantees are issued to benefit entities that meet the definition of a related party in ASC 850-10-20, such as joint ventures, equity method investees, and certain entities for which the controlling financial interest cannot be assessed by analyzing voting interests. In those cases, the disclosure requirements required by ASC 460 are incremental to the disclosures required by ASC 850-10.
 1~2064~2080~G|G25.|(e)|(4)~<U>Note</U>: For indemnifications, warranties, and representations that are outside the scope of ASC 460, it may still be preferable to provide some descriptive disclosures, such as their nature and terms. The disclosures may be helpful to financial statement users to evaluate the risks and uncertainties of the indemnitor's business.
+1~2034~2081~G|G25.|(f)~For all issues of capital stock that are redeemable at fixed or determinable prices or dates, disclose the redemption requirements for each of the next five years.
+1~2034~2082~G|G25.|(g)~For unconditional purchase obligations that meet the criteria in ASC 440-10-50-2 and that have <U>not</U> been recorded on the balance sheet, provide the disclosures required by ASC 440-10-50-4 through 50-5. Consider the disclosure requirements in ASC 815-10-50-6 if also applicable to obligations.
+1~2034~2083~G|G25.|(h)~If our audit procedures raise substantial doubt about the entity's ability to continue as a going concern for a reasonable period of time, we should extend our procedures and consider management's plans for dealing with the adverse effects of the conditions and events. If after considering management's plans our initial doubt is alleviated, we should consider the need for disclosure of the principal conditions and events that initially caused us to believe there was substantial doubt.
+1~2034~2084~G|G25.|(i)~Disclose the nature of significant commitments and obligations arising from franchise agreements including services that the franchisor has agreed to provide that have not yet been substantially performed.
+1~2034~2085~G|G25.|(j)~Disclose uninsured material risks in circumstances where a prudent person would affect insurance.
+1~2034~2086~G|G25.|(k)~Provide disclosure of assessments related to insurance activities.
 1~1137~2087~G|G25A.~<B>Disclosures of Uncertainties about an Entity's Ability to Continue as a Going Concern</B>:
 1~1137~2088~G|G25A.~For entities that elect to early adopt ASU 2014-15, Disclosures of Uncertainties about an Entity's Ability to Continue as a Going Concern (effective for all entities in the annual period ending after December 15, 2016), an entity shall disclose:
 1~2087~2089~G|G25A.|(a)~If, after considering management's plans, substantial doubt about an entity's ability to continue as a going concern is alleviated as a result of consideration of management's plans, an entity shall disclose in the footnotes information that enables users of the financial statements to understand all of the following (or refer to similar information disclosed elsewhere in the footnotes):
@@ -2198,6 +2289,9 @@ checklist_id~parent_id~id~code~description
 1~2292~2295~G|G28.|(a)|(23)|c.~If the assumed discount rate is determined by benchmarking off of a published long-term bond index:
 1~2295~2296~G|G28.|(a)|(23)|c.|i)~How the entity determined that the timing and amount of cash outflows related to the bonds in the index matches the timing and amount of the expected benefit payments;
 1~2295~2297~G|G28.|(a)|(23)|c.|ii)~How the entity adjusted for differences between the terms of the bonds in the index and the terms of the benefit obligations, for example, if there are callable bonds among the bonds in the index.
+1~2247~2298~G|G28.|(b)~Entities with Two or More Plans:
+1~2298~2299~G|G28.|(b)|(1)~The disclosures required by ASC 715 are to be aggregated for all of an employer's defined benefit pension plans and for all of an employer's other defined benefit postretirement plans unless disaggregating in groups is considered to provide useful information or is otherwise required by ASC 715. Disclosures shall be as of the date of each statement of financial position presented.
+1~2298~2300~G|G28.|(b)|(2)~Disclosures about pension plans with assets in excess of the accumulated benefit obligation generally may be aggregated with disclosures about pension plans with accumulated benefit obligations in excess of assets. The same aggregation is permitted for other postretirement benefit plans. If aggregate disclosures are presented, an employer shall disclose:
 1~2300~2301~G|G28.|(b)|(2)|a.~The aggregate benefit obligation and aggregate fair value of plan assets for plans with benefit obligations in excess of plan assets as of the measurement date of each statement of financial position presented.
 1~2300~2302~G|G28.|(b)|(2)|b.~The aggregate pension accumulated benefit obligation and aggregate fair value of plan assets for pension plans with accumulated benefit obligations in excess of plan assets.
 1~2247~2303~G|G28.|(c)~Employer's Disclosures about Postretirement Benefit Plan Assets (ASC 715)
@@ -2273,8 +2367,12 @@ checklist_id~parent_id~id~code~description
 1~2368~2373~G|G28.|(g)|(1)|e.~The fair value of unearned ESOP shares at the balance-sheet date for shares accounted for under ASC 718-40. (Future tax deductions will be allowed only for the ESOP's cost of unearned ESOP shares.) This disclosure need not be made for old ESOP shares for which the employer does not apply the guidance in ASC 718-40.
 1~2368~2374~G|G28.|(g)|(1)|f.~The existence and nature of any repurchase obligation, including disclosure of the fair value (see ASC 718-40-30-4) of the shares allocated as of the balance-sheet date, which are subject to a repurchase obligation.
 1~2368~2375~G|G28.|(g)|(1)|g.~The amount and treatment in the EPS computation of the tax benefit related to dividends paid to any employee stock ownership plan, if material.
+1~1137~2376~G|G29.~<B>Segment, Geographic, and Product Information under ASC 280:</B>
+1~2376~2377~G|G29.|(a)~Disclose the following:
 1~2377~2378~G|G29.|(a)|(1)~Factors used to identify the enterprises' reportable segments, including the basis of organization.
 1~2377~2379~G|G29.|(a)|(2)~Types of products and services from which each reportable segment derives its revenues.
+1~2376~2380~G|G29.|(b)~Disclose the measure of profit or loss and total assets for each reportable segment.
+1~2376~2381~G|G29.|(c)~Disclose the following about each reportable segment if the specified amounts (a) are included in the measure of segment profit or loss reviewed by the chief operating decision maker, or (b) are otherwise regularly provided to the chief operating decision maker, even if not included in that measure of segment profit of loss:
 1~2381~2382~G|G29.|(c)|(1)~Revenues from external customers.
 1~2381~2383~G|G29.|(c)|(2)~Revenues from transactions with other operating segments of the same enterprise.
 1~2381~2384~G|G29.|(c)|(3)~Interest revenue.
@@ -2287,19 +2385,26 @@ checklist_id~parent_id~id~code~description
 1~2381~2391~G|G29.|(c)|(9)~Extraordinary items.
 1~2381~2392~G|G29.|(c)|(9)~<U>Note</U>: For entities that elect to early adopt ASU 2015-01, Simplifying Income Statement Presentation by Eliminating the Concept of Extraordinary Items (effective for all entities that are public business entities for annual periods beginning after December 15, 2015), the extraordinary items are eliminated.
 1~2381~2393~G|G29.|(c)|(10)~Significant non-cash items other than depreciation, depletion, and amortization expense.
+1~2376~2394~G|G29.|(d)~Disclose the following about each reportable segment if the specified amounts (a) are included in the determination of segment assets reviewed by the chief operating decision maker or (b) are otherwise regularly provided to the chief operating decision maker, even if not included in the determination of segment assets:
 1~2394~2395~G|G29.|(d)|(1)~The amount of investment in equity method investees.
 1~2394~2396~G|G29.|(d)|(2)~Total expenditures for additions to long-lived assets other than financial instruments, long-term customer relationships of a financial institution, mortgage and other servicing rights, deferred policy acquisition costs, and deferred tax assets.
+1~2376~2397~G|G29.|(e)~Provide an explanation of the measurements of segment profit or loss and segment assets for each reportable segment (see Example 3, Cases A through C in ASC 280-10-55-47 through 55-49). In addition to disclosing the basis of accounting for any transactions between reportable segments, at a minimum an enterprise shall disclose:
 1~2397~2398~G|G29.|(e)|(1)~The basis of accounting for any transactions between reportable segments.
 1~2397~2399~G|G29.|(e)|(2)~The nature of any differences between the measurements of the reportable segments' profits or losses and the enterprise's consolidated income before income taxes, extraordinary items, discontinued operations, and the cumulative effect of changes in accounting principles.
 1~2397~2400~G|G29.|(e)|(2)~<U>Note</U>: For entities that elect to early adopt ASU 2015-01, Simplifying Income Statement Presentation by Eliminating the Concept of Extraordinary Items (effective for all entities that are public business entities for annual periods beginning after December 15, 2015), the extraordinary items are eliminated.
 1~2397~2401~G|G29.|(e)|(3)~The nature of any differences between the measurements of the reportable segments' assets and the enterprise's consolidated assets. Those differences could include accounting policies and policies for allocation of jointly used assets that are necessary for an understanding of the reported segment information.
 1~2397~2402~G|G29.|(e)|(4)~The nature of any changes from prior periods in the measurement methods used to determine reported segment profit or loss and the effect, if any, of those changes on the measure of segment profit or loss.
 1~2397~2403~G|G29.|(e)|(5)~The nature and effect of any asymmetrical allocations to segments. For example, an enterprise might allocate depreciation expense to a segment without allocating the related depreciable assets to that segment.
+1~2376~2404~G|G29.|(f)~Provide a reconciliation of the following (with all significant reconciling items separately identified and described).
 1~2404~2405~G|G29.|(f)|(1)~Total reportable segments revenues to the enterprise's consolidated revenues.
 1~2404~2406~G|G29.|(f)|(2)~The total reportable segments measures of profit or loss to the enterprise's consolidated income before income taxes, extraordinary items, discontinued operations, and the cumulative effect of changes in accounting principles. (If an enterprise allocates items such as income taxes and extraordinary items to segments, the enterprise may choose to reconcile the total of the segments measures of profit or loss to consolidated income after those items.)
 1~2404~2407~G|G29.|(f)|(2)~<U>Note</U>: For entities that elect to early adopt ASU 2015-01, Simplifying Income Statement Presentation by Eliminating the Concept of Extraordinary Items (effective for all entities that are public business entities for annual periods beginning after December 15, 2015), the extraordinary items are eliminated.
 1~2404~2408~G|G29.|(f)|(3)~The total reportable segments assets to the enterprise's consolidated assets.
 1~2404~2409~G|G29.|(f)|(4)~The total reportable segments amounts for every other significant item of information disclosed to the corresponding consolidated amount.
+1~2376~2410~G|G29.|(g)~If an enterprise changes the structure of its internal organization in a manner that causes the composition of its reportable segments to change, the corresponding information for earlier periods, including interim periods, shall be restated unless it is impracticable to do so. Following a change in the composition of its reportable segments, an enterprise shall disclose whether it has restated the corresponding items of segment information for earlier periods.
+1~2376~2411~G|G29.|(h)~If the information required in item (f) above is not provided as it is "impractical to do so," the enterprise shall disclose in the year in which the change occurs segment information for the current period under both the old basis and the new basis of segmentation unless it is impracticable to do so. Although restatement is not required to reflect a change in measurement of segment profit and loss, it is preferable to show all segment information on a comparable basis to the extent it is practicable to do so. If prior years' information is not restated, ASC 280-10-50-29(d) nonetheless requires disclosure of the nature of any changes from prior periods in the measurement methods used to determine reported segment profit or loss and the effect, if any, of those changes on the measure of segment profit or loss.
+1~2376~2412~G|G29.|(i)~An enterprise shall report the revenues from external customers for each product and service or each group of similar products and services unless it is impracticable to do so. If providing the information is impracticable, that fact shall be disclosed. The amounts of revenues reported shall be based on the financial information used to produce the entity's general purpose financial statements. If providing the information is impracticable, that fact shall be disclosed.
+1~2376~2413~G|G29.|(j)~Disclose the following geographic information unless it is impracticable to do so (if providing the information is impracticable, that fact shall be disclosed):
 1~2413~2414~G|G29.|(j)|(1)~Revenues from external customers:
 1~2414~2415~G|G29.|(j)|(1)|a.~attributed to the enterprise's country of domicile and
 1~2414~2416~G|G29.|(j)|(1)|b.~attributed to all foreign countries in total from which the enterprise derives revenues.
@@ -2310,6 +2415,9 @@ checklist_id~parent_id~id~code~description
 1~2419~2421~G|G29.|(j)|(3)|b.~located in all foreign countries in total in which the enterprise holds assets.
 1~2419~2422~G|G29.|(j)|(3)|c.~If assets in an individual foreign country are material, those assets shall be disclosed separately.
 1~2419~2423~G|G29.|(j)|(3)|c.~<U>Note</U>: ASC 280 does not define what should be included in long-lived assets for purposes of the above disclosure. While judgment and flexibility are required, the intent of the guidance is to provide information about long-lived assets that are potentially at greater risk because they are difficult to move and are relatively illiquid. ASC 280-10-55-23 indicates this would include hard assets that cannot be readily removed, but generally would exclude many intangible assets.
+1~2376~2424~G|G29.|(k)~Disclose the extent of reliance on major customers. If revenues from transactions with a single external customer amount to 10 percent or more of an enterprise's revenues, the enterprise shall disclose that fact, the total amount of revenues from each such customer, and the identity of the segment or segments reporting the revenues.
+1~2376~2425~G|G29.|(l)~Disclose identity of each major customer.
+1~2376~2426~G|G29.|(l)~<U>Note</U>: Actual "identity" is only required in Item 101, "Description of Business."
 1~1137~2427~G|G30.~<B>Related Parties:</B>
 1~2427~2428~G|G30.|(a)~For related party transactions, disclose:
 1~2428~2429~G|G30.|(a)|(1)~Nature of relationship. (Disclose name of related party, if necessary, to understand the relationship.)
@@ -2492,6 +2600,9 @@ checklist_id~parent_id~id~code~description
 1~2599~2607~H|H2.|(a)~As per the SEC FAQ on MD&A, the Staff encourages a focus on <U>analysis</U>, as well as discussion rather than a recitation of financial statements in narrative form and, in this sense, Staff encourages introductive section and tabular presentation of relative information to facilitate a reader's understanding.
 1~2599~2608~H|H2.|(b)~Disclose forward-looking (prospective) information relating to material events (e.g., acquisitions, dispositions, and settlements of lawsuits), trends, demands, commitments or uncertainties that are both presently known to management and are reasonably likely to have material effects on the registrant's financial condition or results of operations, or that would cause reported financial information not to be necessarily indicative of future financial condition or operating results.
 1~2599~2609~H|H2.|(b)~<U>Note</U>: Some companies have changed their accounting policies to recognize gains and losses that arise from measuring pension and other postretirement benefit plan assets and obligations earlier than the corridor approach. At the 2011 AICPA National Conference on Current SEC and PCAOB Developments, the SEC staff noted that when gains and losses are recognized only once a year in connection with the annual plan measurement, early warning disclosures in the quarterly MD&A may be warranted.
+1~2608~2610~H|H2.|(b)|(1)~Where a trend, demand, commitment, event or uncertainty is known, management must make two assessments (see also item H2(r), Management's Discussion and Analysis of Financial Condition and Results of Operations, in this section):
+1~2610~2611~H|H2.|(b)|(1)|a.~Is the known trend, demand, commitment, event, or uncertainty likely to come to fruition? If management determines that it is not reasonably likely to occur, no disclosure is required.
+1~2610~2612~H|H2.|(b)|(1)|b.~If management cannot make that determination, it must evaluate objectively the consequences of the known trend, demand, commitment, event, or uncertainty, on the assumption that it will come to fruition. Disclosure is then required unless management determines that a material effect on the registrant's financial condition or results of operations is not reasonably likely to occur.
 1~2599~2613~H|H2.|(c)~Discussion should generally provide information regarding changes in financial condition and the results of operations during the <U>three</U> most recent fiscal years. Discussion should also include sufficient explanation of the change in financial condition and consideration of whether reported trends and financial relationships are expected to continue. However, where trend information is relevant, reference to the five-year selected financial data appearing pursuant to S-K Item 301 may be necessary.
 1~2599~2614~H|H2.|(d)~The SEC has issued comments discouraging registrants from providing rote calculations of percentage changes of financial statement items and boilerplate explanations of immaterial changes to these figures. Instead, the SEC staff encourages registrants to include a detailed analysis of year-to-year changes and trends.
 1~2599~2615~H|H2.|(d)~The discussion should address the following topics:
@@ -2611,11 +2722,24 @@ checklist_id~parent_id~id~code~description
 1~2725~2729~H|H2.|(e)|(26)|f.|iv)~The extent to which the brokers or pricing services are gathering observable market information as opposed to using unobservable inputs and/or proprietary models in making valuation judgments and determinations;
 1~2725~2730~H|H2.|(e)|(26)|f.|v)~Whether the broker quotes are binding or non-binding; and
 1~2725~2731~H|H2.|(e)|(26)|f.|vi)~The procedures performed to validate the prices obtained to ensure the fair value determination is consistent with ASC 820, and to ensure that the registrant has properly classified its assets and liabilities in the fair value hierarchy.
+1~2599~2732~H|H2.|(f)~Results of operations:
+1~2732~2733~H|H2.|(f)|(1)~Indicate the amount and nature of any unusual or infrequent events or economic changes that materially affected income from continuing operations.
+1~2732~2734~H|H2.|(f)|(2)~Describe other significant components of revenues or expenses that would assist in understanding the results of operations such as segments under ASC 280.
+1~2732~2735~H|H2.|(f)|(3)~Where the financial statements reveal material changes from year to year in one or more line items, the causes for the changes should be described for each individually material component.
+1~2732~2736~H|H2.|(f)|(4)~Describe trends or uncertainties that have had or are likely to have a material effect on revenues or income from continuing operations (e.g., potential write-downs of long-lived assets, exposure to potential environmental cleanup liabilities, and expected changes in current legislation).
+1~2732~2737~H|H2.|(f)|(5)~Describe future events likely to have a material impact on the relationship between costs and revenues.
+1~2732~2738~H|H2.|(f)|(6)~Disclose the extent to which material increases in revenues were attributable to increases in prices, increases in volume, or the introduction of new products or services. (Consider disclosures such as same store sales or geographic market factors.) Also, describe all significant types of revenue and changes in individual components. Consider for revenue arrangements with multiple deliverables the impact of accounting for consideration given by a vendor to a customer on revenue, material changes in contracts, etc.
+1~2732~2739~H|H2.|(f)|(7)~Describe significant or unusual revenue trends or transactions such as:
 1~2739~2740~H|H2.|(f)|(7)|a.~Shipments of product at the end of a reporting period that significantly reduce customer backlog and that reasonably might be expected to result in lower shipments and revenue in the next period.
 1~2739~2741~H|H2.|(f)|(7)|b.~Granting of extended payment terms that will result in a longer collection period for accounts receivable (regardless of whether revenue has been recognized) and slower cash inflows from operations, and the effect on liquidity and capital resources.
 1~2739~2742~H|H2.|(f)|(7)|c.~Changing trends in shipments into, and sales from, a sales channel or separate class of customer that could be expected to have a significant effect on future sales or sales returns.
 1~2739~2743~H|H2.|(f)|(7)|d.~An increasing trend toward sales to a different class of customer, such as a reseller distribution channel that has a lower gross profit margin than existing sales that are principally made to end users. Also, increasing service revenue that has a higher profit margin than product sales.
 1~2739~2744~H|H2.|(f)|(7)|e.~Seasonal trends or variations in sales.
+1~2732~2745~H|H2.|(f)|(8)~If material, discuss the effects of inflation and other price changes. (All that is required is a brief textual presentation of management's views; no specific numerical financial data need be presented.)
+1~2732~2746~H|H2.|(f)|(9)~If non-cash items added significantly to revenues or net income, disclose the amount and expected impact on future periods.
+1~2732~2747~H|H2.|(f)|(10)~When the registrant believes that a discussion of segment information or of other subdivisions of the registrant's business would be appropriate to understand the business or where a segment, subdivision or geographic area provided a disproportional amount of income or loss, the discussion should focus on each relevant segment or other subdivision of the business and on the registrant as a whole.
+1~2732~2748~H|H2.|(f)|(11)~For registrants that incur significant research and development expenses, include an informative discussion including the status of major research projects and expected composition dates and costs. For periods after significant write off, disclose the impact of any delays on the expected investment returns, results of operations and financial condition. Clarify if the entity is expected to continue to incur IPR&D charges, the timing of estimated costs to complete, as well as other consequences if not completed timely. Disclose the nature and fair value of projects acquired as well as the significant appraisal assumptions (as applicable).
+1~2732~2749~H|H2.|(f)|(12)~The SEC staff believes that companies should consider including material qualitative and quantitative information about any of the following related to share based payment programs:
 1~2749~2750~H|H2.|(f)|(12)|a.~Changes in the quantity or type of instruments used in share-based payment programs, such as a shift from share options to restricted shares;
 1~2749~2751~H|H2.|(f)|(12)|b.~Changes in the terms of share-based payment arrangements, such as the addition of performance conditions;
 1~2749~2752~H|H2.|(f)|(12)|c.~Total compensation cost related to nonvested awards not yet recognized and the weighted average period over which it is expected to be recognized.
@@ -2916,14 +3040,30 @@ checklist_id~parent_id~id~code~description
 1~3046~3048~I|I3.|(b)|(4)|c.|ii)~Its impact on financial reporting and the control environment.
 1~3046~3049~I|I3.|(b)|(4)|c.|iii)~Management's current plans, if any, for remediating the weakness.
 1~3046~3050~I|I3.|(b)|(4)|c.|iii)~<U>Item 9B. Other Information</U>
-1~3034~3051~I|I3.|(a)|iii)~The registrant must disclose under this item any information required to be disclosed in a report on Form 8-K during the fourth quarter of the year covered by this Form 10-K, but not reported, whether or not otherwise required by this Form 10-K.
-1~3034~3052~I|I3.|(a)|iii)~<U>Note</U>: If disclosure of such information is made under this item, it need not be repeated in a report on Form 8-K which would otherwise be required to be filed with respect to such information or in a subsequent report on Form 10-K.
+1~3023~3051~I|I3.|(a)~The registrant must disclose under this item any information required to be disclosed in a report on Form 8-K during the fourth quarter of the year covered by this Form 10-K, but not reported, whether or not otherwise required by this Form 10-K.
+1~3023~3052~I|I3.|(a)~<U>Note</U>: If disclosure of such information is made under this item, it need not be repeated in a report on Form 8-K which would otherwise be required to be filed with respect to such information or in a subsequent report on Form 10-K.
+1~2984~3053~I|I4.~<B>Part III of Form 10-K:</B>
+1~2984~3054~I|I4.~(Part III may be incorporated by reference from the proxy or information statement. See item (b)(2) of checklist Item 1 of this section.)
+1~2984~3055~I|I4.~<U>Item 10. Directors, Executive Officers, and Corporate Governance</U>
+1~2984~3056~I|I4.~Furnish the information required by Items 401, 405, 406 and 407(c)(3), (d)(4), and (d)(5) of Regulation S-K.
+1~3053~3057~I|I4.|(a)~Identification of directors.
+1~3057~3058~I|I4.|(a)|(1)~List the names and ages of all directors of the registrant and all persons nominated or chosen to become directors.
+1~3057~3059~I|I4.|(a)|(2)~Indicate all positions and offices with the registrant held by each such person.
+1~3057~3060~I|I4.|(a)|(3)~State his or her term of office as director and any period(s) during which he or she has served as such.
+1~3057~3061~I|I4.|(a)|(4)~Describe briefly any arrangement or understanding between him or her and any other person(s) (naming such person(s)) pursuant to which he or she was or is to be selected as a director or nominee.
+1~3053~3062~I|I4.|(b)~Identification of executive officers.
 1~3062~3063~I|I4.|(b)|(1)~List the names and ages of all executive officers of the registrant and all persons chosen to become executive officers.
 1~3062~3064~I|I4.|(b)|(2)~Indicate all positions and offices with the registrant held by each such person.
 1~3062~3065~I|I4.|(b)|(3)~State his or her term of office as officer and the period during which he or she has served as such.
 1~3062~3066~I|I4.|(b)|(4)~Describe briefly any arrangement or understanding between him or her and any other person(s) (naming such person(s)) pursuant to which he or she was or is to be selected as an officer.
+1~3053~3067~I|I4.|(c)~Identification of certain significant employees. Where the registrant employs persons such as production managers, sales managers, or research scientists who are not executive officers but who make or are expected to make significant contributions to the business of the registrant, such persons shall be identified and their backgrounds disclosed to the same extent as in the case of executive officers.
+1~3053~3068~I|I4.|(d)~State the nature of any family relationship between any director, executive officer, or person nominated or chosen by the registrant to become a director or executive officer.
+1~3053~3069~I|I4.|(e)~Business experience:
 1~3069~3070~I|I4.|(e)|(1)~Describe the business experience during the past five years of each director, executive officer, person nominated or chosen to become a director or executive officer, and each person named in answer to item (c) above.
 1~3069~3071~I|I4.|(e)|(2)~Indicate any other directorships held, including any other directorships held during the past five years, by each director or person nominated or chosen to become a director.
+1~3053~3072~I|I4.|(f)~Describe involvement in certain legal proceedings by any director, person nominated to become a director or executive officer.
+1~3053~3073~I|I4.|(g)~Disclose certain promoters and control persons.
+1~3053~3074~I|I4.|(h)~Whether the registrant has adopted a code of ethics that applies to the Company's principal executive officer, principal financial officer, principal accounting officer or controller, or persons performing similar functions.
 1~3074~3075~I|I4.|(h)|(1)~If the Company has not adopted such a code of ethics, it must explain why it has not done so.
 1~3074~3076~I|I4.|(h)|(2)~Disclose amendments to, and waivers from, the code of ethics relating to any of those officers.
 1~3074~3077~I|I4.|(h)|(3)~In addition, the Company must do one of the following:
@@ -2932,10 +3072,12 @@ checklist_id~parent_id~id~code~description
 1~3077~3080~I|I4.|(h)|(3)|c.~Undertake in the annual report to provide to any person without charge, upon request, a copy of such code of ethics and explain the manner in which such request may be made.
 1~3077~3081~I|I4.|(h)|(3)|c.~<U>Item 11. Executive Compensation</U>
 1~3077~3082~I|I4.|(h)|(3)|c.~Furnish the information required by S-K 402.
+1~3053~3083~I|I4.|(i)~The disclosures in Items (j) through (m) below relate to the following named executive officers:
 1~3083~3084~I|I4.|(i)|(1)~The principal executive officer.
 1~3083~3085~I|I4.|(i)|(2)~The three other most highly compensated executive officers.
 1~3083~3086~I|I4.|(i)|(2)~<U>Note 1</U>: Disclosure is also required for up to two additional persons who served as executive officers during some part of the most recent fiscal year, but were no longer serving as executive officers at the end of the fiscal year.
 1~3083~3087~I|I4.|(i)|(2)~<U>Note 2</U>: The determination of who constitutes the three most highly compensated executive officers is based on the "total compensation" amount reported in the Summary Compensation Table, Item (d) below, adjusted to exclude the change in pension value and nonqualified deferred compensation earnings.
+1~3053~3088~I|I4.|(j)~Prepare a Summary Compensation Table for each of the last three completed fiscal years, which includes the following primary columns for each named executive officer:
 1~3088~3089~I|I4.|(j)|(1)~Name and Principal Position.
 1~3088~3090~I|I4.|(j)|(2)~Year.
 1~3088~3091~I|I4.|(j)|(3)~Salary.
@@ -2950,6 +3092,8 @@ checklist_id~parent_id~id~code~description
 1~3088~3100~I|I4.|(j)|(9)~All Other Compensation.
 1~3100~3101~I|I4.|(j)|(9)|a.~Items that exceed $10,000 must be separately identified and quantified in a footnote for the last fiscal year.
 1~3088~3102~I|I4.|(j)|(10)~Total Compensation.
+1~3053~3103~I|I4.|(k)~The Summary Compensation Table should be accompanied by narrative disclosure of material information included in the table.
+1~3053~3104~I|I4.|(l)~Prepare an Outstanding Equity Awards at Fiscal Year End Table for awards as of the end of the last completed fiscal year, which includes the following columns for each named executive officer:
 1~3104~3105~I|I4.|(l)|(1)~Name.
 1~3104~3106~I|I4.|(l)|(2)~Number of Securities Underlying Unexercised Options that are Exercisable.
 1~3104~3107~I|I4.|(l)|(3)~Number of Securities Underlying Unexercised Options that are Unexercisable.
@@ -2963,8 +3107,10 @@ checklist_id~parent_id~id~code~description
 1~3104~3115~I|I4.|(l)|(11)~Additionally, disclose in the footnotes to the table:
 1~3115~3116~I|I4.|(l)|(11)|a.~Any award that has been transferred "other than for value," including the nature of the transfer; and
 1~3115~3117~I|I4.|(l)|(11)|b.~The vesting dates of options, stock, and equity incentive plan awards.
+1~3053~3118~I|I4.|(m)~Provide a narrative description of the following to the extent material:
 1~3118~3119~I|I4.|(m)|(1)~The material terms of each plan that provides for the payment of retirement benefits, or benefits that will be paid primarily following retirement.
 1~3118~3120~I|I4.|(m)|(2)~The material terms of each contract, agreement, plan or arrangement, whether written or unwritten, that provides for payment(s) to a named executive officer at, following, or in connection with the resignation, retirement or other termination of a named executive officer, or a change in control of the company or a change in the named executive officer's responsibilities following a change in control, with respect to each named executive officer.
+1~3053~3121~I|I4.|(n)~Prepare a Director Compensation Table for each director for the last completed fiscal year which includes the following columns:
 1~3121~3122~I|I4.|(n)|(1)~Name of director.
 1~3121~3123~I|I4.|(n)|(2)~Fees earned or paid in cash.
 1~3121~3124~I|I4.|(n)|(3)~Stock awards (aggregate grant date fair value computed in accordance with ASC 718).
@@ -2975,6 +3121,9 @@ checklist_id~parent_id~id~code~description
 1~3121~3129~I|I4.|(n)|(8)~Total compensation.
 1~3121~3130~I|I4.|(n)|(9)~Disclose by footnote the aggregate number of stock awards and the aggregate number of option awards outstanding at fiscal year end.
 1~3121~3131~I|I4.|(n)|(10)~Prepare a narrative description of any material factors necessary to understand the compensation disclosed in the Director Compensation Table.
+1~3053~3132~I|I4.|(o)~Provide a Golden Parachute Compensation table which includes the following columns:
+1~3053~3133~I|I4.|(o)~<U>Note 1</U>: The information required by S-K Item 402(t) is with respect to the principal executive officer and the company's two most highly compensated executive officers other than the principal executive officer.
+1~3053~3134~I|I4.|(o)~<U>Note 2</U>: The disclosure provided by this table shall be quantified assuming that the triggering event took place on the last business day of the registrant's last completed fiscal year, and the price per share of the registrant's securities is the closing market price on that date.
 1~3132~3135~I|I4.|(o)|(1)~The name of the named executive officer.
 1~3132~3136~I|I4.|(o)|(2)~The aggregate dollar value of any cash severance payments, including but not limited to payments of base salary, bonus, and pro-rated non-equity incentive compensation plan payments.
 1~3132~3137~I|I4.|(o)|(3)~The aggregate dollar value of (a) stock awards for which vesting would be accelerated, (b) in-the-money option awards for which vesting would be accelerated, and (c) payments in cancellation of stock and option awards.
@@ -2989,12 +3138,23 @@ checklist_id~parent_id~id~code~description
 1~3132~3146~I|I4.|(o)|(10)~Furnish the information required by Items 201(d) and 403 of Regulation S-K.
 1~3132~3147~I|I4.|(o)|(10)~<U>Item 13. Certain Relationships and Related Transactions and Director Independence</U>
 1~3132~3148~I|I4.|(o)|(10)~Furnish the information required by Item 404 and Item 407(a) of Regulation S-K.
+1~3053~3149~I|I4.|(p)~Disclose any transaction, since the beginning of the company's last fiscal year, or any currently proposed transaction, in which the company was or is to be a participant, and the amount involved exceeds the lesser of $120,000 or 1 percent of the average of the company's total assets at year end for the last two completed fiscal years, and in which any related person had or will have a direct or indirect material interest. Include the following information:
 1~3149~3150~I|I4.|(p)|(1)~The name of the related person and the basis on which the person is a related person.
 1~3149~3151~I|I4.|(p)|(2)~The related person's interest in the transaction with the company.
 1~3149~3152~I|I4.|(p)|(3)~The approximate dollar value of the amount involved in the transaction.
 1~3149~3153~I|I4.|(p)|(4)~The approximate dollar value of the amount of the related person's interest in the transaction, which shall be computed without regard to the amount of profit or loss.
 1~3149~3154~I|I4.|(p)|(5)~In the case of indebtedness, disclosure of the amount involved in the transaction shall include the largest aggregate amount of principal outstanding during the period for which disclosure is provided, the amount thereof outstanding as of the latest practicable date, the amount of principal paid during the periods for which disclosure is provided, the amount of interest paid during the period for which disclosure is provided, and the rate or amount of interest payable on the indebtedness.
 1~3149~3155~I|I4.|(p)|(6)~Any other information regarding the transaction or the related person in the context of the transaction that is material to investors in light of the circumstances of the particular transaction.
+1~3053~3156~I|I4.|(q)~If the company is filing a registration statement on Form S-1 under the Securities Act or on Form 10 under the Exchange Act and had a promoter at any time during the past five fiscal years, disclose the information required by Item 404(c).
+1~3053~3157~I|I4.|(r)~Disclose a list of all parents of the company showing the basis of control and as to each parent, the percentage of voting securities owned or other basis of control by its immediate parent, if any.
+1~3053~3158~I|I4.|(r)~<U>Item 14. Principal Accountant Fees and Services</U>
+1~3053~3159~I|I4.|(r)~Furnish the following information required by Item 9(e) of Schedule 14A:
+1~3053~3160~I|I4.|(s)~Audit Fees - the aggregate fees billed for each of the last two fiscal years for professional services rendered by the principal accountant for the audit of the annual financial statements and review of quarterly financial statements on Form 10-Q or services that are normally provided by the accountant in connection with statutory and regulatory filings or engagements for those fiscal years.
+1~3053~3161~I|I4.|(t)~Audit-Related Fees - the aggregate fees billed in each of the last two fiscal years for assurance and related services by the principal accountant that are reasonably related to the performance of the audit or review of the registrant's financial statements (and are not reported as Audit Fees, above). Describe the nature of the services comprising the fees disclosed under this category.
+1~3053~3162~I|I4.|(u)~Tax Fees - the aggregate fees billed in each of the last two fiscal years for professional services rendered by the principal accountant for tax compliance, tax advice, and tax planning. Describe the nature of the services comprising the fees disclosed under this category.
+1~3053~3163~I|I4.|(v)~All Other Fees - the aggregate fees billed in each of the last two fiscal years for products and services provided by the principal accountant, other than the services reported in the categories above. Describe the nature of the services comprising the fees disclosed under this category.
+1~3053~3164~I|I4.|(w)~The audit committee's pre-approval policies and procedures for audit and non-audit services, including the percentage of services in the above categories that were approved by the audit committee.
+1~3053~3165~I|I4.|(x)~If greater than 50 percent, disclose the percentage of hours expended on the principal accountant's engagement to audit the financial statements for the most recent fiscal year that were attributed to work performed by persons other than the principal accountant's full-time, permanent employees.
 1~2984~3166~I|I5.~<B>Part IV of Form 10-K:</B>
 1~2984~3167~I|I5.~<U>Item 15. Exhibits and Financial Statement Schedules</U>
 1~3166~3168~I|I5.|(a)~List the following documents filed as a part of the report:
@@ -3030,7 +3190,8 @@ checklist_id~parent_id~id~code~description
 1~3193~3199~J|J1.|(b)|(5)~The financial statements of two or more individually "significant" unconsolidated subsidiaries or 50 percent-or-less-owned persons may be combined or consolidated, provided that the resulting financial statements clearly exhibit the financial position, cash flows, and results of operations of the combined or consolidated group. Note, however, that the statements of unconsolidated subsidiaries may <U>not</U> be combined with those of 50 percent-or-less- owned persons.
 1~3193~3200~J|J1.|(b)|(6)~Should include disclosure of the amounts of related party transactions that are (i) eliminated and (ii) not eliminated in the related consolidated financial statements. Should also include disclosure of the effects of any intercompany profits and losses that are not eliminated.
 1~3190~3201~J|J2.~<B>Separate Financial Statements for Guarantors</B>:
-1~3190~3202~J|J2.~<U>Note</U>: Paragraph (a) of S-X 3-10 contains the general rule that every issuer of a registered security that is guaranteed and every guarantor of a registered security must file the financial statements required for a registrant by Regulation S-X. Paragraphs (b) through (f) of S-X 3-10 provide exceptions to the general rule. <B>(REQUIRED FOR SRCs.)</B> Financial statements for a subsidiary of a smaller reporting company that issues securities guaranteed by the smaller reporting company must be presented as required by S-X 3-10, except the periods presented are based on S-X 8-02."
+"1~3190~3202~J|J2.~<U>Note</U>: Paragraph (a) of S-X 3-10 contains the general rule that every issuer of a registered security that is guaranteed and every guarantor of a registered security must file the financial statements required for a registrant by Regulation S-X. Paragraphs (b) through (f) of S-X 3-10 provide exceptions to the general rule.
+ <B>(REQUIRED FOR SRCs.)</B> Financial statements for a subsidiary of a smaller reporting company that issues securities guaranteed by the smaller reporting company must be presented as required by S-X 3-10, except the periods presented are based on S-X 8-02."
 1~3201~3203~J|J2.|(a)~Must be provided for:
 1~3203~3204~J|J2.|(a)|(1)~Each guarantor of any class of securities of the registrant.
 1~3201~3205~J|J2.|(b)~Separate financial statements need not be filed if these statements are otherwise separately included in the filing on an individual basis or on a basis consolidated with its subsidiaries.
@@ -3045,12 +3206,14 @@ checklist_id~parent_id~id~code~description
 1~3190~3214~J|J4.~<B>Financial Statements Required by SAB 71 (Properties Securing Mortgage Loans).</B>
 1~3190~3215~J|J5.~<B>Financial statements of the General Partner of a Limited Partnership Credit Enhancements.</B>
 1~3190~3216~J|J6.~<B>Financial Statements of Credit Enhancements.</B>
-1~3190~3217~J|J7.~<B>Separate Financial Statements for Affiliates Whose Securities Collateralize Registered Securities</B>: <B>(REQUIRED FOR SRCs.)</B> Financial statements for a smaller reporting company's affiliate whose securities constitute a substantial portion of the collateral for any class of securities registered must be presented as required by S-X 3-16, except the periods presented are based on S-X 8-02."
+"1~3190~3217~J|J7.~<B>Separate Financial Statements for Affiliates Whose Securities Collateralize Registered Securities</B>:
+ <B>(REQUIRED FOR SRCs.)</B> Financial statements for a smaller reporting company's affiliate whose securities constitute a substantial portion of the collateral for any class of securities registered must be presented as required by S-X 3-16, except the periods presented are based on S-X 8-02."
 1~3217~3218~J|J7.|(a)~For each of the registrant's affiliates whose securities constitute a substantial portion of the collateral for any class of securities registered or being registered, there shall be filed the financial statements that would be required if the affiliate were a registrant and required to file financial statements. However, financial statements need not be filed for any person whose statements are otherwise separately included in the filing on an individual basis or on a basis consolidated with its subsidiaries.
 1~3217~3219~J|J7.|(b)~For the purposes of this section, securities of a person shall be deemed to constitute a substantial portion of collateral if the aggregate principal amount, par value, or book value of the securities as carried by the registrant, or the market value of such securities, whichever is the greatest, equals 20 percent or more of the principal amount of the secured class of securities.
 1~3217~3220~J|J7.|(b)~
 1~3221~3222~K|K1.~<B>Auditors' Reports-General:</B>
-1~3222~3223~K|K1.|(a)~The auditors' report(s) in Form 10-K should cover: <B>(REQUIRED FOR SRCs.)</B> The report and qualifications of the independent accountant must comply with S-X Article 2."
+"1~3222~3223~K|K1.|(a)~The auditors' report(s) in Form 10-K should cover:
+ <B>(REQUIRED FOR SRCs.)</B> The report and qualifications of the independent accountant must comply with S-X Article 2."
 1~3223~3224~K|K1.|(a)|(1)~The primary (usually the consolidated) financial statements.
 1~3223~3225~K|K1.|(a)|(2)~The financial statement schedules, if applicable.
 1~3223~3226~K|K1.|(a)|(3)~Any separate financial statements included for unconsolidated subsidiaries, 50 percent-or-less- owned persons, or other entities.
