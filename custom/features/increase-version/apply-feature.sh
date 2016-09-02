@@ -2,13 +2,47 @@ echo "**************************"
 echo "**** FEATURE [increase-version] ****"
 echo "**************************"
 
+#
+# MAJOR.minor.PATCH-LABEL
+#
+# Check semver.org
+#
 
+increase=$1
+if ["$increase" == ""]; then
+    increase="PATCH"
+fi;
 
+#sed -n "s/.*\(\"[0-9].[0-9].[0-9]\).*/\1/p" < src/main/webapp/app/app.constants.js
+version="$(sed -n "s/.*\"\([0-9]*.[0-9]*.[0-9]*-[A-Z]*\).*/\1/p" < src/main/webapp/app/app.constants.js)"
+
+v1="$(echo $version|awk -F'.' '{print $1}')"
+v2="$(echo $version|awk -F'.' '{print $2}')"
+v3="$(echo $version|awk -F'.' '{print $3}')"
+v3="$(echo $v3|awk -F'-' '{print $1}')"
+
+if [ "$increase" = "MAJOR" ]; then
+  echo "INCREATE MAJOR"
+  v1=$((v1 + 1))
+fi;
+if [ "$increase" = "MINOR" ]; then
+    echo "INCREATE MINOR"
+    v2=$((v2 + 1))
+fi;
+if [ "$increase" = "PATCH" ]; then
+    echo "INCREATE PATCH"
+    v3=$((v3 + 1))
+fi;
+
+newVersion=$v1"."$v2"."$v3
+echo "COMMAND: $increase"
+echo "OLD: $version | NEW: $newVersion"
 #
 # Code updates
 #
 
-sed -i "s|version = '0.0.1-SNAPSHOT'|version = '0.0.2-SNAPSHOT'|" build.gradle
-sed -i "s|<version>0.0.1-SNAPSHOT</version>|<version>0.0.2-SNAPSHOT</version>|" pom.xml
-sed -i "s|0.0.1-SNAPSHOT|0.0.2-SNAPSHOT|" src/main/webapp/app/app.constants.js
+sed -i "s|version = '$version'|version = '$newVersion-SNAPSHOT'|" build.gradle
+sed -i "s|<version>$version</version>|<version>$newVersion-SNAPSHOT</version>|" pom.xml
+sed -i "s|$version|$newVersion-SNAPSHOT|" src/main/webapp/app/app.constants.js
 
+cat src/main/webapp/app/app.constants.js
