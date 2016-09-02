@@ -11,7 +11,7 @@
 
     <groupId>com.pwc.assurance.adc</groupId>
     <artifactId>checklist</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Checklist</name>
 

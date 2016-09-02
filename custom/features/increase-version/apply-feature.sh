@@ -54,5 +54,7 @@ echo "OLD: $version | NEW: $newVersion"
 sed -i "s|version = '$version'|version = '$newVersion'|" build.gradle
 sed -i "s|<version>$version</version>|<version>$newVersion</version>|" pom.xml
 sed -i "s|$version|$newVersion|" src/main/webapp/app/app.constants.js
+sed -i "s|$version|$newVersion|" package.json
 
 cat src/main/webapp/app/app.constants.js
+cat package.json
