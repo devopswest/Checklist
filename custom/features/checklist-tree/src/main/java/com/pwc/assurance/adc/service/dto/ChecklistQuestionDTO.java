@@ -1,5 +1,6 @@
 package com.pwc.assurance.adc.service.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -16,25 +17,27 @@ public class ChecklistQuestionDTO implements Serializable {
 
     private String code;
 
+    @Size(min = 1, max = 4000)
     private String description;
 
 
+
     private Long checklistId;
-    
+
 
     private String checklistName;
 
     private Long parentId;
-    
+
 
     private String parentDescription;
 
     private Long questionId;
-    
+
 
     List<ChecklistQuestionDTO> children;
-    
-    
+
+
     public List<ChecklistQuestionDTO> getChildren() {
 		return children;
 	}

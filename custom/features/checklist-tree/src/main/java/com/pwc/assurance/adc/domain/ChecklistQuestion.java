@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +30,8 @@ public class ChecklistQuestion implements Serializable {
     @Column(name = "code")
     private String code;
 
-    @Column(name = "description")
+    @Size(min = 1, max = 4000)
+    @Column(name = "description", length = 4000)
     private String description;
 
     @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
