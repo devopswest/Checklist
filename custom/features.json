@@ -159,7 +159,26 @@
             "add-angular-tree"
         ],
         "active" : "true"
-    }
+    },
+
+	{
+         "id" : "increase-version",
+         "name":"increase-version",
+         "description": "increase-version",
+         "path": "increase-version",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "true"
+     },
+
+     {"id":"NEW"}
+
+
+
 
   ]
 }
