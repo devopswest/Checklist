@@ -37,7 +37,7 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160901205040",
+    "changelogDate": "20160902163614",
     "javadoc": "Engagement",
     "entityTableName": "engagement",
     "dto": "no",

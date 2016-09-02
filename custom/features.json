@@ -11,7 +11,23 @@
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
+    },
+
+    {
+        "id" : "application-settings",
+        "name":"Application Settings Changes",
+        "description": "This Feature changes default settings configuration",
+        "path": "application-settings",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+
+        ],
+        "active" : "true"
     },
 
     {
@@ -24,7 +40,22 @@
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
+    },
+
+    {
+        "id": "change-footer",
+        "name":"CSS There",
+        "description": "Change Footer",
+        "path": "change-footer",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ],
+        "active" : "true"
     },
 
     {
@@ -37,7 +68,8 @@
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
     },
 
     {
@@ -50,20 +82,22 @@
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
     },
 
     {
-        "id" : "add-rish-text-editor",
+        "id" : "add-rich-text-editor",
         "name":"Add textAngular dependencies",
         "description": "This feature add the capability to use the textAngular component",
-        "path": "add-rish-text-editor",
+        "path": "add-rich-text-editor",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
     },
 
 
@@ -77,7 +111,8 @@
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-        ]
+        ],
+        "active" : "true"
     },
 
     {
@@ -92,21 +127,24 @@
         "dependencies": [
             "css-theme",
             "add-angular-tree"
-        ]
+        ],
+        "active" : "false"
     },
 
     {
-        "id" : "application-settings",
-        "name":"Application Settings Changes",
-        "description": "This Feature changes default settings configuration",
-        "path": "application-settings",
+        "id" : "audit-profile-tree",
+        "name":"Audit Profile Tree",
+        "description": "Add Angular Tree Capabilities when creating the audit profile",
+        "path": "audit-profile-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
         },
         "dependencies": [
-
-        ]
+            "css-theme",
+            "add-angular-tree"
+        ],
+        "active" : "false"
     }
 
   ]

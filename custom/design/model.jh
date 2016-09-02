@@ -54,6 +54,12 @@ enum EngagementAuthorities {
 }
 
 /**
+  * Entities
+  *
+  * entity B (the_best_entity) // the_best_entity is the table's name
+  **/
+
+/**
  * Global Config
  **/
  entity GlobalConfiguration {
@@ -219,9 +225,11 @@ relationship OneToMany {
     ChecklistQuestion{child} to ChecklistQuestion{parent(description)}
 }
 
+/*
 relationship OneToMany {
     Question to ChecklistQuestion{question(question)}
 }
+*/
 
 /**
  * Engagement
@@ -262,7 +270,6 @@ relationship ManyToMany {
 *
  **/
 entity AuditProfile {
-    fiscalYear String,
     description String,
     status ResponseStatus
 }
@@ -275,19 +282,22 @@ relationship OneToMany{
     Checklist to AuditProfile{checklist(name)}
 }
 
+/*
 relationship OneToMany{
     Workflow to AuditProfile{workflow(description)}
 }
+*/
 
 /**
   *
   * How to handle question responses as part of the relaqionship?
   *
   */
-
+/*
 relationship ManyToMany {
     AuditProfile{question(question)} to ChecklistQuestion{auditProfile}
 }
+*/
 
 
 
@@ -295,7 +305,7 @@ entity AuditQuestionResponse {
     questionResponse String
 }
 relationship OneToMany{
-    ChecklistQuestion to AuditQuestionResponse{question(question)}
+    ChecklistQuestion to AuditQuestionResponse{question(description)}
 }
 
 
@@ -335,11 +345,23 @@ relationship OneToOne{
 
 /**
  * Options
+ * NOTE: https://jhipster.github.io/jdl/
  *
- * paginate * with pager
- * dto * with mapstruct
+ * paginate * with pager | infinite-scroll [except ?]
+ * dto * with mapstruct [except ?]
+ * service * with serviceClass | serviceImpl [except ?]
+ * microservice * with <app-name> [except ?]
+ * search * with elasticsearch [except ?]
+ * skipClient for A
+ * skipServer for B
+ * angularSuffix * with mySuperEntities
+ *
  **/
 paginate * with pager
+
+//service * with serviceImpl
+
 dto Checklist with mapstruct
 dto ChecklistQuestion with mapstruct
-
+dto AuditProfile with mapstruct
+dto AuditQuestionResponse with mapstruct

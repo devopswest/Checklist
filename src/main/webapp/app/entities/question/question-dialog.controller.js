@@ -5,15 +5,14 @@
         .module('checklistApp')
         .controller('QuestionDialogController', QuestionDialogController);
 
-    QuestionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Question', 'ChecklistQuestion', 'Requirement'];
+    QuestionDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Question', 'Requirement'];
 
-    function QuestionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Question, ChecklistQuestion, Requirement) {
+    function QuestionDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Question, Requirement) {
         var vm = this;
 
         vm.question = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.checklistquestions = ChecklistQuestion.query();
         vm.requirements = Requirement.query();
 
         $timeout(function (){

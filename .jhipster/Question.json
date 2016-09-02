@@ -2,12 +2,6 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "checklistQuestion",
-            "otherEntityName": "checklistQuestion",
-            "otherEntityRelationshipName": "question"
-        },
-        {
             "relationshipType": "many-to-many",
             "relationshipName": "requirement",
             "otherEntityName": "requirement",
@@ -25,7 +19,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160901205034",
+    "changelogDate": "20160902163608",
     "javadoc": "LibraryTODO: Matrix vs Client metaada",
     "entityTableName": "question",
     "dto": "no",

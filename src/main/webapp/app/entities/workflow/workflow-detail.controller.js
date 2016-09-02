@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('WorkflowDetailController', WorkflowDetailController);
 
-    WorkflowDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Workflow', 'AuditProfile', 'WorkflowStep'];
+    WorkflowDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Workflow', 'WorkflowStep'];
 
-    function WorkflowDetailController($scope, $rootScope, $stateParams, previousState, entity, Workflow, AuditProfile, WorkflowStep) {
+    function WorkflowDetailController($scope, $rootScope, $stateParams, previousState, entity, Workflow, WorkflowStep) {
         var vm = this;
 
         vm.workflow = entity;

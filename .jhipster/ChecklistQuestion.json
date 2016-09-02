@@ -24,19 +24,6 @@
             "relationshipName": "parent",
             "otherEntityName": "checklistQuestion",
             "otherEntityField": "description"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "question",
-            "otherEntityName": "question",
-            "otherEntityField": "question"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "relationshipName": "auditProfile",
-            "otherEntityName": "auditProfile",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "question"
         }
     ],
     "fields": [
@@ -55,7 +42,7 @@
             "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160901205039",
+    "changelogDate": "20160902163613",
     "entityTableName": "checklist_question",
     "dto": "mapstruct",
     "pagination": "pager",

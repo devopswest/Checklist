@@ -67,7 +67,7 @@ class AuditProfileGatlingTest extends Simulation {
             .exec(http("Create new auditProfile")
             .post("/api/audit-profiles")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "fiscalYear":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "status":null}""")).asJSON
+            .body(StringBody("""{"id":null, "description":"SAMPLE_TEXT", "status":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_auditProfile_url"))).exitHereIfFailed
             .pause(10)

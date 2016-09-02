@@ -37,7 +37,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="questionResponse"><span translate="checklistApp.auditQuestionResponse.questionResponse">Question Response</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="question.question"><span translate="checklistApp.auditQuestionResponse.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="questionDescription"><span translate="checklistApp.auditQuestionResponse.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                     <td><a ui-sref="audit-question-response-detail({id:auditQuestionResponse.id})">{{auditQuestionResponse.id}}</a></td>
                     <td>{{auditQuestionResponse.questionResponse}}</td>
                     <td>
-                        <a ui-sref="checklist-question-detail({id:auditQuestionResponse.question.id})">{{auditQuestionResponse.question.question}}</a>
+                        <a ui-sref="checklist-question-detail({id:auditQuestionResponse.questionId})">{{auditQuestionResponse.questionDescription}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

@@ -27,11 +27,11 @@
     <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 4px;"><span
         class="glyphicon glyphicon-plus"></span></a>
 
-    <uib-accordion ng-if="node.nodes && node.nodes.length == 0">
+<!--     <uib-accordion ng-if="node.nodes && node.nodes.length == 0">
         <div uib-accordion-group class="panel-default" heading="Add Description" data-nodrag>
             <div style="width: 90%" text-angular ng-model="node.title" />
         </div>
-    </uib-accordion>
+    </uib-accordion> -->
 
     <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
         <li ng-repeat="node in node.nodes" collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'">

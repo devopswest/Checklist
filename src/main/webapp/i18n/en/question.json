@@ -18,7 +18,6 @@
             },
             "code": "Code",
             "question": "Question",
-            "checklistQuestion": "Checklist Question",
             "requirement": "Requirement"
         }
     }

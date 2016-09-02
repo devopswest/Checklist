@@ -7,6 +7,8 @@ import com.pwc.assurance.adc.repository.AuditQuestionResponseRepository;
 import com.pwc.assurance.adc.repository.search.AuditQuestionResponseSearchRepository;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.AuditQuestionResponseDTO;
+import com.pwc.assurance.adc.service.mapper.AuditQuestionResponseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,26 +43,31 @@ public class AuditQuestionResponseResource {
     private AuditQuestionResponseRepository auditQuestionResponseRepository;
 
     @Inject
+    private AuditQuestionResponseMapper auditQuestionResponseMapper;
+
+    @Inject
     private AuditQuestionResponseSearchRepository auditQuestionResponseSearchRepository;
 
     /**
      * POST  /audit-question-responses : Create a new auditQuestionResponse.
      *
-     * @param auditQuestionResponse the auditQuestionResponse to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new auditQuestionResponse, or with status 400 (Bad Request) if the auditQuestionResponse has already an ID
+     * @param auditQuestionResponseDTO the auditQuestionResponseDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new auditQuestionResponseDTO, or with status 400 (Bad Request) if the auditQuestionResponse has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/audit-question-responses",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditQuestionResponse> createAuditQuestionResponse(@RequestBody AuditQuestionResponse auditQuestionResponse) throws URISyntaxException {
-        log.debug("REST request to save AuditQuestionResponse : {}", auditQuestionResponse);
-        if (auditQuestionResponse.getId() != null) {
+    public ResponseEntity<AuditQuestionResponseDTO> createAuditQuestionResponse(@RequestBody AuditQuestionResponseDTO auditQuestionResponseDTO) throws URISyntaxException {
+        log.debug("REST request to save AuditQuestionResponse : {}", auditQuestionResponseDTO);
+        if (auditQuestionResponseDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("auditQuestionResponse", "idexists", "A new auditQuestionResponse cannot already have an ID")).body(null);
         }
-        AuditQuestionResponse result = auditQuestionResponseRepository.save(auditQuestionResponse);
-        auditQuestionResponseSearchRepository.save(result);
+        AuditQuestionResponse auditQuestionResponse = auditQuestionResponseMapper.auditQuestionResponseDTOToAuditQuestionResponse(auditQuestionResponseDTO);
+        auditQuestionResponse = auditQuestionResponseRepository.save(auditQuestionResponse);
+        AuditQuestionResponseDTO result = auditQuestionResponseMapper.auditQuestionResponseToAuditQuestionResponseDTO(auditQuestionResponse);
+        auditQuestionResponseSearchRepository.save(auditQuestionResponse);
         return ResponseEntity.created(new URI("/api/audit-question-responses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("auditQuestionResponse", result.getId().toString()))
             .body(result);
@@ -68,25 +76,27 @@ public class AuditQuestionResponseResource {
     /**
      * PUT  /audit-question-responses : Updates an existing auditQuestionResponse.
      *
-     * @param auditQuestionResponse the auditQuestionResponse to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated auditQuestionResponse,
-     * or with status 400 (Bad Request) if the auditQuestionResponse is not valid,
-     * or with status 500 (Internal Server Error) if the auditQuestionResponse couldnt be updated
+     * @param auditQuestionResponseDTO the auditQuestionResponseDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated auditQuestionResponseDTO,
+     * or with status 400 (Bad Request) if the auditQuestionResponseDTO is not valid,
+     * or with status 500 (Internal Server Error) if the auditQuestionResponseDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/audit-question-responses",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditQuestionResponse> updateAuditQuestionResponse(@RequestBody AuditQuestionResponse auditQuestionResponse) throws URISyntaxException {
-        log.debug("REST request to update AuditQuestionResponse : {}", auditQuestionResponse);
-        if (auditQuestionResponse.getId() == null) {
-            return createAuditQuestionResponse(auditQuestionResponse);
+    public ResponseEntity<AuditQuestionResponseDTO> updateAuditQuestionResponse(@RequestBody AuditQuestionResponseDTO auditQuestionResponseDTO) throws URISyntaxException {
+        log.debug("REST request to update AuditQuestionResponse : {}", auditQuestionResponseDTO);
+        if (auditQuestionResponseDTO.getId() == null) {
+            return createAuditQuestionResponse(auditQuestionResponseDTO);
         }
-        AuditQuestionResponse result = auditQuestionResponseRepository.save(auditQuestionResponse);
-        auditQuestionResponseSearchRepository.save(result);
+        AuditQuestionResponse auditQuestionResponse = auditQuestionResponseMapper.auditQuestionResponseDTOToAuditQuestionResponse(auditQuestionResponseDTO);
+        auditQuestionResponse = auditQuestionResponseRepository.save(auditQuestionResponse);
+        AuditQuestionResponseDTO result = auditQuestionResponseMapper.auditQuestionResponseToAuditQuestionResponseDTO(auditQuestionResponse);
+        auditQuestionResponseSearchRepository.save(auditQuestionResponse);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("auditQuestionResponse", auditQuestionResponse.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("auditQuestionResponse", auditQuestionResponseDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,28 +111,29 @@ public class AuditQuestionResponseResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<AuditQuestionResponse>> getAllAuditQuestionResponses(Pageable pageable)
+    public ResponseEntity<List<AuditQuestionResponseDTO>> getAllAuditQuestionResponses(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of AuditQuestionResponses");
         Page<AuditQuestionResponse> page = auditQuestionResponseRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/audit-question-responses");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(auditQuestionResponseMapper.auditQuestionResponsesToAuditQuestionResponseDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
     /**
      * GET  /audit-question-responses/:id : get the "id" auditQuestionResponse.
      *
-     * @param id the id of the auditQuestionResponse to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the auditQuestionResponse, or with status 404 (Not Found)
+     * @param id the id of the auditQuestionResponseDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the auditQuestionResponseDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/audit-question-responses/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditQuestionResponse> getAuditQuestionResponse(@PathVariable Long id) {
+    public ResponseEntity<AuditQuestionResponseDTO> getAuditQuestionResponse(@PathVariable Long id) {
         log.debug("REST request to get AuditQuestionResponse : {}", id);
         AuditQuestionResponse auditQuestionResponse = auditQuestionResponseRepository.findOne(id);
-        return Optional.ofNullable(auditQuestionResponse)
+        AuditQuestionResponseDTO auditQuestionResponseDTO = auditQuestionResponseMapper.auditQuestionResponseToAuditQuestionResponseDTO(auditQuestionResponse);
+        return Optional.ofNullable(auditQuestionResponseDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +143,7 @@ public class AuditQuestionResponseResource {
     /**
      * DELETE  /audit-question-responses/:id : delete the "id" auditQuestionResponse.
      *
-     * @param id the id of the auditQuestionResponse to delete
+     * @param id the id of the auditQuestionResponseDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/audit-question-responses/{id}",
@@ -159,12 +170,12 @@ public class AuditQuestionResponseResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<AuditQuestionResponse>> searchAuditQuestionResponses(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<AuditQuestionResponseDTO>> searchAuditQuestionResponses(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of AuditQuestionResponses for query {}", query);
         Page<AuditQuestionResponse> page = auditQuestionResponseSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/audit-question-responses");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(auditQuestionResponseMapper.auditQuestionResponsesToAuditQuestionResponseDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
 

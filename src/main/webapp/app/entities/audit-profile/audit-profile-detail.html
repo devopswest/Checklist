@@ -4,10 +4,6 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="checklistApp.auditProfile.fiscalYear">Fiscal Year</span></dt>
-        <dd>
-            <span>{{vm.auditProfile.fiscalYear}}</span>
-        </dd>
         <dt><span translate="checklistApp.auditProfile.description">Description</span></dt>
         <dd>
             <span>{{vm.auditProfile.description}}</span>
@@ -16,29 +12,19 @@
         <dd>
             <span translate="{{'checklistApp.ResponseStatus.' + vm.auditProfile.status}}">{{vm.auditProfile.status}}</span>
         </dd>
-        <dt><span translate="checklistApp.auditProfile.question">Question</span></dt>
-        <dd>
-            <span ng-repeat="question in vm.auditProfile.questions">
-                <a ui-sref="checklist-question-detail({id: question.id})">{{question.question}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
         <dt><span translate="checklistApp.auditProfile.auditQuestionResponse">Audit Question Response</span></dt>
         <dd>
             <span ng-repeat="auditQuestionResponse in vm.auditProfile.auditQuestionResponses">
                 <a ui-sref="audit-question-response-detail({id: auditQuestionResponse.id})">{{auditQuestionResponse.questionResponse}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
-        <dt><span translate="checklistApp.auditProfile.client">Client</span></dt>
+        <dt><span translate="checklistApp.auditProfile.engagement">Engagement</span></dt>
         <dd>
-            <a ui-sref="client-detail({id:vm.auditProfile.client.id})">{{vm.auditProfile.client.name}}</a>
+            <a ui-sref="engagement-detail({id:vm.auditProfile.engagementId})">{{vm.auditProfile.engagementDescription}}</a>
         </dd>
         <dt><span translate="checklistApp.auditProfile.checklist">Checklist</span></dt>
         <dd>
-            <a ui-sref="checklist-detail({id:vm.auditProfile.checklist.id})">{{vm.auditProfile.checklist.name}}</a>
-        </dd>
-        <dt><span translate="checklistApp.auditProfile.workflow">Workflow</span></dt>
-        <dd>
-            <a ui-sref="workflow-detail({id:vm.auditProfile.workflow.id})">{{vm.auditProfile.workflow.description}}</a>
+            <a ui-sref="checklist-detail({id:vm.auditProfile.checklistId})">{{vm.auditProfile.checklistName}}</a>
         </dd>
     </dl>
 

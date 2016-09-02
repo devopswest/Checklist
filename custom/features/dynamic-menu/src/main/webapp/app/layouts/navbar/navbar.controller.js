@@ -52,6 +52,11 @@
                         "label": "Client",
                         "uiclass" : "glyphicon glyphicon-asterisk"
                     },
+                                        {
+                        "id":"engagement",
+                        "label": "Engagements",
+                        "uiclass" : "glyphicon glyphicon-asterisk"
+                    },
                     {
                         "id":"audit-profile",
                         "label": "Audit Profile",

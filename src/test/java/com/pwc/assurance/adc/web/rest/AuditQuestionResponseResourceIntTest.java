@@ -4,6 +4,8 @@ import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.AuditQuestionResponse;
 import com.pwc.assurance.adc.repository.AuditQuestionResponseRepository;
 import com.pwc.assurance.adc.repository.search.AuditQuestionResponseSearchRepository;
+import com.pwc.assurance.adc.service.dto.AuditQuestionResponseDTO;
+import com.pwc.assurance.adc.service.mapper.AuditQuestionResponseMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +46,9 @@ public class AuditQuestionResponseResourceIntTest {
     private AuditQuestionResponseRepository auditQuestionResponseRepository;
 
     @Inject
+    private AuditQuestionResponseMapper auditQuestionResponseMapper;
+
+    @Inject
     private AuditQuestionResponseSearchRepository auditQuestionResponseSearchRepository;
 
     @Inject
@@ -65,6 +70,7 @@ public class AuditQuestionResponseResourceIntTest {
         AuditQuestionResponseResource auditQuestionResponseResource = new AuditQuestionResponseResource();
         ReflectionTestUtils.setField(auditQuestionResponseResource, "auditQuestionResponseSearchRepository", auditQuestionResponseSearchRepository);
         ReflectionTestUtils.setField(auditQuestionResponseResource, "auditQuestionResponseRepository", auditQuestionResponseRepository);
+        ReflectionTestUtils.setField(auditQuestionResponseResource, "auditQuestionResponseMapper", auditQuestionResponseMapper);
         this.restAuditQuestionResponseMockMvc = MockMvcBuilders.standaloneSetup(auditQuestionResponseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -95,10 +101,11 @@ public class AuditQuestionResponseResourceIntTest {
         int databaseSizeBeforeCreate = auditQuestionResponseRepository.findAll().size();
 
         // Create the AuditQuestionResponse
+        AuditQuestionResponseDTO auditQuestionResponseDTO = auditQuestionResponseMapper.auditQuestionResponseToAuditQuestionResponseDTO(auditQuestionResponse);
 
         restAuditQuestionResponseMockMvc.perform(post("/api/audit-question-responses")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(auditQuestionResponse)))
+                .content(TestUtil.convertObjectToJsonBytes(auditQuestionResponseDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the AuditQuestionResponse in the database
@@ -160,10 +167,11 @@ public class AuditQuestionResponseResourceIntTest {
         AuditQuestionResponse updatedAuditQuestionResponse = auditQuestionResponseRepository.findOne(auditQuestionResponse.getId());
         updatedAuditQuestionResponse
                 .questionResponse(UPDATED_QUESTION_RESPONSE);
+        AuditQuestionResponseDTO auditQuestionResponseDTO = auditQuestionResponseMapper.auditQuestionResponseToAuditQuestionResponseDTO(updatedAuditQuestionResponse);
 
         restAuditQuestionResponseMockMvc.perform(put("/api/audit-question-responses")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedAuditQuestionResponse)))
+                .content(TestUtil.convertObjectToJsonBytes(auditQuestionResponseDTO)))
                 .andExpect(status().isOk());
 
         // Validate the AuditQuestionResponse in the database

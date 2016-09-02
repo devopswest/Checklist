@@ -1,5 +1,6 @@
 rm -R src
 rm -R .jhipster
+rm -R build
 yo jhipster --force
 
 #jhipster-uml custom/design/model.jh

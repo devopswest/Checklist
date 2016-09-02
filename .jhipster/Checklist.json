@@ -39,7 +39,7 @@
             "fieldValues": "DRAFT,RELEASED"
         }
     ],
-    "changelogDate": "20160901205038",
+    "changelogDate": "20160902163612",
     "javadoc": "ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists",
     "entityTableName": "checklist",
     "dto": "mapstruct",

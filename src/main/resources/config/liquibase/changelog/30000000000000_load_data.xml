@@ -33,15 +33,18 @@
         </loadData>
 
 
-    </changeSet>
-
-    <changeSet id="30000000000001" author="jhipster">
         <loadData encoding="UTF-8"
                   file="config/liquibase/checklist_question_deep.csv"
                   separator="~"
                   tableName="checklist_question">
         </loadData>
 
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/engagement.csv"
+                  separator=";"
+                  tableName="engagement">
+        </loadData>
 
     </changeSet>
 

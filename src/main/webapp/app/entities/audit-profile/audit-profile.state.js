@@ -126,7 +126,6 @@
                     resolve: {
                         entity: function () {
                             return {
-                                fiscalYear: null,
                                 description: null,
                                 status: null,
                                 id: null

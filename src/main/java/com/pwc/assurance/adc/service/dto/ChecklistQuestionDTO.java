@@ -3,10 +3,10 @@ package com.pwc.assurance.adc.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.Objects;
 
+import java.util.List;
 
 /**
  * A DTO for the ChecklistQuestion entity.
@@ -21,7 +21,6 @@ public class ChecklistQuestionDTO implements Serializable {
     private String description;
 
 
-
     private Long checklistId;
 
 
@@ -31,22 +30,6 @@ public class ChecklistQuestionDTO implements Serializable {
 
 
     private String parentDescription;
-
-    private Long questionId;
-
-
-    List<ChecklistQuestionDTO> children;
-
-
-    public List<ChecklistQuestionDTO> getChildren() {
-		return children;
-	}
-
-	public void setChildren(List<ChecklistQuestionDTO> children) {
-		this.children = children;
-	}
-
-	private String questionQuestion;
 
     public Long getId() {
         return id;
@@ -104,23 +87,6 @@ public class ChecklistQuestionDTO implements Serializable {
         this.parentDescription = checklistQuestionDescription;
     }
 
-    public Long getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
-
-
-    public String getQuestionQuestion() {
-        return questionQuestion;
-    }
-
-    public void setQuestionQuestion(String questionQuestion) {
-        this.questionQuestion = questionQuestion;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -149,5 +115,17 @@ public class ChecklistQuestionDTO implements Serializable {
             ", code='" + code + "'" +
             ", description='" + description + "'" +
             '}';
+    }
+
+
+    List<ChecklistQuestionDTO> children;
+
+
+    public List<ChecklistQuestionDTO> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ChecklistQuestionDTO> children) {
+        this.children = children;
     }
 }

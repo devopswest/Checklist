@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity AuditProfile.
+    -->
+    <changeSet id="20160902163616-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="audit_profiles_id"
+                                 baseTableName="audit_profile_audit_question_response"
+                                 constraintName="fk_audit_profile_audit_question_response_audit_profiles_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="audit_profile"/>
+        <addForeignKeyConstraint baseColumnNames="audit_question_responses_id"
+                                 baseTableName="audit_profile_audit_question_response"
+                                 constraintName="fk_audit_profile_audit_question_response_audit_question_responses_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="audit_question_response"/>
+        
+        <addForeignKeyConstraint baseColumnNames="engagement_id"
+                                 baseTableName="audit_profile"
+                                 constraintName="fk_audit_profile_engagement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="engagement"/>
+
+        <addForeignKeyConstraint baseColumnNames="checklist_id"
+                                 baseTableName="audit_profile"
+                                 constraintName="fk_audit_profile_checklist_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="checklist"/>
+
+    </changeSet>
+</databaseChangeLog>

@@ -3,8 +3,6 @@
 ######################
 /src/main/webapp/content/css/main.css
 /build/www/**
-/build/**
-/target/**
 
 ######################
 # Node
@@ -12,7 +10,6 @@
 /node/**
 /node_tmp/**
 /node_modules/**
-/src/main/webapp/bower_components/**
 
 ######################
 # SASS
@@ -136,3 +133,9 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+######################
+# Custom Settings     
+######################
+/build/**
+/target/**
+/src/main/webapp/bower_components/**

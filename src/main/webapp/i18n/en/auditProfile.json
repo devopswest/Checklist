@@ -16,15 +16,12 @@
             "detail": {
                 "title": "Audit Profile"
             },
-            "fiscalYear": "Fiscal Year",
             "description": "Description",
             "status": "Status",
             "log": "Log",
-            "question": "Question",
             "auditQuestionResponse": "Audit Question Response",
             "engagement": "Engagement",
-            "checklist": "Checklist",
-            "workflow": "Workflow"
+            "checklist": "Checklist"
         }
     }
 }

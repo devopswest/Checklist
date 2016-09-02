@@ -15,11 +15,11 @@ import java.util.Objects;
 import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
 
 /**
- * ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists
+ * ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists
  *
  */
 @ApiModel(description = ""
-    + "ChecklistTODO: Workflow review tracking, questions help or guidance fields.Main/core checlists, Supplemental Checklists"
+    + "ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists"
     + "")
 @Entity
 @Table(name = "checklist")

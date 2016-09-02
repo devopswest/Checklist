@@ -15,7 +15,7 @@
 # ./features/audit-profile-tree/apply-feature.sh
 
 cat custom/features.json |jq '.features[] | "./custom/features/" + .path + "/" + .scripts.apply'|awk '{system(" chmod +x "$1)}'
-cat custom/features.json |jq '.features[] | "./custom/features/" + .path + "/" + .scripts.apply'|awk '{system($1)}'
+cat custom/features.json |jq '.features[] | select(.active=="true") |"./custom/features/" + .path + "/" + .scripts.apply'|awk '{system($1)}'
 
 #
 # Update gulpfile

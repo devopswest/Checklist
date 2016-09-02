@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label translate="checklistApp.auditQuestionResponse.question" for="field_question">Question</label>
-            <select class="form-control" id="field_question" name="question" ng-model="vm.auditQuestionResponse.question" ng-options="checklistQuestion as checklistQuestion.question for checklistQuestion in vm.checklistquestions track by checklistQuestion.id">
+            <select class="form-control" id="field_question" name="question" ng-model="vm.auditQuestionResponse.questionId" ng-options="checklistQuestion.id as checklistQuestion.description for checklistQuestion in vm.checklistquestions"            >
                 <option value=""></option>
             </select>
         </div>

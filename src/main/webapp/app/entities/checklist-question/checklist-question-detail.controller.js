@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('ChecklistQuestionDetailController', ChecklistQuestionDetailController);
 
-    ChecklistQuestionDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'ChecklistQuestion', 'AuditQuestionResponse', 'Checklist', 'Question', 'AuditProfile'];
+    ChecklistQuestionDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'ChecklistQuestion', 'AuditQuestionResponse', 'Checklist'];
 
-    function ChecklistQuestionDetailController($scope, $rootScope, $stateParams, previousState, entity, ChecklistQuestion, AuditQuestionResponse, Checklist, Question, AuditProfile) {
+    function ChecklistQuestionDetailController($scope, $rootScope, $stateParams, previousState, entity, ChecklistQuestion, AuditQuestionResponse, Checklist) {
         var vm = this;
 
         vm.checklistQuestion = entity;

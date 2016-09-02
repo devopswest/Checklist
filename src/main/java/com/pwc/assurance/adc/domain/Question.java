@@ -37,11 +37,6 @@ public class Question implements Serializable {
     @Column(name = "question")
     private String question;
 
-    @OneToMany(mappedBy = "question")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
-
     @ManyToMany(mappedBy = "questions")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -79,31 +74,6 @@ public class Question implements Serializable {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public Set<ChecklistQuestion> getChecklistQuestions() {
-        return checklistQuestions;
-    }
-
-    public Question checklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
-        this.checklistQuestions = checklistQuestions;
-        return this;
-    }
-
-    public Question addChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        checklistQuestions.add(checklistQuestion);
-        checklistQuestion.setQuestion(this);
-        return this;
-    }
-
-    public Question removeChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        checklistQuestions.remove(checklistQuestion);
-        checklistQuestion.setQuestion(null);
-        return this;
-    }
-
-    public void setChecklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
-        this.checklistQuestions = checklistQuestions;
     }
 
     public Set<Requirement> getRequirements() {

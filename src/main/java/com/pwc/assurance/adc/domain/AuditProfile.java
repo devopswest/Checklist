@@ -33,9 +33,6 @@ public class AuditProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "fiscal_year")
-    private String fiscalYear;
-
     @Column(name = "description")
     private String description;
 
@@ -50,13 +47,6 @@ public class AuditProfile implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "audit_profile_question",
-               joinColumns = @JoinColumn(name="audit_profiles_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="questions_id", referencedColumnName="ID"))
-    private Set<ChecklistQuestion> questions = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "audit_profile_audit_question_response",
                joinColumns = @JoinColumn(name="audit_profiles_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="audit_question_responses_id", referencedColumnName="ID"))
@@ -68,28 +58,12 @@ public class AuditProfile implements Serializable {
     @ManyToOne
     private Checklist checklist;
 
-    @ManyToOne
-    private Workflow workflow;
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFiscalYear() {
-        return fiscalYear;
-    }
-
-    public AuditProfile fiscalYear(String fiscalYear) {
-        this.fiscalYear = fiscalYear;
-        return this;
-    }
-
-    public void setFiscalYear(String fiscalYear) {
-        this.fiscalYear = fiscalYear;
     }
 
     public String getDescription() {
@@ -143,31 +117,6 @@ public class AuditProfile implements Serializable {
         this.logs = auditProfileLogEntries;
     }
 
-    public Set<ChecklistQuestion> getQuestions() {
-        return questions;
-    }
-
-    public AuditProfile questions(Set<ChecklistQuestion> checklistQuestions) {
-        this.questions = checklistQuestions;
-        return this;
-    }
-
-    public AuditProfile addChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        questions.add(checklistQuestion);
-        checklistQuestion.getAuditProfiles().add(this);
-        return this;
-    }
-
-    public AuditProfile removeChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        questions.remove(checklistQuestion);
-        checklistQuestion.getAuditProfiles().remove(this);
-        return this;
-    }
-
-    public void setQuestions(Set<ChecklistQuestion> checklistQuestions) {
-        this.questions = checklistQuestions;
-    }
-
     public Set<AuditQuestionResponse> getAuditQuestionResponses() {
         return auditQuestionResponses;
     }
@@ -219,19 +168,6 @@ public class AuditProfile implements Serializable {
         this.checklist = checklist;
     }
 
-    public Workflow getWorkflow() {
-        return workflow;
-    }
-
-    public AuditProfile workflow(Workflow workflow) {
-        this.workflow = workflow;
-        return this;
-    }
-
-    public void setWorkflow(Workflow workflow) {
-        this.workflow = workflow;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -256,7 +192,6 @@ public class AuditProfile implements Serializable {
     public String toString() {
         return "AuditProfile{" +
             "id=" + id +
-            ", fiscalYear='" + fiscalYear + "'" +
             ", description='" + description + "'" +
             ", status='" + status + "'" +
             '}';

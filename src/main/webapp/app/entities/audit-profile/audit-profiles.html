@@ -36,29 +36,23 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="fiscalYear"><span translate="checklistApp.auditProfile.fiscalYear">Fiscal Year</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.auditProfile.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="checklistApp.auditProfile.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="client.name"><span translate="checklistApp.auditProfile.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="checklist.name"><span translate="checklistApp.auditProfile.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="workflow.description"><span translate="checklistApp.auditProfile.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="engagementDescription"><span translate="checklistApp.auditProfile.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="checklistName"><span translate="checklistApp.auditProfile.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="auditProfile in vm.auditProfiles track by auditProfile.id">
                     <td><a ui-sref="audit-profile-detail({id:auditProfile.id})">{{auditProfile.id}}</a></td>
-                    <td>{{auditProfile.fiscalYear}}</td>
                     <td>{{auditProfile.description}}</td>
                     <td translate="{{'checklistApp.ResponseStatus.' + auditProfile.status}}">{{auditProfile.status}}</td>
                     <td>
-                        <a ui-sref="client-detail({id:auditProfile.client.id})">{{auditProfile.client.name}}</a>
+                        <a ui-sref="engagement-detail({id:auditProfile.engagementId})">{{auditProfile.engagementDescription}}</a>
                     </td>
                     <td>
-                        <a ui-sref="checklist-detail({id:auditProfile.checklist.id})">{{auditProfile.checklist.name}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="workflow-detail({id:auditProfile.workflow.id})">{{auditProfile.workflow.description}}</a>
+                        <a ui-sref="checklist-detail({id:auditProfile.checklistId})">{{auditProfile.checklistName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

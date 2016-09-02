@@ -4,6 +4,8 @@ import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.AuditProfile;
 import com.pwc.assurance.adc.repository.AuditProfileRepository;
 import com.pwc.assurance.adc.repository.search.AuditProfileSearchRepository;
+import com.pwc.assurance.adc.service.dto.AuditProfileDTO;
+import com.pwc.assurance.adc.service.mapper.AuditProfileMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,8 +40,6 @@ import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class AuditProfileResourceIntTest {
-    private static final String DEFAULT_FISCAL_YEAR = "AAAAA";
-    private static final String UPDATED_FISCAL_YEAR = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
@@ -48,6 +48,9 @@ public class AuditProfileResourceIntTest {
 
     @Inject
     private AuditProfileRepository auditProfileRepository;
+
+    @Inject
+    private AuditProfileMapper auditProfileMapper;
 
     @Inject
     private AuditProfileSearchRepository auditProfileSearchRepository;
@@ -71,6 +74,7 @@ public class AuditProfileResourceIntTest {
         AuditProfileResource auditProfileResource = new AuditProfileResource();
         ReflectionTestUtils.setField(auditProfileResource, "auditProfileSearchRepository", auditProfileSearchRepository);
         ReflectionTestUtils.setField(auditProfileResource, "auditProfileRepository", auditProfileRepository);
+        ReflectionTestUtils.setField(auditProfileResource, "auditProfileMapper", auditProfileMapper);
         this.restAuditProfileMockMvc = MockMvcBuilders.standaloneSetup(auditProfileResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -85,7 +89,6 @@ public class AuditProfileResourceIntTest {
     public static AuditProfile createEntity(EntityManager em) {
         AuditProfile auditProfile = new AuditProfile();
         auditProfile = new AuditProfile()
-                .fiscalYear(DEFAULT_FISCAL_YEAR)
                 .description(DEFAULT_DESCRIPTION)
                 .status(DEFAULT_STATUS);
         return auditProfile;
@@ -103,17 +106,17 @@ public class AuditProfileResourceIntTest {
         int databaseSizeBeforeCreate = auditProfileRepository.findAll().size();
 
         // Create the AuditProfile
+        AuditProfileDTO auditProfileDTO = auditProfileMapper.auditProfileToAuditProfileDTO(auditProfile);
 
         restAuditProfileMockMvc.perform(post("/api/audit-profiles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(auditProfile)))
+                .content(TestUtil.convertObjectToJsonBytes(auditProfileDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the AuditProfile in the database
         List<AuditProfile> auditProfiles = auditProfileRepository.findAll();
         assertThat(auditProfiles).hasSize(databaseSizeBeforeCreate + 1);
         AuditProfile testAuditProfile = auditProfiles.get(auditProfiles.size() - 1);
-        assertThat(testAuditProfile.getFiscalYear()).isEqualTo(DEFAULT_FISCAL_YEAR);
         assertThat(testAuditProfile.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testAuditProfile.getStatus()).isEqualTo(DEFAULT_STATUS);
 
@@ -133,7 +136,6 @@ public class AuditProfileResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(auditProfile.getId().intValue())))
-                .andExpect(jsonPath("$.[*].fiscalYear").value(hasItem(DEFAULT_FISCAL_YEAR.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
@@ -149,7 +151,6 @@ public class AuditProfileResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(auditProfile.getId().intValue()))
-            .andExpect(jsonPath("$.fiscalYear").value(DEFAULT_FISCAL_YEAR.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
@@ -173,20 +174,19 @@ public class AuditProfileResourceIntTest {
         // Update the auditProfile
         AuditProfile updatedAuditProfile = auditProfileRepository.findOne(auditProfile.getId());
         updatedAuditProfile
-                .fiscalYear(UPDATED_FISCAL_YEAR)
                 .description(UPDATED_DESCRIPTION)
                 .status(UPDATED_STATUS);
+        AuditProfileDTO auditProfileDTO = auditProfileMapper.auditProfileToAuditProfileDTO(updatedAuditProfile);
 
         restAuditProfileMockMvc.perform(put("/api/audit-profiles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedAuditProfile)))
+                .content(TestUtil.convertObjectToJsonBytes(auditProfileDTO)))
                 .andExpect(status().isOk());
 
         // Validate the AuditProfile in the database
         List<AuditProfile> auditProfiles = auditProfileRepository.findAll();
         assertThat(auditProfiles).hasSize(databaseSizeBeforeUpdate);
         AuditProfile testAuditProfile = auditProfiles.get(auditProfiles.size() - 1);
-        assertThat(testAuditProfile.getFiscalYear()).isEqualTo(UPDATED_FISCAL_YEAR);
         assertThat(testAuditProfile.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testAuditProfile.getStatus()).isEqualTo(UPDATED_STATUS);
 
@@ -229,7 +229,6 @@ public class AuditProfileResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(auditProfile.getId().intValue())))
-            .andExpect(jsonPath("$.[*].fiscalYear").value(hasItem(DEFAULT_FISCAL_YEAR.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }

@@ -40,7 +40,6 @@
                     <th jh-sort-by="description"><span translate="checklistApp.checklistQuestion.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="checklistName"><span translate="checklistApp.checklistQuestion.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="parentDescription"><span translate="checklistApp.checklistQuestion.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="questionQuestion"><span translate="checklistApp.checklistQuestion.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,9 +53,6 @@
                     </td>
                     <td>
                         <a ui-sref="checklist-question-detail({id:checklistQuestion.parentId})">{{checklistQuestion.parentDescription}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="question-detail({id:checklistQuestion.questionId})">{{checklistQuestion.questionQuestion}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

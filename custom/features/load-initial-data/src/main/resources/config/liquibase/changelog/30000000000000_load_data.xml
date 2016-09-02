@@ -14,12 +14,6 @@
                   tableName="country">
         </loadData>
 
-<!--         <loadData encoding="UTF-8"
-                  file="config/liquibase/engagement.csv"
-                  separator=";"
-                  tableName="engagement">
-        </loadData> -->
-
         <loadData encoding="UTF-8"
                   file="config/liquibase/client.csv"
                   separator=";"
@@ -45,6 +39,12 @@
                   tableName="checklist_question">
         </loadData>
 
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/engagement.csv"
+                  separator=";"
+                  tableName="engagement">
+        </loadData>
 
     </changeSet>
 

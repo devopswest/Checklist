@@ -7,6 +7,8 @@ import com.pwc.assurance.adc.repository.AuditProfileRepository;
 import com.pwc.assurance.adc.repository.search.AuditProfileSearchRepository;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.AuditProfileDTO;
+import com.pwc.assurance.adc.service.mapper.AuditProfileMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,26 +43,31 @@ public class AuditProfileResource {
     private AuditProfileRepository auditProfileRepository;
 
     @Inject
+    private AuditProfileMapper auditProfileMapper;
+
+    @Inject
     private AuditProfileSearchRepository auditProfileSearchRepository;
 
     /**
      * POST  /audit-profiles : Create a new auditProfile.
      *
-     * @param auditProfile the auditProfile to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new auditProfile, or with status 400 (Bad Request) if the auditProfile has already an ID
+     * @param auditProfileDTO the auditProfileDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new auditProfileDTO, or with status 400 (Bad Request) if the auditProfile has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/audit-profiles",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditProfile> createAuditProfile(@RequestBody AuditProfile auditProfile) throws URISyntaxException {
-        log.debug("REST request to save AuditProfile : {}", auditProfile);
-        if (auditProfile.getId() != null) {
+    public ResponseEntity<AuditProfileDTO> createAuditProfile(@RequestBody AuditProfileDTO auditProfileDTO) throws URISyntaxException {
+        log.debug("REST request to save AuditProfile : {}", auditProfileDTO);
+        if (auditProfileDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("auditProfile", "idexists", "A new auditProfile cannot already have an ID")).body(null);
         }
-        AuditProfile result = auditProfileRepository.save(auditProfile);
-        auditProfileSearchRepository.save(result);
+        AuditProfile auditProfile = auditProfileMapper.auditProfileDTOToAuditProfile(auditProfileDTO);
+        auditProfile = auditProfileRepository.save(auditProfile);
+        AuditProfileDTO result = auditProfileMapper.auditProfileToAuditProfileDTO(auditProfile);
+        auditProfileSearchRepository.save(auditProfile);
         return ResponseEntity.created(new URI("/api/audit-profiles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("auditProfile", result.getId().toString()))
             .body(result);
@@ -68,25 +76,27 @@ public class AuditProfileResource {
     /**
      * PUT  /audit-profiles : Updates an existing auditProfile.
      *
-     * @param auditProfile the auditProfile to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated auditProfile,
-     * or with status 400 (Bad Request) if the auditProfile is not valid,
-     * or with status 500 (Internal Server Error) if the auditProfile couldnt be updated
+     * @param auditProfileDTO the auditProfileDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated auditProfileDTO,
+     * or with status 400 (Bad Request) if the auditProfileDTO is not valid,
+     * or with status 500 (Internal Server Error) if the auditProfileDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/audit-profiles",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditProfile> updateAuditProfile(@RequestBody AuditProfile auditProfile) throws URISyntaxException {
-        log.debug("REST request to update AuditProfile : {}", auditProfile);
-        if (auditProfile.getId() == null) {
-            return createAuditProfile(auditProfile);
+    public ResponseEntity<AuditProfileDTO> updateAuditProfile(@RequestBody AuditProfileDTO auditProfileDTO) throws URISyntaxException {
+        log.debug("REST request to update AuditProfile : {}", auditProfileDTO);
+        if (auditProfileDTO.getId() == null) {
+            return createAuditProfile(auditProfileDTO);
         }
-        AuditProfile result = auditProfileRepository.save(auditProfile);
-        auditProfileSearchRepository.save(result);
+        AuditProfile auditProfile = auditProfileMapper.auditProfileDTOToAuditProfile(auditProfileDTO);
+        auditProfile = auditProfileRepository.save(auditProfile);
+        AuditProfileDTO result = auditProfileMapper.auditProfileToAuditProfileDTO(auditProfile);
+        auditProfileSearchRepository.save(auditProfile);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("auditProfile", auditProfile.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("auditProfile", auditProfileDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,28 +111,29 @@ public class AuditProfileResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<AuditProfile>> getAllAuditProfiles(Pageable pageable)
+    public ResponseEntity<List<AuditProfileDTO>> getAllAuditProfiles(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of AuditProfiles");
         Page<AuditProfile> page = auditProfileRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/audit-profiles");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(auditProfileMapper.auditProfilesToAuditProfileDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
     /**
      * GET  /audit-profiles/:id : get the "id" auditProfile.
      *
-     * @param id the id of the auditProfile to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the auditProfile, or with status 404 (Not Found)
+     * @param id the id of the auditProfileDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the auditProfileDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/audit-profiles/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<AuditProfile> getAuditProfile(@PathVariable Long id) {
+    public ResponseEntity<AuditProfileDTO> getAuditProfile(@PathVariable Long id) {
         log.debug("REST request to get AuditProfile : {}", id);
         AuditProfile auditProfile = auditProfileRepository.findOneWithEagerRelationships(id);
-        return Optional.ofNullable(auditProfile)
+        AuditProfileDTO auditProfileDTO = auditProfileMapper.auditProfileToAuditProfileDTO(auditProfile);
+        return Optional.ofNullable(auditProfileDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +143,7 @@ public class AuditProfileResource {
     /**
      * DELETE  /audit-profiles/:id : delete the "id" auditProfile.
      *
-     * @param id the id of the auditProfile to delete
+     * @param id the id of the auditProfileDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/audit-profiles/{id}",
@@ -159,12 +170,12 @@ public class AuditProfileResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<AuditProfile>> searchAuditProfiles(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<AuditProfileDTO>> searchAuditProfiles(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of AuditProfiles for query {}", query);
         Page<AuditProfile> page = auditProfileSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/audit-profiles");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(auditProfileMapper.auditProfilesToAuditProfileDTOs(page.getContent()), headers, HttpStatus.OK);
     }
 
 

@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface AuditProfileRepository extends JpaRepository<AuditProfile,Long> {
 
-    @Query("select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.questions left join fetch auditProfile.auditQuestionResponses")
+    @Query("select distinct auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses")
     List<AuditProfile> findAllWithEagerRelationships();
 
-    @Query("select auditProfile from AuditProfile auditProfile left join fetch auditProfile.questions left join fetch auditProfile.auditQuestionResponses where auditProfile.id =:id")
+    @Query("select auditProfile from AuditProfile auditProfile left join fetch auditProfile.auditQuestionResponses where auditProfile.id =:id")
     AuditProfile findOneWithEagerRelationships(@Param("id") Long id);
 
 }

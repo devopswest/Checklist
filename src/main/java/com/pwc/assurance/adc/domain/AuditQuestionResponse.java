@@ -1,6 +1,7 @@
 package com.pwc.assurance.adc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -12,8 +13,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A AuditQuestionResponse.
+ * relationship ManyToMany {AuditProfile{question(question)} to ChecklistQuestion{auditProfile}}
+ * 
  */
+@ApiModel(description = ""
+    + "relationship ManyToMany {AuditProfile{question(question)} to ChecklistQuestion{auditProfile}}"
+    + "")
 @Entity
 @Table(name = "audit_question_response")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

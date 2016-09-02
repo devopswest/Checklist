@@ -1,6 +1,5 @@
 package com.pwc.assurance.adc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,11 +35,6 @@ public class Workflow implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "workflow")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditProfile> auditProfiles = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -81,31 +75,6 @@ public class Workflow implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<AuditProfile> getAuditProfiles() {
-        return auditProfiles;
-    }
-
-    public Workflow auditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-        return this;
-    }
-
-    public Workflow addAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.add(auditProfile);
-        auditProfile.setWorkflow(this);
-        return this;
-    }
-
-    public Workflow removeAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.remove(auditProfile);
-        auditProfile.setWorkflow(null);
-        return this;
-    }
-
-    public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
     }
 
     public Set<WorkflowStep> getWorkflowSteps() {

@@ -73,12 +73,6 @@
                     ng-model="vm.auditProfile.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="checklistApp.auditProfile.fiscalYear" for="field_fiscalYear">Fiscal Year</label>
-            <input type="text" class="form-control" name="fiscalYear" id="field_fiscalYear"
-                    ng-model="vm.auditProfile.fiscalYear"
-                     />
-        </div>
-        <div class="form-group">
             <label class="control-label" translate="checklistApp.auditProfile.description" for="field_description">Description</label>
             <input type="text" class="form-control" name="description" id="field_description"
                     ng-model="vm.auditProfile.description"
@@ -92,13 +86,18 @@
             </select>
         </div>
 
-
         <div class="form-group">
-            <label translate="checklistApp.auditProfile.client" for="field_client">Client</label>
-            <select class="form-control" id="field_client" name="client" ng-model="vm.auditProfile.client" ng-options="client as client.name for client in vm.clients track by client.id">
+            <label translate="checklistApp.auditProfile.auditQuestionResponse" for="field_auditQuestionResponse">Audit Question Response</label>
+            <select class="form-control" id="field_auditQuestionResponse" multiple name="auditQuestionResponse" ng-model="vm.auditProfile.auditQuestionResponses" ng-options="auditQuestionResponse as auditQuestionResponse.questionResponse for auditQuestionResponse in vm.auditquestionresponses track by auditQuestionResponse.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
+            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
                 <option value=""></option>
             </select>
         </div>
+
+
         <div class="form-group">
             <label translate="checklistApp.auditProfile.checklist" for="field_checklist">Checklist</label>
 
@@ -115,16 +114,19 @@
         </button>
 
         </div>
+
+
+
 <!--         <div class="form-group">
             <label translate="checklistApp.auditProfile.workflow" for="field_workflow">Workflow</label>
-            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.auditProfile.workflow" ng-options="workflow as workflow.name for workflow in vm.workflows track by workflow.id">
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.auditProfile.workflowId" ng-options="workflow.id as workflow.description for workflow in vm.workflows"            >
                 <option value=""></option>
             </select>
         </div> -->
     </div>
 
 
-<div class="form-group">
+    <div class="form-group">
 
 
 <div class="row">
@@ -181,8 +183,6 @@
 
 </div>
 </div>
-
-
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
@@ -191,7 +191,7 @@
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
 
-                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Flag as Final</span>
         </button>
 
@@ -199,7 +199,5 @@
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
         </button>
-
-
     </div>
 </form>

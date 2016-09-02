@@ -2,12 +2,6 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "auditProfile",
-            "otherEntityName": "auditProfile",
-            "otherEntityRelationshipName": "workflow"
-        },
-        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "workflow",
             "relationshipName": "workflowStep",
@@ -26,7 +20,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160901205036",
+    "changelogDate": "20160902163610",
     "javadoc": "WorkflowTODO: Workflow review tracking",
     "entityTableName": "workflow",
     "dto": "no",

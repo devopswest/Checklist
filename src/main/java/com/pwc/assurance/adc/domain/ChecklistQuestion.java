@@ -50,14 +50,6 @@ public class ChecklistQuestion implements Serializable {
     @ManyToOne
     private ChecklistQuestion parent;
 
-    @ManyToOne
-    private Question question;
-
-    @ManyToMany(mappedBy = "questions")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditProfile> auditProfiles = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -166,44 +158,6 @@ public class ChecklistQuestion implements Serializable {
 
     public void setParent(ChecklistQuestion checklistQuestion) {
         this.parent = checklistQuestion;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public ChecklistQuestion question(Question question) {
-        this.question = question;
-        return this;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public Set<AuditProfile> getAuditProfiles() {
-        return auditProfiles;
-    }
-
-    public ChecklistQuestion auditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-        return this;
-    }
-
-    public ChecklistQuestion addAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.add(auditProfile);
-        auditProfile.getQuestions().add(this);
-        return this;
-    }
-
-    public ChecklistQuestion removeAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.remove(auditProfile);
-        auditProfile.getQuestions().remove(this);
-        return this;
-    }
-
-    public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
     }
 
     @Override
