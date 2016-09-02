@@ -2,6 +2,19 @@
 
   "features": [
     {
+        "id": "configure-git-ignore",
+        "name":"Configure Gitignore",
+        "description": "Remove bower_components from git repo",
+        "path": "configure-git-ignore",
+        "scripts": {
+            "apply": "apply-feature.sh",
+            "rollback": "rollback-feature.sh"
+        },
+        "dependencies": [
+        ]
+    },
+
+    {
         "id": "css-theme",
         "name":"CSS There",
         "description": "This feature modify default JHIPSTER theme and customize it based on PwC brand colors and logo",
@@ -72,21 +85,6 @@
         "name":"Checklist Tree",
         "description": "Add Angular Tree Capabilities when creating the checklist",
         "path": "checklist-tree",
-        "scripts": {
-            "apply": "apply-feature.sh",
-            "rollback": "rollback-feature.sh"
-        },
-        "dependencies": [
-            "css-theme",
-            "add-angular-tree"
-        ]
-    },
-
-    {
-        "id" : "audit-profile-tree",
-        "name":"Audit Profile Tree",
-        "description": "Add Angular Tree Capabilities when creating the audit profile",
-        "path": "audit-profile-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
