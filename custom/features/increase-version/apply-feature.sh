@@ -37,15 +37,22 @@ if [ "$increase" = "PATCH" ]; then
     v3=$((v3 + 1))
 fi;
 
-newVersion=$v1"."$v2"."$v3
+v3X=""
+if [ "$v3b" = "" ]; then
+    v3X=""
+else
+    v3X="-"$v3b
+fi;
+
+newVersion=$v1"."$v2"."$v3$v3X
 echo "COMMAND: $increase"
-echo "OLD: $version | NEW: $newVersion-$v3b"
+echo "OLD: $version | NEW: $newVersion"
 #
 # Code updates
 #
 
-sed -i "s|version = '$version'|version = '$newVersion-$v3b'|" build.gradle
-sed -i "s|<version>$version</version>|<version>$newVersion-$v3b</version>|" pom.xml
-sed -i "s|$version|$newVersion-$v3b|" src/main/webapp/app/app.constants.js
+sed -i "s|version = '$version'|version = '$newVersion'|" build.gradle
+sed -i "s|<version>$version</version>|<version>$newVersion</version>|" pom.xml
+sed -i "s|$version|$newVersion|" src/main/webapp/app/app.constants.js
 
 cat src/main/webapp/app/app.constants.js
