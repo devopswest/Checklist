@@ -25,9 +25,9 @@
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "client",
-            "otherEntityName": "client",
-            "otherEntityField": "name"
+            "relationshipName": "engagement",
+            "otherEntityName": "engagement",
+            "otherEntityField": "description"
         },
         {
             "relationshipType": "many-to-one",
@@ -57,8 +57,8 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160831131250",
-    "javadoc": "Response ResponsesTODO: Workflow review tracking",
+    "changelogDate": "20160901205042",
+    "javadoc": "Response Responses",
     "entityTableName": "audit_profile",
     "dto": "no",
     "pagination": "pager",

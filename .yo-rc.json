@@ -15,10 +15,8 @@
     "prodDatabaseType": "postgresql",
     "XXXXprodDatabaseType": "mysql",
     "searchEngine": "elasticsearch",
-
     "buildTool": "gradle",
     "XXXXbuildTool": "maven",
-
     "enableSocialSignIn": false,
     "rememberMeKey": "b1c7e6916f76590d64829c3d001cdf89f3e4ebac",
     "useSass": true,

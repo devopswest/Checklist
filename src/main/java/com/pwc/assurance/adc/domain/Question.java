@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * LibraryTODO: Questions, Diclosure Requirements, MatrixMatrix vs Client metaada
+ * LibraryTODO: Matrix vs Client metaada                                       
  * 
  */
 @ApiModel(description = ""
-    + "LibraryTODO: Questions, Diclosure Requirements, MatrixMatrix vs Client metaada"
+    + "LibraryTODO: Matrix vs Client metaada                                  "
     + "")
 @Entity
 @Table(name = "question")

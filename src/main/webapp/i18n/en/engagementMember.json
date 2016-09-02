@@ -1,0 +1,28 @@
+{
+    "checklistApp": {
+        "engagementMember" : {
+            "home": {
+                "title": "Engagement Members",
+                "createLabel": "Create a new Engagement Member",
+                "createOrEditLabel": "Create or edit a Engagement Member",
+                "search": "Search for Engagement Member"
+            },
+            "created": "A new Engagement Member is created with identifier {{ param }}",
+            "updated": "A Engagement Member is updated with identifier {{ param }}",
+            "deleted": "A Engagement Member is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Engagement Member {{ id }}?"
+            },
+            "detail": {
+                "title": "Engagement Member"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "phone": "Phone",
+            "email": "Email",
+            "authority": "Authority",
+            "user": "User",
+            "engagement": "Engagement"
+        }
+    }
+}

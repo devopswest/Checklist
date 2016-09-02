@@ -1,0 +1,27 @@
+{
+    "checklistApp": {
+        "engagement" : {
+            "home": {
+                "title": "Engagements",
+                "createLabel": "Create a new Engagement",
+                "createOrEditLabel": "Create or edit a Engagement",
+                "search": "Search for Engagement"
+            },
+            "created": "A new Engagement is created with identifier {{ param }}",
+            "updated": "A Engagement is updated with identifier {{ param }}",
+            "deleted": "A Engagement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Engagement {{ id }}?"
+            },
+            "detail": {
+                "title": "Engagement"
+            },
+            "fiscalYear": "Fiscal Year",
+            "description": "Description",
+            "status": "Status",
+            "auditProfile": "Audit Profile",
+            "engagementMember": "Engagement Member",
+            "client": "Client"
+        }
+    }
+}

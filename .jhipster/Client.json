@@ -3,8 +3,8 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "auditProfile",
-            "otherEntityName": "auditProfile",
+            "relationshipName": "engagement",
+            "otherEntityName": "engagement",
             "otherEntityRelationshipName": "client"
         }
     ],
@@ -18,7 +18,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160831131241",
+    "changelogDate": "20160901205031",
     "javadoc": "ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)",
     "entityTableName": "client",
     "dto": "no",

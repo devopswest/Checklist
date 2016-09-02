@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * WorkflowTODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or clientengagement.
+ * WorkflowTODO: Workflow review tracking                                      
  * 
  */
 @ApiModel(description = ""
-    + "WorkflowTODO: workflow configuration, reviwers roles, steps, types of workflow to apply per check list and or clientengagement."
+    + "WorkflowTODO: Workflow review tracking                                 "
     + "")
 @Entity
 @Table(name = "workflow")

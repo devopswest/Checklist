@@ -1,0 +1,41 @@
+
+<div>
+    <h2><span translate="checklistApp.engagement.detail.title">Engagement</span> {{vm.engagement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.engagement.fiscalYear">Fiscal Year</span></dt>
+        <dd>
+            <span>{{vm.engagement.fiscalYear}}</span>
+        </dd>
+        <dt><span translate="checklistApp.engagement.description">Description</span></dt>
+        <dd>
+            <span>{{vm.engagement.description}}</span>
+        </dd>
+        <dt><span translate="checklistApp.engagement.status">Status</span></dt>
+        <dd>
+            <span translate="{{'checklistApp.ResponseStatus.' + vm.engagement.status}}">{{vm.engagement.status}}</span>
+        </dd>
+        <dt><span translate="checklistApp.engagement.engagementMember">Engagement Member</span></dt>
+        <dd>
+            <span ng-repeat="engagementMember in vm.engagement.engagementMembers">
+                <a ui-sref="engagement-member-detail({id: engagementMember.id})">{{engagementMember.firstName}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="checklistApp.engagement.client">Client</span></dt>
+        <dd>
+            <a ui-sref="client-detail({id:vm.engagement.client.id})">{{vm.engagement.client.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="engagement-detail.edit({id:vm.engagement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

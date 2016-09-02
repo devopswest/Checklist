@@ -40,7 +40,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditProfile> auditProfiles = new HashSet<>();
+    private Set<Engagement> engagements = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -76,29 +76,29 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    public Set<AuditProfile> getAuditProfiles() {
-        return auditProfiles;
+    public Set<Engagement> getEngagements() {
+        return engagements;
     }
 
-    public Client auditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
+    public Client engagements(Set<Engagement> engagements) {
+        this.engagements = engagements;
         return this;
     }
 
-    public Client addAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.add(auditProfile);
-        auditProfile.setClient(this);
+    public Client addEngagement(Engagement engagement) {
+        engagements.add(engagement);
+        engagement.setClient(this);
         return this;
     }
 
-    public Client removeAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.remove(auditProfile);
-        auditProfile.setClient(null);
+    public Client removeEngagement(Engagement engagement) {
+        engagements.remove(engagement);
+        engagement.setClient(null);
         return this;
     }
 
-    public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
+    public void setEngagements(Set<Engagement> engagements) {
+        this.engagements = engagements;
     }
 
     @Override

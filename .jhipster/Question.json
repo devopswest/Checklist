@@ -25,8 +25,8 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160831131244",
-    "javadoc": "LibraryTODO: Questions, Diclosure Requirements, MatrixMatrix vs Client metaada",
+    "changelogDate": "20160901205034",
+    "javadoc": "LibraryTODO: Matrix vs Client metaada",
     "entityTableName": "question",
     "dto": "no",
     "pagination": "pager",

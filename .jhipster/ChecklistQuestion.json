@@ -46,12 +46,18 @@
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160831131249",
+    "changelogDate": "20160901205039",
     "entityTableName": "checklist_question",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
     "service": "no"
 }

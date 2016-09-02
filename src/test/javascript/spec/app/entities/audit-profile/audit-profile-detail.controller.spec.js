@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('AuditProfile Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockAuditProfile, MockAuditProfileLogEntry, MockChecklistQuestion, MockAuditQuestionResponse, MockClient, MockChecklist, MockWorkflow;
+        var MockEntity, MockPreviousState, MockAuditProfile, MockAuditProfileLogEntry, MockChecklistQuestion, MockAuditQuestionResponse, MockEngagement, MockChecklist, MockWorkflow;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -16,7 +16,7 @@ describe('Controller Tests', function() {
             MockAuditProfileLogEntry = jasmine.createSpy('MockAuditProfileLogEntry');
             MockChecklistQuestion = jasmine.createSpy('MockChecklistQuestion');
             MockAuditQuestionResponse = jasmine.createSpy('MockAuditQuestionResponse');
-            MockClient = jasmine.createSpy('MockClient');
+            MockEngagement = jasmine.createSpy('MockEngagement');
             MockChecklist = jasmine.createSpy('MockChecklist');
             MockWorkflow = jasmine.createSpy('MockWorkflow');
             
@@ -30,7 +30,7 @@ describe('Controller Tests', function() {
                 'AuditProfileLogEntry': MockAuditProfileLogEntry,
                 'ChecklistQuestion': MockChecklistQuestion,
                 'AuditQuestionResponse': MockAuditQuestionResponse,
-                'Client': MockClient,
+                'Engagement': MockEngagement,
                 'Checklist': MockChecklist,
                 'Workflow': MockWorkflow
             };

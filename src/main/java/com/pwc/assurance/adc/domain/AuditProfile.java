@@ -15,11 +15,11 @@ import java.util.Objects;
 import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 
 /**
- * Response ResponsesTODO: Workflow review tracking                            
+ * Response Responses                                                          
  * 
  */
 @ApiModel(description = ""
-    + "Response ResponsesTODO: Workflow review tracking                       "
+    + "Response Responses                                                     "
     + "")
 @Entity
 @Table(name = "audit_profile")
@@ -63,7 +63,7 @@ public class AuditProfile implements Serializable {
     private Set<AuditQuestionResponse> auditQuestionResponses = new HashSet<>();
 
     @ManyToOne
-    private Client client;
+    private Engagement engagement;
 
     @ManyToOne
     private Checklist checklist;
@@ -193,17 +193,17 @@ public class AuditProfile implements Serializable {
         this.auditQuestionResponses = auditQuestionResponses;
     }
 
-    public Client getClient() {
-        return client;
+    public Engagement getEngagement() {
+        return engagement;
     }
 
-    public AuditProfile client(Client client) {
-        this.client = client;
+    public AuditProfile engagement(Engagement engagement) {
+        this.engagement = engagement;
         return this;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setEngagement(Engagement engagement) {
+        this.engagement = engagement;
     }
 
     public Checklist getChecklist() {
