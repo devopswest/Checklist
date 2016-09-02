@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "auditProfile",
+            "otherEntityName": "auditProfile",
+            "otherEntityRelationshipName": "engagement"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "engagement",
+            "relationshipName": "engagementMember",
+            "otherEntityName": "engagementMember",
+            "otherEntityField": "firstName",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fiscalYear",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ResponseStatus",
+            "fieldValues": "DRAFT,FINAL"
+        }
+    ],
+    "changelogDate": "20160901205040",
+    "javadoc": "Engagement",
+    "entityTableName": "engagement",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

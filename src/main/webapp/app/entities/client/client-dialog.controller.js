@@ -5,15 +5,15 @@
         .module('checklistApp')
         .controller('ClientDialogController', ClientDialogController);
 
-    ClientDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Client', 'AuditProfile'];
+    ClientDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Client', 'Engagement'];
 
-    function ClientDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Client, AuditProfile) {
+    function ClientDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Client, Engagement) {
         var vm = this;
 
         vm.client = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.auditprofiles = AuditProfile.query();
+        vm.engagements = Engagement.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

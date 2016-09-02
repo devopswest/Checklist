@@ -38,9 +38,9 @@
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="code"><span translate="checklistApp.checklistQuestion.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.checklistQuestion.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="checklist.name"><span translate="checklistApp.checklistQuestion.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="parent.description"><span translate="checklistApp.checklistQuestion.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="question.question"><span translate="checklistApp.checklistQuestion.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="checklistName"><span translate="checklistApp.checklistQuestion.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="parentDescription"><span translate="checklistApp.checklistQuestion.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="questionQuestion"><span translate="checklistApp.checklistQuestion.question">Question</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -50,13 +50,13 @@
                     <td>{{checklistQuestion.code}}</td>
                     <td>{{checklistQuestion.description}}</td>
                     <td>
-                        <a ui-sref="checklist-detail({id:checklistQuestion.checklist.id})">{{checklistQuestion.checklist.name}}</a>
+                        <a ui-sref="checklist-detail({id:checklistQuestion.checklistId})">{{checklistQuestion.checklistName}}</a>
                     </td>
                     <td>
-                        <a ui-sref="checklist-question-detail({id:checklistQuestion.parent.id})">{{checklistQuestion.parent.description}}</a>
+                        <a ui-sref="checklist-question-detail({id:checklistQuestion.parentId})">{{checklistQuestion.parentDescription}}</a>
                     </td>
                     <td>
-                        <a ui-sref="question-detail({id:checklistQuestion.question.id})">{{checklistQuestion.question.question}}</a>
+                        <a ui-sref="question-detail({id:checklistQuestion.questionId})">{{checklistQuestion.questionQuestion}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

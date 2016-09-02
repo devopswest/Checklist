@@ -19,6 +19,8 @@
                 "workflowStep": "Workflow Step",
                 "checklist": "Checklist",
                 "checklistQuestion": "Checklist Question",
+                "engagement": "Engagement",
+                "engagementMember": "Engagement Member",
                 "auditProfile": "Audit Profile",
                 "auditQuestionResponse": "Audit Question Response",
                 "auditProfileLogEntry": "Audit Profile Log Entry",
