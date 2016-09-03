@@ -175,7 +175,21 @@
          "active" : "false"
      },
 
+      {
+         "id" : "add-ckeditor",
+         "name":"add-ckeditor",
+         "description": "add-ckeditor",
+         "path": "add-ckeditor",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "true"
+     },
      {"id":"NEW"}
+
 
 
 

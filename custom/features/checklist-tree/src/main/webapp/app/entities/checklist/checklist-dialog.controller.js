@@ -16,8 +16,8 @@
         vm.checklistquestions = ChecklistQuestion.query();
         vm.auditprofiles = AuditProfile.query();
         vm.countries = Country.query();
-        
-        vm.treedata = [];  
+
+        vm.treedata = [];
     	vm.checklistquestions.$promise.then(function (result) {
     		vm.treedata = transformToTree(result);
     		collapseAll();
@@ -49,9 +49,9 @@
         function onSaveError () {
             vm.isSaving = false;
         }
-        
+
         function transformToTree(result){
-       	 var treedata = [];        	 
+       	 var treedata = [];
        	 for(var l=0;l<result.length;l++){
            	 var question = {
                         "id": result[l].id,
@@ -59,12 +59,17 @@
                         "description": result[l].description,
                         "nodes": transformToTree(result[l].children)
                 };
-                treedata.push(question);        		 
-       	 }        	 
+                treedata.push(question);
+       	 }
        	 return treedata;
        }
 
 ///Tree
+
+vm.editorOptions = {
+    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
+};
+
 vm.treedata =
 [
   {

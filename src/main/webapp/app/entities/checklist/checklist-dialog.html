@@ -22,10 +22,17 @@
             size="10%" name="nodeValue" id="field_nodeValue" value="{{node.id}}"/>
         <input type="text" data-nodrag
          size="60%" name="nodeValue" id="field_nodeValue" value="{{node.title}}"/>
+
+
+
         <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)"><span
         class="glyphicon glyphicon-remove"></span></a>
-    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 4px;"><span
+
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 4px;"><span
         class="glyphicon glyphicon-plus"></span></a>
+
+        <a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;"><span
+        class="glyphicon glyphicon-edit"></span></a>
 
 <!--     <uib-accordion ng-if="node.nodes && node.nodes.length == 0">
         <div uib-accordion-group class="panel-default" heading="Add Description" data-nodrag>
@@ -48,7 +55,32 @@
 }
 </style>
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<div ng-show="vm.editorEnabled">
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myChecklistLabel" XXtranslate="checklistApp.checklist.home.createOrEditLabel">{{vm.editorTitle}}</h4>
+    </div>
+
+    <div class="modal-body">
+<textarea  id="thisEditor" ckeditor="vm.editorOptions" ng-model="vm.content"></textarea>
+</div>
+
+<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.editorClear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editorSave()">
+            <span class="glyphicon glyphicon-save"  ></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<form ng-show="!vm.editorEnabled" name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -122,6 +154,8 @@
 </div>
 
 <div class="form-group">
+
+
 <div class="row">
   <div class="col-sm-1"> </div>
   <div class="col-sm-10">
