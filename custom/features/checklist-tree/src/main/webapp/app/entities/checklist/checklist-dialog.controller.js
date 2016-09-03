@@ -18,10 +18,10 @@
         vm.countries = Country.query();
 
         vm.treedata = [];
-    	vm.checklistquestions.$promise.then(function (result) {
-    		vm.treedata = transformToTree(result);
-    		collapseAll();
-    	});
+      vm.checklistquestions.$promise.then(function (result) {
+        vm.treedata = transformToTree(result);
+        collapseAll();
+      });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -51,24 +51,21 @@
         }
 
         function transformToTree(result){
-       	 var treedata = [];
-       	 for(var l=0;l<result.length;l++){
-           	 var question = {
+         var treedata = [];
+         for(var l=0;l<result.length;l++){
+             var question = {
                         "id": result[l].id,
                         "title": result[l].code + ":" + result[l].description,
                         "description": result[l].description,
                         "nodes": transformToTree(result[l].children)
                 };
                 treedata.push(question);
-       	 }
-       	 return treedata;
+         }
+         return treedata;
        }
 
 ///Tree
 
-vm.editorOptions = {
-    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
-};
 
 vm.treedata =
 [
@@ -238,5 +235,40 @@ vm.addQuestion=addQuestion;
 
     //collapseAll();
 
+
+vm.editorOptions = {
+    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
+};
+
+vm.current = null;
+vm.editorTitle = "";
+vm.editorEnabled = false;
+
+vm.openEditor=openEditor;
+      function openEditor (scope, node) {
+
+        //scope.$broadcast('ckeditor-visible');
+        vm.current=node;
+        vm.content=node.title;
+        vm.editorEnabled=true;
+        vm.editorTitle="Editing [" + node.id + "]";
+
+      };
+vm.editorClear=editorClear;
+function editorClear() {
+  vm.editorEnabled=false;
+}
+
+
+vm.editorSave=editorSave;
+function editorSave(scope, node) {
+  vm.editorEnabled=false;
+  vm.current.title=vm.content;
+  //scope.
+}
+
+
+
+///
     }
 })();
