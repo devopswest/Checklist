@@ -264,7 +264,6 @@ vm.editorSave=editorSave;
 function editorSave(scope, node) {
   vm.editorEnabled=false;
   vm.current.title=vm.content;
-  //scope.
 }
 
 
