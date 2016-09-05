@@ -13,15 +13,11 @@
         vm.checklist = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.checklistquestions = ChecklistQuestion.query();
+
         vm.auditprofiles = AuditProfile.query();
         vm.countries = Country.query();
 
-        vm.treedata = [];
-      vm.checklistquestions.$promise.then(function (result) {
-        vm.treedata = transformToTree(result);
-        collapseAll();
-      });
+
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -50,7 +46,17 @@
             vm.isSaving = false;
         }
 
-        function transformToTree(result){
+
+
+///Tree
+         vm.checklistquestions = ChecklistQuestion.query();
+        vm.treedata = [];
+      vm.checklistquestions.$promise.then(function (result) {
+        vm.treedata = transformToTree(result);
+        collapseAll();
+      });
+
+function transformToTree(result){
          var treedata = [];
          for(var l=0;l<result.length;l++){
              var question = {
@@ -64,133 +70,6 @@
          return treedata;
        }
 
-///Tree
-
-
-vm.treedata =
-[
-  {
-    "id": "SECTION A",
-    "title": "INTRODUCTION",
-    "nodes": [
-      {
-        "id": "1.1",
-        "title": "node1.1",
-        "nodes": [
-          {
-            "id": "1.1.1",
-            "title": "node1.1.1",
-            "nodes": []
-          },
-          {
-              "id": "1.1.2",
-              "title": "node1.1.2",
-              "nodes": []
-            }
-        ]
-      },
-      {
-        "id": "1.2",
-        "title": "node1.2",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION B",
-    "title": "BALANCE SHEET",
-    "nodrop": true,
-    "nodes": [
-      {
-        "id": "2.1",
-        "title": "node2.1",
-        "nodes": []
-      },
-      {
-        "id": "2.2",
-        "title": "node2.2",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION C",
-    "title": "INCOME STATEMENT",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION D",
-    "title": "STATEMENT OF CASH FLOWS",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION E",
-    "title": "STATEMENT OF STAKEHOLDERS EQUITY",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION F",
-    "title": "COMPRENHENSIVE INCOME",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION G",
-    "title": "OTHER STATEMENT FINANCIAL DISCLOSURES",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION H",
-    "title": "OTHER INFORMATION REQUIRED IN ANNUAL REPORT TO STAKEHOLDERS",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  },
-  {
-    "id": "SECTION I",
-    "title": "INFORMATION TO BE FURNISHED",
-    "nodes": [
-      {
-        "id": "3.1",
-        "title": "node3.1",
-        "nodes": []
-      }
-    ]
-  }
-];
 
 vm.remove=remove;
 function remove (scope) {
@@ -236,6 +115,7 @@ vm.addQuestion=addQuestion;
     //collapseAll();
 
 
+//Editor
 vm.editorOptions = {
     // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
 };
