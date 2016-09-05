@@ -1,0 +1,11 @@
+{
+    "project-metadata": {
+        "name" : "<PROJECT-NAME>",
+        "links": [
+            {"name":"<LINK-NAME","url":"<LINK-URL>"}
+        ],
+        "member": [
+            {"guid":"<GUID>","name":"<NAME>", "role":"<ROLE>", "email":"<EMAIL>"}
+        ]
+    }
+}

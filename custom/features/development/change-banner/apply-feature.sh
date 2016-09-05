@@ -13,4 +13,4 @@ echo "*********************************"
 #
 # Code updates
 #
-cp -r custom/features/change-banner/src ./
+cp -r custom/features/development/change-banner/src ./
