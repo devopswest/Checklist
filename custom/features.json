@@ -5,7 +5,7 @@
         "id": "configure-git-ignore",
         "name":"Configure Gitignore",
         "description": "Remove bower_components from git repo",
-        "path": "configure-git-ignore",
+        "path": "development/configure-git-ignore",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -19,7 +19,7 @@
         "id": "change-banner",
         "name":"Change Banner",
         "description": "Change banner",
-        "path": "change-banner",
+        "path": "development/change-banner",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -33,7 +33,7 @@
         "id" : "application-settings",
         "name":"Application Settings Changes",
         "description": "This Feature changes default settings configuration",
-        "path": "application-settings",
+        "path": "development/application-settings",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -48,7 +48,7 @@
         "id": "css-theme",
         "name":"CSS There",
         "description": "This feature modify default JHIPSTER theme and customize it based on PwC brand colors and logo",
-        "path": "css-theme",
+        "path": "development/css-theme",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -62,7 +62,7 @@
         "id": "change-footer",
         "name":"CSS There",
         "description": "Change Footer",
-        "path": "change-footer",
+        "path": "development/change-footer",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -76,7 +76,7 @@
         "id" : "dynamic-menu",
         "name":"Dynamic Menu",
         "description": "This feature change the default menu andrender the application options from the controller",
-        "path": "dynamic-menu",
+        "path": "development/dynamic-menu",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -90,7 +90,7 @@
         "id" : "add-angular-tree",
         "name":"Add angular-tree dependencies",
         "description": "This feature add the capability to use the angular-tree component",
-        "path": "add-angular-tree",
+        "path": "development/add-angular-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -104,7 +104,7 @@
         "id" : "add-rich-text-editor",
         "name":"Add textAngular dependencies",
         "description": "This feature add the capability to use the textAngular component",
-        "path": "add-rich-text-editor",
+        "path": "development/add-rich-text-editor",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -119,7 +119,7 @@
         "id" : "load-initial-data",
         "name":"Load Data",
         "description": "This feature configures liquidbase to pre-load data when the application starts for the first time.. Adding the required change logs",
-        "path": "load-initial-data",
+        "path": "development/load-initial-data",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -133,7 +133,7 @@
         "id" : "checklist-tree",
         "name":"Checklist Tree",
         "description": "Add Angular Tree Capabilities when creating the checklist",
-        "path": "checklist-tree",
+        "path": "development/checklist-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -149,7 +149,7 @@
         "id" : "audit-profile-tree",
         "name":"Audit Profile Tree",
         "description": "Add Angular Tree Capabilities when creating the audit profile",
-        "path": "audit-profile-tree",
+        "path": "development/audit-profile-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -165,7 +165,7 @@
          "id" : "increase-version",
          "name":"increase-version",
          "description": "increase-version",
-         "path": "increase-version",
+         "path": "development/increase-version",
          "scripts": {
              "apply": "apply-feature.sh",
              "rollback": "rollback-feature.sh"
@@ -179,7 +179,7 @@
          "id" : "add-ckeditor",
          "name":"add-ckeditor",
          "description": "add-ckeditor",
-         "path": "add-ckeditor",
+         "path": "development/add-ckeditor",
          "scripts": {
              "apply": "apply-feature.sh",
              "rollback": "rollback-feature.sh"
@@ -188,7 +188,21 @@
          ],
          "active" : "true"
      },
+      {
+         "id" : "documentation-structure",
+         "name":"documentation-structure",
+         "description": "documentation-structure",
+         "path": "pm/documentation-structure",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
      {"id":"NEW"}
+
 
 
 
