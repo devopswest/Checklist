@@ -1,13 +1,24 @@
  <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content">
-    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0"
-    data-nodrop ng-click="vm.toggle(this)">
+
+           <a class="btn btn-success btn-xs" ng-hide="node.nodes && node.nodes.length == 0" data-nodrag ng-click="vm.toggle(this)">
     <span
         class="glyphicon"
         ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
-        }"></span></a>
+        }">
+
+        </span>
+        </a>
+        <a class="btn btn-danger btn-xs" ng-show="node.nodes && node.nodes.length == 0" data-nodrag">
+    <span
+        class="glyphicon glyphicon-chevron-down">
+
+        </span>
+        </a>
+
+
 
     <spam>
 <!--     <input type="text" ng-if="node.nodes && node.nodes.length == 0"
