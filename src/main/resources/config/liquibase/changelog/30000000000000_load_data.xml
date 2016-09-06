@@ -46,6 +46,19 @@
                   tableName="engagement">
         </loadData>
 
+                <loadData encoding="UTF-8"
+                  file="config/liquibase/taxonomy.csv"
+                  separator=";"
+                  tableName="taxonomy">
+        </loadData>
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/taxonomy_children.csv"
+                  separator=";"
+                  tableName="taxonomy">
+        </loadData>
+
     </changeSet>
 
 

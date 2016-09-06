@@ -36,4 +36,5 @@
     <include file="classpath:config/liquibase/changelog/20160902163618_added_entity_constraints_AuditProfileLogEntry.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
  	<include file="classpath:config/liquibase/changelog/30000000000000_load_data.xml" relativeToChangelogFile="false"/> 
-</databaseChangeLog> 
+ 	<include file="classpath:config/liquibase/changelog/30000000000000_load_data.xml" relativeToChangelogFile="false"/> 
+</databaseChangeLog>  
