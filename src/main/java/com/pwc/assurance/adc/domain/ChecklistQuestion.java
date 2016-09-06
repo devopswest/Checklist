@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(name = "checklist_question")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "checklistquestion")
-public class ChecklistQuestion implements Serializable {
+public class ChecklistQuestion implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class ChecklistQuestion implements Serializable {
     @Column(name = "description", length = 4000)
     private String description;
 
-    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> children = new HashSet<>();
@@ -188,4 +188,5 @@ public class ChecklistQuestion implements Serializable {
             ", description='" + description + "'" +
             '}';
     }
+    
 }
