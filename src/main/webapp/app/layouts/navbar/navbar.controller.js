@@ -33,14 +33,17 @@
                     {
                         "id":"country",
                         "label":"Country",
-                        "uiclass" : "glyphicon glyphicon-asterisk"
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
                     },
                     {
                         "id":"checklist",
                         "label":"Checklist",
-                        "uiclass" : "glyphicon glyphicon-asterisk"
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
                     }
-                ]
+                ],
+                "authorities" : "ROLE_ADMIN"
            },
            {
                 "id":"audit",
@@ -50,19 +53,23 @@
                     {
                         "id":"client",
                         "label": "Client",
-                        "uiclass" : "glyphicon glyphicon-asterisk"
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
                     },
                                         {
                         "id":"engagement",
                         "label": "Engagements",
-                        "uiclass" : "glyphicon glyphicon-asterisk"
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
                     },
                     {
                         "id":"audit-profile",
                         "label": "Audit Profile",
-                        "uiclass" : "glyphicon glyphicon-asterisk"
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
                     }
-                ]
+                ],
+                "authorities" : "ROLE_ADMIN,ROLE_USER"
            }
         ];
 

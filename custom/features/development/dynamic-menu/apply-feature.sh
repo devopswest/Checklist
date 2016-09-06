@@ -18,7 +18,7 @@ sed -i "s|ng-class=\"{active: vm.\$state.includes('entity')}\"|style=\"visibilit
 #
 sed -i "s|<li ng-class=\"{active: vm.\$state.includes('account')}\" uib-dropdown class=\"dropdown pointer\">| \
 <!-- NEW --> \
-                <li ng-repeat=\"option in vm.menu track by option.id\" \
+                <li has-any-authority=\"{{option.authorities}}\" ng-repeat=\"option in vm.menu track by option.id\" \
                     ng-class=\"{active: vm.\$state.includes(option.id)}\" \
                     ng-switch-when=\"true\" \
                     uib-dropdown class=\"dropdown pointer\"> \
@@ -32,7 +32,7 @@ sed -i "s|<li ng-class=\"{active: vm.\$state.includes('account')}\" uib-dropdown
                         </span> \
                     </a> \
                     <ul class=\"dropdown-menu\" uib-dropdown-menu> \
-                      <li ng-repeat=\"item in option.options track by item.id\" \
+                      <li has-any-authority=\"{{option.authorities}}\" ng-repeat=\"item in option.options track by item.id\" \
                           ui-sref-active=\"active\" > \
                             <a href=\"{{vm.\$state.href(item.id)}}\" ng-click=\"vm.collapseNavbar()\"> \
                                 <span class=\"{item.uiclass}\"></span>\&nbsp; \
