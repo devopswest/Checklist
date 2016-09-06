@@ -202,12 +202,20 @@
          "active" : "false"
      },
 
+      {
+         "id" : "add-engagement-actions",
+         "name":"add-engagement-actions",
+         "description": "add-engagement-actions",
+         "path": "development/add-engagement-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "true"
+     },
      {"id":"NEW"}
-
-
-
-
-
 
 
 

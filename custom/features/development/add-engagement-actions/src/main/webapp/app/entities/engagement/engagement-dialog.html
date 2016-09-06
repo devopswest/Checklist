@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myEngagementLabel" translate="checklistApp.engagement.home.createOrEditLabel">Create or edit a Engagement</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.engagement.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.engagement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.engagement.fiscalYear" for="field_fiscalYear">Fiscal Year</label>
+            <input type="text" class="form-control" name="fiscalYear" id="field_fiscalYear"
+                    ng-model="vm.engagement.fiscalYear"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.engagement.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.engagement.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.engagement.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.engagement.status" id="field_status">
+                <option value="DRAFT" translate="checklistApp.ResponseStatus.DRAFT">DRAFT</option>
+                <option value="FINAL" translate="checklistApp.ResponseStatus.FINAL">FINAL</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="checklistApp.engagement.engagementMember" for="field_engagementMember">Engagement Member</label>
+            <select class="form-control" id="field_engagementMember" multiple name="engagementMember" ng-model="vm.engagement.engagementMembers" ng-options="engagementMember as engagementMember.firstName for engagementMember in vm.engagementmembers track by engagementMember.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.engagement.client" for="field_client">Client</label>
+            <select class="form-control" id="field_client" name="client" ng-model="vm.engagement.client" ng-options="client as client.name for client in vm.clients track by client.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+
+                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Flag as Complete</span>
+        </button>
+
+                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Generate PDF</span>
+        </button>
+
+
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
+        </button>
+
+
+    </div>
+</form>
