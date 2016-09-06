@@ -49,12 +49,17 @@
 
 
 ///Tree
-         vm.checklistquestions = ChecklistQuestion.query();
+        //ChecklistQuestion.query is incorrect - instead ask Checklist to get child data 
+        //It retrieves all rows of ChecklistQuestion table and then creates hierarchy tree
+        //So, for example if 2 is child for 1. then using this query it would be pulled twice
+        //One time as a child for 1, and second time as next record in the table
+        //So instead of this rely on the checklist and ask it get all of its child
+        //vm.checklistquestions = ChecklistQuestion.query();
         vm.treedata = [];
-      vm.checklistquestions.$promise.then(function (result) {
-        vm.treedata = transformToTree(result);
-        collapseAll();
-      });
+        vm.checklist.$promise.then(function (result) {
+            vm.treedata = transformToTree(result.checklistQuestions);
+            collapseAll();
+        });
 
 function transformToTree(result){
          var treedata = [];
