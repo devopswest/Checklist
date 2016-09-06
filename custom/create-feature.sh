@@ -22,7 +22,7 @@ chmod +x ./custom/features/$category/$feature/apply-feature.sh
 echo "#" >> ./custom/features/$category/$feature/apply-feature.sh
 echo "# Code updates" >> ./custom/features/$category/$feature/apply-feature.sh
 echo "#" >> ./custom/features/$category/$feature/apply-feature.sh
-echo "cp -r custom/features/\$category/\$feature/src ./" >> ./custom/features/$category/$feature/apply-feature.sh
+echo "cp -r custom/features/$category/$feature/src ./" >> ./custom/features/$category/$feature/apply-feature.sh
 
 sed -i "s|{\"id\":\"NEW\"}| \
 {\n \
