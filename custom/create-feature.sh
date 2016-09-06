@@ -26,10 +26,10 @@ echo "cp -r custom/features/\$category/\$feature/src ./" >> ./custom/features/$c
 
 sed -i "s|{\"id\":\"NEW\"}| \
 {\n \
-        \"id\" : \"\$feature\",\n \
-        \"name\":\"\$feature\",\n \
-        \"description\": \"\$feature\",\n \
-        \"path\": \"\$caterory\/\$feature\",\n \
+        \"id\" : \"$feature\",\n \
+        \"name\":\"$feature\",\n \
+        \"description\": \"$feature\",\n \
+        \"path\": \"$category\/$feature\",\n \
         \"scripts\": {\n \
             \"apply\": \"apply-feature.sh\",\n \
             \"rollback\": \"rollback-feature.sh\"\n \
