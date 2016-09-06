@@ -246,6 +246,9 @@ relationship OneToMany{
     Client to Engagement{client(name)}
 }
 
+relationship OneToMany{
+    Checklist to Engagement{checklist(name)}
+}
 
 entity EngagementMember {
     firstName String,
@@ -278,9 +281,7 @@ relationship OneToMany{
     Engagement to AuditProfile{engagement(description)}
 }
 
-relationship OneToMany{
-    Checklist to AuditProfile{checklist(name)}
-}
+
 
 /*
 relationship OneToMany{
