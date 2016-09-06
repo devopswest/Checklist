@@ -1,6 +1,7 @@
 package com.pwc.assurance.adc.service.dto;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -117,6 +118,10 @@ public class ChecklistDTO implements Serializable {
     List<ChecklistQuestionDTO> checklistQuestions;
 
     public List<ChecklistQuestionDTO> getChecklistQuestions() {
+    	if(checklistQuestions != null){
+    		Collections.sort(checklistQuestions);
+    		return checklistQuestions;
+    	}
         return checklistQuestions;
     }
 

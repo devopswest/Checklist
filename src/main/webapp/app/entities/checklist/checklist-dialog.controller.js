@@ -48,7 +48,7 @@
         }
 
 
-        //ChecklistQuestion.query is incorrect - instead ask Checklist to get child data 
+        //ChecklistQuestion.query is incorrect - instead ask Checklist to get child data
         //It retrieves all rows of ChecklistQuestion table and then creates hierarchy tree
         //So, for example if 2 is child for 1. then using this query it would be pulled twice
         //One time as a child for 1, and second time as next record in the table
@@ -63,13 +63,13 @@
             setChecklistIdAndName(vm.treedata);
             getMaxId(vm.treedata);
             collapseAll();
-        });        
-        
+        });
+
         /**
          * Set checklistId and checklistName which can be used when addQuestion is clicked
          */
         function setChecklistIdAndName(node){
-        	for(var l=0;l<node.length;l++){   
+        	for(var l=0;l<node.length;l++){
         		vm.checklistId = node[l].checklistId;
         		vm.checklistName = node[l].checklistName;
         	}
@@ -78,19 +78,19 @@
          * Recursively traverses all nodes and children and find the maxid, which can be used if new nodes are added
          */
         function getMaxId(node){
-        	for(var l=0;l<node.length;l++){        		
+        	for(var l=0;l<node.length;l++){
         		//Update maxid if current id is less than node.id
         		if(node[l].id > vm.maxid){
         			vm.maxid = node[l].id;
         		}
-        		
+
         		//Recursively check all the children too
         		if(node[l].children.length > 0){
         			getMaxId(node[l].children);
         		}
         	}
         }
-        
+
         function getNextId(){
         	vm.maxid = vm.maxid + 1;
         	return vm.maxid
@@ -100,7 +100,7 @@ vm.remove=remove;
 function remove (scope) {
         scope.remove();
       };
-      
+
 vm.toggle=toggle;
       function toggle (scope) {
         scope.toggle();
@@ -113,7 +113,7 @@ vm.moveLastToTheBeginning=moveLastToTheBeginning;
 vm.newSubItem=newSubItem;
       function newSubItem (scope) {
     	var id = getNextId();
-        var nodeData = scope.$modelValue;      
+        var nodeData = scope.$modelValue;
         var newQuestionSub = {
                 "checklistId":null,
                 "checklistName":null,
@@ -125,7 +125,7 @@ vm.newSubItem=newSubItem;
                 "parentId":nodeData.id
         };
         nodeData.children.push(newQuestionSub);
-        
+
         scope.collapsed = false;
       };
 vm.collapseAll=collapseAll;
@@ -169,9 +169,9 @@ vm.openEditor=openEditor;
 
         //scope.$broadcast('ckeditor-visible');
         vm.current=node;
-        vm.content=node.code + ":" + node.description;
+        vm.content=node.description;
         vm.editorEnabled=true;
-        vm.editorTitle="Editing [" + node.id + "]";
+        vm.editorTitle="Editing [" + node.code + "]";
 
       };
 vm.editorClear=editorClear;
@@ -183,7 +183,7 @@ function editorClear() {
 vm.editorSave=editorSave;
 function editorSave(scope, node) {
   vm.editorEnabled=false;
-  vm.current.title=vm.content;
+  vm.current.description=vm.content;
 }
 
 

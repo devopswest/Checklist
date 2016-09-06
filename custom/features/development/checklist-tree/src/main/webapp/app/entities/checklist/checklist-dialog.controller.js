@@ -32,6 +32,7 @@
             if (vm.checklist.id !== null) {
                 Checklist.update(vm.checklist, onSaveSuccess, onSaveError);
             } else {
+            	vm.checklist.checklistQuestions = vm.treedata;
                 Checklist.save(vm.checklist, onSaveSuccess, onSaveError);
             }
         }
@@ -47,34 +48,59 @@
         }
 
 
-
-///Tree
-         vm.checklistquestions = ChecklistQuestion.query();
+        //ChecklistQuestion.query is incorrect - instead ask Checklist to get child data
+        //It retrieves all rows of ChecklistQuestion table and then creates hierarchy tree
+        //So, for example if 2 is child for 1. then using this query it would be pulled twice
+        //One time as a child for 1, and second time as next record in the table
+        //So instead of this rely on the checklist and ask it get all of its child
+        //vm.checklistquestions = ChecklistQuestion.query();
         vm.treedata = [];
-      vm.checklistquestions.$promise.then(function (result) {
-        vm.treedata = transformToTree(result);
-        collapseAll();
-      });
+        vm.maxid = 0;
+        vm.checklistId = 1;
+        vm.checklistName = "";
+        vm.checklist.$promise.then(function (result) {
+            vm.treedata = result.checklistQuestions;
+            setChecklistIdAndName(vm.treedata);
+            getMaxId(vm.treedata);
+            collapseAll();
+        });
 
-function transformToTree(result){
-         var treedata = [];
-         for(var l=0;l<result.length;l++){
-             var question = {
-                        "id": result[l].id,
-                        "title": result[l].code + ":" + result[l].description,
-                        "description": result[l].description,
-                        "nodes": transformToTree(result[l].children)
-                };
-                treedata.push(question);
-         }
-         return treedata;
-       }
+        /**
+         * Set checklistId and checklistName which can be used when addQuestion is clicked
+         */
+        function setChecklistIdAndName(node){
+        	for(var l=0;l<node.length;l++){
+        		vm.checklistId = node[l].checklistId;
+        		vm.checklistName = node[l].checklistName;
+        	}
+        }
+        /**
+         * Recursively traverses all nodes and children and find the maxid, which can be used if new nodes are added
+         */
+        function getMaxId(node){
+        	for(var l=0;l<node.length;l++){
+        		//Update maxid if current id is less than node.id
+        		if(node[l].id > vm.maxid){
+        			vm.maxid = node[l].id;
+        		}
 
+        		//Recursively check all the children too
+        		if(node[l].children.length > 0){
+        			getMaxId(node[l].children);
+        		}
+        	}
+        }
+
+        function getNextId(){
+        	vm.maxid = vm.maxid + 1;
+        	return vm.maxid
+        }
 
 vm.remove=remove;
 function remove (scope) {
         scope.remove();
       };
+
 vm.toggle=toggle;
       function toggle (scope) {
         scope.toggle();
@@ -86,12 +112,20 @@ vm.moveLastToTheBeginning=moveLastToTheBeginning;
       };
 vm.newSubItem=newSubItem;
       function newSubItem (scope) {
+    	var id = getNextId();
         var nodeData = scope.$modelValue;
-        nodeData.nodes.push({
-          id: nodeData.id * 10 + nodeData.nodes.length,
-          title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-          nodes: []
-        });
+        var newQuestionSub = {
+                "checklistId":null,
+                "checklistName":null,
+                "children":[],
+                "code":nodeData.code + "|"  + "xx",
+                "description": "<Please add description>",
+                "id": id,
+                "parentDescription":nodeData.description,
+                "parentId":nodeData.id
+        };
+        nodeData.children.push(newQuestionSub);
+
         scope.collapsed = false;
       };
 vm.collapseAll=collapseAll;
@@ -104,11 +138,17 @@ vm.expandAll=expandAll;
       };
 vm.addQuestion=addQuestion;
     function addQuestion () {
+    	var id = getNextId();
         var newQuestion = {
-                "id": 'id ' + vm.treedata.length + 1,
-                "title": 'title ' + vm.treedata.length + 1,
-                "nodes": []
-                    };
+                "checklistId":vm.checklistId,
+                "checklistName":vm.checklistName,
+                "children":[],
+                "code":id,
+                "description": "<Please add description>",
+                "id": id,
+                "parentDescription":null,
+                "parentId":null
+        };
         vm.treedata.push(newQuestion);
     }
 
@@ -129,9 +169,9 @@ vm.openEditor=openEditor;
 
         //scope.$broadcast('ckeditor-visible');
         vm.current=node;
-        vm.content=node.title;
+        vm.content=node.description;
         vm.editorEnabled=true;
-        vm.editorTitle="Editing [" + node.id + "]";
+        vm.editorTitle="Editing [" + node.code + "]";
 
       };
 vm.editorClear=editorClear;
@@ -143,7 +183,7 @@ function editorClear() {
 vm.editorSave=editorSave;
 function editorSave(scope, node) {
   vm.editorEnabled=false;
-  vm.current.title=vm.content;
+  vm.current.description=vm.content;
 }
 
 
