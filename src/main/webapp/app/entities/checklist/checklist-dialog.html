@@ -1,13 +1,14 @@
 <script type="text/ng-template" id="nodes_renderer.html">
     <div ui-tree-handle>
-		<a class="btn btn-success btn-xs" ng-if="node.nodes.length > 0" data-nodrag ng-click="vm.toggle(this)">
+		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="vm.toggle(this)">
                 <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed,'glyphicon-chevron-down': !collapsed }" > </span>
 		</a>
-        <a class="btn btn-danger btn-xs" ng-if="node.nodes && node.nodes.length == 0" data-nodrag>
+        <a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
                  <span class="glyphicon glyphicon-chevron-down"> </span>
         </a>
 		<input type="text" data-nodrag size="5%" name="nodeValue" id="field_nodeValue" ng-model="node.id"/>
-        <input type="text" data-nodrag size="65%" name="nodeValue" id="field_nodeValue" ng-model="node.title" />
+        <input type="text" data-nodrag size="10%" name="nodeValue" id="field_nodeValue" ng-model="node.code" />
+        <input type="text" data-nodrag size="55%" name="nodeValue" id="field_nodeValue" ng-model="node.description" />
 
 		<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)">
 				 <span class="glyphicon glyphicon-remove"></span>
@@ -19,8 +20,8 @@
 				 <span class="glyphicon glyphicon-edit"></span>
 		</a>
     </div>
-    <ol ui-tree-nodes="options" ng-model="node.nodes" ng-if="!collapsed" data-nodrop>
-        <li ng-repeat="node in node.nodes" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    <ol ui-tree-nodes="options" ng-model="node.children" ng-if="!collapsed" data-nodrop>
+        <li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer.html'"></li>
     </ol>
 </script>
 
@@ -155,11 +156,10 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary" ng-click="vm.save()">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
-
-                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span XXtranslate="entity.action.publish">Save & Release</span>
         </button>
 
