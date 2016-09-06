@@ -31,7 +31,7 @@ enum WorkflowTaskStatus {
     COMPLETED
 }
 
-enum WorkflowAuthorities {
+enum ApplicationAuthorities {
     ROLE_ADMIN,
     ROLE_USER,
     ROLE_PWC_ENGAGEMENT_TEAM,
@@ -97,40 +97,45 @@ entity Client {
     name String
 }
 
+entity Clientrofile {
+
+}
+relationship OneToOne{
+    Clientrofile{client(name)} to Client
+}
+
+
+
 /*
 entity ClientMetadata {
     metadataValue String
 }
 
 relationship OneToMany {
-    Taxonomy to ClientMetadata{metadataProperty(label)}
+    Taxonomy to Clientrofile{metadataProperty(label)}
 }
 
 
 relationship ManyToMany {
-    Client{metadata(label)} to ClientMetadata{client}
+    Clientrofile{metadata(label)} to ClientMetadata{client}
 }
 */
 
 
 /**
- * Licenses & Company
- *
+ * Licenses
  **/
 
-entity Company {
-    code String,
-    name String
-}
 
 entity License {
      contactName String,
      contactEmail String,
-     activationToken String
+     expirationDate ZonedDateTime,
+     activationToken String minlength(1) maxlength(4000)
 }
 
 relationship OneToMany {
-    Company to License{company(name)}
+    Client to License{client(name)}
 }
 
 relationship OneToMany {
@@ -175,7 +180,7 @@ entity Workflow {
 entity WorkflowStep {
     name String,
     description String,
-    authority WorkflowAuthorities
+    authority ApplicationAuthorities
 }
 
 /*
@@ -332,17 +337,43 @@ relationship OneToMany {
 /**
  * Access Control
  **/
- /*
+
 entity UserProfile {
-    firstName String,
-    lastName String,
-    phone String,
-    email String
+
 }
 relationship OneToOne{
     UserProfile{user(login)} to User
 }
-*/
+
+relationship OneToMany{
+    Client to UserProfile{client(name)}
+}
+
+
+
+entity Feature {
+    code String  required  minlength(1)  maxlength(20) ,
+    label String  required  minlength(1)  maxlength(50)
+}
+
+relationship OneToMany {
+    Feature{child} to Feature{parent(label)}
+}
+
+
+entity FeatureAuthority {
+    authority ApplicationAuthorities
+}
+
+/*
+ * SHould be thru table but JHIPSTER is not exposing authorities entity
+ *
+relationship OneToMany{
+    Feature to FeatureAuthority{authority(name)}
+}
+
+
+
 
 /**
  * Options
