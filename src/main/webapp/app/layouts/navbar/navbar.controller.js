@@ -96,7 +96,7 @@
                     },
                     {
                         "id":"template",
-                        "label": "template",
+                        "label": "Template",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"
                     },
