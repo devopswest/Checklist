@@ -10,3 +10,4 @@ parent_id;id;code;label
 300;3002;authority;Authorities
 300;3003;feature;Feature Management
 300;3004;workflow;Workflow
+300;3005;taxonomy;Taxonomy
