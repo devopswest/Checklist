@@ -13,31 +13,45 @@
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css">
     <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css">
-    <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
+    <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
+<link rel="stylesheet" href="" id="bootswatch-css" title="Default">
+
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 	<!-- build:css content/css/custom.css -->
-	<link rel=stylesheet href=content/css/custom.css>
+	<link rel="stylesheet" href="content/css/custom.css">
 	<!-- endbuild -->
 </head>
-<body ng-app="checklistApp" ng-strict-di>
+<body ng-app="checklistApp" ng-strict-di="">
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
+    <div ui-view="navbar" ng-cloak=""></div>
     <div class="container">
         <div class="well" ui-view="content">
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak>
+        <div class="footer" ng-cloak="">
             <p translate="footer">This is your footer</p>
-        </div>
+            <div ng-controller="BootswatchController as vm" id="bootswatch-theme-switcher" uib-dropdown="" class="dropup pull-right">
+                    <a class="btn btn-default dropdown-toggle" uib-dropdown-toggle="">
+                        <span class="glyphicon glyphicon-adjust"></span>
+                        <span class="hidden-tablet" translate="bootswatch.themeSelector">Theme</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" uib-dropdown-menu="">
+                        <li class="theme-link" ng-repeat="theme in vm.themes">
+                            <a href="" jh-switch-theme="theme">{{theme.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
     </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -85,7 +99,6 @@
     <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
     <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
     <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
-    <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -134,6 +147,13 @@
     <script src="app/entities/user-profile/user-profile.service.js"></script>
     <script src="app/entities/user-profile/user-profile.search.service.js"></script>
     <script src="app/entities/user-profile/user-profile.controller.js"></script>
+    <script src="app/entities/template/template-dialog.controller.js"></script>
+    <script src="app/entities/template/template-detail.controller.js"></script>
+    <script src="app/entities/template/template-delete-dialog.controller.js"></script>
+    <script src="app/entities/template/template.state.js"></script>
+    <script src="app/entities/template/template.service.js"></script>
+    <script src="app/entities/template/template.search.service.js"></script>
+    <script src="app/entities/template/template.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-dialog.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-detail.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-delete-dialog.controller.js"></script>
@@ -305,10 +325,6 @@
     <script src="app/admin/health/health.service.js"></script>
     <script src="app/admin/health/health.modal.controller.js"></script>
     <script src="app/admin/health/health.controller.js"></script>
-    <script src="app/admin/entity-audit/entity-audit.state.js"></script>
-    <script src="app/admin/entity-audit/entity-audit.service.js"></script>
-    <script src="app/admin/entity-audit/entity-audit.detail.controller.js"></script>
-    <script src="app/admin/entity-audit/entity-audit.controller.js"></script>
     <script src="app/admin/docs/docs.state.js"></script>
     <script src="app/admin/configuration/configuration.state.js"></script>
     <script src="app/admin/configuration/configuration.service.js"></script>

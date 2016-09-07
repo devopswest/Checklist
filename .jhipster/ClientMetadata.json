@@ -20,7 +20,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907034522",
+    "changelogDate": "20160907050959",
     "entityTableName": "client_metadata",
     "dto": "no",
     "pagination": "pager",

@@ -33,30 +33,6 @@
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
                         <li ui-sref-active="active" >
-                            <a ui-sref="taxonomy" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span translate="global.menu.entities.taxonomy">Taxonomy</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" >
-                            <a ui-sref="client" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span translate="global.menu.entities.client">Client</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" >
-                            <a ui-sref="client-profile" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span translate="global.menu.entities.clientProfile">Client Profile</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" >
-                            <a ui-sref="client-metadata" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span translate="global.menu.entities.clientMetadata">Client Metadata</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" >
                             <a ui-sref="license" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                 <span translate="global.menu.entities.license">License</span>
@@ -84,6 +60,12 @@
                             <a ui-sref="workflow-step" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                 <span translate="global.menu.entities.workflowStep">Workflow Step</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="template" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span translate="global.menu.entities.template">Template</span>
                             </a>
                         </li>
                         <li ui-sref-active="active" >
@@ -144,6 +126,30 @@
                             <a ui-sref="feature-authority" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                 <span translate="global.menu.entities.featureAuthority">Feature Authority</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="taxonomy" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span translate="global.menu.entities.taxonomy">Taxonomy</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="client" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span translate="global.menu.entities.client">Client</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="client-profile" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span translate="global.menu.entities.clientProfile">Client Profile</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active" >
+                            <a ui-sref="client-metadata" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span translate="global.menu.entities.clientMetadata">Client Metadata</span>
                             </a>
                         </li>
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
@@ -247,12 +253,6 @@
                             <a ui-sref="docs" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-book"></span>&nbsp;
                                 <span translate="global.menu.admin.apidocs">API</span>
-                            </a>
-                        </li>
-                        <li ui-sref-active="active" >
-                            <a ui-sref="entity-audit" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-list-alt"></span>&nbsp;
-                                <span translate="global.menu.admin.entity-audit">Entity Audit</span>
                             </a>
                         </li>
                         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->

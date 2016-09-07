@@ -7,15 +7,12 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "taxonomy": "Taxonomy",
-                "client": "Client",
-                "clientProfile": "Client Profile",
-                "clientMetadata": "Client Metadata",
                 "license": "License",
                 "question": "Question",
                 "requirement": "Requirement",
                 "workflow": "Workflow",
                 "workflowStep": "Workflow Step",
+                "template": "Template",
                 "checklist": "Checklist",
                 "checklistQuestion": "Checklist Question",
                 "engagement": "Engagement",
@@ -26,6 +23,10 @@
                 "userProfile": "User Profile",
                 "feature": "Feature",
                 "featureAuthority": "Feature Authority",
+                "taxonomy": "Taxonomy",
+                "client": "Client",
+                "clientProfile": "Client Profile",
+                "clientMetadata": "Client Metadata",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -48,7 +49,6 @@
                 "audits": "Audits",
                 "apidocs": "API",
                 "database": "Database",
-                "entity-audit": "Entity Audit",
                 "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "language": "Language"
@@ -95,7 +95,7 @@
             "id": "ID"
         },
         "ribbon": {
-            "dev":"Development"
+            "dev": "Development"
         }
     },
     "entity": {
@@ -139,5 +139,8 @@
         "emailexists": "E-mail is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID"
     },
-    "footer": "&copy; 2015-2016 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms, each of which is a separate legal entity.Please see www.pwc.com/structure  for further details. "
+    "footer": "&copy; 2015-2016 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms, each of which is a separate legal entity.Please see www.pwc.com/structure  for further details. ",
+    "bootswatch": {
+        "themeSelector": "Theme"
+    }
 }

@@ -1,0 +1,2 @@
+id~code~description~content
+1~APPROVAL~This template is used when sending email asking for workflow approval~Dear {context.name} please provide your approval for {context.approvalDescription}

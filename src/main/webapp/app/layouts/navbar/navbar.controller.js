@@ -95,6 +95,12 @@
                         "authorities" : "ROLE_ADMIN"
                     },
                     {
+                        "id":"template",
+                        "label": "template",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
+                    },
+                    {
                         "id":"taxonomy",
                         "label": "Taxonomy",
                         "uiclass" : "glyphicon glyphicon-asterisk",

@@ -44,7 +44,7 @@
             "fieldValidateRulesMaxlength": 50
         }
     ],
-    "changelogDate": "20160907034536",
+    "changelogDate": "20160907050914",
     "entityTableName": "feature",
     "dto": "no",
     "pagination": "pager",

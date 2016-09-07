@@ -21,7 +21,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907034533",
+    "changelogDate": "20160907050911",
     "javadoc": "relationship ManyToMany {AuditProfile{question(question)} to ChecklistQuestion{auditProfile}}",
     "entityTableName": "audit_question_response",
     "dto": "mapstruct",

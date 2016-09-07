@@ -36,7 +36,7 @@
             "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160907034529",
+    "changelogDate": "20160907050907",
     "entityTableName": "checklist_question",
     "dto": "mapstruct",
     "pagination": "pager",

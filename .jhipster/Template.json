@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "content",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 4000
+        }
+    ],
+    "changelogDate": "20160907050905",
+    "javadoc": "Templates/Email Templates",
+    "entityTableName": "template",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}
