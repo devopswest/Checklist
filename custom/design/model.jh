@@ -59,13 +59,6 @@ enum EngagementAuthorities {
   * entity B (the_best_entity) // the_best_entity is the table's name
   **/
 
-/**
- * Global Config
- **/
- entity GlobalConfiguration {
-    propertyKey String,
-    propertyValue String
-}
 
 /**
  * Lookups
@@ -81,11 +74,6 @@ relationship OneToMany {
 }
 
 
-entity Country {
-    code String,
-    name String
-}
-
 /**
  * Client
  *
@@ -97,29 +85,27 @@ entity Client {
     name String
 }
 
-entity Clientrofile {
+entity ClientProfile {
 
 }
 relationship OneToOne{
-    Clientrofile{client(name)} to Client
+    ClientProfile{client(name)} to Client
 }
 
 
-
-/*
 entity ClientMetadata {
     metadataValue String
 }
 
+relationship ManyToOne {
+    ClientMetadata{metadataProperty(label)} to Taxonomy
+}
+
+
 relationship OneToMany {
-    Taxonomy to Clientrofile{metadataProperty(label)}
+    ClientProfile{metadata} to ClientMetadata{client(name)}
 }
 
-
-relationship ManyToMany {
-    Clientrofile{metadata(label)} to ClientMetadata{client}
-}
-*/
 
 
 /**
@@ -134,12 +120,12 @@ entity License {
      activationToken String minlength(1) maxlength(4000)
 }
 
-relationship OneToMany {
-    Client to License{client(name)}
+relationship ManyToOne {
+    License{client(name)} to Client
 }
 
-relationship OneToMany {
-    Taxonomy to License{licenseType(label)}
+relationship ManyToOne {
+    License{licenseType(label)} to Taxonomy
 }
 
 
@@ -185,12 +171,12 @@ entity WorkflowStep {
 
 /*
  * SHould be thru table but JHIPSTER is not exposing authorities entity
- *
-relationship OneToMany{
-    Authority to WorkflowStep{authority(name)}
+ */
+ /*
+relationship ManyToOne{
+    WorkflowStep{authority(name)} to Authority
 }
 */
-
 
 relationship ManyToMany {
     Workflow{workflowStep(name)} to WorkflowStep{workflow}
@@ -222,8 +208,8 @@ relationship OneToMany {
     Checklist to ChecklistQuestion{checklist(name)}
 }
 
-relationship OneToMany {
-    Country to Checklist{country(name)}
+relationship ManyToOne {
+    Checklist{country(label)} to Taxonomy
 }
 
 relationship OneToMany {
@@ -231,8 +217,8 @@ relationship OneToMany {
 }
 
 /*
-relationship OneToMany {
-    Question to ChecklistQuestion{question(question)}
+relationship ManyToOne {
+    ChecklistQuestion{question(question)} to Question
 }
 */
 
@@ -247,27 +233,23 @@ entity Engagement {
     status ResponseStatus
 }
 
-relationship OneToMany{
-    Client to Engagement{client(name)}
+relationship ManyToOne{
+    Engagement{client(name)} to Client
 }
 
-relationship OneToMany{
-    Checklist to Engagement{checklist(name)}
+relationship ManyToOne{
+    Engagement{checklist(name)} to Checklist
 }
 
 entity EngagementMember {
-    firstName String,
-    lastName String,
-    phone String,
-    email String,
     authority EngagementAuthorities
 }
 relationship OneToOne{
     EngagementMember{user(login)} to User
 }
 
-relationship ManyToMany {
-    Engagement{engagementMember(firstName)} to EngagementMember{engagement}
+relationship OneToMany {
+    Engagement{members} to EngagementMember{engagement(description)}
 }
 
 
@@ -275,22 +257,20 @@ relationship ManyToMany {
 /**
  * Response Responses
  *
-*
+ *
  **/
 entity AuditProfile {
     description String,
     status ResponseStatus
 }
 
-relationship OneToMany{
-    Engagement to AuditProfile{engagement(description)}
+relationship ManyToOne{
+    AuditProfile{engagement(description)} to Engagement
 }
 
-
-
 /*
-relationship OneToMany{
-    Workflow to AuditProfile{workflow(description)}
+relationship ManyToOne{
+    AuditProfile{workflow(description)} to Workflow
 }
 */
 
@@ -310,8 +290,8 @@ relationship ManyToMany {
 entity AuditQuestionResponse {
     questionResponse String
 }
-relationship OneToMany{
-    ChecklistQuestion to AuditQuestionResponse{question(description)}
+relationship ManyToOne{
+    AuditQuestionResponse{question(description)} to ChecklistQuestion
 }
 
 
@@ -345,8 +325,8 @@ relationship OneToOne{
     UserProfile{user(login)} to User
 }
 
-relationship OneToMany{
-    Client to UserProfile{client(name)}
+relationship ManyToOne{
+    UserProfile{client(name)} to Client
 }
 
 
@@ -367,9 +347,9 @@ entity FeatureAuthority {
 
 /*
  * SHould be thru table but JHIPSTER is not exposing authorities entity
- *
+ */
 relationship OneToMany{
-    Feature to FeatureAuthority{authority(name)}
+    Feature{authorities} to FeatureAuthority{feature(label)}
 }
 
 
@@ -391,7 +371,6 @@ relationship OneToMany{
  **/
 paginate * with pager
 
-//service * with serviceImpl
 
 dto Checklist with mapstruct
 dto ChecklistQuestion with mapstruct
