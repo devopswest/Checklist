@@ -4,9 +4,9 @@
         .module('checklistApp')
         .factory('License', License);
 
-    License.$inject = ['$resource'];
+    License.$inject = ['$resource', 'DateUtils'];
 
-    function License ($resource) {
+    function License ($resource, DateUtils) {
         var resourceUrl =  'api/licenses/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,7 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.expirationDate = DateUtils.convertDateTimeFromServer(data.expirationDate);
                     }
                     return data;
                 }

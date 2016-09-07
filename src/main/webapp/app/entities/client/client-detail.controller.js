@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('ClientDetailController', ClientDetailController);
 
-    ClientDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Client', 'Engagement'];
+    ClientDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Client'];
 
-    function ClientDetailController($scope, $rootScope, $stateParams, previousState, entity, Client, Engagement) {
+    function ClientDetailController($scope, $rootScope, $stateParams, previousState, entity, Client) {
         var vm = this;
 
         vm.client = entity;

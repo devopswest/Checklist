@@ -45,18 +45,15 @@ public class AuditProfile implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AuditProfileLogEntry> logs = new HashSet<>();
 
+    @ManyToOne
+    private Engagement engagement;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "audit_profile_audit_question_response",
                joinColumns = @JoinColumn(name="audit_profiles_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="audit_question_responses_id", referencedColumnName="ID"))
     private Set<AuditQuestionResponse> auditQuestionResponses = new HashSet<>();
-
-    @ManyToOne
-    private Engagement engagement;
-
-    @ManyToOne
-    private Checklist checklist;
 
     public Long getId() {
         return id;
@@ -117,6 +114,19 @@ public class AuditProfile implements Serializable {
         this.logs = auditProfileLogEntries;
     }
 
+    public Engagement getEngagement() {
+        return engagement;
+    }
+
+    public AuditProfile engagement(Engagement engagement) {
+        this.engagement = engagement;
+        return this;
+    }
+
+    public void setEngagement(Engagement engagement) {
+        this.engagement = engagement;
+    }
+
     public Set<AuditQuestionResponse> getAuditQuestionResponses() {
         return auditQuestionResponses;
     }
@@ -140,32 +150,6 @@ public class AuditProfile implements Serializable {
 
     public void setAuditQuestionResponses(Set<AuditQuestionResponse> auditQuestionResponses) {
         this.auditQuestionResponses = auditQuestionResponses;
-    }
-
-    public Engagement getEngagement() {
-        return engagement;
-    }
-
-    public AuditProfile engagement(Engagement engagement) {
-        this.engagement = engagement;
-        return this;
-    }
-
-    public void setEngagement(Engagement engagement) {
-        this.engagement = engagement;
-    }
-
-    public Checklist getChecklist() {
-        return checklist;
-    }
-
-    public AuditProfile checklist(Checklist checklist) {
-        this.checklist = checklist;
-        return this;
-    }
-
-    public void setChecklist(Checklist checklist) {
-        this.checklist = checklist;
     }
 
     @Override

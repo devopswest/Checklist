@@ -1,0 +1,8 @@
+package com.pwc.assurance.adc.domain.enumeration;
+
+/**
+ * The ApplicationAuthorities enumeration.
+ */
+public enum ApplicationAuthorities {
+    ROLE_ADMIN,ROLE_USER,ROLE_PWC_ENGAGEMENT_TEAM,ROLE_PWC_PERSSONEL_US,ROLE_PWC_PERSSONEL_TERRITORY,ROLE_PWC_MANAGEMENT,ROLE_CLIENT_ADMIN,ROLE_CLIENT_USER,ROLE_LICENSED_ADMIN,ROLE_LICENSED_USER,ROLE_LPS_ADMIN,ROLE_LPS_USER
+}

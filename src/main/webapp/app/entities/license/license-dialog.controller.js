@@ -5,15 +5,17 @@
         .module('checklistApp')
         .controller('LicenseDialogController', LicenseDialogController);
 
-    LicenseDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'License', 'Company', 'Taxonomy'];
+    LicenseDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'License', 'Client', 'Taxonomy'];
 
-    function LicenseDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, License, Company, Taxonomy) {
+    function LicenseDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, License, Client, Taxonomy) {
         var vm = this;
 
         vm.license = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.companies = Company.query();
+        vm.clients = Client.query();
         vm.taxonomies = Taxonomy.query();
 
         $timeout(function (){
@@ -43,6 +45,10 @@
             vm.isSaving = false;
         }
 
+        vm.datePickerOpenStatus.expirationDate = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

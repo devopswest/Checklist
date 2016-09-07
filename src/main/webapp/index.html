@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css">
     <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css">
     <link rel="stylesheet" href="bower_components/angular-object-diff/dist/angular-object-diff.css">
-    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css">
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
@@ -100,9 +99,8 @@
     <script src="bower_components/textAngular/dist/textAngular.js"></script>
     <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
     <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
-    <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
     <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
-    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="bower_components/angular-object-diff/dist/angular-object-diff.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -144,6 +142,13 @@
     <script src="app/entities/workflow/workflow.service.js"></script>
     <script src="app/entities/workflow/workflow.search.service.js"></script>
     <script src="app/entities/workflow/workflow.controller.js"></script>
+    <script src="app/entities/user-profile/user-profile-dialog.controller.js"></script>
+    <script src="app/entities/user-profile/user-profile-detail.controller.js"></script>
+    <script src="app/entities/user-profile/user-profile-delete-dialog.controller.js"></script>
+    <script src="app/entities/user-profile/user-profile.state.js"></script>
+    <script src="app/entities/user-profile/user-profile.service.js"></script>
+    <script src="app/entities/user-profile/user-profile.search.service.js"></script>
+    <script src="app/entities/user-profile/user-profile.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-dialog.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-detail.controller.js"></script>
     <script src="app/entities/taxonomy/taxonomy-delete-dialog.controller.js"></script>
@@ -172,13 +177,20 @@
     <script src="app/entities/license/license.service.js"></script>
     <script src="app/entities/license/license.search.service.js"></script>
     <script src="app/entities/license/license.controller.js"></script>
-    <script src="app/entities/global-configuration/global-configuration-dialog.controller.js"></script>
-    <script src="app/entities/global-configuration/global-configuration-detail.controller.js"></script>
-    <script src="app/entities/global-configuration/global-configuration-delete-dialog.controller.js"></script>
-    <script src="app/entities/global-configuration/global-configuration.state.js"></script>
-    <script src="app/entities/global-configuration/global-configuration.service.js"></script>
-    <script src="app/entities/global-configuration/global-configuration.search.service.js"></script>
-    <script src="app/entities/global-configuration/global-configuration.controller.js"></script>
+    <script src="app/entities/feature-authority/feature-authority-dialog.controller.js"></script>
+    <script src="app/entities/feature-authority/feature-authority-detail.controller.js"></script>
+    <script src="app/entities/feature-authority/feature-authority-delete-dialog.controller.js"></script>
+    <script src="app/entities/feature-authority/feature-authority.state.js"></script>
+    <script src="app/entities/feature-authority/feature-authority.service.js"></script>
+    <script src="app/entities/feature-authority/feature-authority.search.service.js"></script>
+    <script src="app/entities/feature-authority/feature-authority.controller.js"></script>
+    <script src="app/entities/feature/feature-dialog.controller.js"></script>
+    <script src="app/entities/feature/feature-detail.controller.js"></script>
+    <script src="app/entities/feature/feature-delete-dialog.controller.js"></script>
+    <script src="app/entities/feature/feature.state.js"></script>
+    <script src="app/entities/feature/feature.service.js"></script>
+    <script src="app/entities/feature/feature.search.service.js"></script>
+    <script src="app/entities/feature/feature.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
     <script src="app/entities/engagement-member/engagement-member-dialog.controller.js"></script>
     <script src="app/entities/engagement-member/engagement-member-detail.controller.js"></script>
@@ -194,20 +206,20 @@
     <script src="app/entities/engagement/engagement.service.js"></script>
     <script src="app/entities/engagement/engagement.search.service.js"></script>
     <script src="app/entities/engagement/engagement.controller.js"></script>
-    <script src="app/entities/country/country-dialog.controller.js"></script>
-    <script src="app/entities/country/country-detail.controller.js"></script>
-    <script src="app/entities/country/country-delete-dialog.controller.js"></script>
-    <script src="app/entities/country/country.state.js"></script>
-    <script src="app/entities/country/country.service.js"></script>
-    <script src="app/entities/country/country.search.service.js"></script>
-    <script src="app/entities/country/country.controller.js"></script>
-    <script src="app/entities/company/company-dialog.controller.js"></script>
-    <script src="app/entities/company/company-detail.controller.js"></script>
-    <script src="app/entities/company/company-delete-dialog.controller.js"></script>
-    <script src="app/entities/company/company.state.js"></script>
-    <script src="app/entities/company/company.service.js"></script>
-    <script src="app/entities/company/company.search.service.js"></script>
-    <script src="app/entities/company/company.controller.js"></script>
+    <script src="app/entities/client-profile/client-profile-dialog.controller.js"></script>
+    <script src="app/entities/client-profile/client-profile-detail.controller.js"></script>
+    <script src="app/entities/client-profile/client-profile-delete-dialog.controller.js"></script>
+    <script src="app/entities/client-profile/client-profile.state.js"></script>
+    <script src="app/entities/client-profile/client-profile.service.js"></script>
+    <script src="app/entities/client-profile/client-profile.search.service.js"></script>
+    <script src="app/entities/client-profile/client-profile.controller.js"></script>
+    <script src="app/entities/client-metadata/client-metadata-dialog.controller.js"></script>
+    <script src="app/entities/client-metadata/client-metadata-detail.controller.js"></script>
+    <script src="app/entities/client-metadata/client-metadata-delete-dialog.controller.js"></script>
+    <script src="app/entities/client-metadata/client-metadata.state.js"></script>
+    <script src="app/entities/client-metadata/client-metadata.service.js"></script>
+    <script src="app/entities/client-metadata/client-metadata.search.service.js"></script>
+    <script src="app/entities/client-metadata/client-metadata.controller.js"></script>
     <script src="app/entities/client/client-dialog.controller.js"></script>
     <script src="app/entities/client/client-detail.controller.js"></script>
     <script src="app/entities/client/client-delete-dialog.controller.js"></script>

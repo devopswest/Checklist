@@ -51,13 +51,8 @@ public class Checklist implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
 
-    @OneToMany(mappedBy = "checklist")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditProfile> auditProfiles = new HashSet<>();
-
     @ManyToOne
-    private Country country;
+    private Taxonomy country;
 
     public Long getId() {
         return id;
@@ -144,42 +139,17 @@ public class Checklist implements Serializable {
         this.checklistQuestions = checklistQuestions;
     }
 
-    public Set<AuditProfile> getAuditProfiles() {
-        return auditProfiles;
-    }
-
-    public Checklist auditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-        return this;
-    }
-
-    public Checklist addAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.add(auditProfile);
-        auditProfile.setChecklist(this);
-        return this;
-    }
-
-    public Checklist removeAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.remove(auditProfile);
-        auditProfile.setChecklist(null);
-        return this;
-    }
-
-    public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-    }
-
-    public Country getCountry() {
+    public Taxonomy getCountry() {
         return country;
     }
 
-    public Checklist country(Country country) {
-        this.country = country;
+    public Checklist country(Taxonomy taxonomy) {
+        this.country = taxonomy;
         return this;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setCountry(Taxonomy taxonomy) {
+        this.country = taxonomy;
     }
 
     @Override

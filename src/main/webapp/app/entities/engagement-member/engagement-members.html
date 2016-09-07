@@ -36,25 +36,21 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="firstName"><span translate="checklistApp.engagementMember.firstName">First Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="lastName"><span translate="checklistApp.engagementMember.lastName">Last Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="phone"><span translate="checklistApp.engagementMember.phone">Phone</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="email"><span translate="checklistApp.engagementMember.email">Email</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="authority"><span translate="checklistApp.engagementMember.authority">Authority</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.login"><span translate="checklistApp.engagementMember.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="engagement.description"><span translate="checklistApp.engagementMember.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="engagementMember in vm.engagementMembers track by engagementMember.id">
                     <td><a ui-sref="engagement-member-detail({id:engagementMember.id})">{{engagementMember.id}}</a></td>
-                    <td>{{engagementMember.firstName}}</td>
-                    <td>{{engagementMember.lastName}}</td>
-                    <td>{{engagementMember.phone}}</td>
-                    <td>{{engagementMember.email}}</td>
                     <td translate="{{'checklistApp.EngagementAuthorities.' + engagementMember.authority}}">{{engagementMember.authority}}</td>
                     <td>
                         {{engagementMember.user.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="engagement-detail({id:engagementMember.engagement.id})">{{engagementMember.engagement.description}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

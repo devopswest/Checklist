@@ -16,15 +16,13 @@
         <dd>
             <span translate="{{'checklistApp.ResponseStatus.' + vm.engagement.status}}">{{vm.engagement.status}}</span>
         </dd>
-        <dt><span translate="checklistApp.engagement.engagementMember">Engagement Member</span></dt>
-        <dd>
-            <span ng-repeat="engagementMember in vm.engagement.engagementMembers">
-                <a ui-sref="engagement-member-detail({id: engagementMember.id})">{{engagementMember.firstName}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
         <dt><span translate="checklistApp.engagement.client">Client</span></dt>
         <dd>
             <a ui-sref="client-detail({id:vm.engagement.client.id})">{{vm.engagement.client.name}}</a>
+        </dd>
+        <dt><span translate="checklistApp.engagement.checklist">Checklist</span></dt>
+        <dd>
+            <a ui-sref="checklist-detail({id:vm.engagement.checklist.id})">{{vm.engagement.checklist.name}}</a>
         </dd>
     </dl>
 

@@ -121,7 +121,7 @@ public class EngagementResource {
     @Timed
     public ResponseEntity<Engagement> getEngagement(@PathVariable Long id) {
         log.debug("REST request to get Engagement : {}", id);
-        Engagement engagement = engagementRepository.findOneWithEagerRelationships(id);
+        Engagement engagement = engagementRepository.findOne(id);
         return Optional.ofNullable(engagement)
             .map(result -> new ResponseEntity<>(
                 result,

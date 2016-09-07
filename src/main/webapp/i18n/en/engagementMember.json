@@ -16,10 +16,6 @@
             "detail": {
                 "title": "Engagement Member"
             },
-            "firstName": "First Name",
-            "lastName": "Last Name",
-            "phone": "Phone",
-            "email": "Email",
             "authority": "Authority",
             "user": "User",
             "engagement": "Engagement"

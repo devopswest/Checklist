@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('License Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockLicense, MockCompany, MockTaxonomy;
+        var MockEntity, MockPreviousState, MockLicense, MockClient, MockTaxonomy;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,7 +13,7 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockLicense = jasmine.createSpy('MockLicense');
-            MockCompany = jasmine.createSpy('MockCompany');
+            MockClient = jasmine.createSpy('MockClient');
             MockTaxonomy = jasmine.createSpy('MockTaxonomy');
             
 
@@ -23,7 +23,7 @@ describe('Controller Tests', function() {
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
                 'License': MockLicense,
-                'Company': MockCompany,
+                'Client': MockClient,
                 'Taxonomy': MockTaxonomy
             };
             createController = function() {

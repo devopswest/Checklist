@@ -19,7 +19,6 @@
             "code": "Code",
             "label": "Label",
             "child": "Child",
-            "license": "License",
             "parent": "Parent"
         }
     }

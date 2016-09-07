@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "engagement",
-            "otherEntityName": "engagement",
-            "otherEntityRelationshipName": "client"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "code",
@@ -18,7 +11,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160902163605",
+    "changelogDate": "20160906232810",
     "javadoc": "ClientTODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)",
     "entityTableName": "client",
     "dto": "no",

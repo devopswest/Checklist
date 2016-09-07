@@ -8,24 +8,18 @@
             "otherEntityRelationshipName": "auditProfile"
         },
         {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "auditProfile",
-            "relationshipName": "auditQuestionResponse",
-            "otherEntityName": "auditQuestionResponse",
-            "otherEntityField": "questionResponse",
-            "ownerSide": true
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "engagement",
             "otherEntityName": "engagement",
             "otherEntityField": "description"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "checklist",
-            "otherEntityName": "checklist",
-            "otherEntityField": "name"
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "auditProfile",
+            "relationshipName": "auditQuestionResponse",
+            "otherEntityName": "auditQuestionResponse",
+            "otherEntityField": "questionResponse",
+            "ownerSide": true
         }
     ],
     "fields": [
@@ -39,7 +33,7 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160902163616",
+    "changelogDate": "20160906232822",
     "javadoc": "Response Responses",
     "entityTableName": "audit_profile",
     "dto": "mapstruct",

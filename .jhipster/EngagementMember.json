@@ -10,37 +10,20 @@
             "otherEntityRelationshipName": "engagementMember"
         },
         {
-            "relationshipType": "many-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "engagement",
             "otherEntityName": "engagement",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "engagementMember"
+            "otherEntityField": "description"
         }
     ],
     "fields": [
-        {
-            "fieldName": "firstName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "lastName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "phone",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "email",
-            "fieldType": "String"
-        },
         {
             "fieldName": "authority",
             "fieldType": "EngagementAuthorities",
             "fieldValues": "ROLE_PWC_ENGAGEMENT_TEAM,ROLE_PWC_PERSSONEL_US,ROLE_PWC_PERSSONEL_TERRITORY,ROLE_PWC_MANAGEMENT"
         }
     ],
-    "changelogDate": "20160902163615",
+    "changelogDate": "20160906232821",
     "entityTableName": "engagement_member",
     "dto": "no",
     "pagination": "pager",

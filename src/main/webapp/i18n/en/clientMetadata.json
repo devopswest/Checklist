@@ -1,0 +1,24 @@
+{
+    "checklistApp": {
+        "clientMetadata" : {
+            "home": {
+                "title": "Client Metadata",
+                "createLabel": "Create a new Client Metadata",
+                "createOrEditLabel": "Create or edit a Client Metadata",
+                "search": "Search for Client Metadata"
+            },
+            "created": "A new Client Metadata is created with identifier {{ param }}",
+            "updated": "A Client Metadata is updated with identifier {{ param }}",
+            "deleted": "A Client Metadata is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Client Metadata {{ id }}?"
+            },
+            "detail": {
+                "title": "Client Metadata"
+            },
+            "metadataValue": "Metadata Value",
+            "metadataProperty": "Metadata Property",
+            "client": "Client"
+        }
+    }
+}

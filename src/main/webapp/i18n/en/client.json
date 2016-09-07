@@ -17,8 +17,7 @@
                 "title": "Client"
             },
             "code": "Code",
-            "name": "Name",
-            "engagement": "Engagement"
+            "name": "Name"
         }
     }
 }

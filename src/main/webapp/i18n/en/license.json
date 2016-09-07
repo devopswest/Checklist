@@ -18,8 +18,9 @@
             },
             "contactName": "Contact Name",
             "contactEmail": "Contact Email",
+            "expirationDate": "Expiration Date",
             "activationToken": "Activation Token",
-            "company": "Company",
+            "client": "Client",
             "licenseType": "License Type"
         }
     }

@@ -7,11 +7,10 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "globalConfiguration": "Global Configuration",
                 "taxonomy": "Taxonomy",
-                "country": "Country",
                 "client": "Client",
-                "company": "Company",
+                "clientProfile": "Client Profile",
+                "clientMetadata": "Client Metadata",
                 "license": "License",
                 "question": "Question",
                 "requirement": "Requirement",
@@ -24,6 +23,9 @@
                 "auditProfile": "Audit Profile",
                 "auditQuestionResponse": "Audit Question Response",
                 "auditProfileLogEntry": "Audit Profile Log Entry",
+                "userProfile": "User Profile",
+                "feature": "Feature",
+                "featureAuthority": "Feature Authority",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -26,15 +26,35 @@
                      />
         </div>
         <div class="form-group">
+            <label class="control-label" translate="checklistApp.license.expirationDate" for="field_expirationDate">Expiration Date</label>
+                <div class="input-group">
+                    <input id="field_expirationDate" type="text" class="form-control" name="expirationDate" datetime-picker="{{dateformat}}" ng-model="vm.license.expirationDate" is-open="vm.datePickerOpenStatus.expirationDate"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('expirationDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
             <label class="control-label" translate="checklistApp.license.activationToken" for="field_activationToken">Activation Token</label>
             <input type="text" class="form-control" name="activationToken" id="field_activationToken"
                     ng-model="vm.license.activationToken"
-                     />
+                    ng-minlength="1" ng-maxlength="4000" />
+            <div ng-show="editForm.activationToken.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.activationToken.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
+                    This field is required to be at least 1 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.activationToken.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="4000">
+                    This field cannot be longer than 4000 characters.
+                </p>
+            </div>
         </div>
 
         <div class="form-group">
-            <label translate="checklistApp.license.company" for="field_company">Company</label>
-            <select class="form-control" id="field_company" name="company" ng-model="vm.license.company" ng-options="company as company.name for company in vm.companies track by company.id">
+            <label translate="checklistApp.license.client" for="field_client">Client</label>
+            <select class="form-control" id="field_client" name="client" ng-model="vm.license.client" ng-options="client as client.name for client in vm.clients track by client.id">
                 <option value=""></option>
             </select>
         </div>

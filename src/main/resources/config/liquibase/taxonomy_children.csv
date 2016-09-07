@@ -2,7 +2,7 @@ parent_id;id;code;label
 1;101;US;United Stated
 1;102;UK;United Kindom
 2;202;ASR;Assurance
-2;202;TAX;Tax
-2;203;IFS;Internal Firm Services
+2;203;TAX;Tax
+2;204;IFS;Internal Firm Services
 3;301;FULL;Full Access
 3;302;DEMO;Trial version

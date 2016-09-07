@@ -12,13 +12,17 @@
         <dd>
             <span>{{vm.license.contactEmail}}</span>
         </dd>
+        <dt><span translate="checklistApp.license.expirationDate">Expiration Date</span></dt>
+        <dd>
+            <span>{{vm.license.expirationDate | date:'medium'}}</span>
+        </dd>
         <dt><span translate="checklistApp.license.activationToken">Activation Token</span></dt>
         <dd>
             <span>{{vm.license.activationToken}}</span>
         </dd>
-        <dt><span translate="checklistApp.license.company">Company</span></dt>
+        <dt><span translate="checklistApp.license.client">Client</span></dt>
         <dd>
-            <a ui-sref="company-detail({id:vm.license.company.id})">{{vm.license.company.name}}</a>
+            <a ui-sref="client-detail({id:vm.license.client.id})">{{vm.license.client.name}}</a>
         </dd>
         <dt><span translate="checklistApp.license.licenseType">License Type</span></dt>
         <dd>

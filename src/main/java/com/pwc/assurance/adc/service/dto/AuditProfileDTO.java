@@ -19,17 +19,12 @@ public class AuditProfileDTO implements Serializable {
     private ResponseStatus status;
 
 
-    private Set<AuditQuestionResponseDTO> auditQuestionResponses = new HashSet<>();
-
     private Long engagementId;
     
 
     private String engagementDescription;
 
-    private Long checklistId;
-    
-
-    private String checklistName;
+    private Set<AuditQuestionResponseDTO> auditQuestionResponses = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -53,14 +48,6 @@ public class AuditProfileDTO implements Serializable {
         this.status = status;
     }
 
-    public Set<AuditQuestionResponseDTO> getAuditQuestionResponses() {
-        return auditQuestionResponses;
-    }
-
-    public void setAuditQuestionResponses(Set<AuditQuestionResponseDTO> auditQuestionResponses) {
-        this.auditQuestionResponses = auditQuestionResponses;
-    }
-
     public Long getEngagementId() {
         return engagementId;
     }
@@ -78,21 +65,12 @@ public class AuditProfileDTO implements Serializable {
         this.engagementDescription = engagementDescription;
     }
 
-    public Long getChecklistId() {
-        return checklistId;
+    public Set<AuditQuestionResponseDTO> getAuditQuestionResponses() {
+        return auditQuestionResponses;
     }
 
-    public void setChecklistId(Long checklistId) {
-        this.checklistId = checklistId;
-    }
-
-
-    public String getChecklistName() {
-        return checklistName;
-    }
-
-    public void setChecklistName(String checklistName) {
-        this.checklistName = checklistName;
+    public void setAuditQuestionResponses(Set<AuditQuestionResponseDTO> auditQuestionResponses) {
+        this.auditQuestionResponses = auditQuestionResponses;
     }
 
     @Override

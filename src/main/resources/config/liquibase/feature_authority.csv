@@ -1,0 +1,4 @@
+id;feature_id;authority
+1;100;ROLE_ADMIN
+2;200;ROLE_USER
+3;300;ROLE_ADMIN

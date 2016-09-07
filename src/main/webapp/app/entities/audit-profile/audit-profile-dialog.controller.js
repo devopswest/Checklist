@@ -5,18 +5,17 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'AuditQuestionResponse', 'Engagement', 'Checklist','ChecklistQuestion'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, AuditQuestionResponse, Engagement, Checklist, ChecklistQuestion) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion) {
         var vm = this;
 
         vm.auditProfile = entity;
         vm.clear = clear;
         vm.save = save;
         vm.auditprofilelogentries = AuditProfileLogEntry.query();
-        vm.auditquestionresponses = AuditQuestionResponse.query();
         vm.engagements = Engagement.query();
-        vm.checklists = Checklist.query();
+        vm.auditquestionresponses = AuditQuestionResponse.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

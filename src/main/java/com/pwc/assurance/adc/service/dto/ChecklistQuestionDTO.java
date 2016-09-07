@@ -1,11 +1,12 @@
 package com.pwc.assurance.adc.service.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
-
-import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Collections;
 
 /**
  * A DTO for the ChecklistQuestion entity.
@@ -116,27 +117,26 @@ public class ChecklistQuestionDTO implements Serializable, Comparable<ChecklistQ
             '}';
     }
 
-
     List<ChecklistQuestionDTO> children;
 
 
     public List<ChecklistQuestionDTO> getChildren() {
-    	if(children != null){
-    		Collections.sort(children);
-    		return children;
-    	}
+        if(children != null){
+            Collections.sort(children);
+            return children;
+        }
         return children;
     }
 
     public void setChildren(List<ChecklistQuestionDTO> children) {
         this.children = children;
     }
-    
-	@Override
-	public int compareTo(ChecklistQuestionDTO otherChecklistQuestion) {
-		if(this.getId() == null){
-			return -1;
-		}		
-		return this.getId().compareTo(otherChecklistQuestion.getId());
-	}
+
+    @Override
+    public int compareTo(ChecklistQuestionDTO otherChecklistQuestion) {
+        if(this.getId() == null){
+            return -1;
+        }
+        return this.getId().compareTo(otherChecklistQuestion.getId());
+    }
 }

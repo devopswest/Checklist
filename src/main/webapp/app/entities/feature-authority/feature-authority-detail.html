@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span translate="checklistApp.featureAuthority.detail.title">Feature Authority</span> {{vm.featureAuthority.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.featureAuthority.authority">Authority</span></dt>
+        <dd>
+            <span translate="{{'checklistApp.ApplicationAuthorities.' + vm.featureAuthority.authority}}">{{vm.featureAuthority.authority}}</span>
+        </dd>
+        <dt><span translate="checklistApp.featureAuthority.feature">Feature</span></dt>
+        <dd>
+            <a ui-sref="feature-detail({id:vm.featureAuthority.feature.id})">{{vm.featureAuthority.feature.label}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="feature-authority-detail.edit({id:vm.featureAuthority.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

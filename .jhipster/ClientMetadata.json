@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "metadataProperty",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "clientProfile",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "metadataValue",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160906232812",
+    "entityTableName": "client_metadata",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

@@ -46,17 +46,13 @@ public class Engagement implements Serializable {
     @OneToMany(mappedBy = "engagement")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditProfile> auditProfiles = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "engagement_engagement_member",
-               joinColumns = @JoinColumn(name="engagements_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="engagement_members_id", referencedColumnName="ID"))
-    private Set<EngagementMember> engagementMembers = new HashSet<>();
+    private Set<EngagementMember> members = new HashSet<>();
 
     @ManyToOne
     private Client client;
+
+    @ManyToOne
+    private Checklist checklist;
 
     public Long getId() {
         return id;
@@ -105,54 +101,29 @@ public class Engagement implements Serializable {
         this.status = status;
     }
 
-    public Set<AuditProfile> getAuditProfiles() {
-        return auditProfiles;
+    public Set<EngagementMember> getMembers() {
+        return members;
     }
 
-    public Engagement auditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-        return this;
-    }
-
-    public Engagement addAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.add(auditProfile);
-        auditProfile.setEngagement(this);
-        return this;
-    }
-
-    public Engagement removeAuditProfile(AuditProfile auditProfile) {
-        auditProfiles.remove(auditProfile);
-        auditProfile.setEngagement(null);
-        return this;
-    }
-
-    public void setAuditProfiles(Set<AuditProfile> auditProfiles) {
-        this.auditProfiles = auditProfiles;
-    }
-
-    public Set<EngagementMember> getEngagementMembers() {
-        return engagementMembers;
-    }
-
-    public Engagement engagementMembers(Set<EngagementMember> engagementMembers) {
-        this.engagementMembers = engagementMembers;
+    public Engagement members(Set<EngagementMember> engagementMembers) {
+        this.members = engagementMembers;
         return this;
     }
 
     public Engagement addEngagementMember(EngagementMember engagementMember) {
-        engagementMembers.add(engagementMember);
-        engagementMember.getEngagements().add(this);
+        members.add(engagementMember);
+        engagementMember.setEngagement(this);
         return this;
     }
 
     public Engagement removeEngagementMember(EngagementMember engagementMember) {
-        engagementMembers.remove(engagementMember);
-        engagementMember.getEngagements().remove(this);
+        members.remove(engagementMember);
+        engagementMember.setEngagement(null);
         return this;
     }
 
-    public void setEngagementMembers(Set<EngagementMember> engagementMembers) {
-        this.engagementMembers = engagementMembers;
+    public void setMembers(Set<EngagementMember> engagementMembers) {
+        this.members = engagementMembers;
     }
 
     public Client getClient() {
@@ -166,6 +137,19 @@ public class Engagement implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Checklist getChecklist() {
+        return checklist;
+    }
+
+    public Engagement checklist(Checklist checklist) {
+        this.checklist = checklist;
+        return this;
+    }
+
+    public void setChecklist(Checklist checklist) {
+        this.checklist = checklist;
     }
 
     @Override

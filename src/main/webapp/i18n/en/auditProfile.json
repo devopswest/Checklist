@@ -19,9 +19,8 @@
             "description": "Description",
             "status": "Status",
             "log": "Log",
-            "auditQuestionResponse": "Audit Question Response",
             "engagement": "Engagement",
-            "checklist": "Checklist"
+            "auditQuestionResponse": "Audit Question Response"
         }
     }
 }

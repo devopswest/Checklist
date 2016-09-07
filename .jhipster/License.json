@@ -3,8 +3,8 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "company",
-            "otherEntityName": "company",
+            "relationshipName": "client",
+            "otherEntityName": "client",
             "otherEntityField": "name"
         },
         {
@@ -24,11 +24,22 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "expirationDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
             "fieldName": "activationToken",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160902163607",
+    "changelogDate": "20160906232813",
+    "javadoc": "Licenses",
     "entityTableName": "license",
     "dto": "no",
     "pagination": "pager",

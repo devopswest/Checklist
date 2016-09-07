@@ -3,22 +3,20 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "auditProfile",
-            "otherEntityName": "auditProfile",
-            "otherEntityRelationshipName": "engagement"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "engagement",
-            "relationshipName": "engagementMember",
+            "relationshipName": "members",
             "otherEntityName": "engagementMember",
-            "otherEntityField": "firstName",
-            "ownerSide": true
+            "otherEntityRelationshipName": "engagement"
         },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "client",
             "otherEntityName": "client",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklist",
+            "otherEntityName": "checklist",
             "otherEntityField": "name"
         }
     ],
@@ -37,7 +35,7 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160902163614",
+    "changelogDate": "20160906232820",
     "javadoc": "Engagement",
     "entityTableName": "engagement",
     "dto": "no",

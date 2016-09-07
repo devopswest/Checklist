@@ -5,17 +5,17 @@
         .module('checklistApp')
         .controller('EngagementDialogController', EngagementDialogController);
 
-    EngagementDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Engagement', 'AuditProfile', 'EngagementMember', 'Client'];
+    EngagementDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Engagement', 'EngagementMember', 'Client', 'Checklist'];
 
-    function EngagementDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Engagement, AuditProfile, EngagementMember, Client) {
+    function EngagementDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Engagement, EngagementMember, Client, Checklist) {
         var vm = this;
 
         vm.engagement = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.auditprofiles = AuditProfile.query();
         vm.engagementmembers = EngagementMember.query();
         vm.clients = Client.query();
+        vm.checklists = Checklist.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

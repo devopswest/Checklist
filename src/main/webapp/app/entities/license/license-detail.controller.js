@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('LicenseDetailController', LicenseDetailController);
 
-    LicenseDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'License', 'Company', 'Taxonomy'];
+    LicenseDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'License', 'Client', 'Taxonomy'];
 
-    function LicenseDetailController($scope, $rootScope, $stateParams, previousState, entity, License, Company, Taxonomy) {
+    function LicenseDetailController($scope, $rootScope, $stateParams, previousState, entity, License, Client, Taxonomy) {
         var vm = this;
 
         vm.license = entity;

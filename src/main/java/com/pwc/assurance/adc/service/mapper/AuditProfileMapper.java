@@ -14,27 +14,15 @@ public interface AuditProfileMapper {
 
     @Mapping(source = "engagement.id", target = "engagementId")
     @Mapping(source = "engagement.description", target = "engagementDescription")
-    @Mapping(source = "checklist.id", target = "checklistId")
-    @Mapping(source = "checklist.name", target = "checklistName")
     AuditProfileDTO auditProfileToAuditProfileDTO(AuditProfile auditProfile);
 
     List<AuditProfileDTO> auditProfilesToAuditProfileDTOs(List<AuditProfile> auditProfiles);
 
     @Mapping(target = "logs", ignore = true)
     @Mapping(source = "engagementId", target = "engagement")
-    @Mapping(source = "checklistId", target = "checklist")
     AuditProfile auditProfileDTOToAuditProfile(AuditProfileDTO auditProfileDTO);
 
     List<AuditProfile> auditProfileDTOsToAuditProfiles(List<AuditProfileDTO> auditProfileDTOs);
-
-    default AuditQuestionResponse auditQuestionResponseFromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        AuditQuestionResponse auditQuestionResponse = new AuditQuestionResponse();
-        auditQuestionResponse.setId(id);
-        return auditQuestionResponse;
-    }
 
     default Engagement engagementFromId(Long id) {
         if (id == null) {
@@ -45,12 +33,12 @@ public interface AuditProfileMapper {
         return engagement;
     }
 
-    default Checklist checklistFromId(Long id) {
+    default AuditQuestionResponse auditQuestionResponseFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Checklist checklist = new Checklist();
-        checklist.setId(id);
-        return checklist;
+        AuditQuestionResponse auditQuestionResponse = new AuditQuestionResponse();
+        auditQuestionResponse.setId(id);
+        return auditQuestionResponse;
     }
 }

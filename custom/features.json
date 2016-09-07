@@ -142,7 +142,7 @@
             "css-theme",
             "add-angular-tree"
         ],
-        "active" : "true"
+        "active" : "false"
     },
 
     {
@@ -158,7 +158,7 @@
             "css-theme",
             "add-angular-tree"
         ],
-        "active" : "true"
+        "active" : "false"
     },
 
 	{
@@ -213,10 +213,38 @@
          },
          "dependencies": [
          ],
-         "active" : "true"
+         "active" : "false"
      },
 
+      {
+         "id" : "add-theme-dropdown",
+         "name":"add-theme-dropdown",
+         "description": "add-theme-dropdown",
+         "path": "development/add-theme-dropdown",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "true"
+     },
+      {
+         "id" : "add-entities-audit",
+         "name":"add-entities-audit",
+         "description": "add-entities-audit",
+         "path": "development/add-entities-audit",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
      {"id":"NEW"}
+
+
 
 
 

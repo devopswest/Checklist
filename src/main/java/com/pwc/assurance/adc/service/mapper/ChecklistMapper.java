@@ -9,28 +9,27 @@ import java.util.List;
 /**
  * Mapper for the entity Checklist and its DTO ChecklistDTO.
  */
-@Mapper(componentModel = "spring", uses = {ChecklistQuestionMapper.class} )
+@Mapper(componentModel = "spring", uses = {ChecklistQuestionMapper.class})
 public interface ChecklistMapper {
 
     @Mapping(source = "country.id", target = "countryId")
-    @Mapping(source = "country.name", target = "countryName")
+    @Mapping(source = "country.label", target = "countryLabel")
     ChecklistDTO checklistToChecklistDTO(Checklist checklist);
 
     List<ChecklistDTO> checklistsToChecklistDTOs(List<Checklist> checklists);
 
-    @Mapping(target = "checklistQuestions", ignore = false)
-    @Mapping(target = "auditProfiles", ignore = true)
+    @Mapping(target = "checklistQuestions", ignore = true)
     @Mapping(source = "countryId", target = "country")
     Checklist checklistDTOToChecklist(ChecklistDTO checklistDTO);
 
     List<Checklist> checklistDTOsToChecklists(List<ChecklistDTO> checklistDTOs);
 
-    default Country countryFromId(Long id) {
+    default Taxonomy taxonomyFromId(Long id) {
         if (id == null) {
             return null;
         }
-        Country country = new Country();
-        country.setId(id);
-        return country;
+        Taxonomy taxonomy = new Taxonomy();
+        taxonomy.setId(id);
+        return taxonomy;
     }
 }

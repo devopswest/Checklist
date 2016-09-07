@@ -1,8 +1,7 @@
-
 rm -R target
 rm -R build
 
-./custom/features/increase-version/apply-feature.sh
+#./custom/features/increase-version/apply-feature.sh
 
 
 gulp build

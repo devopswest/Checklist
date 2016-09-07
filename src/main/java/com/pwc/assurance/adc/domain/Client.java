@@ -1,6 +1,5 @@
 package com.pwc.assurance.adc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,8 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -36,11 +33,6 @@ public class Client implements Serializable {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "client")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Engagement> engagements = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -74,31 +66,6 @@ public class Client implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Engagement> getEngagements() {
-        return engagements;
-    }
-
-    public Client engagements(Set<Engagement> engagements) {
-        this.engagements = engagements;
-        return this;
-    }
-
-    public Client addEngagement(Engagement engagement) {
-        engagements.add(engagement);
-        engagement.setClient(this);
-        return this;
-    }
-
-    public Client removeEngagement(Engagement engagement) {
-        engagements.remove(engagement);
-        engagement.setClient(null);
-        return this;
-    }
-
-    public void setEngagements(Set<Engagement> engagements) {
-        this.engagements = engagements;
     }
 
     @Override

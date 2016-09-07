@@ -126,6 +126,7 @@
                             return {
                                 contactName: null,
                                 contactEmail: null,
+                                expirationDate: null,
                                 activationToken: null,
                                 id: null
                             };

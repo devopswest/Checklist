@@ -3,9 +3,9 @@
 
     angular
         .module('checklistApp', [
-            'ngStorage',
+            'ngStorage', 
             'tmh.dynamicLocale',
-            'pascalprecht.translate',
+            'pascalprecht.translate', 
             'ngResource',
             'ngCookies',
             'ngAria',
@@ -18,7 +18,6 @@
             'ds.objectDiff',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
             'angular-loading-bar',
-			'ui.grid', 'ui.grid.treeView', 'ui.grid.edit', 'ui.grid.cellNav',
 			'ngCkeditor',
 			'textAngular',
 			'ui.tree'

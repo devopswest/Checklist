@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import com.pwc.assurance.adc.domain.enumeration.WorkflowAuthorities;
+import com.pwc.assurance.adc.domain.enumeration.ApplicationAuthorities;
 
 /**
  * A WorkflowStep.
@@ -36,7 +36,7 @@ public class WorkflowStep implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
-    private WorkflowAuthorities authority;
+    private ApplicationAuthorities authority;
 
     @ManyToMany(mappedBy = "workflowSteps")
     @JsonIgnore
@@ -77,16 +77,16 @@ public class WorkflowStep implements Serializable {
         this.description = description;
     }
 
-    public WorkflowAuthorities getAuthority() {
+    public ApplicationAuthorities getAuthority() {
         return authority;
     }
 
-    public WorkflowStep authority(WorkflowAuthorities authority) {
+    public WorkflowStep authority(ApplicationAuthorities authority) {
         this.authority = authority;
         return this;
     }
 
-    public void setAuthority(WorkflowAuthorities authority) {
+    public void setAuthority(ApplicationAuthorities authority) {
         this.authority = authority;
     }
 

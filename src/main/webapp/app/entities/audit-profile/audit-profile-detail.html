@@ -12,19 +12,15 @@
         <dd>
             <span translate="{{'checklistApp.ResponseStatus.' + vm.auditProfile.status}}">{{vm.auditProfile.status}}</span>
         </dd>
+        <dt><span translate="checklistApp.auditProfile.engagement">Engagement</span></dt>
+        <dd>
+            <a ui-sref="engagement-detail({id:vm.auditProfile.engagementId})">{{vm.auditProfile.engagementDescription}}</a>
+        </dd>
         <dt><span translate="checklistApp.auditProfile.auditQuestionResponse">Audit Question Response</span></dt>
         <dd>
             <span ng-repeat="auditQuestionResponse in vm.auditProfile.auditQuestionResponses">
                 <a ui-sref="audit-question-response-detail({id: auditQuestionResponse.id})">{{auditQuestionResponse.questionResponse}}</a>{{$last ? '' : ', '}}
             </span>
-        </dd>
-        <dt><span translate="checklistApp.auditProfile.engagement">Engagement</span></dt>
-        <dd>
-            <a ui-sref="engagement-detail({id:vm.auditProfile.engagementId})">{{vm.auditProfile.engagementDescription}}</a>
-        </dd>
-        <dt><span translate="checklistApp.auditProfile.checklist">Checklist</span></dt>
-        <dd>
-            <a ui-sref="checklist-detail({id:vm.auditProfile.checklistId})">{{vm.auditProfile.checklistName}}</a>
         </dd>
     </dl>
 

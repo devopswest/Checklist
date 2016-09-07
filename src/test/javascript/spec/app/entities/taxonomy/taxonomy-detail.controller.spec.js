@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Taxonomy Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockTaxonomy, MockLicense;
+        var MockEntity, MockPreviousState, MockTaxonomy;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,7 +13,6 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockTaxonomy = jasmine.createSpy('MockTaxonomy');
-            MockLicense = jasmine.createSpy('MockLicense');
             
 
             var locals = {
@@ -21,8 +20,7 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Taxonomy': MockTaxonomy,
-                'License': MockLicense
+                'Taxonomy': MockTaxonomy
             };
             createController = function() {
                 $injector.get('$controller')("TaxonomyDetailController", locals);

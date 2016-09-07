@@ -1,7 +1,7 @@
 parent_id;id;code;label
 1;100;library;Library
 1;200;audit;Audit
-1;300;security;Security
+1;300;management;Management
 100;1001;country;Country
 100;1002;checklist;Checklist
 200;2001;client;Client
@@ -9,3 +9,4 @@ parent_id;id;code;label
 300;3001;user;User Management
 300;3002;authority;Authorities
 300;3003;feature;Feature Management
+300;3004;workflow;Workflow

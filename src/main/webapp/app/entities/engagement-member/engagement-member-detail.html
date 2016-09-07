@@ -4,22 +4,6 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="checklistApp.engagementMember.firstName">First Name</span></dt>
-        <dd>
-            <span>{{vm.engagementMember.firstName}}</span>
-        </dd>
-        <dt><span translate="checklistApp.engagementMember.lastName">Last Name</span></dt>
-        <dd>
-            <span>{{vm.engagementMember.lastName}}</span>
-        </dd>
-        <dt><span translate="checklistApp.engagementMember.phone">Phone</span></dt>
-        <dd>
-            <span>{{vm.engagementMember.phone}}</span>
-        </dd>
-        <dt><span translate="checklistApp.engagementMember.email">Email</span></dt>
-        <dd>
-            <span>{{vm.engagementMember.email}}</span>
-        </dd>
         <dt><span translate="checklistApp.engagementMember.authority">Authority</span></dt>
         <dd>
             <span translate="{{'checklistApp.EngagementAuthorities.' + vm.engagementMember.authority}}">{{vm.engagementMember.authority}}</span>
@@ -27,6 +11,10 @@
         <dt><span translate="checklistApp.engagementMember.user">User</span></dt>
         <dd>
             {{vm.engagementMember.user.login}}
+        </dd>
+        <dt><span translate="checklistApp.engagementMember.engagement">Engagement</span></dt>
+        <dd>
+            <a ui-sref="engagement-detail({id:vm.engagementMember.engagement.id})">{{vm.engagementMember.engagement.description}}</a>
         </dd>
     </dl>
 

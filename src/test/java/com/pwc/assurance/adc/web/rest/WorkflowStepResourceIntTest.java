@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.pwc.assurance.adc.domain.enumeration.WorkflowAuthorities;
+import com.pwc.assurance.adc.domain.enumeration.ApplicationAuthorities;
 /**
  * Test class for the WorkflowStepResource REST controller.
  *
@@ -43,8 +43,8 @@ public class WorkflowStepResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
-    private static final WorkflowAuthorities DEFAULT_AUTHORITY = WorkflowAuthorities.ROLE_ADMIN;
-    private static final WorkflowAuthorities UPDATED_AUTHORITY = WorkflowAuthorities.ROLE_USER;
+    private static final ApplicationAuthorities DEFAULT_AUTHORITY = ApplicationAuthorities.ROLE_ADMIN;
+    private static final ApplicationAuthorities UPDATED_AUTHORITY = ApplicationAuthorities.ROLE_USER;
 
     @Inject
     private WorkflowStepRepository workflowStepRepository;

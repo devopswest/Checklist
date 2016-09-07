@@ -23,6 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,12 +41,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class LicenseResourceIntTest {
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
     private static final String DEFAULT_CONTACT_NAME = "AAAAA";
     private static final String UPDATED_CONTACT_NAME = "BBBBB";
     private static final String DEFAULT_CONTACT_EMAIL = "AAAAA";
     private static final String UPDATED_CONTACT_EMAIL = "BBBBB";
-    private static final String DEFAULT_ACTIVATION_TOKEN = "AAAAA";
-    private static final String UPDATED_ACTIVATION_TOKEN = "BBBBB";
+
+    private static final ZonedDateTime DEFAULT_EXPIRATION_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_EXPIRATION_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_EXPIRATION_DATE_STR = dateTimeFormatter.format(DEFAULT_EXPIRATION_DATE);
+    private static final String DEFAULT_ACTIVATION_TOKEN = "A";
+    private static final String UPDATED_ACTIVATION_TOKEN = "B";
 
     @Inject
     private LicenseRepository licenseRepository;
@@ -85,6 +94,7 @@ public class LicenseResourceIntTest {
         license = new License()
                 .contactName(DEFAULT_CONTACT_NAME)
                 .contactEmail(DEFAULT_CONTACT_EMAIL)
+                .expirationDate(DEFAULT_EXPIRATION_DATE)
                 .activationToken(DEFAULT_ACTIVATION_TOKEN);
         return license;
     }
@@ -113,6 +123,7 @@ public class LicenseResourceIntTest {
         License testLicense = licenses.get(licenses.size() - 1);
         assertThat(testLicense.getContactName()).isEqualTo(DEFAULT_CONTACT_NAME);
         assertThat(testLicense.getContactEmail()).isEqualTo(DEFAULT_CONTACT_EMAIL);
+        assertThat(testLicense.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
         assertThat(testLicense.getActivationToken()).isEqualTo(DEFAULT_ACTIVATION_TOKEN);
 
         // Validate the License in ElasticSearch
@@ -133,6 +144,7 @@ public class LicenseResourceIntTest {
                 .andExpect(jsonPath("$.[*].id").value(hasItem(license.getId().intValue())))
                 .andExpect(jsonPath("$.[*].contactName").value(hasItem(DEFAULT_CONTACT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].contactEmail").value(hasItem(DEFAULT_CONTACT_EMAIL.toString())))
+                .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE_STR)))
                 .andExpect(jsonPath("$.[*].activationToken").value(hasItem(DEFAULT_ACTIVATION_TOKEN.toString())));
     }
 
@@ -149,6 +161,7 @@ public class LicenseResourceIntTest {
             .andExpect(jsonPath("$.id").value(license.getId().intValue()))
             .andExpect(jsonPath("$.contactName").value(DEFAULT_CONTACT_NAME.toString()))
             .andExpect(jsonPath("$.contactEmail").value(DEFAULT_CONTACT_EMAIL.toString()))
+            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE_STR))
             .andExpect(jsonPath("$.activationToken").value(DEFAULT_ACTIVATION_TOKEN.toString()));
     }
 
@@ -173,6 +186,7 @@ public class LicenseResourceIntTest {
         updatedLicense
                 .contactName(UPDATED_CONTACT_NAME)
                 .contactEmail(UPDATED_CONTACT_EMAIL)
+                .expirationDate(UPDATED_EXPIRATION_DATE)
                 .activationToken(UPDATED_ACTIVATION_TOKEN);
 
         restLicenseMockMvc.perform(put("/api/licenses")
@@ -186,6 +200,7 @@ public class LicenseResourceIntTest {
         License testLicense = licenses.get(licenses.size() - 1);
         assertThat(testLicense.getContactName()).isEqualTo(UPDATED_CONTACT_NAME);
         assertThat(testLicense.getContactEmail()).isEqualTo(UPDATED_CONTACT_EMAIL);
+        assertThat(testLicense.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
         assertThat(testLicense.getActivationToken()).isEqualTo(UPDATED_ACTIVATION_TOKEN);
 
         // Validate the License in ElasticSearch
@@ -229,6 +244,7 @@ public class LicenseResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(license.getId().intValue())))
             .andExpect(jsonPath("$.[*].contactName").value(hasItem(DEFAULT_CONTACT_NAME.toString())))
             .andExpect(jsonPath("$.[*].contactEmail").value(hasItem(DEFAULT_CONTACT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE_STR)))
             .andExpect(jsonPath("$.[*].activationToken").value(hasItem(DEFAULT_ACTIVATION_TOKEN.toString())));
     }
 }

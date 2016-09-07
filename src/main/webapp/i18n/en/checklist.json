@@ -21,7 +21,6 @@
             "version": "Version",
             "status": "Status",
             "checklistQuestion": "Checklist Question",
-            "auditProfile": "Audit Profile",
             "country": "Country"
         }
     }

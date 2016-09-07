@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('TaxonomyDetailController', TaxonomyDetailController);
 
-    TaxonomyDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Taxonomy', 'License'];
+    TaxonomyDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Taxonomy'];
 
-    function TaxonomyDetailController($scope, $rootScope, $stateParams, previousState, entity, Taxonomy, License) {
+    function TaxonomyDetailController($scope, $rootScope, $stateParams, previousState, entity, Taxonomy) {
         var vm = this;
 
         vm.taxonomy = entity;

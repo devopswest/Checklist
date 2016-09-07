@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -53,7 +54,7 @@ public class LicenseResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<License> createLicense(@RequestBody License license) throws URISyntaxException {
+    public ResponseEntity<License> createLicense(@Valid @RequestBody License license) throws URISyntaxException {
         log.debug("REST request to save License : {}", license);
         if (license.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("license", "idexists", "A new license cannot already have an ID")).body(null);
@@ -78,7 +79,7 @@ public class LicenseResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<License> updateLicense(@RequestBody License license) throws URISyntaxException {
+    public ResponseEntity<License> updateLicense(@Valid @RequestBody License license) throws URISyntaxException {
         log.debug("REST request to update License : {}", license);
         if (license.getId() == null) {
             return createLicense(license);

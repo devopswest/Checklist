@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "child",
+            "otherEntityName": "feature",
+            "otherEntityRelationshipName": "parent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "authorities",
+            "otherEntityName": "featureAuthority",
+            "otherEntityRelationshipName": "feature"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "feature",
+            "otherEntityField": "label"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "label",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 50
+        }
+    ],
+    "changelogDate": "20160906232826",
+    "entityTableName": "feature",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

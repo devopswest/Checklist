@@ -8,12 +8,6 @@
             "otherEntityRelationshipName": "parent"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "auditQuestionResponse",
-            "otherEntityName": "auditQuestionResponse",
-            "otherEntityRelationshipName": "question"
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "checklist",
             "otherEntityName": "checklist",
@@ -42,7 +36,7 @@
             "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160902163613",
+    "changelogDate": "20160906232819",
     "entityTableName": "checklist_question",
     "dto": "mapstruct",
     "pagination": "pager",

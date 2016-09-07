@@ -69,6 +69,7 @@
 
 </script>
 
+
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
@@ -97,47 +98,20 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
+            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
+                <option value=""></option>
+            </select>
+        </div>
 <!--         <div class="form-group">
             <label translate="checklistApp.auditProfile.auditQuestionResponse" for="field_auditQuestionResponse">Audit Question Response</label>
             <select class="form-control" id="field_auditQuestionResponse" multiple name="auditQuestionResponse" ng-model="vm.auditProfile.auditQuestionResponses" ng-options="auditQuestionResponse as auditQuestionResponse.questionResponse for auditQuestionResponse in vm.auditquestionresponses track by auditQuestionResponse.id"></select>
         </div> -->
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
-            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description + ' @ ' +engagement.client.name for engagement in vm.engagements"            >
-                <option value=""></option>
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.checklist" for="field_checklist">Checklist</label>
-
-<div style="display:-webkit-box">
-            <select style="width:90%" class="form-control" id="field_checklist" name="checklist" ng-model="vm.auditProfile.checklist" ng-options="checklist as checklist.name for checklist in vm.checklists track by checklist.id">
-                <option value=""></option>
-            </select>
-<spam style="padding: 10px 10px 10px 10px;"></spam>
-            <button
-            style="padding: 0px 0px 0px 0px;color: #fff;background-color: #EB9C00;border-color: #EB9C00;"
-            type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.expandAll()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Load</span>
-            </button>
-        </button>
-
-        </div>
-
-
-
-<!--         <div class="form-group">
-            <label translate="checklistApp.auditProfile.workflow" for="field_workflow">Workflow</label>
-            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.auditProfile.workflowId" ng-options="workflow.id as workflow.description for workflow in vm.workflows"            >
-                <option value=""></option>
-            </select>
-        </div> -->
     </div>
 
-
-    <div class="form-group">
+<!-- NEW -->
+ <div class="form-group">
 
 
 <div class="row">
@@ -193,7 +167,8 @@
   <div class="col-sm-1"> </div>
 
 </div>
-</div>
+
+<!-- NEW -->
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

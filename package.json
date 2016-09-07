@@ -1,6 +1,6 @@
 {
   "name": "checklist",
-  "version": "0.0.5-SNAPSHOT",
+  "version": "0.0.0",
   "description": "Description for Checklist",
   "private": true,
   "cacheDirectories": [

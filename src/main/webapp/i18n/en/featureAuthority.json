@@ -1,0 +1,23 @@
+{
+    "checklistApp": {
+        "featureAuthority" : {
+            "home": {
+                "title": "Feature Authorities",
+                "createLabel": "Create a new Feature Authority",
+                "createOrEditLabel": "Create or edit a Feature Authority",
+                "search": "Search for Feature Authority"
+            },
+            "created": "A new Feature Authority is created with identifier {{ param }}",
+            "updated": "A Feature Authority is updated with identifier {{ param }}",
+            "deleted": "A Feature Authority is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Feature Authority {{ id }}?"
+            },
+            "detail": {
+                "title": "Feature Authority"
+            },
+            "authority": "Authority",
+            "feature": "Feature"
+        }
+    }
+}

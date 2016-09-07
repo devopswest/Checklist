@@ -66,8 +66,8 @@
                 "authorities" : "ROLE_ADMIN,ROLE_USER"
            },
            {
-                "id":"security",
-                "label":"Security",
+                "id":"management",
+                "label":"Management",
                 "uiclass":"glyphicon glyphicon-th-list",
                 "options" : [
                     {
@@ -85,6 +85,12 @@
                     {
                         "id":"license",
                         "label": "License",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
+                    },
+                    {
+                        "id":"workflow",
+                        "label": "Workflow",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"
                     }

@@ -47,11 +47,6 @@ public class Taxonomy implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Taxonomy> children = new HashSet<>();
 
-    @OneToMany(mappedBy = "licenseType")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<License> licenses = new HashSet<>();
-
     @ManyToOne
     private Taxonomy parent;
 
@@ -112,31 +107,6 @@ public class Taxonomy implements Serializable {
 
     public void setChildren(Set<Taxonomy> taxonomies) {
         this.children = taxonomies;
-    }
-
-    public Set<License> getLicenses() {
-        return licenses;
-    }
-
-    public Taxonomy licenses(Set<License> licenses) {
-        this.licenses = licenses;
-        return this;
-    }
-
-    public Taxonomy addLicense(License license) {
-        licenses.add(license);
-        license.setLicenseType(this);
-        return this;
-    }
-
-    public Taxonomy removeLicense(License license) {
-        licenses.remove(license);
-        license.setLicenseType(null);
-        return this;
-    }
-
-    public void setLicenses(Set<License> licenses) {
-        this.licenses = licenses;
     }
 
     public Taxonomy getParent() {

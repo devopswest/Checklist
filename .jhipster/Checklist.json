@@ -8,16 +8,10 @@
             "otherEntityRelationshipName": "checklist"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "auditProfile",
-            "otherEntityName": "auditProfile",
-            "otherEntityRelationshipName": "checklist"
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "country",
-            "otherEntityName": "country",
-            "otherEntityField": "name"
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
         }
     ],
     "fields": [
@@ -39,7 +33,7 @@
             "fieldValues": "DRAFT,RELEASED"
         }
     ],
-    "changelogDate": "20160902163612",
+    "changelogDate": "20160906232818",
     "javadoc": "ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists",
     "entityTableName": "checklist",
     "dto": "mapstruct",

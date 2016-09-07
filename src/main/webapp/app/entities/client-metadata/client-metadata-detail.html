@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span translate="checklistApp.clientMetadata.detail.title">Client Metadata</span> {{vm.clientMetadata.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.clientMetadata.metadataValue">Metadata Value</span></dt>
+        <dd>
+            <span>{{vm.clientMetadata.metadataValue}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientMetadata.metadataProperty">Metadata Property</span></dt>
+        <dd>
+            <a ui-sref="taxonomy-detail({id:vm.clientMetadata.metadataProperty.id})">{{vm.clientMetadata.metadataProperty.label}}</a>
+        </dd>
+        <dt><span translate="checklistApp.clientMetadata.client">Client</span></dt>
+        <dd>
+            <a ui-sref="client-profile-detail({id:vm.clientMetadata.client.id})">{{vm.clientMetadata.client.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="client-metadata-detail.edit({id:vm.clientMetadata.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

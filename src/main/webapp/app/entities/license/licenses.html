@@ -38,8 +38,9 @@
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="contactName"><span translate="checklistApp.license.contactName">Contact Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="contactEmail"><span translate="checklistApp.license.contactEmail">Contact Email</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="expirationDate"><span translate="checklistApp.license.expirationDate">Expiration Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="activationToken"><span translate="checklistApp.license.activationToken">Activation Token</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="company.name"><span translate="checklistApp.license.company">Company</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="client.name"><span translate="checklistApp.license.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="licenseType.label"><span translate="checklistApp.license.licenseType">License Type</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -49,9 +50,10 @@
                     <td><a ui-sref="license-detail({id:license.id})">{{license.id}}</a></td>
                     <td>{{license.contactName}}</td>
                     <td>{{license.contactEmail}}</td>
+                    <td>{{license.expirationDate | date:'medium'}}</td>
                     <td>{{license.activationToken}}</td>
                     <td>
-                        <a ui-sref="company-detail({id:license.company.id})">{{license.company.name}}</a>
+                        <a ui-sref="client-detail({id:license.client.id})">{{license.client.name}}</a>
                     </td>
                     <td>
                         <a ui-sref="taxonomy-detail({id:license.licenseType.id})">{{license.licenseType.label}}</a>

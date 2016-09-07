@@ -19,9 +19,9 @@
             "fiscalYear": "Fiscal Year",
             "description": "Description",
             "status": "Status",
-            "auditProfile": "Audit Profile",
-            "engagementMember": "Engagement Member",
-            "client": "Client"
+            "members": "Members",
+            "client": "Client",
+            "checklist": "Checklist"
         }
     }
 }

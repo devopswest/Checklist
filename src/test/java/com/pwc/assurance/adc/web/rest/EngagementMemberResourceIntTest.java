@@ -38,14 +38,6 @@ import com.pwc.assurance.adc.domain.enumeration.EngagementAuthorities;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class EngagementMemberResourceIntTest {
-    private static final String DEFAULT_FIRST_NAME = "AAAAA";
-    private static final String UPDATED_FIRST_NAME = "BBBBB";
-    private static final String DEFAULT_LAST_NAME = "AAAAA";
-    private static final String UPDATED_LAST_NAME = "BBBBB";
-    private static final String DEFAULT_PHONE = "AAAAA";
-    private static final String UPDATED_PHONE = "BBBBB";
-    private static final String DEFAULT_EMAIL = "AAAAA";
-    private static final String UPDATED_EMAIL = "BBBBB";
 
     private static final EngagementAuthorities DEFAULT_AUTHORITY = EngagementAuthorities.ROLE_PWC_ENGAGEMENT_TEAM;
     private static final EngagementAuthorities UPDATED_AUTHORITY = EngagementAuthorities.ROLE_PWC_PERSSONEL_US;
@@ -89,10 +81,6 @@ public class EngagementMemberResourceIntTest {
     public static EngagementMember createEntity(EntityManager em) {
         EngagementMember engagementMember = new EngagementMember();
         engagementMember = new EngagementMember()
-                .firstName(DEFAULT_FIRST_NAME)
-                .lastName(DEFAULT_LAST_NAME)
-                .phone(DEFAULT_PHONE)
-                .email(DEFAULT_EMAIL)
                 .authority(DEFAULT_AUTHORITY);
         return engagementMember;
     }
@@ -119,10 +107,6 @@ public class EngagementMemberResourceIntTest {
         List<EngagementMember> engagementMembers = engagementMemberRepository.findAll();
         assertThat(engagementMembers).hasSize(databaseSizeBeforeCreate + 1);
         EngagementMember testEngagementMember = engagementMembers.get(engagementMembers.size() - 1);
-        assertThat(testEngagementMember.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
-        assertThat(testEngagementMember.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
-        assertThat(testEngagementMember.getPhone()).isEqualTo(DEFAULT_PHONE);
-        assertThat(testEngagementMember.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testEngagementMember.getAuthority()).isEqualTo(DEFAULT_AUTHORITY);
 
         // Validate the EngagementMember in ElasticSearch
@@ -141,10 +125,6 @@ public class EngagementMemberResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(engagementMember.getId().intValue())))
-                .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-                .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-                .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
-                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
                 .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY.toString())));
     }
 
@@ -159,10 +139,6 @@ public class EngagementMemberResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(engagementMember.getId().intValue()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.authority").value(DEFAULT_AUTHORITY.toString()));
     }
 
@@ -185,10 +161,6 @@ public class EngagementMemberResourceIntTest {
         // Update the engagementMember
         EngagementMember updatedEngagementMember = engagementMemberRepository.findOne(engagementMember.getId());
         updatedEngagementMember
-                .firstName(UPDATED_FIRST_NAME)
-                .lastName(UPDATED_LAST_NAME)
-                .phone(UPDATED_PHONE)
-                .email(UPDATED_EMAIL)
                 .authority(UPDATED_AUTHORITY);
 
         restEngagementMemberMockMvc.perform(put("/api/engagement-members")
@@ -200,10 +172,6 @@ public class EngagementMemberResourceIntTest {
         List<EngagementMember> engagementMembers = engagementMemberRepository.findAll();
         assertThat(engagementMembers).hasSize(databaseSizeBeforeUpdate);
         EngagementMember testEngagementMember = engagementMembers.get(engagementMembers.size() - 1);
-        assertThat(testEngagementMember.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
-        assertThat(testEngagementMember.getLastName()).isEqualTo(UPDATED_LAST_NAME);
-        assertThat(testEngagementMember.getPhone()).isEqualTo(UPDATED_PHONE);
-        assertThat(testEngagementMember.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testEngagementMember.getAuthority()).isEqualTo(UPDATED_AUTHORITY);
 
         // Validate the EngagementMember in ElasticSearch
@@ -245,10 +213,6 @@ public class EngagementMemberResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(engagementMember.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
             .andExpect(jsonPath("$.[*].authority").value(hasItem(DEFAULT_AUTHORITY.toString())));
     }
 }

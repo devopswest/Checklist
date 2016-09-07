@@ -46,7 +46,7 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('workflowStep');
-                    $translatePartialLoader.addPart('workflowAuthorities');
+                    $translatePartialLoader.addPart('applicationAuthorities');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -69,7 +69,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('workflowStep');
-                    $translatePartialLoader.addPart('workflowAuthorities');
+                    $translatePartialLoader.addPart('applicationAuthorities');
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'WorkflowStep', function($stateParams, WorkflowStep) {

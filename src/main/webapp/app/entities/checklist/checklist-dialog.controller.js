@@ -5,19 +5,16 @@
         .module('checklistApp')
         .controller('ChecklistDialogController', ChecklistDialogController);
 
-    ChecklistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Checklist', 'ChecklistQuestion', 'AuditProfile', 'Country'];
+    ChecklistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Checklist', 'ChecklistQuestion', 'Taxonomy'];
 
-    function ChecklistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Checklist, ChecklistQuestion, AuditProfile, Country) {
+    function ChecklistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Checklist, ChecklistQuestion, Taxonomy) {
         var vm = this;
 
         vm.checklist = entity;
         vm.clear = clear;
         vm.save = save;
-
-        vm.auditprofiles = AuditProfile.query();
-        vm.countries = Country.query();
-
-
+        vm.checklistquestions = ChecklistQuestion.query();
+        vm.taxonomies = Taxonomy.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -32,7 +29,7 @@
             if (vm.checklist.id !== null) {
                 Checklist.update(vm.checklist, onSaveSuccess, onSaveError);
             } else {
-            	vm.checklist.checklistQuestions = vm.treedata;
+                vm.checklist.checklistQuestions = vm.treedata;
                 Checklist.save(vm.checklist, onSaveSuccess, onSaveError);
             }
         }
@@ -46,6 +43,7 @@
         function onSaveError () {
             vm.isSaving = false;
         }
+
 
 
         //ChecklistQuestion.query is incorrect - instead ask Checklist to get child data
@@ -69,31 +67,31 @@
          * Set checklistId and checklistName which can be used when addQuestion is clicked
          */
         function setChecklistIdAndName(node){
-        	for(var l=0;l<node.length;l++){
-        		vm.checklistId = node[l].checklistId;
-        		vm.checklistName = node[l].checklistName;
-        	}
+            for(var l=0;l<node.length;l++){
+                vm.checklistId = node[l].checklistId;
+                vm.checklistName = node[l].checklistName;
+            }
         }
         /**
          * Recursively traverses all nodes and children and find the maxid, which can be used if new nodes are added
          */
         function getMaxId(node){
-        	for(var l=0;l<node.length;l++){
-        		//Update maxid if current id is less than node.id
-        		if(node[l].id > vm.maxid){
-        			vm.maxid = node[l].id;
-        		}
+            for(var l=0;l<node.length;l++){
+                //Update maxid if current id is less than node.id
+                if(node[l].id > vm.maxid){
+                    vm.maxid = node[l].id;
+                }
 
-        		//Recursively check all the children too
-        		if(node[l].children.length > 0){
-        			getMaxId(node[l].children);
-        		}
-        	}
+                //Recursively check all the children too
+                if(node[l].children.length > 0){
+                    getMaxId(node[l].children);
+                }
+            }
         }
 
         function getNextId(){
-        	vm.maxid = vm.maxid + 1;
-        	return vm.maxid
+            vm.maxid = vm.maxid + 1;
+            return vm.maxid
         }
 
 vm.remove=remove;
@@ -112,7 +110,7 @@ vm.moveLastToTheBeginning=moveLastToTheBeginning;
       };
 vm.newSubItem=newSubItem;
       function newSubItem (scope) {
-    	var id = getNextId();
+        var id = getNextId();
         var nodeData = scope.$modelValue;
         var newQuestionSub = {
                 "checklistId":null,
@@ -138,7 +136,7 @@ vm.expandAll=expandAll;
       };
 vm.addQuestion=addQuestion;
     function addQuestion () {
-    	var id = getNextId();
+        var id = getNextId();
         var newQuestion = {
                 "checklistId":vm.checklistId,
                 "checklistName":vm.checklistName,
@@ -189,5 +187,7 @@ function editorSave(scope, node) {
 
 
 ///
+
+
     }
 })();

@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "clientProfile"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "metadata",
+            "otherEntityName": "clientMetadata",
+            "otherEntityRelationshipName": "client"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20160906232811",
+    "entityTableName": "client_profile",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
+}

@@ -8,12 +8,6 @@
             "otherEntityRelationshipName": "parent"
         },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "license",
-            "otherEntityName": "license",
-            "otherEntityRelationshipName": "licenseType"
-        },
-        {
             "relationshipType": "many-to-one",
             "relationshipName": "parent",
             "otherEntityName": "taxonomy",
@@ -44,7 +38,7 @@
             "fieldValidateRulesMaxlength": 50
         }
     ],
-    "changelogDate": "20160902163603",
+    "changelogDate": "20160906232809",
     "javadoc": "Lookups",
     "entityTableName": "taxonomy",
     "dto": "no",

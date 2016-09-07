@@ -5,16 +5,15 @@
         .module('checklistApp')
         .controller('TaxonomyDialogController', TaxonomyDialogController);
 
-    TaxonomyDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Taxonomy', 'License'];
+    TaxonomyDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Taxonomy'];
 
-    function TaxonomyDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Taxonomy, License) {
+    function TaxonomyDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Taxonomy) {
         var vm = this;
 
         vm.taxonomy = entity;
         vm.clear = clear;
         vm.save = save;
         vm.taxonomies = Taxonomy.query();
-        vm.licenses = License.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
