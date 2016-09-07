@@ -46,7 +46,7 @@
         }
 
 ///NEW
-vm.children = [
+vm.children1 = [
   {
     "id": 1,
     "title1": "Mickey Mouse",
@@ -65,7 +65,21 @@ vm.children = [
 ];
 
 
-vm.newItem = function () {
+vm.children2 = [
+  {
+    "id": 1,
+    "title1": "Smaller Registrants (Form 10-K) and Other Public Entities",
+    "title2": "3-STEP-APPROVAL"
+  },
+  {
+    "id": 1,
+    "title1": "Suplemental Checklist",
+    "title2": "2-STEP-APPROVAL"
+  },
+];
+
+
+vm.newItem1 = function () {
         var nodeData = vm.children[vm.children.length - 1];
         vm.children.push({
           id: vm.children.length + 1,
@@ -75,9 +89,25 @@ vm.newItem = function () {
       };
 
 
-vm.removeItem = function (scope) {
+vm.removeItem1 = function (scope) {
         scope.remove();
       };
+
+
+vm.newItem2 = function () {
+        var nodeData = vm.children[vm.children.length - 1];
+        vm.children.push({
+          id: vm.children.length + 1,
+          title1: 'node ' + (vm.children.length + 1),
+          title2: 'node ' + (vm.children.length + 1)
+        });
+      };
+
+
+vm.removeItem2 = function (scope) {
+        scope.remove();
+      };
+
 
 
 ///NEW
