@@ -402,6 +402,7 @@ services:
 
             - 'SERVICE_ES_CLUSTER=elasticsearch'
             - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+            - 'SERVICE_EMAIL=intlnamsmtp11.pwcinternal.com'
 
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
@@ -426,6 +427,7 @@ services:
 
             - 'SERVICE_ES_CLUSTER=elasticsearch'
             - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+            - 'SERVICE_EMAIL=intlnamsmtp11.pwcinternal.com'
             - 'constraint:tier.app==true'
             - 'affinity:container!=~*app*'
         ports:
