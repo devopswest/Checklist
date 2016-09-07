@@ -189,7 +189,7 @@ relationship OneToMany {
  *
  */
  entity Template {
-    name String,
+    code String,
     description String,
     content String minlength(1) maxlength(4000)
 }
