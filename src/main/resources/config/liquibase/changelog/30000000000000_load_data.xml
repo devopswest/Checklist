@@ -7,12 +7,24 @@
 
     <changeSet id="30000000000000" author="jhipster">
 
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/taxonomy.csv"
+                  separator=";"
+                  tableName="taxonomy">
+        </loadData>
+
 
         <loadData encoding="UTF-8"
+                  file="config/liquibase/taxonomy_children.csv"
+                  separator=";"
+                  tableName="taxonomy">
+        </loadData>
+
+<!--         <loadData encoding="UTF-8"
                   file="config/liquibase/country.csv"
                   separator=";"
                   tableName="country">
-        </loadData>
+        </loadData> -->
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/client.csv"
@@ -41,22 +53,35 @@
 
 
         <loadData encoding="UTF-8"
+                  file="config/liquibase/feature.csv"
+                  separator=";"
+                  tableName="feature">
+        </loadData>
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/feature_children.csv"
+                  separator=";"
+                  tableName="feature">
+        </loadData>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/feature_authority.csv"
+                  separator=";"
+                  tableName="feature_authority">
+        </loadData>
+
+
+        <loadData encoding="UTF-8"
                   file="config/liquibase/engagement.csv"
                   separator=";"
                   tableName="engagement">
         </loadData>
 
-                <loadData encoding="UTF-8"
-                  file="config/liquibase/taxonomy.csv"
-                  separator=";"
-                  tableName="taxonomy">
-        </loadData>
-
-
         <loadData encoding="UTF-8"
-                  file="config/liquibase/taxonomy_children.csv"
+                  file="config/liquibase/engagement_member.csv"
                   separator=";"
-                  tableName="taxonomy">
+                  tableName="engagement_member">
         </loadData>
 
     </changeSet>
