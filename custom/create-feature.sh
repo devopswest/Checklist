@@ -36,7 +36,7 @@ sed -i "s|{\"id\":\"NEW\"}| \
         },\n \
         \"dependencies\": [\n \
         ],\n \
-        \"active\" : \"true\"\n \
+        \"active\" : \"false\"\n \
     },\n \
     {\"id\":\"NEW\"}\n|" custom/features.json
 
