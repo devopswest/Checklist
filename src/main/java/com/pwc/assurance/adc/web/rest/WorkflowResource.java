@@ -121,7 +121,7 @@ public class WorkflowResource {
     @Timed
     public ResponseEntity<Workflow> getWorkflow(@PathVariable Long id) {
         log.debug("REST request to get Workflow : {}", id);
-        Workflow workflow = workflowRepository.findOneWithEagerRelationships(id);
+        Workflow workflow = workflowRepository.findOne(id);
         return Optional.ofNullable(workflow)
             .map(result -> new ResponseEntity<>(
                 result,

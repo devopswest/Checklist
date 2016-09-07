@@ -87,6 +87,21 @@
                   tableName="engagement_member">
         </loadData>
 
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/workflow.csv"
+                  separator=";"
+                  tableName="workflow">
+        </loadData>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/workflow_step.csv"
+                  separator=";"
+                  tableName="workflow_step">
+        </loadData>
+
+
+
     </changeSet>
 
 

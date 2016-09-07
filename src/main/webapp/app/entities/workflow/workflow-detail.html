@@ -12,12 +12,6 @@
         <dd>
             <span>{{vm.workflow.description}}</span>
         </dd>
-        <dt><span translate="checklistApp.workflow.workflowStep">Workflow Step</span></dt>
-        <dd>
-            <span ng-repeat="workflowStep in vm.workflow.workflowSteps">
-                <a ui-sref="workflow-step-detail({id: workflowStep.id})">{{workflowStep.name}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
     </dl>
 
     <button type="submit"

@@ -142,7 +142,7 @@
             "css-theme",
             "add-angular-tree"
         ],
-        "active" : "false"
+        "active" : "true"
     },
 
     {
@@ -158,7 +158,7 @@
             "css-theme",
             "add-angular-tree"
         ],
-        "active" : "false"
+        "active" : "true"
     },
 
 	{
@@ -213,7 +213,7 @@
          },
          "dependencies": [
          ],
-         "active" : "false"
+         "active" : "true"
      },
 
       {

@@ -178,8 +178,8 @@ relationship ManyToOne{
 }
 */
 
-relationship ManyToMany {
-    Workflow{workflowStep(name)} to WorkflowStep{workflow}
+relationship OneToMany {
+    Workflow to WorkflowStep{workflow(name)}
 }
 
 

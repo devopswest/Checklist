@@ -17,7 +17,7 @@
         }
     ],
     "fields": [],
-    "changelogDate": "20160906232825",
+    "changelogDate": "20160907034535",
     "javadoc": "Access Control",
     "entityTableName": "user_profile",
     "dto": "no",

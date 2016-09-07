@@ -1,5 +1,6 @@
 package com.pwc.assurance.adc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,11 +37,9 @@ public class Workflow implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "workflow")
+    @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "workflow_workflow_step",
-               joinColumns = @JoinColumn(name="workflows_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="workflow_steps_id", referencedColumnName="ID"))
     private Set<WorkflowStep> workflowSteps = new HashSet<>();
 
     public Long getId() {
@@ -88,13 +87,13 @@ public class Workflow implements Serializable {
 
     public Workflow addWorkflowStep(WorkflowStep workflowStep) {
         workflowSteps.add(workflowStep);
-        workflowStep.getWorkflows().add(this);
+        workflowStep.setWorkflow(this);
         return this;
     }
 
     public Workflow removeWorkflowStep(WorkflowStep workflowStep) {
         workflowSteps.remove(workflowStep);
-        workflowStep.getWorkflows().remove(this);
+        workflowStep.setWorkflow(null);
         return this;
     }
 

@@ -1,14 +1,11 @@
 package com.pwc.assurance.adc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 import com.pwc.assurance.adc.domain.enumeration.ApplicationAuthorities;
@@ -38,10 +35,8 @@ public class WorkflowStep implements Serializable {
     @Column(name = "authority")
     private ApplicationAuthorities authority;
 
-    @ManyToMany(mappedBy = "workflowSteps")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Workflow> workflows = new HashSet<>();
+    @ManyToOne
+    private Workflow workflow;
 
     public Long getId() {
         return id;
@@ -90,29 +85,17 @@ public class WorkflowStep implements Serializable {
         this.authority = authority;
     }
 
-    public Set<Workflow> getWorkflows() {
-        return workflows;
+    public Workflow getWorkflow() {
+        return workflow;
     }
 
-    public WorkflowStep workflows(Set<Workflow> workflows) {
-        this.workflows = workflows;
+    public WorkflowStep workflow(Workflow workflow) {
+        this.workflow = workflow;
         return this;
     }
 
-    public WorkflowStep addWorkflow(Workflow workflow) {
-        workflows.add(workflow);
-        workflow.getWorkflowSteps().add(this);
-        return this;
-    }
-
-    public WorkflowStep removeWorkflow(Workflow workflow) {
-        workflows.remove(workflow);
-        workflow.getWorkflowSteps().remove(this);
-        return this;
-    }
-
-    public void setWorkflows(Set<Workflow> workflows) {
-        this.workflows = workflows;
+    public void setWorkflow(Workflow workflow) {
+        this.workflow = workflow;
     }
 
     @Override

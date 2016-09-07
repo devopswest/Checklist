@@ -39,6 +39,7 @@
                     <th jh-sort-by="name"><span translate="checklistApp.workflowStep.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.workflowStep.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="authority"><span translate="checklistApp.workflowStep.authority">Authority</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflow.name"><span translate="checklistApp.workflowStep.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,6 +49,9 @@
                     <td>{{workflowStep.name}}</td>
                     <td>{{workflowStep.description}}</td>
                     <td translate="{{'checklistApp.ApplicationAuthorities.' + workflowStep.authority}}">{{workflowStep.authority}}</td>
+                    <td>
+                        <a ui-sref="workflow-detail({id:workflowStep.workflow.id})">{{workflowStep.workflow.name}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
