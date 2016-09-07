@@ -31,12 +31,6 @@
                 "uiclass":"glyphicon glyphicon-th-list",
                 "options" : [
                     {
-                        "id":"country",
-                        "label":"Country",
-                        "uiclass" : "glyphicon glyphicon-asterisk",
-                        "authorities" : "ROLE_ADMIN"
-                    },
-                    {
                         "id":"checklist",
                         "label":"Checklist",
                         "uiclass" : "glyphicon glyphicon-asterisk",
@@ -70,6 +64,32 @@
                     }
                 ],
                 "authorities" : "ROLE_ADMIN,ROLE_USER"
+           },
+           {
+                "id":"security",
+                "label":"Security",
+                "uiclass":"glyphicon glyphicon-th-list",
+                "options" : [
+                    {
+                        "id":"feature",
+                        "label": "Feature",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
+                    },
+                    {
+                        "id":"user-profile",
+                        "label": "User Profile",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
+                    },
+                    {
+                        "id":"license",
+                        "label": "License",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_ADMIN"
+                    }
+                ],
+                "authorities" : "ROLE_ADMIN"
            }
         ];
 
