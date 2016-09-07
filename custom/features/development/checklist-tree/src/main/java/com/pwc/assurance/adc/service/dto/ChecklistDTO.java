@@ -1,11 +1,11 @@
 package com.pwc.assurance.adc.service.dto;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 import java.util.List;
+import java.util.Collections;
 import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
 
 /**
@@ -27,7 +27,7 @@ public class ChecklistDTO implements Serializable {
     private Long countryId;
 
 
-    private String countryName;
+    private String countryLabel;
 
     public Long getId() {
         return id;
@@ -69,17 +69,17 @@ public class ChecklistDTO implements Serializable {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
+    public void setCountryId(Long taxonomyId) {
+        this.countryId = taxonomyId;
     }
 
 
-    public String getCountryName() {
-        return countryName;
+    public String getCountryLabel() {
+        return countryLabel;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setCountryLabel(String taxonomyLabel) {
+        this.countryLabel = taxonomyLabel;
     }
 
     @Override
@@ -114,14 +114,13 @@ public class ChecklistDTO implements Serializable {
             '}';
     }
 
-
     List<ChecklistQuestionDTO> checklistQuestions;
 
     public List<ChecklistQuestionDTO> getChecklistQuestions() {
-    	if(checklistQuestions != null){
-    		Collections.sort(checklistQuestions);
-    		return checklistQuestions;
-    	}
+        if(checklistQuestions != null){
+            Collections.sort(checklistQuestions);
+            return checklistQuestions;
+        }
         return checklistQuestions;
     }
 

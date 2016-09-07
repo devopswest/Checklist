@@ -5,9 +5,8 @@ import com.pwc.assurance.adc.service.dto.ChecklistQuestionDTO;
 
 import org.mapstruct.*;
 import java.util.List;
-
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
 /**
  * Mapper for the entity ChecklistQuestion and its DTO ChecklistQuestionDTO.
@@ -24,13 +23,11 @@ public interface ChecklistQuestionMapper {
     //List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions);
 
     //@Mapping(target = "children", ignore = true)
-    @Mapping(source = "children", target = "children")
-    @Mapping(target = "auditQuestionResponses", ignore = true)
     @Mapping(source = "checklistId", target = "checklist")
     @Mapping(source = "parentId", target = "parent")
     ChecklistQuestion checklistQuestionDTOToChecklistQuestion(ChecklistQuestionDTO checklistQuestionDTO);
 
-    // List<ChecklistQuestion> checklistQuestionDTOsToChecklistQuestions(List<ChecklistQuestionDTO> checklistQuestionDTOs);
+    //List<ChecklistQuestion> checklistQuestionDTOsToChecklistQuestions(List<ChecklistQuestionDTO> checklistQuestionDTOs);
 
     default Checklist checklistFromId(Long id) {
         if (id == null) {
@@ -49,7 +46,6 @@ public interface ChecklistQuestionMapper {
         checklistQuestion.setId(id);
         return checklistQuestion;
     }
-
 
     ////
     default List<ChecklistQuestionDTO> checklistQuestionsToChecklistQuestionDTOs(List<ChecklistQuestion> checklistQuestions) {

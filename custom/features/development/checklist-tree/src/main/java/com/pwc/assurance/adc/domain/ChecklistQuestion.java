@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(name = "checklist_question")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "checklistquestion")
-public class ChecklistQuestion implements Serializable{
+public class ChecklistQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,11 +38,6 @@ public class ChecklistQuestion implements Serializable{
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ChecklistQuestion> children = new HashSet<>();
-
-    @OneToMany(mappedBy = "question")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AuditQuestionResponse> auditQuestionResponses = new HashSet<>();
 
     @ManyToOne
     private Checklist checklist;
@@ -109,31 +104,6 @@ public class ChecklistQuestion implements Serializable{
         this.children = checklistQuestions;
     }
 
-    public Set<AuditQuestionResponse> getAuditQuestionResponses() {
-        return auditQuestionResponses;
-    }
-
-    public ChecklistQuestion auditQuestionResponses(Set<AuditQuestionResponse> auditQuestionResponses) {
-        this.auditQuestionResponses = auditQuestionResponses;
-        return this;
-    }
-
-    public ChecklistQuestion addAuditQuestionResponse(AuditQuestionResponse auditQuestionResponse) {
-        auditQuestionResponses.add(auditQuestionResponse);
-        auditQuestionResponse.setQuestion(this);
-        return this;
-    }
-
-    public ChecklistQuestion removeAuditQuestionResponse(AuditQuestionResponse auditQuestionResponse) {
-        auditQuestionResponses.remove(auditQuestionResponse);
-        auditQuestionResponse.setQuestion(null);
-        return this;
-    }
-
-    public void setAuditQuestionResponses(Set<AuditQuestionResponse> auditQuestionResponses) {
-        this.auditQuestionResponses = auditQuestionResponses;
-    }
-
     public Checklist getChecklist() {
         return checklist;
     }
@@ -188,5 +158,4 @@ public class ChecklistQuestion implements Serializable{
             ", description='" + description + "'" +
             '}';
     }
-    
 }
