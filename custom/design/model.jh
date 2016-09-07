@@ -183,7 +183,16 @@ relationship OneToMany {
 }
 
 
-
+/**
+ *
+ * Templates/Email Templates
+ *
+ */
+ entity Template {
+    name String,
+    description String,
+    content String minlength(1) maxlength(4000)
+}
 
 /**
  * Checklist
