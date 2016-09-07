@@ -1,3 +1,74 @@
+ <script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content">
+
+           <a class="btn btn-success btn-xs" ng-hide="node.nodes && node.nodes.length == 0" data-nodrag ng-click="vm.toggle(this)">
+    <span
+        class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }">
+
+        </span>
+        </a>
+        <a class="btn btn-danger btn-xs" ng-show="node.nodes && node.nodes.length == 0" data-nodrag">
+    <span
+        class="glyphicon glyphicon-chevron-down">
+
+        </span>
+        </a>
+
+
+
+    <spam>
+<!--     <input type="text" ng-if="node.nodes && node.nodes.length == 0"
+    style="width: 200px;" name="nodeValue" id="field_nodeValue"/> -->
+
+    <span ng-if="node.nodes && node.nodes.length > 0">
+        {{node.id}} - {{node.title}}
+    </span>
+
+    <div ng-if="node.nodes && node.nodes.length == 0">
+        <table border="0" width="100%">
+        <tr>
+        <td>
+        {{node.id}} - <a href="">{{node.title}}</a>
+        </td>
+        </td>
+        <td width="5%" align="right">
+        <input type="checkbox">
+        </td>
+        <td width="5%" align="right">
+        <input type="checkbox">
+        </td>
+        <td width="5%" align="right">
+        <input type="checkbox">
+        </td>
+        <td width="30%" align="right">
+          Add Attachments Here
+        </td>
+        </tr>
+        </table>
+    </div>
+
+    </spam>
+
+
+<!--     <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a> -->
+
+
+  </div>
+
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+
+</script>
+
 
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
@@ -27,47 +98,20 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
+            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
+                <option value=""></option>
+            </select>
+        </div>
 <!--         <div class="form-group">
             <label translate="checklistApp.auditProfile.auditQuestionResponse" for="field_auditQuestionResponse">Audit Question Response</label>
             <select class="form-control" id="field_auditQuestionResponse" multiple name="auditQuestionResponse" ng-model="vm.auditProfile.auditQuestionResponses" ng-options="auditQuestionResponse as auditQuestionResponse.questionResponse for auditQuestionResponse in vm.auditquestionresponses track by auditQuestionResponse.id"></select>
         </div> -->
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
-            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description + ' @ ' +engagement.client.name for engagement in vm.engagements"            >
-                <option value=""></option>
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label translate="checklistApp.auditProfile.checklist" for="field_checklist">Checklist</label>
-
-<div style="display:-webkit-box">
-            <select style="width:90%" class="form-control" id="field_checklist" name="checklist" ng-model="vm.auditProfile.checklist" ng-options="checklist as checklist.name for checklist in vm.checklists track by checklist.id">
-                <option value=""></option>
-            </select>
-<spam style="padding: 10px 10px 10px 10px;"></spam>
-            <button
-            style="padding: 0px 0px 0px 0px;color: #fff;background-color: #EB9C00;border-color: #EB9C00;"
-            type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.expandAll()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Load</span>
-            </button>
-        </button>
-
-        </div>
-
-
-
-<!--         <div class="form-group">
-            <label translate="checklistApp.auditProfile.workflow" for="field_workflow">Workflow</label>
-            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.auditProfile.workflowId" ng-options="workflow.id as workflow.description for workflow in vm.workflows"            >
-                <option value=""></option>
-            </select>
-        </div> -->
     </div>
 
-
-    <div class="form-group">
+<!-- NEW -->
+ <div class="form-group">
 
 
 <div class="row">
@@ -88,17 +132,43 @@
 </div>
 <div class="form-group">
 <div class="row">
+  <div class="col-sm-1"> </div>
+  <div class="col-sm-10">
 
-  <div class="col-sm-12">
+    <div>
+        <table border="0" width="100%">
+        <tr>
+        <td>
+        </td>
+        <td width="5%" align="right">
+        N/A
+        </td>
+        <td width="5%" align="right">
+        Yes
+        </td>
+        <td width="5%" align="right">
+        No
+        </td>
+        <td width="30%" align="right">
+        Explanation
+        </td>
+        </tr>
+        </table>
 
-<div id="grid1" ui-grid="vm.treedata" ui-grid-edit ui-grid-cellnav ui-grid-validate ui-grid-tree-view class="grid"></div>
 
+    </div>
 
+    <div ui-tree id="tree-root" data-drag-enabled="false" data-drop-enabled="false" >
+      <ol ui-tree-nodes ng-model="vm.treedata">
+        <li ng-repeat="node in vm.treedata" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-1"> </div>
 
 </div>
-</div>
 
-
+<!-- NEW -->
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

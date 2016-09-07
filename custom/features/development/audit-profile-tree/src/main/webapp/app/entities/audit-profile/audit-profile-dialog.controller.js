@@ -5,18 +5,17 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'AuditQuestionResponse', 'Engagement', 'Checklist','ChecklistQuestion', '$interval', 'uiGridTreeViewConstants'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, AuditQuestionResponse, Engagement, Checklist, ChecklistQuestion, $interval, uiGridTreeViewConstants) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion) {
         var vm = this;
 
         vm.auditProfile = entity;
         vm.clear = clear;
         vm.save = save;
         vm.auditprofilelogentries = AuditProfileLogEntry.query();
-        vm.auditquestionresponses = AuditQuestionResponse.query();
         vm.engagements = Engagement.query();
-        vm.checklists = Checklist.query();
+        vm.auditquestionresponses = AuditQuestionResponse.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -45,96 +44,71 @@
             vm.isSaving = false;
         }
 
-
-
-// Grid
-
-vm.treedata = {
-    enableSorting: false,
-    enableFiltering: false,
-    enableCellEditOnFocus: true,
-
-    columnDefs: [
-      { name: 'id',   width: '3%',  enableCellEdit: false, displayName: '' },
-      { name: 'title',width: '60%', enableCellEdit: false, displayName: '' },
-      { name: 'na',   width: '10%', enableCellEdit: true, type: 'boolean' },
-      { name: 'yes',  width: '10%', enableCellEdit: true, type: 'boolean' },
-      { name: 'no',   width: '10%', enableCellEdit: true, type: 'boolean' }
-    ],
-    onRegisterApi: function( gridApi ) {
-      vm.gridApi = gridApi;
-      // vm.gridApi.treeBase.on.rowExpanded($scope, function(row) {
-      //   if( row.entity.$$hashKey === $scope.gridOptions.data[50].$$hashKey && !$scope.nodeLoaded ) {
-      //     $interval(function() {
-      //       $scope.gridOptions.data.splice(51,0,
-      //         {name: 'Dynamic 1', gender: 'female', age: 53, company: 'Griddable grids', balance: 38000, $$treeLevel: 1},
-      //         {name: 'Dynamic 2', gender: 'male', age: 18, company: 'Griddable grids', balance: 29000, $$treeLevel: 1}
-      //       );
-      //       $scope.nodeLoaded = true;
-      //     }, 2000, 1);
-      //   }
-      // });
-    }
-  };
-
-
-
-// Pull Dta
-         vm.checklistquestions = ChecklistQuestion.query();
-
+///Tree
+        vm.checklistquestions = ChecklistQuestion.query();
+        vm.treedata = [];
       vm.checklistquestions.$promise.then(function (result) {
-
-        //vm.treedataTree = transformToTree(result);
-        vm.treedata.data = transformToGrid(result);
-
-        //collapseAll();
+        vm.treedata = transformToTree(result);
+        collapseAll();
       });
 
-
- function addToGrid(data, rows, level) {
-    for(var l=0;l<rows.length;l++){
-
-       var row = {
-                        "id": rows[l].id,
-                        "title": rows[l].code + ":" + rows[l].description,
-                        "description": rows[l].description,
-                        "yes": false,
-                        "no": false,
-                        "na": false
-         };
-
-
-        data.push(row);
-        data[data.length-1].$$treeLevel = level;
+function transformToTree(result){
+         var treedata = [];
+         for(var l=0;l<result.length;l++){
+             var question = {
+                        "id": result[l].id,
+                        "title": result[l].code + ":" + result[l].description,
+                        "description": result[l].description,
+                        "nodes": transformToTree(result[l].children)
+                };
+                treedata.push(question);
+         }
+         return treedata;
+       }
 
 
-        if ( rows[l].children.length>0) {
-           addToGrid(data, rows[l].children, level++);
-        }
+vm.remove=remove;
+function remove (scope) {
+        scope.remove();
+      };
+vm.toggle=toggle;
+      function toggle (scope) {
+        scope.toggle();
+      };
+vm.moveLastToTheBeginning=moveLastToTheBeginning;
+      function moveLastToTheBeginning () {
+        var a = $scope.data.pop();
+        $scope.data.splice(0, 0, a);
+      };
+vm.newSubItem=newSubItem;
+      function newSubItem (scope) {
+        var nodeData = scope.$modelValue;
+        nodeData.nodes.push({
+          id: nodeData.id * 10 + nodeData.nodes.length,
+          title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+          nodes: []
+        });
+        scope.collapsed = false;
+      };
+vm.collapseAll=collapseAll;
+      function collapseAll () {
+        $scope.$broadcast('angular-ui-tree:collapse-all');
+      };
+vm.expandAll=expandAll;
+     function expandAll () {
+        $scope.$broadcast('angular-ui-tree:expand-all');
+      };
+vm.addQuestion=addQuestion;
+    function addQuestion () {
+        var newQuestion = {
+                "id": 'id ' + vm.treedata.length + 1,
+                "title": 'title ' + vm.treedata.length + 1,
+                "nodes": []
+                    };
+        vm.treedata.push(newQuestion);
     }
- }
 
-
- function transformToGrid(result) {
-
-   var data=[];
-   addToGrid(data, result, 0);
-   return data;
- }
-
-  vm.expandAll = function(){
-    vm.gridApi.treeBase.expandAllRows();
-  };
-
-    vm.collapseAll = function(){
-    vm.gridApi.treeBase.collapseAllRows();
-  };
-
-
-  vm.toggleGridRow = function( rowNum ){
-   vm.gridApi.treeBase.toggleRowTreeState(vm.gridApi.grid.renderContainers.body.visibleRowCache[rowNum]);
-  };
-
+    //collapseAll();
 
 
 //
