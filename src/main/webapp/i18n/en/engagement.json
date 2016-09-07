@@ -21,7 +21,8 @@
             "status": "Status",
             "members": "Members",
             "client": "Client",
-            "checklist": "Checklist"
+            "checklist": "Checklist",
+            "workflow": "Workflow"
         }
     }
 }

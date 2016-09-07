@@ -19,6 +19,7 @@
             "name": "Name",
             "description": "Description",
             "authority": "Authority",
+            "template": "Template",
             "workflow": "Workflow"
         }
     }

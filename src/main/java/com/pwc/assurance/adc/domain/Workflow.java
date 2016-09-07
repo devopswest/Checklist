@@ -1,7 +1,6 @@
 package com.pwc.assurance.adc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -13,12 +12,8 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * WorkflowTODO: Workflow review tracking                                      
- * 
+ * A Workflow.
  */
-@ApiModel(description = ""
-    + "WorkflowTODO: Workflow review tracking                                 "
-    + "")
 @Entity
 @Table(name = "workflow")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

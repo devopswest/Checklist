@@ -38,7 +38,7 @@
             "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160907052330",
+    "changelogDate": "20160907134453",
     "javadoc": "Licenses",
     "entityTableName": "license",
     "dto": "no",

@@ -54,6 +54,9 @@ public class Engagement implements Serializable {
     @ManyToOne
     private Checklist checklist;
 
+    @ManyToOne
+    private Workflow workflow;
+
     public Long getId() {
         return id;
     }
@@ -150,6 +153,19 @@ public class Engagement implements Serializable {
 
     public void setChecklist(Checklist checklist) {
         this.checklist = checklist;
+    }
+
+    public Workflow getWorkflow() {
+        return workflow;
+    }
+
+    public Engagement workflow(Workflow workflow) {
+        this.workflow = workflow;
+        return this;
+    }
+
+    public void setWorkflow(Workflow workflow) {
+        this.workflow = workflow;
     }
 
     @Override

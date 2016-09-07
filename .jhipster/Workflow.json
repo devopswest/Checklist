@@ -18,8 +18,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907052333",
-    "javadoc": "WorkflowTODO: Workflow review tracking",
+    "changelogDate": "20160907134457",
     "entityTableName": "workflow",
     "dto": "no",
     "pagination": "pager",

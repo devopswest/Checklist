@@ -17,7 +17,7 @@
         }
     ],
     "fields": [],
-    "changelogDate": "20160907052328",
+    "changelogDate": "20160907134451",
     "entityTableName": "client_profile",
     "dto": "no",
     "pagination": "pager",

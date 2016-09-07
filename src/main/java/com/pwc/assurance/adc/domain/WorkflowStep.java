@@ -36,6 +36,9 @@ public class WorkflowStep implements Serializable {
     private ApplicationAuthorities authority;
 
     @ManyToOne
+    private Template template;
+
+    @ManyToOne
     private Workflow workflow;
 
     public Long getId() {
@@ -83,6 +86,19 @@ public class WorkflowStep implements Serializable {
 
     public void setAuthority(ApplicationAuthorities authority) {
         this.authority = authority;
+    }
+
+    public Template getTemplate() {
+        return template;
+    }
+
+    public WorkflowStep template(Template template) {
+        this.template = template;
+        return this;
+    }
+
+    public void setTemplate(Template template) {
+        this.template = template;
     }
 
     public Workflow getWorkflow() {

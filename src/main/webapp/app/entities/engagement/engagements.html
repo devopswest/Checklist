@@ -41,6 +41,7 @@
                     <th jh-sort-by="status"><span translate="checklistApp.engagement.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="client.name"><span translate="checklistApp.engagement.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="checklist.name"><span translate="checklistApp.engagement.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflow.name"><span translate="checklistApp.engagement.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -55,6 +56,9 @@
                     </td>
                     <td>
                         <a ui-sref="checklist-detail({id:engagement.checklist.id})">{{engagement.checklist.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="workflow-detail({id:engagement.workflow.id})">{{engagement.workflow.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

@@ -157,6 +157,19 @@ relationship ManyToMany {
  * TODO: Workflow review tracking
  *
  **/
+
+ /**
+ *
+ * Templates/Email Templates
+ *
+ */
+ entity Template {
+    code String,
+    description String,
+    content String minlength(1) maxlength(4000)
+}
+
+
 entity Workflow {
     name String,
     description String
@@ -183,16 +196,11 @@ relationship OneToMany {
 }
 
 
-/**
- *
- * Templates/Email Templates
- *
- */
- entity Template {
-    code String,
-    description String,
-    content String minlength(1) maxlength(4000)
+relationship ManyToOne{
+    WorkflowStep{template(description)} to Template
 }
+
+
 
 /**
  * Checklist
@@ -261,7 +269,9 @@ relationship OneToMany {
     Engagement{members} to EngagementMember{engagement(description)}
 }
 
-
+relationship ManyToOne{
+    Engagement{workflow(name)} to Workflow
+}
 
 /**
  * Response Responses

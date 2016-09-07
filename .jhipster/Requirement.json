@@ -20,7 +20,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907052332",
+    "changelogDate": "20160907134455",
     "entityTableName": "requirement",
     "dto": "no",
     "pagination": "pager",

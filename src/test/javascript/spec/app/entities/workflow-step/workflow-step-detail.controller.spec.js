@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('WorkflowStep Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockWorkflowStep, MockWorkflow;
+        var MockEntity, MockPreviousState, MockWorkflowStep, MockTemplate, MockWorkflow;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,6 +13,7 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockWorkflowStep = jasmine.createSpy('MockWorkflowStep');
+            MockTemplate = jasmine.createSpy('MockTemplate');
             MockWorkflow = jasmine.createSpy('MockWorkflow');
             
 
@@ -22,6 +23,7 @@ describe('Controller Tests', function() {
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
                 'WorkflowStep': MockWorkflowStep,
+                'Template': MockTemplate,
                 'Workflow': MockWorkflow
             };
             createController = function() {

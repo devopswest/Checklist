@@ -5,14 +5,15 @@
         .module('checklistApp')
         .controller('WorkflowStepDialogController', WorkflowStepDialogController);
 
-    WorkflowStepDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'WorkflowStep', 'Workflow'];
+    WorkflowStepDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'WorkflowStep', 'Template', 'Workflow'];
 
-    function WorkflowStepDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, WorkflowStep, Workflow) {
+    function WorkflowStepDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, WorkflowStep, Template, Workflow) {
         var vm = this;
 
         vm.workflowStep = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.templates = Template.query();
         vm.workflows = Workflow.query();
 
         $timeout(function (){

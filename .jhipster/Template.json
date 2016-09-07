@@ -21,7 +21,7 @@
             "fieldValidateRulesMaxlength": 4000
         }
     ],
-    "changelogDate": "20160907052335",
+    "changelogDate": "20160907134456",
     "javadoc": "Templates/Email Templates",
     "entityTableName": "template",
     "dto": "no",

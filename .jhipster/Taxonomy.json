@@ -38,7 +38,7 @@
             "fieldValidateRulesMaxlength": 50
         }
     ],
-    "changelogDate": "20160907052326",
+    "changelogDate": "20160907134449",
     "javadoc": "Lookups",
     "entityTableName": "taxonomy",
     "dto": "no",
