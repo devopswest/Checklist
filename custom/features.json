@@ -242,7 +242,105 @@
          ],
          "active" : "false"
      },
+      {
+         "id" : "add-client-actions",
+         "name":"add-client-actions",
+         "description": "add-client-actions",
+         "path": "development/add-client-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-engagement-actions",
+         "name":"add-engagement-actions",
+         "description": "add-engagement-actions",
+         "path": "development/add-engagement-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-feature-actions",
+         "name":"add-feature-actions",
+         "description": "add-feature-actions",
+         "path": "development/add-feature-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-license-actions",
+         "name":"add-license-actions",
+         "description": "add-license-actions",
+         "path": "development/add-license-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-workflow-actions",
+         "name":"add-workflow-actions",
+         "description": "add-workflow-actions",
+         "path": "development/add-workflow-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-template-actions",
+         "name":"add-template-actions",
+         "description": "add-template-actions",
+         "path": "development/add-template-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
+      {
+         "id" : "add-taxonomy-actions",
+         "name":"add-taxonomy-actions",
+         "description": "add-taxonomy-actions",
+         "path": "development/add-taxonomy-actions",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "false"
+     },
      {"id":"NEW"}
+
+
+
+
+
+
+
 
 
 
