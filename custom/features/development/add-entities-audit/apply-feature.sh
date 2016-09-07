@@ -2,4 +2,4 @@ echo "**************************"
 echo "**** FEATURE [add-entities-audit] ****"
 echo "**************************"
 
-yo jhipster-entity-audit
+yo jhipster-entity-audit default
