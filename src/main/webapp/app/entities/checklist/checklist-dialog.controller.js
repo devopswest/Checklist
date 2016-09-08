@@ -198,13 +198,25 @@ function metaDataEditorClear() {
 
 vm.addMetaData = addMetaData;
 function addMetaData (metadata) {
+	var existing_flag = false;
+	var max_id = 0;
+	var new_option = {"value": 0, "name": ""};
 	if(metadata) {
-		var options = vm.metaDataOptions;
-		if(options) {
-			for (i = 0; i < options.length; i++) {
-				var option = options[i];
+		if(vm.metaDataOptions) {
+			for (i = 0; i < vm.metaDataOptions.length; i++) {
+				var option = vm.metaDataOptions[i];
+				if (metadata == option.name) {
+					existing_flag = true;
+				}
+				if(max_id < option.value) {
+					max_id = option.value;
+				}
 			}
-		
+			if (!existing_flag) {
+				new_option.name = metadata;
+				new_option.value = max_id + 1;
+				vm.metaDataOptions.push(new_option);
+			}
 		}
 	}
 }
