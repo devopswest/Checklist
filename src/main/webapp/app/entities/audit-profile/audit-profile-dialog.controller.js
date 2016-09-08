@@ -58,7 +58,6 @@
             }    		
     	});
     	vm.loadChecklist = function loadChecklist(cid){
-    		console.log('Received id = ' + cid);
     		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
     			console.log(checkListResult);
         		vm.treedata = checkListResult.checklistQuestions;
@@ -116,10 +115,35 @@ vm.addQuestion=addQuestion;
         vm.treedata.push(newQuestion);
     }
 
-    //collapseAll();
+//Editor
+vm.editorOptions = {
+    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
+};
 
+vm.current = null;
+vm.editorTitle = "";
+vm.editorEnabled = false;
 
-//
+vm.openEditor=openEditor;
+function openEditor (scope, node) {
+    vm.current=node;
+    vm.content=node.description;
+    vm.editorEnabled=true;
+    vm.editorTitle="Editing [" + node.code + "]";
+};
+
+vm.editorClear=editorClear;
+function editorClear() {
+  vm.editorEnabled=false;
+}
+
+vm.editorSave=editorSave;
+function editorSave(scope, node) {
+  vm.editorEnabled=false;
+  vm.current.description=vm.content;
+}
+//End of Editor
+
 
     }
 })();

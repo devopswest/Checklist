@@ -6,13 +6,13 @@
         <a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
              <span class="glyphicon glyphicon-chevron-down"> </span>
    	    </a>
-        <input type="text" data-nodrag size="5%" name="nodeValue" id="field_nodeValue" ng-model="node.id"/>
-	    <input type="text" data-nodrag size="10%" name="nodeValue" id="field_nodeValue" ng-model="node.code" />
-        <input type="text" data-nodrag size="50%" name="nodeValue" id="field_nodeValue" ng-model="node.description" />
+        <input type="text" readonly data-nodrag size="5%" name="nodeValue" id="field_nodeValue" ng-model="node.id"/>
+	    <input type="text" readonly data-nodrag size="10%" name="nodeValue" id="field_nodeValue" ng-model="node.code" />
+        <input type="text" readonly data-nodrag size="50%" name="nodeValue" id="field_nodeValue" ng-model="node.description" />
 		
-		<input type="checkbox" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.notapplicable" />
-		<input type="checkbox" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.yes" />
-		<input type="checkbox" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.no" />
+		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.notapplicable" />
+		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.yes" />
+		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.no" />
        	<a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;">
            	<span class="glyphicon glyphicon-comment"></span>
  	    </a>
@@ -22,7 +22,27 @@
     </ol>
 </script>
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<!-- Included ck editor div modal -->
+<div ng-show="vm.editorEnabled">
+	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myChecklistLabel" XXtranslate="checklistApp.checklist.home.createOrEditLabel">{{vm.editorTitle}}</h4>
+    </div>
+    <div class="modal-body">
+		<textarea  id="thisEditor" ckeditor="vm.editorOptions" ng-model="vm.content"></textarea>
+	</div>
+	<div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.editorClear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editorSave()">
+            <span class="glyphicon glyphicon-save"  ></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+
+<form ng-show="!vm.editorEnabled" name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -87,38 +107,22 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<td>
-							&nbsp;
-						</td>
-						<td size="5%">
-					        	ID
-						</td>
-						<td size="15%">
-								Code
-						</td>
-						<td size="50%">
-					        	Description
-						</td>
-						<td>
-								N/A
-						</td>
-						<td>
-								Yes
-						</td>
-						<td>
-								No
-						</td>
-						<td>
-					        	Explanation
-						</td>
-					</tr>
-				</thead>
-			</table>
-	   </div>
-	   <div class="col-sm-1"></div>
+			<table ui-tree="" id="tree-root" class="table table-responsive angular-ui-tree">
+			<thead>
+				<tr>
+					<th width="5%">&nbsp;</th>
+					<th width="5%">ID</th>
+					<th width="10%">Code</th>
+					<th width="*">Description</th>
+					<th width="5%">N/A</th>
+					<th width="5%">Yes</th>
+					<th width="5%">No</th>
+					<th width="5%">&nbsp;</th>
+				</tr>
+			</thead>
+			</table>		
+		</div>
+		<div class="col-sm-1"></div>
 	</div>
 	<div class="row">
 		<div class="col-sm-1"></div>
@@ -132,6 +136,7 @@
 	  <div class="col-sm-1"> </div>
 	</div>
 </div>
+
 
 
 <!-- NEW -->
