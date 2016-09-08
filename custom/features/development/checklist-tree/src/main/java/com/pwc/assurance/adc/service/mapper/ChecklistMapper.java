@@ -18,7 +18,7 @@ public interface ChecklistMapper {
 
     List<ChecklistDTO> checklistsToChecklistDTOs(List<Checklist> checklists);
 
-    @Mapping(target = "checklistQuestions", ignore = true)
+    @Mapping(target = "checklistQuestions", ignore = false)
     @Mapping(source = "countryId", target = "country")
     Checklist checklistDTOToChecklist(ChecklistDTO checklistDTO);
 

@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion', 'Checklist'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion, Checklist ) {
         var vm = this;
 
         vm.auditProfile = entity;
@@ -45,26 +45,33 @@
         }
 
 ///Tree
-        vm.checklistquestions = ChecklistQuestion.query();
         vm.treedata = [];
-      vm.checklistquestions.$promise.then(function (result) {
-        vm.treedata = transformToTree(result);
-        collapseAll();
-      });
+        vm.maxid = 0;
+        vm.checklistId = 1;
+        vm.checklistName = "";
+        var engagementId = vm.auditProfile.engagementId;
+    	vm.engagements.$promise.then(function (result) {
+            for(var l=0;l<result.length;l++){
+            	if(engagementId == result[l].id){  
+            		vm.loadChecklist(result[l].checklist.id);
+            	}
+            }    		
+    	});
+    	vm.loadChecklist = function loadChecklist(cid){
+    		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
+    			console.log(checkListResult);
+        		vm.treedata = checkListResult.checklistQuestions;
+    			setChecklistIdAndName(vm.treedata);
+    			collapseAll();
+        	});
+    	}
+		function setChecklistIdAndName(node){
+			for(var l=0;l<node.length;l++){
+				vm.checklistId = node[l].checklistId;
+		        vm.checklistName = node[l].checklistName;
+		     }
+		}
 
-function transformToTree(result){
-         var treedata = [];
-         for(var l=0;l<result.length;l++){
-             var question = {
-                        "id": result[l].id,
-                        "title": result[l].code + ":" + result[l].description,
-                        "description": result[l].description,
-                        "nodes": transformToTree(result[l].children)
-                };
-                treedata.push(question);
-         }
-         return treedata;
-       }
 
 
 vm.remove=remove;
@@ -108,10 +115,35 @@ vm.addQuestion=addQuestion;
         vm.treedata.push(newQuestion);
     }
 
-    //collapseAll();
+//Editor
+vm.editorOptions = {
+    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
+};
 
+vm.current = null;
+vm.editorTitle = "";
+vm.editorEnabled = false;
 
-//
+vm.openEditor=openEditor;
+function openEditor (scope, node) {
+    vm.current=node;
+    vm.content=node.description;
+    vm.editorEnabled=true;
+    vm.editorTitle="Editing [" + node.code + "]";
+};
+
+vm.editorClear=editorClear;
+function editorClear() {
+  vm.editorEnabled=false;
+}
+
+vm.editorSave=editorSave;
+function editorSave(scope, node) {
+  vm.editorEnabled=false;
+  vm.current.description=vm.content;
+}
+//End of Editor
+
 
     }
 })();

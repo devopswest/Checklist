@@ -161,6 +161,7 @@ vm.editorOptions = {
 vm.current = null;
 vm.editorTitle = "";
 vm.editorEnabled = false;
+vm.metaDataEditorEnabled = false;
 
 vm.openEditor=openEditor;
       function openEditor (scope, node) {
@@ -177,14 +178,62 @@ function editorClear() {
   vm.editorEnabled=false;
 }
 
-
 vm.editorSave=editorSave;
 function editorSave(scope, node) {
   vm.editorEnabled=false;
   vm.current.description=vm.content;
 }
 
+vm.openMetaDataEditor = openMetaDataEditor;
+function openMetaDataEditor (scope, node) {
+	vm.current = node
+	vm.content = node.description;
+	vm.metaDataEditorEnabled = true;
+};
 
+vm.metaDataEditorClear = metaDataEditorClear;
+function metaDataEditorClear() {
+	vm.metaDataEditorEnabled = false;
+}
+
+vm.addMetaData = addMetaData;
+function addMetaData (metadata) {
+	if(metadata) {
+		var options = vm.metaDataOptions;
+		if(options) {
+			for (i = 0; i < options.length; i++) {
+				var option = options[i];
+			}
+		
+		}
+	}
+}
+
+vm.metaDataOptions = 
+	[
+	 	{
+	 		"value": 1,
+	 		"name": "US"
+	 	},
+	 	{
+	 		"value": 2,
+	 		"name": "India"
+	 	},
+	 	{
+	 		"value": 3,
+			"name": "Australia"
+	 	},
+	 	{
+	 		"value": 4,
+			"name": "Canada"
+	 	},
+	 	{
+	 		"value": 5,
+			"name": "Mexico"
+	 	}
+	 ]
+
+vm.metaDataText = '';
 
 ///
 
