@@ -105,9 +105,11 @@
                   tableName="workflow_step">
         </loadData>
 
-
-
-
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/audit_profile.csv"
+                  separator=";"
+                  tableName="audit_profile">
+        </loadData>
 
 
     </changeSet>
