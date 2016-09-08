@@ -5,7 +5,8 @@
                 "title": "Checklists",
                 "createLabel": "Create a new Checklist",
                 "createOrEditLabel": "Create or edit a Checklist",
-                "search": "Search for Checklist"
+                "search": "Search for Checklist",
+                "manageMetaDataLabel": "Manage Metadata"
             },
             "created": "A new Checklist is created with identifier {{ param }}",
             "updated": "A Checklist is updated with identifier {{ param }}",

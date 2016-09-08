@@ -19,6 +19,9 @@
         <a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;">
                  <span class="glyphicon glyphicon-edit"></span>
         </a>
+		<a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="vm.openMetaDataEditor(this,node)" style="margin-right: 4px;">
+                 <span class="glyphicon glyphicon-list-alt"></span>
+        </a>
     </div>
     <ol ui-tree-nodes="options" ng-model="node.children" ng-if="!collapsed" data-nodrop>
         <li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer.html'"></li>
@@ -31,16 +34,64 @@
 }
 </style>
 
+<div ng-show="vm.metaDataEditorEnabled">
+	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.metaDataEditorClear()">&times;</button>
+        <h4 class="modal-title" id="myMetaDataEditorLabel" XXtranslate="checklistApp.checklist.home.manageMetaDataLabel">Manage Metadata</h4>
+    </div>
+    
+    <div class="modal-body">
+    	<div class="row">
+    		<div class="col-sm-11">
+    			<input type="text" class="form-control" name="metadata" id="field_metadata"
+                    ng-model="vm.metaDataText"/>
+            </div>
+            <div class="col-sm-1">      
+            	<a class="pull-right btn btn-primary btn-xs" ng-click="" style="margin-right: 4px;">
+                 	<span class="glyphicon glyphicon-plus"></span>
+        		</a>
+        	</div>
+        </div>
+        
+        </br>
+        
+        <div class="row">
+        	<div class="col-sm-11">
+				<select name="ngvalueselect" ng-model="data.model" class="form-control" multiple>
+      				<option ng-repeat="option in vm.metaDataOptions" ng-value="option.value">{{option.name}}</option>
+    			</select>
+    		</div>
+    		<div class="col-sm-1">
+    			<a class="pull-right btn btn-danger btn-xs" ng-click="" style="margin-right: 4px;">
+                 	<span class="glyphicon glyphicon-remove"></span>
+        		</a>
+        	</div>
+    	</div>
+	</div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.metaDataEditorClear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editorSave()">
+            <span class="glyphicon glyphicon-save"  ></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+
 <div ng-show="vm.editorEnabled">
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="vm.clear()">&times;</button>
+                ng-click="vm.editorClear()">&times;</button>
         <h4 class="modal-title" id="myChecklistLabel" XXtranslate="checklistApp.checklist.home.createOrEditLabel">{{vm.editorTitle}}</h4>
     </div>
 
     <div class="modal-body">
 <textarea  id="thisEditor" ckeditor="vm.editorOptions" ng-model="vm.content"></textarea>
 </div>
+
+<!--  -->
 
 <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.editorClear()">
@@ -56,7 +107,7 @@
 </div>
 
 
-<form ng-show="!vm.editorEnabled" name="editForm" role="form" novalidate ng-submit="vm.save()">
+<form ng-show="!vm.editorEnabled && !vm.metaDataEditorEnabled" name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -66,7 +117,7 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" ng-show="vm.checklist.id">
-            <label for="id" translate="global.field.id">ID</label>
+	 	    <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.checklist.id" readonly />
         </div>
@@ -83,7 +134,7 @@
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="checklistApp.checklist.version" for="field_version">Version</label>
+<!--             <label class="control-label" translate="checklistApp.checklist.version" for="field_version">Version</label> -->
             <input type="text" class="form-control" name="version" id="field_version"
                     ng-model="vm.checklist.version"
                      />
@@ -102,6 +153,7 @@
                 <option value=""></option>
             </select>
         </div>
+        
 <!-- NEW -->
  <div class="form-group">
 
@@ -109,7 +161,7 @@
 <div class="row">
 
 
-<spam style="padding: 10px 20px 5px 10px;"></spam>
+<spam style="padding: 5px 10px;"></spam>
       <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.expandAll()">
             <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Expand All</span>
         </button>
@@ -132,7 +184,7 @@
 
 <div class="row">
   <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
+  <div class="col-sm-12">
       <div ui-tree="options">
         <ol ui-tree-nodes ng-model="vm.treedata" data-nodrop>
              <li ng-repeat="node in vm.treedata" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer.html'" class="animate-repeat"></li>
