@@ -15,7 +15,6 @@
         vm.save = save;
         vm.auditprofilelogentries = AuditProfileLogEntry.query();
         vm.engagements = Engagement.query();
-        vm.auditquestionresponses = AuditQuestionResponse.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -47,16 +46,24 @@
 ///Tree
         vm.treedata = [];
         vm.maxid = 0;
-        vm.checklistId = 1;
+        vm.checklistId = 0;
         vm.checklistName = "";
-        var engagementId = vm.auditProfile.engagementId;
-    	vm.engagements.$promise.then(function (result) {
-            for(var l=0;l<result.length;l++){
-            	if(engagementId == result[l].id){  
-            		vm.loadChecklist(result[l].checklist.id);
-            	}
-            }    		
-    	});
+        vm.engagementId = 0;
+        vm.auditquestionresponses = [];
+        vm.auditProfile.$promise.then( function (result){
+        	vm.engagementId = result.engagementId;
+        	vm.auditquestionresponses = result.auditQuestionResponses;
+        	
+        	vm.engagements.$promise.then(function (engagementsResult) {
+                for(var l=0;l<engagementsResult.length;l++){
+                	if(vm.engagementId == engagementsResult[l].id){  
+                		vm.loadChecklist(engagementsResult[l].checklist.id);
+                	}
+                }    		
+        	});
+        });       
+        
+    	
     	vm.loadChecklist = function loadChecklist(cid){
     		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
     			console.log(checkListResult);

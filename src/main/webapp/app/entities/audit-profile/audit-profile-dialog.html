@@ -8,14 +8,16 @@
    	    </a>
         <input type="text" readonly data-nodrag size="5%" name="nodeValue" id="field_nodeValue" ng-model="node.id"/>
 	    <input type="text" readonly data-nodrag size="10%" name="nodeValue" id="field_nodeValue" ng-model="node.code" />
-        <input type="text" readonly data-nodrag size="50%" name="nodeValue" id="field_nodeValue" ng-model="node.description" />
+        <input type="text" readonly data-nodrag size="42%" name="nodeValue" id="field_nodeValue" ng-model="node.description" />
 		
-		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.notapplicable" />
-		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.yes" />
-		<input type="radio" data-nodrag name="nodeValue" id="field_nodeValue" ng-model="node.no" />
-       	<a class="pull-right btn btn-info btn-xs" data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;">
-           	<span class="glyphicon glyphicon-comment"></span>
- 	    </a>
+		<span class="pull-right btn btn-xs" data-nodrag  data-toggle="buttons">
+			<label class="btn-default"><input type="radio" name="{{node.id}}" value="N/A">N/A &nbsp;</label>
+        	<label class="btn-default"><input type="radio" name="{{node.id}}" value="Yes">Yes &nbsp;</label>
+        	<label class="btn-default"><input type="radio" name="{{node.id}}" value="No">No &nbsp;</label>
+       		<a data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;">
+           		<span class="glyphicon glyphicon-comment"></span>
+ 	    	</a>
+		</span>
     </div>
     <ol ui-tree-nodes="options" ng-model="node.children" ng-if="!collapsed" data-nodrop>
         <li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer.html'"></li>
@@ -107,20 +109,7 @@
 	<div class="row">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10">
-			<table ui-tree="" id="tree-root" class="table table-responsive angular-ui-tree">
-			<thead>
-				<tr>
-					<th width="5%">&nbsp;</th>
-					<th width="5%">ID</th>
-					<th width="10%">Code</th>
-					<th width="*">Description</th>
-					<th width="5%">N/A</th>
-					<th width="5%">Yes</th>
-					<th width="5%">No</th>
-					<th width="5%">&nbsp;</th>
-				</tr>
-			</thead>
-			</table>		
+			<h3>Checklist</h3>
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
