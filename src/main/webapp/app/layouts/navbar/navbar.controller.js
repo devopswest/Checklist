@@ -32,7 +32,7 @@
                 "options" : [
                     {
                         "id":"checklist",
-                        "label":"Checklist",
+                        "label":"Checklist Template",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"
                     }
@@ -41,7 +41,7 @@
            },
            {
                 "id":"audit",
-                "label":"Audit",
+                "label":"Engagement",
                 "uiclass":"glyphicon glyphicon-th-list",
                 "options" : [
                     {
@@ -52,13 +52,13 @@
                     },
                                         {
                         "id":"engagement",
-                        "label": "Engagements",
+                        "label": "Engagement Profile",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_USER"
                     },
                     {
                         "id":"audit-profile",
-                        "label": "Audit Profile",
+                        "label": "Checklist",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_USER"
                     }
