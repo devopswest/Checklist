@@ -31,6 +31,7 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
 ### Building Docker Image
 
 In the Checklist root folder:
+
 1. docker login -u emmanuel16
 2. enter password
 3. ./custom/build.sh 
