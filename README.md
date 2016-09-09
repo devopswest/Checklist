@@ -40,9 +40,9 @@ In the Checklist root folder:
 
 1. use [pgadmin](https://www.pgadmin.org/download/) to create a new db on lriczfinnapd002:5432.  Name of the new db should be checklistnewdbversion.  Where newdbversion is a new version number.
 2. ssh into lriczfinnapd002.  If its the first time login in, run sudo usermod -aG docker YOUR_GUID
-3. Run the command below, but first make the following changes to the command: change newcontainernameversion to a new container name and newdbversion to a new database name created above.
+3. Run the command below, but first make the following changes to the command: change NEWCONTAINERVERSION to a new container name change NEWPORT to a new application port and NEWDBVERSION to a new database name created above.
 
-`sudo docker pull emmanuel16/checklist;docker rm -f checklistnewcontainernameversion;docker run -d -p 9099:9090 --restart=always --name checklistnewcontainernameversion -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://lriczfinnapd002:5432/Checklistnewdbversion -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=lriczfinnapd003:9300 emmanuel16/checklist`
+`sudo docker pull emmanuel16/checklist;docker rm -f checklistNEWCONTAINERVERSION;docker run -d -p NEWPORT:9090 --restart=always --name checklistNEWCONTAINERVERSION -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=pwc123 -e SERVICE_DB=jdbc:postgresql://lriczfinnapd002:5432/ChecklistNEWDBVERSION -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=lriczfinnapd003:9300 emmanuel16/checklist`
 
 
 ## Building for production
