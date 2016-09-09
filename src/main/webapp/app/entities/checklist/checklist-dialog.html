@@ -58,12 +58,12 @@
         
         <div class="row">
         	<div class="col-sm-11">
-				<select name="ngvalueselect" ng-model="data.model" class="form-control" multiple>
+				<select name="ngvalueselect" ng-model="data.model" class="form-control" data-ng-attr-size="{{vm.metaDataOptions.length}}" multiple>
       				<option ng-repeat="option in vm.metaDataOptions" ng-value="option.value">{{option.name}}</option>
     			</select>
     		</div>
     		<div class="col-sm-1">
-    			<a class="pull-right btn btn-danger btn-xs" ng-click="" style="margin-right: 4px;">
+    			<a class="pull-right btn btn-danger btn-xs" ng-click="vm.deleteMetaData(data.model)" style="margin-right: 4px;">
                  	<span class="glyphicon glyphicon-remove"></span>
         		</a>
         	</div>

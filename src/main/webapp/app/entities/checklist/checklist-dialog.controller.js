@@ -201,22 +201,43 @@ function addMetaData (metadata) {
 	var existing_flag = false;
 	var max_id = 0;
 	var new_option = {"value": 0, "name": ""};
-	if(metadata) {
-		if(vm.metaDataOptions) {
+	if (metadata) {
+		if (vm.metaDataOptions) {
 			for (i = 0; i < vm.metaDataOptions.length; i++) {
 				var option = vm.metaDataOptions[i];
 				if (metadata == option.name) {
 					existing_flag = true;
 				}
-				if(max_id < option.value) {
+				if (max_id < option.value) {
 					max_id = option.value;
 				}
 			}
 			if (!existing_flag) {
 				new_option.name = metadata;
 				new_option.value = max_id + 1;
-				vm.metaDataOptions.push(new_option);
+				vm.metaDataOptions.splice(0,0,new_option);
+				vm.metaDataText = '';
 			}
+		}
+	}
+}
+
+vm.deleteMetaData = deleteMetaData;
+function deleteMetaData (id_list) {
+	if (id_list) {
+		for (i = 0; i < id_list.length; i++) {
+			var option_id = id_list[i];
+			console.log('Id: ' + option_id);
+			if (vm.metaDataOptions) {
+				for (var j = 0; j < vm.metaDataOptions.length; j++) {
+					var option = vm.metaDataOptions[j];
+					if (option_id == option.value) {
+						console.log('Object id: ' + option.value);
+						vm.metaDataOptions.splice(j,1);
+					} 
+				}
+			}
+			
 		}
 	}
 }
@@ -225,23 +246,23 @@ vm.metaDataOptions =
 	[
 	 	{
 	 		"value": 1,
-	 		"name": "US"
+	 		"name": "SEC 10-K"
 	 	},
 	 	{
 	 		"value": 2,
-	 		"name": "India"
+	 		"name": "Registered Investment Company"
 	 	},
 	 	{
 	 		"value": 3,
-			"name": "Australia"
+			"name": "Insurance Company"
 	 	},
 	 	{
 	 		"value": 4,
-			"name": "Canada"
+			"name": "RIC Reg Statements"
 	 	},
 	 	{
 	 		"value": 5,
-			"name": "Mexico"
+			"name": "Insurance"
 	 	}
 	 ]
 
