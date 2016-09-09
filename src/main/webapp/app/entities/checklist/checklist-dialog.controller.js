@@ -263,6 +263,10 @@ vm.metaDataOptions =
 	 	{
 	 		"value": 5,
 			"name": "Insurance"
+	 	},
+	 	{
+	 		"value": 6,
+			"name": "REIT"
 	 	}
 	 ]
 
