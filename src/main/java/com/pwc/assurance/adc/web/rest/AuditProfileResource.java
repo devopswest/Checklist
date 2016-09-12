@@ -74,6 +74,34 @@ public class AuditProfileResource {
     }
 
     /**
+     * PUT  /audit-profiles/rollover/:id : Create a Rollover auditProfile.
+     *
+     * @param id the id of the auditProfileDTO to rollover
+     * @return the ResponseEntity with status 200 (OK) and with body the auditProfileDTO, or with status 404 (Not Found)
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/audit-profiles/rollover/{id}",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<AuditProfileDTO> rolloverAuditProfile(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to rollover AuditProfile : {}", id);
+        if (id == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("auditProfile", "idexists", "Need AuditProfile to Rollover")).body(null);
+        }
+        AuditProfile auditProfile = auditProfileRepository.findOneWithEagerRelationships(id);
+        //Update auto
+        AuditProfile newAuditProfile = auditProfile.clone();
+        
+        newAuditProfile = auditProfileRepository.save(newAuditProfile);
+        AuditProfileDTO result = auditProfileMapper.auditProfileToAuditProfileDTO(newAuditProfile);
+        auditProfileSearchRepository.save(newAuditProfile);
+        return ResponseEntity.created(new URI("/api/audit-profiles/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert("auditProfile", result.getId().toString()))
+            .body(result);
+    }
+
+    /**
      * PUT  /audit-profiles : Updates an existing auditProfile.
      *
      * @param auditProfileDTO the auditProfileDTO to update

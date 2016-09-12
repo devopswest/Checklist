@@ -23,7 +23,7 @@ import java.util.Objects;
 @Table(name = "audit_question_response")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "auditquestionresponse")
-public class AuditQuestionResponse implements Serializable {
+public class AuditQuestionResponse implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -127,5 +127,12 @@ public class AuditQuestionResponse implements Serializable {
             "id=" + id +
             ", questionResponse='" + questionResponse + "'" +
             '}';
+    }
+    
+    public AuditQuestionResponse clone(){
+    	AuditQuestionResponse resp = new AuditQuestionResponse();
+    	resp.setQuestion(this.getQuestion());
+    	resp.setQuestionResponse(this.getQuestionResponse());
+    	return resp;
     }
 }

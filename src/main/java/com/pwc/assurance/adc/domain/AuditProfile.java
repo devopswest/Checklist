@@ -25,7 +25,7 @@ import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 @Table(name = "audit_profile")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "auditprofile")
-public class AuditProfile implements Serializable {
+public class AuditProfile implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class AuditProfile implements Serializable {
     @ManyToOne
     private Engagement engagement;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "audit_profile_audit_question_response",
                joinColumns = @JoinColumn(name="audit_profiles_id", referencedColumnName="ID"),
@@ -179,5 +179,21 @@ public class AuditProfile implements Serializable {
             ", description='" + description + "'" +
             ", status='" + status + "'" +
             '}';
+    }
+    
+    public AuditProfile clone(){
+    	AuditProfile newProfile = new AuditProfile();
+    	
+    	newProfile.setDescription(this.getDescription() + System.currentTimeMillis());
+    	newProfile.setStatus(ResponseStatus.DRAFT);
+    	newProfile.setEngagement(this.getEngagement());
+    	
+    	if(this.getAuditQuestionResponses() != null){
+    		for(AuditQuestionResponse resp : auditQuestionResponses){
+    			newProfile.addAuditQuestionResponse(resp.clone());	
+    		}    		
+    	}
+   	
+    	return newProfile;
     }
 }
