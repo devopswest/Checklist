@@ -31,7 +31,7 @@
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
             }
-        }
+        }       
 
         function onSaveSuccess (result) {
             $scope.$emit('checklistApp:auditProfileUpdate', result);
@@ -46,12 +46,12 @@
 ///Tree
         vm.treedata = [];
         vm.engagementId = 0;
-        vm.auditquestionresponses = [];
+        vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
         vm.maxResponseId = 0;
         vm.auditProfile.$promise.then( function (result){
         	vm.engagementId = result.engagementId;
-        	vm.auditquestionresponses = result.auditQuestionResponses; 
+        	vm.auditQuestionResponses = result.auditQuestionResponses; 
         	
         	vm.engagements.$promise.then(function (engagementsResult) {
                 for(var l=0;l<engagementsResult.length;l++){
@@ -74,8 +74,8 @@
     	}
     	
     	
-		function convertResponsesToMap(){
-			var responses = vm.auditquestionresponses;
+		var convertResponsesToMap = function convertResponsesToMap(){
+			var responses = vm.auditQuestionResponses;
 			for(var l=0;l<responses.length;l++){
 				vm.auditquestionResponseMap[responses[l].questionId] = responses[l];
 				if(vm.maxResponseId < responses[l].id){
@@ -83,40 +83,36 @@
     			}
 			}	
 		}		
-  
-		function updateResponses(node){	
+		
+		var updateResponses = function updateResponses(node){	
 			for(var l=0;l<node.length;l++){
 				if(vm.auditquestionResponseMap[node[l].id] == undefined){
-					node[l].response = "";
+					var newQuestionResponse = {
+							id:0,
+							questionResponse: "",
+							questionId: node[l].id,
+							questionDescription: node[l].id.description
+					}
+					node[l].response = newQuestionResponse;
+					vm.auditQuestionResponses.push(newQuestionResponse);
+					
 				}else{
-					node[l].response = vm.auditquestionResponseMap[node[l].id].questionResponse;
+					node[l].response = vm.auditquestionResponseMap[node[l].id];					
 				}				
 				updateResponses(node[l].children);
 			}
 		}
 		
-/*
- * 	vm.maxResponseId = vm.maxResponseId + 1;
-			var newQuestionResponse = {
-					id: vm.maxResponseId,
-					questionResponse: btnValue,
-					questionId: node.children[l].id,
-					questionDescription: node.children[l].description
-			}
-			vm.auditquestionresponses.push(questionResponse);
-		}
- */    	
-		
 vm.updateResponse = updateResponse;
 function updateResponse(node,btnValue){
 	updateChildResponses(node,btnValue);
 	//Revalidate parent Response
-	findParentNode(vm.treedata,node.parentId);
+	updateParentNode(vm.treedata,node.parentId);
 		
 }
 
 function updateChildResponses(node,btnValue){	
-	node.response = btnValue;	
+	node.response.questionResponse = btnValue;	
 	if(node.children.length > 0){
 		for( var l=0;l<node.children.length;l++){
 			updateChildResponses(node.children[l],btnValue);
@@ -124,16 +120,16 @@ function updateChildResponses(node,btnValue){
 	}
 }
 	
-function findParentNode(node,parentId,btnValue){	
+function updateParentNode(node,parentId,btnValue){	
 	for(var l=0; l<node.length; l++){
 		if(node[l].id == parentId){	
 			if(node[l].response != btnValue){				
-				node[l].response = "";
+				node[l].response.questionResponse = "";
 			}
 		}
 		
 		//If not found check-in child nodes
-		findParentNode(node[l].children,parentId,btnValue);
+		updateParentNode(node[l].children,parentId,btnValue);
 	}
 }
 
