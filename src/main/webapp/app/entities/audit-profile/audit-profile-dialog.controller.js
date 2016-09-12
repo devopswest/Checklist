@@ -5,14 +5,15 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion', 'Checklist'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileRollover', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion', 'Checklist'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion, Checklist ) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileRollover, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion, Checklist ) {
         var vm = this;
 
         vm.auditProfile = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.rollover = rollover;
         vm.auditprofilelogentries = AuditProfileLogEntry.query();
         vm.engagements = Engagement.query();
 
@@ -31,7 +32,12 @@
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
             }
-        }       
+        }   
+        
+        function rollover(){
+        	console.log("About to rollover");
+        	AuditProfileRollover.rollover({id:vm.auditProfile.id}, onSaveSuccess, onSaveError);
+        }
 
         function onSaveSuccess (result) {
             $scope.$emit('checklistApp:auditProfileUpdate', result);

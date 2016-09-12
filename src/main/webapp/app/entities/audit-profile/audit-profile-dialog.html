@@ -147,7 +147,7 @@
         </button>
 
 
-        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        <button type="button" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary" ng-click="vm.rollover()">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
         </button>
     </div>
