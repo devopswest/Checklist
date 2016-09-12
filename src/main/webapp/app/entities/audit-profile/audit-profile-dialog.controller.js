@@ -45,14 +45,13 @@
 
 ///Tree
         vm.treedata = [];
-        vm.maxid = 0;
-        vm.checklistId = 0;
-        vm.checklistName = "";
         vm.engagementId = 0;
         vm.auditquestionresponses = [];
+        vm.auditquestionResponseMap = {};
+        vm.maxResponseId = 0;
         vm.auditProfile.$promise.then( function (result){
         	vm.engagementId = result.engagementId;
-        	vm.auditquestionresponses = result.auditQuestionResponses;
+        	vm.auditquestionresponses = result.auditQuestionResponses; 
         	
         	vm.engagements.$promise.then(function (engagementsResult) {
                 for(var l=0;l<engagementsResult.length;l++){
@@ -61,25 +60,82 @@
                 	}
                 }    		
         	});
+        	
         });       
         
-    	
+
     	vm.loadChecklist = function loadChecklist(cid){
     		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
-    			console.log(checkListResult);
-        		vm.treedata = checkListResult.checklistQuestions;
-    			setChecklistIdAndName(vm.treedata);
+        		vm.treedata = checkListResult.checklistQuestions;        		
+        		convertResponsesToMap();
+    			updateResponses(vm.treedata);
     			collapseAll();
         	});
     	}
-		function setChecklistIdAndName(node){
+    	
+    	
+		function convertResponsesToMap(){
+			var responses = vm.auditquestionresponses;
+			for(var l=0;l<responses.length;l++){
+				vm.auditquestionResponseMap[responses[l].questionId] = responses[l];
+				if(vm.maxResponseId < responses[l].id){
+    				vm.maxResponseId = responses[l].id;
+    			}
+			}	
+		}		
+  
+		function updateResponses(node){	
 			for(var l=0;l<node.length;l++){
-				vm.checklistId = node[l].checklistId;
-		        vm.checklistName = node[l].checklistName;
-		     }
+				if(vm.auditquestionResponseMap[node[l].id] == undefined){
+					node[l].response = "";
+				}else{
+					node[l].response = vm.auditquestionResponseMap[node[l].id].questionResponse;
+				}				
+				updateResponses(node[l].children);
+			}
 		}
+		
+/*
+ * 	vm.maxResponseId = vm.maxResponseId + 1;
+			var newQuestionResponse = {
+					id: vm.maxResponseId,
+					questionResponse: btnValue,
+					questionId: node.children[l].id,
+					questionDescription: node.children[l].description
+			}
+			vm.auditquestionresponses.push(questionResponse);
+		}
+ */    	
+		
+vm.updateResponse = updateResponse;
+function updateResponse(node,btnValue){
+	updateChildResponses(node,btnValue);
+	//Revalidate parent Response
+	findParentNode(vm.treedata,node.parentId);
+		
+}
 
-
+function updateChildResponses(node,btnValue){	
+	node.response = btnValue;	
+	if(node.children.length > 0){
+		for( var l=0;l<node.children.length;l++){
+			updateChildResponses(node.children[l],btnValue);
+		}
+	}
+}
+	
+function findParentNode(node,parentId,btnValue){	
+	for(var l=0; l<node.length; l++){
+		if(node[l].id == parentId){	
+			if(node[l].response != btnValue){				
+				node[l].response = "";
+			}
+		}
+		
+		//If not found check-in child nodes
+		findParentNode(node[l].children,parentId,btnValue);
+	}
+}
 
 vm.remove=remove;
 function remove (scope) {
