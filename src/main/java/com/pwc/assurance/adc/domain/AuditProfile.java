@@ -8,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -183,8 +184,7 @@ public class AuditProfile implements Serializable, Cloneable {
     
     public AuditProfile clone(){
     	AuditProfile newProfile = new AuditProfile();
-    	
-    	newProfile.setDescription(this.getDescription() + System.currentTimeMillis());
+    	newProfile.setDescription(cloneDescription(this.getDescription() ));
     	newProfile.setStatus(ResponseStatus.DRAFT);
     	newProfile.setEngagement(this.getEngagement());
     	
@@ -195,5 +195,65 @@ public class AuditProfile implements Serializable, Cloneable {
     	}
    	
     	return newProfile;
+    }
+    
+   /**
+    * Calculates new description for roll over scenarios, if existing description is as below:<br>
+    *    <b> YYYY[-X] xxxx xxxxxx xxxx xxxxx.</b> <br>
+    * 
+    * <br>
+    * Examples :- (Current year 2016)<br>
+    * <code>
+    *     2015 Audit Profile with emergency revision <br>
+    *       -> 2016 Audit Profile with emergency revision <br><br>
+    *     2015-1 Audit Profile with emergency revision<br>
+    *       -> 2016 Audit Profile with emergency revision<br><br>
+    *     2016 Audit Profile with emergency revision<br>
+    *       -> 2016-1 Audit Profile with emergency revision<br><br>
+    *     2016-1 Audit Profile with emergency revision<br>
+    *       -> 2016-2 Audit Profile with emergency revision<br><br>
+    *     2016-2 Audit Profile with emergency revision<br>
+    *       -> 2016-3 Audit Profile with emergency revision<br><br>
+    *     2017 Audit Profile with emergency revision<br>
+    *       -> 2017-1 Audit Profile with emergency revision<br><br>
+    *     2017-1 Audit Profile with emergency revision<br>
+    *       -> 2017-2 Audit Profile with emergency revision<br><br>
+    *     2018 Audit Profile with emergency revision<br>
+    *       -> 2018-1 Audit Profile with emergency revision<br><br>
+    *     2018-1 Audit Profile with emergency revision<br>
+    *       -> 2018-2 Audit Profile with emergency revision<br><br>
+    *     Audit Profile for 2016 emergency revision<br>
+    *       -> Audit Profile for 2016 emergency revision<br><br>      
+    * </code>
+    * @param currentDescription
+    * @return Updated Description (if exception same string)
+    */
+    private String cloneDescription(String currentDescription){
+   		
+    	try{
+    		int year               = 0;
+        	int suffix             = 0;
+        	String suffixStr       = "";
+        	int currentYear        = LocalDateTime.now().getYear();
+	    	String existingYearStr = currentDescription.substring(0,currentDescription.indexOf(' '));
+	    	String restDesc        = currentDescription.substring(currentDescription.indexOf(' '));
+	    	
+	    	if(existingYearStr.indexOf('-') != -1){
+	    		year = Integer.parseInt(existingYearStr.substring(0,existingYearStr.indexOf('-')));
+	    		suffix = Integer.parseInt(existingYearStr.substring(existingYearStr.indexOf('-')+1));
+	    	}else{
+	    		year = Integer.parseInt(existingYearStr);
+	    	}
+	    	
+	    	if(year < currentYear){
+	    		year = currentYear;
+	    	}else if(year >= currentYear){
+	    		suffixStr = "-" + (suffix + 1);
+	    	}
+	    	
+	    	return (year + suffixStr + restDesc);
+    	}catch(Exception exception){
+    		return currentDescription;
+    	}
     }
 }
