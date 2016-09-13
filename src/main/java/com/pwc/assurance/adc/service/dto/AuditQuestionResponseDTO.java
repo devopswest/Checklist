@@ -79,6 +79,7 @@ public class AuditQuestionResponseDTO implements Serializable {
         return "AuditQuestionResponseDTO{" +
             "id=" + id +
             ", questionResponse='" + questionResponse + "'" +
+            ", questionId=" + questionId +
             '}';
     }
 }

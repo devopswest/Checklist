@@ -37,7 +37,7 @@ public class AuditQuestionResponse implements Serializable, Cloneable {
     @ManyToOne
     private ChecklistQuestion question;
 
-    @ManyToMany(mappedBy = "auditQuestionResponses")
+    @ManyToMany(mappedBy = "auditQuestionResponses", cascade=CascadeType.ALL)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AuditProfile> auditProfiles = new HashSet<>();
@@ -123,9 +123,15 @@ public class AuditQuestionResponse implements Serializable, Cloneable {
 
     @Override
     public String toString() {
+    	String questionId = "";
+    	if(question != null){
+    		questionId = ""+ question.getId();
+    	}
+    	
         return "AuditQuestionResponse{" +
             "id=" + id +
             ", questionResponse='" + questionResponse + "'" +
+            ", questionId=" + questionId +
             '}';
     }
     

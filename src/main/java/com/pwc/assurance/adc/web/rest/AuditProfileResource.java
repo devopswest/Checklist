@@ -116,6 +116,7 @@ public class AuditProfileResource {
     @Timed
     public ResponseEntity<AuditProfileDTO> updateAuditProfile(@RequestBody AuditProfileDTO auditProfileDTO) throws URISyntaxException {
         log.debug("REST request to update AuditProfile : {}", auditProfileDTO);
+        log.debug("REST request to update AuditProfile : {}", auditProfileDTO.getAuditQuestionResponses());
         if (auditProfileDTO.getId() == null) {
             return createAuditProfile(auditProfileDTO);
         }

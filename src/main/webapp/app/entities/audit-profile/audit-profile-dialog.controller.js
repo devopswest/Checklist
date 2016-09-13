@@ -27,15 +27,25 @@
 
         function save () {
             vm.isSaving = true;
+            clearBlankResponses();
             if (vm.auditProfile.id !== null) {
                 AuditProfile.update(vm.auditProfile, onSaveSuccess, onSaveError);
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
             }
         }   
+
+        function clearBlankResponses(){
+        	var saveQuestionResponse = [];
+    		for(var l=0;l<vm.auditProfile.auditQuestionResponses.length;l++){
+    			if(vm.auditProfile.auditQuestionResponses[l].questionResponse != null){
+    				saveQuestionResponse.push(vm.auditProfile.auditQuestionResponses[l]);
+    			}
+    		}
+    		vm.auditProfile.auditQuestionResponses = saveQuestionResponse;
+    	}
         
         function rollover(){
-        	console.log("About to rollover");
         	AuditProfileRollover.rollover({id:vm.auditProfile.id}, onSaveSuccess, onSaveError);
         }
 
@@ -72,12 +82,13 @@
 
     	vm.loadChecklist = function loadChecklist(cid){
     		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
-        		vm.treedata = checkListResult.checklistQuestions;        		
+        		vm.treedata = checkListResult.checklistQuestions;
         		convertResponsesToMap();
-    			updateResponses(vm.treedata);
+    			setResponsesOnLoad(vm.treedata);
+    			vm.auditProfile.auditQuestionResponses = vm.auditQuestionResponses;
     			collapseAll();
         	});
-    	}
+    	}  	
     	
     	
 		var convertResponsesToMap = function convertResponsesToMap(){
@@ -90,22 +101,20 @@
 			}	
 		}		
 		
-		var updateResponses = function updateResponses(node){	
+		var setResponsesOnLoad = function setResponsesOnLoad(node){	
 			for(var l=0;l<node.length;l++){
 				if(vm.auditquestionResponseMap[node[l].id] == undefined){
 					var newQuestionResponse = {
-							id:0,
-							questionResponse: "",
-							questionId: node[l].id,
-							questionDescription: node[l].id.description
+							id:null,
+							questionResponse: null,
+							questionId: node[l].id
 					}
-					node[l].response = newQuestionResponse;
 					vm.auditQuestionResponses.push(newQuestionResponse);
-					
-				}else{
-					node[l].response = vm.auditquestionResponseMap[node[l].id];					
-				}				
-				updateResponses(node[l].children);
+					vm.auditquestionResponseMap[node[l].id] = newQuestionResponse;										
+				}
+				
+				node[l].response = vm.auditquestionResponseMap[node[l].id];
+				setResponsesOnLoad(node[l].children);
 			}
 		}
 		
@@ -170,15 +179,6 @@ vm.expandAll=expandAll;
      function expandAll () {
         $scope.$broadcast('angular-ui-tree:expand-all');
       };
-vm.addQuestion=addQuestion;
-    function addQuestion () {
-        var newQuestion = {
-                "id": 'id ' + vm.treedata.length + 1,
-                "title": 'title ' + vm.treedata.length + 1,
-                "nodes": []
-                    };
-        vm.treedata.push(newQuestion);
-    }
 
 //Editor
 vm.editorOptions = {

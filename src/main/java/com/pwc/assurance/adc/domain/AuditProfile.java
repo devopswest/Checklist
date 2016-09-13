@@ -49,7 +49,7 @@ public class AuditProfile implements Serializable, Cloneable {
     @ManyToOne
     private Engagement engagement;
 
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @ManyToMany(cascade=CascadeType.ALL)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "audit_profile_audit_question_response",
                joinColumns = @JoinColumn(name="audit_profiles_id", referencedColumnName="ID"),
