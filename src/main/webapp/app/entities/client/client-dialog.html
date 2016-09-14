@@ -1,3 +1,18 @@
+<script type="text/ng-template" id="nodes_renderer_1.html">
+	<div ui-tree-handle>
+		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="vm.toggle(this)">
+                <span class="glyphicon" style="font-size: 8px" ng-class="{'glyphicon-chevron-right': collapsed,'glyphicon-chevron-down': !collapsed }" > </span>
+        </a>
+		<a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
+                 <span class="glyphicon glyphicon-chevron-down" style="font-size: 8px"> </span>
+        </a>
+		<input type="checkbox" ng-model="node.selected" data-nodrag/>
+		<label>{{node.tagName}}</label>
+	</div>
+	<ol ui-tree-nodes="options_1" ng-model="node.children" ng-if="!collapsed" data-nodrop>
+        <li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer_1.html'"></li>
+    </ol>
+</script>
 
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
@@ -25,6 +40,21 @@
                     ng-model="vm.client.name"
                      />
         </div>
+        
+        <div class="form-group">
+			<label>Metadata</label>
+			<div class="row">
+				<div class="col-sm-2"> </div>
+  				<div class="col-sm-8">
+      				<div ui-tree="options_1">
+        				<ol ui-tree-nodes ng-model="vm.treeMetaData" data-nodrop>
+             				<li ng-repeat="node in vm.treeMetaData" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer_1.html'" class="animate-repeat"></li>
+        				</ol>
+      				</div>
+  				</div>
+  				<div class="col-sm-2"> </div>
+			</div>
+		</div>
 
 <!-- NEW -->
 
@@ -43,54 +73,6 @@
 </div>
 
 </div> -->
-
-<div class="form-group">
-
-
-<div class="row">
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
-
-
-<table ui-tree id="tree-root" class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Sort</th>
-          <th width="40%"></th>
-
-          <th width="40%">Value</th>
-          <th>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newItem()" style="margin-right: 8px;"><span
-            class="glyphicon glyphicon-plus"></span></a>
-          </th>
-        </tr>
-      </thead>
-      <tbody ui-tree-nodes ng-model="vm.children">
-        <tr ng-repeat="node in vm.children" ui-tree-node>
-          <td>
-            <i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i>
-          </td>
-          <td>
-            <strong>{{node.title1}}</strong>
-          </td>
-          <td>
-            <strong>{{node.title2}}</strong>
-          </td>
-          <td>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.removeItem(this)">
-              <span class="glyphicon glyphicon-remove"></span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
-  </div>
-  <div class="col-sm-1"> </div>
-
-</div>
-</div>
 
 <!-- NEW -->
     </div>
