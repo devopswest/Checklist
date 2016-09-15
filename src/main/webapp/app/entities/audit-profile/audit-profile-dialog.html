@@ -74,7 +74,7 @@
 
         <div class="form-group">
             <label translate="checklistApp.auditProfile.engagement" for="field_engagement">Engagement</label>
-            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
+            <select class="form-control" id="field_engagement" ng-change="vm.loadQuestionsData()" name="engagement" ng-model="vm.auditProfile.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
                 <option value=""></option>
             </select>
         </div>

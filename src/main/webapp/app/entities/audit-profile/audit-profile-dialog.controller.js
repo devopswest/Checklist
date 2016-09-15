@@ -27,8 +27,8 @@
 
         function save () {
             vm.isSaving = true;
-            clearBlankResponses();
             if (vm.auditProfile.id !== null) {
+            	clearBlankResponses();
                 AuditProfile.update(vm.auditProfile, onSaveSuccess, onSaveError);
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
@@ -58,27 +58,42 @@
         function onSaveError () {
             vm.isSaving = false;
         }
-
+        
+        vm.loadQuestionsData = loadQuestionsData;
+        
+        function loadQuestionsData () {
+        	vm.engagements.$promise.then(function (result) {
+        		for (var i = 0; i < result.length; i++) {
+        			if (vm.auditProfile.engagementId == result[i].id) {
+        				Checklist.loadQuestions({"id": result[i].checklist.id}).$promise.then(function (result) {
+        					vm.treedata = result.checklistQuestions;
+        					setResponsesOnLoad(vm.treedata);
+        				});
+        			}
+        		}
+        		
+        	});
+        }
 ///Tree
         vm.treedata = [];
         vm.engagementId = 0;
         vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
         vm.maxResponseId = 0;
-        vm.auditProfile.$promise.then( function (result){
-        	vm.engagementId = result.engagementId;
-        	vm.auditQuestionResponses = result.auditQuestionResponses; 
-        	
-        	vm.engagements.$promise.then(function (engagementsResult) {
-                for(var l=0;l<engagementsResult.length;l++){
-                	if(vm.engagementId == engagementsResult[l].id){  
-                		vm.loadChecklist(engagementsResult[l].checklist.id);
-                	}
-                }    		
-        	});
-        	
-        });       
-        
+        if (vm.auditProfile.engagementId) {
+        	vm.auditProfile.$promise.then( function (result){
+        		vm.engagementId = result.engagementId;
+        		vm.auditQuestionResponses = result.auditQuestionResponses; 
+
+        		vm.engagements.$promise.then(function (engagementsResult) {
+        			for(var l=0;l<engagementsResult.length;l++){
+        				if(vm.engagementId == engagementsResult[l].id){  
+        					vm.loadChecklist(engagementsResult[l].checklist.id);
+        				}
+        			}    		
+        		});
+        	});       
+        }
 
     	vm.loadChecklist = function loadChecklist(cid){
     		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
