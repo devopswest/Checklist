@@ -89,7 +89,7 @@
             					//Step 4
             					createEmptyResponseForMissingQuestion(vm.questionTemplate);
             					//Step 5
-            	    			AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+            	    			AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate, vm.refreshQuestionResponses);
             	    			//Step 6
             	    			collapseAll();
             				});
@@ -169,6 +169,11 @@
 				//If not found check-in child nodes
 				updateParentNode(node[l].children,parentId,currentSelection);
 			}
+		}
+		
+		vm.refreshQuestionResponses = refreshQuestionResponses;
+		function refreshQuestionResponses(){
+			console.log('Reload the tree...');
 		}
 		
 		vm.remove=remove;

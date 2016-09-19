@@ -23,12 +23,15 @@
         var driveFileName;
         var driveFileId;
         var templateQuestions;
+        var refreshQuestionResponses;
         
-        var collaborate = function(profileId,responseMap,treedata){
+        var collaborate = function(profileId,responseMap,treedata, refreshTree){
         	auditProfileId           = profileId;
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
+        	refreshQuestionResponses = refreshTree;
         	driveFileName            = 'audit_profile_' + auditProfileId;
+        	refreshQuestionResponses();
         	authorizeUser();
         }        
 
@@ -57,10 +60,16 @@
         	}
         }
 
+        /**
+         * Search file in the google drive
+         */
         var searchDriveIfFileExist = function(){
         	gapi.client.drive.files.list({ 'pageSize': 10, 'fields': 'nextPageToken, files(id, name)' }).execute(loadFileOrCreateFile);
         }
         
+        /**
+         * If File is found in drive load the file or otherwise create the file in drive
+         */
         var loadFileOrCreateFile = function(response){
     		var files = response.files;
     		if (files && files.length > 0) {
@@ -76,26 +85,29 @@
     		
     		if(!driveFileId){
     			console.log('Method:loadFileOrCreateFile ..searching file ' + driveFileName + ' need to be CREATED');
-    			//realtimeUtils.createRealtimeFile(driveFileName, loadDataPostCreation);    			
     			   			
     			var fileMetadata = { 'name' : driveFileName, 'mimeType' : fileMimeType };
     			gapi.client.drive.files.create({ 'resource': fileMetadata, 'fields': 'id'}).execute(loadDataPostCreation);
     		}
         }
         
+        /**
+         * Method to load the drive object into memory root and window history
+         */
         var loadDataPostCreation = function(creationResponse){
         	if(creationResponse){
         		driveFileId = creationResponse.id;
-        		console.log('Method:loadDataPostCreation ..invoking onFileLoad and file Initialize operations ');
         		window.history.pushState(null, null, '?id=' + driveFileId);
         		realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
         	}else{
         		console.log('Method:loadDataPostCreation ..error in creating file ' + JSON.stringify(creationResponse));
         	}
         }
-                
-        var onNewFileCreated = function(model){    
-        	console.log('Method:onFileInitialize ..preparing model object to store in drive with current value');
+        
+        /**
+         * Ties the current model object to root either after getting from drive or new created object
+         */
+        var onNewFileCreated = function(model){ 
         	auditquestionResponseMapCollab = model.createMap();
 			
         	for(var l in auditquestionResponseMap){
@@ -108,30 +120,31 @@
     			
     			auditquestionResponseMapCollab.set(String(auditquestionResponseMap[l].questionId),resp);
         	}
+        	model.getRoot().set(modelName, auditquestionResponseMapCollab);
         	
-        	attachCollaborateResponseToTemplate(templateQuestions,auditquestionResponseMapCollab);
+        	attachCollaborateResponseToTemplate(templateQuestions);
         }   
         
+        /**
+         * Continuously retrieves the model object from Root which is tied to drive object and keep listening for any changes
+         * 
+         */
         var onFileLoaded = function(doc){
-        	console.log('Method:onFileLoaded ..If any listeners have to be linked do it here');
         	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
-        	console.log('Method:onFileLoaded .. ' + JSON.stringify(auditquestionResponseMapCollab));
         	attachCollaborateResponseToTemplate(templateQuestions);
-        	//auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.VALUE_CHANGED, updateRealtimeTextBox);
+        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.VALUE_CHANGED, refreshQuestionResponses);
         }
 
         /**
 		 * A recursive method to prepare empty responses for template questions which are not yet answered.
 		 * These empty responses act as place holder when the template questions are displayed and buttons are toggled
 		 */		
-		var attachCollaborateResponseToTemplate = function(templateQuestions,collaboratedMap){	
+		var attachCollaborateResponseToTemplate = function(templateQuestions){	
 			for(var l=0;l<templateQuestions.length;l++){
 				var questionId = String(templateQuestions[l].id);
-				if(collaboratedMap.has(questionId)){
-					templateQuestions[l].response = collaboratedMap.get(questionId);
-					attachCollaborateResponseToTemplate(templateQuestions[l].children,collaboratedMap);					
-				}else{
-					console.log('Missing quesiton id ' + questionId);
+				if(auditquestionResponseMapCollab.has(questionId)){
+					templateQuestions[l].response = auditquestionResponseMapCollab.get(questionId);
+					attachCollaborateResponseToTemplate(templateQuestions[l].children);					
 				}
 			}
 		}  
