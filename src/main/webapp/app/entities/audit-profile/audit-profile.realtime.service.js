@@ -135,8 +135,9 @@
         var refreshQuestionResponses = function(evt){
 			  var isValueChange = false;
 			  for (var i = 0; i < evt.events.length; i++) {			  
-			    if(!evt.events[i].isLocal && (evt.events[0].type ==  'value_changed')){
+			    if(!evt.events[i].isLocal && (evt.events[i].type ==  'value_changed')){
 			    	isValueChange = true;
+			    	break;
 			    }
 			  }
 			  
