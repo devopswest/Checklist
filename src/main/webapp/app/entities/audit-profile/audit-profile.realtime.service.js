@@ -23,15 +23,12 @@
         var driveFileName;
         var driveFileId;
         var templateQuestions;
-        var refreshQuestionResponses;
         
-        var collaborate = function(profileId,responseMap,treedata, refreshTree){
+        var collaborate = function(profileId,responseMap,treedata){
         	auditProfileId           = profileId;
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
-        	refreshQuestionResponses = refreshTree;
         	driveFileName            = 'audit_profile_' + auditProfileId;
-        	refreshQuestionResponses();
         	authorizeUser();
         }        
 
@@ -132,8 +129,21 @@
         var onFileLoaded = function(doc){
         	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
         	attachCollaborateResponseToTemplate(templateQuestions);
-        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.VALUE_CHANGED, refreshQuestionResponses);
+        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
         }
+        
+        var refreshQuestionResponses = function(evt){
+			  var isValueChange = false;
+			  for (var i = 0; i < evt.events.length; i++) {			  
+			    if(!evt.events[i].isLocal && (evt.events[0].type ==  'value_changed')){
+			    	isValueChange = true;
+			    }
+			  }
+			  
+			  if(isValueChange){
+				  $('#template_questions').scope().$apply();		  
+			  }
+		}
 
         /**
 		 * A recursive method to prepare empty responses for template questions which are not yet answered.
