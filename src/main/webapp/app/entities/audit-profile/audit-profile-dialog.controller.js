@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileRollover', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','ChecklistQuestion', 'Checklist'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileRollover', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','AuditProfileRealtime', 'ChecklistQuestion', 'Checklist'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileRollover, AuditProfileLogEntry, Engagement, AuditQuestionResponse,ChecklistQuestion, Checklist ) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileRollover, AuditProfileLogEntry, Engagement, AuditQuestionResponse, AuditProfileRealtime, ChecklistQuestion, Checklist ) {
         var vm = this;
 
         vm.auditProfile = entity;
@@ -59,170 +59,178 @@
             vm.isSaving = false;
         }
         
-        vm.loadQuestionsData = loadQuestionsData;
-        
-        function loadQuestionsData () {
-        	vm.engagements.$promise.then(function (result) {
-        		for (var i = 0; i < result.length; i++) {
-        			if (vm.auditProfile.engagementId == result[i].id) {
-        				Checklist.loadQuestions({"id": result[i].checklist.id}).$promise.then(function (result) {
-        					vm.treedata = result.checklistQuestions;
-        					setResponsesOnLoad(vm.treedata);
-        				});
-        			}
-        		}
-        		
-        	});
-        }
-///Tree
-        vm.treedata = [];
+        //Logic to display template questions and their responses
+        //Steps:- 
+        //Step 1: From auditProfile retrieve engagement Id and answered (responded) questions and responses
+        //Step 2: To present complete list of template questions, use enagegementId, then find the template ID (i.e., in DB it is checklistId)
+        //Step 3: Retrieve all the template questions based the templateId
+        //Step 4: Create empty placeholder for answers not found in auditProfile
+        //Step 5: Link the object to collaborate object in drive and add them to tree
+        //Step 6: Collapse tree when started
+        vm.questionTemplate = [];
         vm.engagementId = 0;
         vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
         vm.maxResponseId = 0;
+        //Step 1
         if (vm.auditProfile.engagementId) {
-        	vm.auditProfile.$promise.then( function (result){
-        		vm.engagementId = result.engagementId;
-        		vm.auditQuestionResponses = result.auditQuestionResponses; 
-
-        		vm.engagements.$promise.then(function (engagementsResult) {
-        			for(var l=0;l<engagementsResult.length;l++){
-        				if(vm.engagementId == engagementsResult[l].id){  
-        					vm.loadChecklist(engagementsResult[l].checklist.id);
-        				}
-        			}    		
-        		});
+        	vm.auditProfile.$promise.then( function (auditProfileResult){
+        		vm.engagementId = auditProfileResult.engagementId;
+        		vm.auditQuestionResponses = auditProfileResult.auditQuestionResponses; 
+        		convertResponsesToMap();
+        		
+        		//Step 2
+        		vm.engagements.$promise.then(function (engagementResult) {
+            		for (var i = 0; i < engagementResult.length; i++) {
+            			if (vm.engagementId == engagementResult[i].id) {
+            				//Step 3
+            				Checklist.loadQuestions({"id": engagementResult[i].checklist.id}).$promise.then(function (templateQuestionResult) {
+            					vm.questionTemplate = templateQuestionResult.checklistQuestions; 
+            					//Step 4
+            					createEmptyResponseForMissingQuestion(vm.questionTemplate);
+            					//Step 5
+            	    			AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+            	    			//Step 6
+            	    			collapseAll();
+            				});
+            			}
+            		}            		
+            	});
+        		
         	});       
         }
 
-    	vm.loadChecklist = function loadChecklist(cid){
-    		Checklist.loadQuestions({"id":cid}).$promise.then(function (checkListResult) {
-        		vm.treedata = checkListResult.checklistQuestions;
-        		convertResponsesToMap();
-    			setResponsesOnLoad(vm.treedata);
-    			vm.auditProfile.auditQuestionResponses = vm.auditQuestionResponses;
-    			collapseAll();
-        	});
-    	}  	
-    	
-    	
+    	/**
+    	 * Prepares and HashMap of the Responses Array for easy retrieval
+    	 */
 		var convertResponsesToMap = function convertResponsesToMap(){
-			var responses = vm.auditQuestionResponses;
-			for(var l=0;l<responses.length;l++){
-				vm.auditquestionResponseMap[responses[l].questionId] = responses[l];
-				if(vm.maxResponseId < responses[l].id){
-    				vm.maxResponseId = responses[l].id;
+			for(var l=0;l<vm.auditQuestionResponses.length;l++){
+				vm.auditquestionResponseMap[vm.auditQuestionResponses[l].questionId] = vm.auditQuestionResponses[l];
+				if(vm.maxResponseId < vm.auditQuestionResponses[l].id){
+    				vm.maxResponseId = vm.auditQuestionResponses[l].id;
     			}
 			}	
-		}		
+		}	
 		
-		var setResponsesOnLoad = function setResponsesOnLoad(node){	
+		/**
+		 * A recursive method to prepare empty responses for template questions which are not yet answered.
+		 * These empty responses act as place holder when the template questions are displayed and buttons are toggled
+		 */		
+		var createEmptyResponseForMissingQuestion = function createEmptyResponseForMissingQuestion(node){	
 			for(var l=0;l<node.length;l++){
-				if(vm.auditquestionResponseMap[node[l].id] == undefined){
+				if(!vm.auditquestionResponseMap[node[l].id]){
 					var newQuestionResponse = {
 							id:null,
 							questionResponse: null,
 							questionId: node[l].id
 					}
-					vm.auditQuestionResponses.push(newQuestionResponse);
 					vm.auditquestionResponseMap[node[l].id] = newQuestionResponse;										
+				}				
+				createEmptyResponseForMissingQuestion(node[l].children);
+			}
+		}
+
+
+		
+		/**
+		 * Logic to update child and parent nodes based on new changed value
+		 */
+		vm.updateResponse = updateResponse;
+		function updateResponse(node,btnValue){
+			updateChildResponses(node,btnValue);
+			//Revalidate parent Response
+			updateParentNode(vm.questionTemplate,node.parentId);
+				
+		}
+
+		/**
+		 * Recursively traverse child arrays and update current selection
+		 */
+		function updateChildResponses(node,currentSelection){	
+			node.response.questionResponse = currentSelection;	
+			if(node.children.length > 0){
+				for( var l=0;l<node.children.length;l++){
+					updateChildResponses(node.children[l],currentSelection);
+				}
+			}
+		}
+	
+		/**
+		 * Turn off parent selection criteria if any child deviated their state from parent
+		 */
+		function updateParentNode(node,parentId,currentSelection){	
+			for(var l=0; l<node.length; l++){
+				if(node[l].id == parentId){	
+					if(node[l].response != currentSelection){				
+						node[l].response.questionResponse = "";
+					}
 				}
 				
-				node[l].response = vm.auditquestionResponseMap[node[l].id];
-				setResponsesOnLoad(node[l].children);
+				//If not found check-in child nodes
+				updateParentNode(node[l].children,parentId,currentSelection);
 			}
 		}
 		
-vm.updateResponse = updateResponse;
-function updateResponse(node,btnValue){
-	updateChildResponses(node,btnValue);
-	//Revalidate parent Response
-	updateParentNode(vm.treedata,node.parentId);
+		vm.remove=remove;
+		function remove (scope) {
+		        scope.remove();
+		      };
+		vm.toggle=toggle;
+		      function toggle (scope) {
+		        scope.toggle();
+		      };
+		vm.moveLastToTheBeginning=moveLastToTheBeginning;
+		      function moveLastToTheBeginning () {
+		        var a = $scope.data.pop();
+		        $scope.data.splice(0, 0, a);
+		      };
+		vm.newSubItem=newSubItem;
+		      function newSubItem (scope) {
+		        var nodeData = scope.$modelValue;
+		        nodeData.nodes.push({
+		          id: nodeData.id * 10 + nodeData.nodes.length,
+		          title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+		          nodes: []
+		        });
+		        scope.collapsed = false;
+		      };
+		vm.collapseAll=collapseAll;
+		      function collapseAll () {
+		        $scope.$broadcast('angular-ui-tree:collapse-all');
+		      };
+		vm.expandAll=expandAll;
+		     function expandAll () {
+		        $scope.$broadcast('angular-ui-tree:expand-all');
+		      };
 		
-}
-
-function updateChildResponses(node,btnValue){	
-	node.response.questionResponse = btnValue;	
-	if(node.children.length > 0){
-		for( var l=0;l<node.children.length;l++){
-			updateChildResponses(node.children[l],btnValue);
-		}
-	}
-}
-	
-function updateParentNode(node,parentId,btnValue){	
-	for(var l=0; l<node.length; l++){
-		if(node[l].id == parentId){	
-			if(node[l].response != btnValue){				
-				node[l].response.questionResponse = "";
-			}
+		//Editor
+		vm.editorOptions = {
+		    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
+		};
+		
+		vm.current = null;
+		vm.editorTitle = "";
+		vm.editorEnabled = false;
+		
+		vm.openEditor=openEditor;
+		function openEditor (scope, node) {
+		    vm.current=node;
+		    vm.content=node.description;
+		    vm.editorEnabled=true;
+		    vm.editorTitle="Editing [" + node.code + "]";
+		};
+		
+		vm.editorClear=editorClear;
+		function editorClear() {
+		  vm.editorEnabled=false;
 		}
 		
-		//If not found check-in child nodes
-		updateParentNode(node[l].children,parentId,btnValue);
-	}
-}
-
-vm.remove=remove;
-function remove (scope) {
-        scope.remove();
-      };
-vm.toggle=toggle;
-      function toggle (scope) {
-        scope.toggle();
-      };
-vm.moveLastToTheBeginning=moveLastToTheBeginning;
-      function moveLastToTheBeginning () {
-        var a = $scope.data.pop();
-        $scope.data.splice(0, 0, a);
-      };
-vm.newSubItem=newSubItem;
-      function newSubItem (scope) {
-        var nodeData = scope.$modelValue;
-        nodeData.nodes.push({
-          id: nodeData.id * 10 + nodeData.nodes.length,
-          title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-          nodes: []
-        });
-        scope.collapsed = false;
-      };
-vm.collapseAll=collapseAll;
-      function collapseAll () {
-        $scope.$broadcast('angular-ui-tree:collapse-all');
-      };
-vm.expandAll=expandAll;
-     function expandAll () {
-        $scope.$broadcast('angular-ui-tree:expand-all');
-      };
-
-//Editor
-vm.editorOptions = {
-    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
-};
-
-vm.current = null;
-vm.editorTitle = "";
-vm.editorEnabled = false;
-
-vm.openEditor=openEditor;
-function openEditor (scope, node) {
-    vm.current=node;
-    vm.content=node.description;
-    vm.editorEnabled=true;
-    vm.editorTitle="Editing [" + node.code + "]";
-};
-
-vm.editorClear=editorClear;
-function editorClear() {
-  vm.editorEnabled=false;
-}
-
-vm.editorSave=editorSave;
-function editorSave(scope, node) {
-  vm.editorEnabled=false;
-  vm.current.description=vm.content;
-}
-//End of Editor
+		vm.editorSave=editorSave;
+		function editorSave(scope, node) {
+		  vm.editorEnabled=false;
+		  vm.current.description=vm.content;
+		}
+		//End of Editor
 
 
     }

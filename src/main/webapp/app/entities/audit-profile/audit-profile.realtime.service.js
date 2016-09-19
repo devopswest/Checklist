@@ -1,0 +1,145 @@
+(function() {
+    'use strict';
+
+    angular
+        .module('checklistApp')
+        .factory('AuditProfileRealtime', AuditProfileRealtime);
+
+    AuditProfileRealtime.$inject = ['$resource'];
+
+    function AuditProfileRealtime($resource) {
+    	
+    	var clientId = '370295086792-2c0r6ve8mm7ot16ie1tq2ne9fe705ugg.apps.googleusercontent.com';
+    	var fileMimeType= 'application/vnd.google-apps.drive-sdk';
+        var realtimeUtils = new utils.RealtimeUtils({ clientId: clientId });
+        var auditQuestionResponseModel = function(){    };
+        var auditquestionResponseMapCollab =[];
+        
+        //User Specific information
+        var isCustomModelRegistered = false;
+        var modelName = 'auditQuestionResponse';
+        var auditProfileId;
+        var auditquestionResponseMap;
+        var driveFileName;
+        var driveFileId;
+        var templateQuestions;
+        
+        var collaborate = function(profileId,responseMap,treedata){
+        	auditProfileId           = profileId;
+        	auditquestionResponseMap = responseMap;
+        	templateQuestions        = treedata;
+        	driveFileName            = 'audit_profile_' + auditProfileId;
+        	authorizeUser();
+        }        
+
+        var defineAuditQuestionResponseModel = function(){
+        	if(!isCustomModelRegistered){
+        		gapi.drive.realtime.custom.registerType(auditQuestionResponseModel, 'auditQuestionResponse');
+        		isCustomModelRegistered = true;
+        	}        	
+        	        	
+        	auditQuestionResponseModel.prototype.id = gapi.drive.realtime.custom.collaborativeField('id');
+        	auditQuestionResponseModel.prototype.questionResponse = gapi.drive.realtime.custom.collaborativeField('questionResponse');
+        	auditQuestionResponseModel.prototype.questionId = gapi.drive.realtime.custom.collaborativeField('questionId');
+        	auditQuestionResponseModel.prototype.questionDescription = gapi.drive.realtime.custom.collaborativeField('questionDescription');
+        }
+
+        var authorizeUser = function(){
+    		realtimeUtils.authorize(loginSuccess, false);
+    	} 
+
+        var loginSuccess = function(response){
+        	if(!response.error){
+        		defineAuditQuestionResponseModel();
+        		gapi.client.load('drive', 'v3', searchDriveIfFileExist);
+        	}else{
+        		console.log('Method:loginSuccess Unable to complete OAuth for current logged in user:' + JSON.stringify(response));
+        	}
+        }
+
+        var searchDriveIfFileExist = function(){
+        	gapi.client.drive.files.list({ 'pageSize': 10, 'fields': 'nextPageToken, files(id, name)' }).execute(loadFileOrCreateFile);
+        }
+        
+        var loadFileOrCreateFile = function(response){
+    		var files = response.files;
+    		if (files && files.length > 0) {
+    			for (var i = 0; i < files.length; i++) {
+    				if(files[i].name == driveFileName){
+    					console.log('Method:loadFileOrCreateFile ..searching file ' + driveFileName + ' already exists in drive');
+    					driveFileId = files[i].id.replace('/', '');
+    					realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
+    					break;	
+    				}        				        				
+    			}
+    		}
+    		
+    		if(!driveFileId){
+    			console.log('Method:loadFileOrCreateFile ..searching file ' + driveFileName + ' need to be CREATED');
+    			//realtimeUtils.createRealtimeFile(driveFileName, loadDataPostCreation);    			
+    			   			
+    			var fileMetadata = { 'name' : driveFileName, 'mimeType' : fileMimeType };
+    			gapi.client.drive.files.create({ 'resource': fileMetadata, 'fields': 'id'}).execute(loadDataPostCreation);
+    		}
+        }
+        
+        var loadDataPostCreation = function(creationResponse){
+        	if(creationResponse){
+        		driveFileId = creationResponse.id;
+        		console.log('Method:loadDataPostCreation ..invoking onFileLoad and file Initialize operations ');
+        		window.history.pushState(null, null, '?id=' + driveFileId);
+        		realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
+        	}else{
+        		console.log('Method:loadDataPostCreation ..error in creating file ' + JSON.stringify(creationResponse));
+        	}
+        }
+                
+        var onNewFileCreated = function(model){    
+        	console.log('Method:onFileInitialize ..preparing model object to store in drive with current value');
+        	auditquestionResponseMapCollab = model.createMap();
+			
+        	for(var l in auditquestionResponseMap){
+    			var resp                 = model.create(modelName);		
+
+    			resp.id                  = auditquestionResponseMap[l].id;
+    			resp.questionResponse    = auditquestionResponseMap[l].questionResponse;
+    			resp.questionId          = auditquestionResponseMap[l].questionId;
+    			resp.questionDescription = auditquestionResponseMap[l].questionDescription;    
+    			
+    			auditquestionResponseMapCollab.set(String(auditquestionResponseMap[l].questionId),resp);
+        	}
+        	
+        	attachCollaborateResponseToTemplate(templateQuestions,auditquestionResponseMapCollab);
+        }   
+        
+        var onFileLoaded = function(doc){
+        	console.log('Method:onFileLoaded ..If any listeners have to be linked do it here');
+        	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
+        	console.log('Method:onFileLoaded .. ' + JSON.stringify(auditquestionResponseMapCollab));
+        	attachCollaborateResponseToTemplate(templateQuestions);
+        	//auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.VALUE_CHANGED, updateRealtimeTextBox);
+        }
+
+        /**
+		 * A recursive method to prepare empty responses for template questions which are not yet answered.
+		 * These empty responses act as place holder when the template questions are displayed and buttons are toggled
+		 */		
+		var attachCollaborateResponseToTemplate = function(templateQuestions,collaboratedMap){	
+			for(var l=0;l<templateQuestions.length;l++){
+				var questionId = String(templateQuestions[l].id);
+				if(collaboratedMap.has(questionId)){
+					templateQuestions[l].response = collaboratedMap.get(questionId);
+					attachCollaborateResponseToTemplate(templateQuestions[l].children,collaboratedMap);					
+				}else{
+					console.log('Missing quesiton id ' + questionId);
+				}
+			}
+		}  
+		
+        return {
+        	collaborate                      : collaborate,
+        	authorizeUser                    : authorizeUser,
+        	searchDriveIfFileExist           : searchDriveIfFileExist
+        };
+    }
+})();
