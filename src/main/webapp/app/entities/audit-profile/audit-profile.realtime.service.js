@@ -129,13 +129,16 @@
         var onFileLoaded = function(doc){
         	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
         	attachCollaborateResponseToTemplate(templateQuestions);
+        	//Refresh the tree once the data is retrieved and update in the tree
+        	$('#template_questions').scope().$apply();
         	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
         }
         
         var refreshQuestionResponses = function(evt){
 			  var isValueChange = false;
 			  for (var i = 0; i < evt.events.length; i++) {			  
-			    if(!evt.events[i].isLocal && (evt.events[i].type ==  'value_changed')){
+			    if(!evt.events[i].isLocal && (evt.events[i].type ==  'value_changed')){			    	
+			    	console.log('Values Are changed...refesh');
 			    	isValueChange = true;
 			    	break;
 			    }
