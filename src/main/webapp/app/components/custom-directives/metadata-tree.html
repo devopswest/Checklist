@@ -1,0 +1,21 @@
+<script type="text/ng-template" id="nodes_renderer_tmpl.html">
+	<div ui-tree-handle>
+		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="toggle(this)">
+        	<span class="glyphicon" style="font-size: 8px" ng-class="{'glyphicon-chevron-right': collapsed,'glyphicon-chevron-down': !collapsed }" > </span>
+        </a>
+		<a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
+        	<span class="glyphicon glyphicon-chevron-down" style="font-size: 8px"> </span>
+        </a>
+		<input type="checkbox" ng-model="node.selected" data-nodrag/>
+		<label>{{node.tagName}}</label>
+	</div>
+	<ol ui-tree-nodes="options_tmpl" ng-model="node.children" ng-if="!collapsed" data-nodrop>
+    	<li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer_tmpl.html'"></li>
+    </ol>
+</script>
+
+<div ui-tree="options_tmpl">
+	<ol ui-tree-nodes ng-model="metadata" data-nodrop>
+    	<li ng-repeat="node in metadata" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer_tmpl.html'" class="animate-repeat"></li>
+    </ol>
+</div>

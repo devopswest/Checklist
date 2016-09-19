@@ -28,22 +28,6 @@
     </ol>
 </script>
 
-<script type="text/ng-template" id="nodes_renderer_1.html">
-	<div ui-tree-handle>
-		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="vm.toggle(this)">
-                <span class="glyphicon" style="font-size: 8px" ng-class="{'glyphicon-chevron-right': collapsed,'glyphicon-chevron-down': !collapsed }" > </span>
-        </a>
-		<a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
-                 <span class="glyphicon glyphicon-chevron-down" style="font-size: 8px"> </span>
-        </a>
-		<input type="checkbox" ng-model="node.selected" data-nodrag/>
-		<label>{{node.tagName}}</label>
-	</div>
-	<ol ui-tree-nodes="options_1" ng-model="node.children" ng-if="!collapsed" data-nodrop>
-        <li ng-repeat="node in node.children" collapsed="true" ng-if="!collapsed" ui-tree-node ng-include="'nodes_renderer_1.html'"></li>
-    </ol>
-</script>
-
 <style type="text/css">
 .panel-title {
  font-size:14px!important;
@@ -62,11 +46,7 @@
 			<div class="row">
 				<div class="col-sm-2"> </div>
   				<div class="col-sm-8">
-      				<div ui-tree="options_1">
-        				<ol ui-tree-nodes ng-model="vm.treeMetaData" data-nodrop>
-             				<li ng-repeat="node in vm.treeMetaData" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer_1.html'" class="animate-repeat"></li>
-        				</ol>
-      				</div>
+      				<adc-metadata tree-data="vm.treeMetaData" on-toggle="vm.toggle(this)"></adc-metadata>
   				</div>
   				<div class="col-sm-2"> </div>
 			</div>

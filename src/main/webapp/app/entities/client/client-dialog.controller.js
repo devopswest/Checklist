@@ -100,7 +100,7 @@ function toggle (scope) {
       	[
       	 	{
       	 		"selected": true,
-      	 		"tagName": "Public",
+      	 		"tagName": "Public-Client",
       	 		"tagCode": "1",
       	 		"children": 
       	 			[
