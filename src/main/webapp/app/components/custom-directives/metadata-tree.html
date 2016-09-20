@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="nodes_renderer_tmpl.html">
 	<div ui-tree-handle>
-		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="toggle(this)">
+		<a class="btn btn-success btn-xs" ng-if="node.children.length > 0" data-nodrag ng-click="vmDir.toggle(this)">
         	<span class="glyphicon" style="font-size: 8px" ng-class="{'glyphicon-chevron-right': collapsed,'glyphicon-chevron-down': !collapsed }" > </span>
         </a>
 		<a class="btn btn-danger btn-xs" ng-if="node.children && node.children.length == 0" data-nodrag>
@@ -15,7 +15,7 @@
 </script>
 
 <div ui-tree="options_tmpl">
-	<ol ui-tree-nodes ng-model="metadata" data-nodrop>
-    	<li ng-repeat="node in metadata" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer_tmpl.html'" class="animate-repeat"></li>
+	<ol ui-tree-nodes ng-model="vmDir.metadata" data-nodrop>
+    	<li ng-repeat="node in vmDir.metadata" ui-tree-node collapsed="true" ng-if="!collapsed" ng-include="'nodes_renderer_tmpl.html'" class="animate-repeat"></li>
     </ol>
 </div>
