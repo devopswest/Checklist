@@ -3,17 +3,7 @@
 
     angular
         .module('checklistApp')
-        .controller('ChecklistDialogController', ChecklistDialogController)
-        .directive('adcMetadata', function () {
-        	return {
-        		restrict: 'E',
-        		scope: {
-        			metadata: '=treeData',
-        			toggle: '&onToggle'
-        		},
-        		templateUrl: 'app/components/custom-directives/metadata-tree.html'
-        	};
-        });
+        .controller('ChecklistDialogController', ChecklistDialogController);
 
     ChecklistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Checklist', 'ChecklistQuestion', 'Taxonomy'];
 
