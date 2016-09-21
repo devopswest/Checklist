@@ -9,11 +9,14 @@
 
     function AuditProfileRealtime($resource) {
     	
-    	var clientId = '370295086792-2c0r6ve8mm7ot16ie1tq2ne9fe705ugg.apps.googleusercontent.com';
-    	var fileMimeType= 'application/vnd.google-apps.drive-sdk';
-        var realtimeUtils = new utils.RealtimeUtils({ clientId: clientId });
-        var auditQuestionResponseModel = function(){    };
-        var auditquestionResponseMapCollab =[];
+    	var clientId          = '370295086792-2c0r6ve8mm7ot16ie1tq2ne9fe705ugg.apps.googleusercontent.com';
+    	var fileMimeType      = 'application/vnd.google-apps.drive-sdk';
+        var realtimeUtils     = new utils.RealtimeUtils({ clientId: clientId });
+    	var apiKey            = '579021b7897ec0165309794dd5394ea7985d0752';
+    	var authScopes        = 'profile';
+    	var scopes            = 'profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file profile';        
+        var auditQuestionResponseModel     = function(){    };
+        var auditquestionResponseMapCollab = [];
         
         //User Specific information
         var isCustomModelRegistered = false;
@@ -29,8 +32,15 @@
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
         	driveFileName            = 'audit_profile_' + auditProfileId;
-        	authorizeUser();
-        }        
+        	realtimeUtils.authorize(loginSuccess, false);
+        	return true;
+        }      
+        
+        var stopCollaborate = function(){
+        	console.log('Method:stopCollaborate ..stop collaboration');
+        	//auth2.signOut();       	
+        	return false;
+        }
 
         var defineAuditQuestionResponseModel = function(){
         	if(!isCustomModelRegistered){
@@ -44,16 +54,14 @@
         	auditQuestionResponseModel.prototype.questionDescription = gapi.drive.realtime.custom.collaborativeField('questionDescription');
         }
 
-        var authorizeUser = function(){
-    		realtimeUtils.authorize(loginSuccess, false);
-    	} 
+        
 
         var loginSuccess = function(response){
         	if(!response.error){
         		defineAuditQuestionResponseModel();
         		gapi.client.load('drive', 'v3', searchDriveIfFileExist);
         	}else{
-        		console.log('Method:loginSuccess Unable to complete OAuth for current logged in user:' + JSON.stringify(response));
+        		realtimeUtils.authorize(loginSuccess, true);
         	}
         }
 
@@ -165,7 +173,7 @@
 		
         return {
         	collaborate                      : collaborate,
-        	authorizeUser                    : authorizeUser,
+        	stopCollaborate                  : stopCollaborate,
         	searchDriveIfFileExist           : searchDriveIfFileExist
         };
     }

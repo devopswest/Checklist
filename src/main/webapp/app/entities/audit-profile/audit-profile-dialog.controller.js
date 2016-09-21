@@ -72,6 +72,9 @@
         vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
         vm.maxResponseId = 0;
+        vm.isCollabrate = false;
+        vm.isSignedIn = false;
+      	
         //Step 1
         if (vm.auditProfile.engagementId) {
         	vm.auditProfile.$promise.then( function (auditProfileResult){
@@ -85,13 +88,13 @@
             			if (vm.engagementId == engagementResult[i].id) {
             				//Step 3
             				Checklist.loadQuestions({"id": engagementResult[i].checklist.id}).$promise.then(function (templateQuestionResult) {
-            					vm.questionTemplate = templateQuestionResult.checklistQuestions; 
-            					//Step 4
-            					createEmptyResponseForMissingQuestion(vm.questionTemplate);
-            					//Step 5
-            	    			AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
-            	    			//Step 6
-            	    			collapseAll();
+            				vm.questionTemplate = templateQuestionResult.checklistQuestions; 
+            				//Step 4
+            				createEmptyResponseForMissingQuestion(vm.questionTemplate);
+            				//Step 5
+            				//AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+            				//Step 6
+            				collapseAll();
             				});
             			}
             		}            		
@@ -202,6 +205,16 @@
 		     function expandAll () {
 		        $scope.$broadcast('angular-ui-tree:expand-all');
 		      };
+		
+		vm.handleCollaborateOn=handleCollaborateOn;
+		function handleCollaborateOn(){
+			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+		}
+		
+		vm.handleCollaborateOFF=handleCollaborateOFF;
+		function handleCollaborateOFF(){
+			vm.isCollabrate = AuditProfileRealtime.stopCollaborate();
+		}
 		
 		//Editor
 		vm.editorOptions = {

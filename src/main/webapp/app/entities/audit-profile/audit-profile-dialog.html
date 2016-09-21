@@ -9,7 +9,7 @@
         <input type="text" readonly data-nodrag size="5%" name="nodeValue" id="field_nodeValue" ng-model="node.id" style="background-color:transparent; border:none"/>
 	    <input type="text" readonly data-nodrag size="10%" name="nodeValue" id="field_nodeValue" ng-model="node.code" style="background-color:transparent; border:none "/>
         <input type="text" readonly data-nodrag size="42%" name="nodeValue" id="field_nodeValue" ng-model="node.description" style="background-color:transparent; border:none"/>
-		
+
 		<span class="pull-right btn btn-xs" data-nodrag  data-toggle="buttons">
 			<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_na"  value="Not Applicable" ng-model="node.response.questionResponse" ng-change="vm.updateResponse(node,'Not Applicable')" >N/A</label>
         	<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_yes" value="Yes" ng-model="node.response.questionResponse"            ng-change="vm.updateResponse(node,'Yes')">Yes</label>
@@ -49,7 +49,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myAuditProfileLabel" translatexx="checklistApp.auditProfile.home.createOrEditLabel">Create or edit a Checklist/h4>
+        <h4 class="modal-title" id="myAuditProfileLabel" translatexx="checklistApp.auditProfile.home.createOrEditLabel">Create or edit a Checklist</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -86,23 +86,22 @@
 
 <!-- NEW -->
  <div class="form-group">
-
-
-<div class="row">
-
-
-<spam style="padding: 10px 5px 5px 10px;"></spam>
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.expandAll()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Expand All</span>
-        </button>
-
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.collapseAll()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Collapse All</span>
-        </button>
-
-
-</div>
-
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.expandAll()">
+                <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Expand All</span>
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.collapseAll()">
+                <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Collapse All</span>
+            </button>
+            <button type="button" class="pull-right btn btn-default" data-dismiss="modal" ng-click="vm.handleCollaborateOn()" ng-show="!vm.isCollabrate" >
+                <span class="glyphicon glyphicon-share"></span>&nbsp;<span translateXX="entity.action.collaborateOn">Collaborate</span>
+            </button>
+            <button type="button" class="pull-right btn btn-default" data-dismiss="modal" ng-click="vm.handleCollaborateOFF()" ng-show="vm.isCollabrate">
+                <span class="glyphicon glyphicon-pause"></span>&nbsp;<span translateXX="entity.action.collaborateOFF">Stop</span>
+            </button>
+        </div>
+    </div>
 </div>
 
 <div class="form-group">
