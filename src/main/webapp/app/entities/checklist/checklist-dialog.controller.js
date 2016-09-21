@@ -14,6 +14,12 @@
         vm.clear = clear;
         vm.save = save;
         vm.checklistquestions = ChecklistQuestion.query();
+        
+        vm.loadData = loadData;
+        function loadData(type) {
+        	vm.taxonomies = Taxonomy.query();
+        }
+        
         vm.taxonomies = Taxonomy.query();
 
         $timeout(function (){
