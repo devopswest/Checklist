@@ -119,6 +119,7 @@
     	 * Prepares and HashMap of the Responses Array for easy retrieval
     	 */
 		var convertResponsesToMap = function convertResponsesToMap(){
+			vm.dirtyQuestionResponsesMap = {};
 			for(var l=0;l<vm.auditQuestionResponses.length;l++){
 				vm.auditquestionResponseMap[vm.auditQuestionResponses[l].questionId] = vm.auditQuestionResponses[l];
 				if(vm.maxResponseId < vm.auditQuestionResponses[l].id){

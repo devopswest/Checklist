@@ -40,20 +40,22 @@
         
         var stopCollaborate = function(){
         	console.log('Method:stopCollaborate ..stop collaboration');
-        	//auth2.signOut();       	
+        	window.gapi.auth.signOut();
+        	gapi.auth.signOut();
         	return false;
         }
 
         var defineAuditQuestionResponseModel = function(){
         	if(!isCustomModelRegistered){
         		gapi.drive.realtime.custom.registerType(auditQuestionResponseModel, 'auditQuestionResponse');
+
+        	 	auditQuestionResponseModel.prototype.id = gapi.drive.realtime.custom.collaborativeField('id');
+            	auditQuestionResponseModel.prototype.questionResponse = gapi.drive.realtime.custom.collaborativeField('questionResponse');
+            	auditQuestionResponseModel.prototype.questionId = gapi.drive.realtime.custom.collaborativeField('questionId');
+            	auditQuestionResponseModel.prototype.questionDescription = gapi.drive.realtime.custom.collaborativeField('questionDescription');
+            	
         		isCustomModelRegistered = true;
-        	}        	
-        	        	
-        	auditQuestionResponseModel.prototype.id = gapi.drive.realtime.custom.collaborativeField('id');
-        	auditQuestionResponseModel.prototype.questionResponse = gapi.drive.realtime.custom.collaborativeField('questionResponse');
-        	auditQuestionResponseModel.prototype.questionId = gapi.drive.realtime.custom.collaborativeField('questionId');
-        	auditQuestionResponseModel.prototype.questionDescription = gapi.drive.realtime.custom.collaborativeField('questionDescription');
+        	} 
         }
 
         
