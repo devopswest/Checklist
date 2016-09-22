@@ -51,9 +51,9 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
          b) `stopCollaborate` : Ends collaboration and sign out thes OAuth (on localhost, signOut has no impact...ie signout doesn't not work)
 
 
-## Realtime API observations
-1. For Realtime API Google Cloud Platform, Drive Enable are must and should
-2. Realtime API accpets only Google Account registered users for OAuth. It can not be integrated with other OAuth systems.
+### Realtime API observations
+1. For Colloboration work : Google Cloud Platform, Drive Enablement are prerequisite
+2. Realtime API accepts only Google Account registered users for OAuth. It can not be integrated with other OAuth
 3. Latest Drive API is v3 (version 3), but realtime API only works in v2 (i.e., version 2)
 
 [Overview and Steps to introduce collaboration]:https://developers.google.com/google-apps/realtime/overview
