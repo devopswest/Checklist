@@ -122,3 +122,8 @@ npm install -g ionic yo bower gulp
 npm install -g generator-jhipster-ionic
 yo jhipster-ionic --force
 
+
+
+Continuous Build
+-----
+http://mrhaki.blogspot.com/2015/09/spring-sweets-reload-classes-spring.html

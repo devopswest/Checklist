@@ -1,9 +1,15 @@
 
 category="development"
 feature=$1
+entity=$2
 
 mkdir ./custom/features//$category/$feature
-cp -r ./src custom/features//$category/$feature
+
+if [ "$entity" = "" ]; then
+   cp -r ./src custom/features//$category/$feature
+else
+   find src/ -type f | grep -i $entity | xargs -i cp {} --parents -t custom/features//$category/$feature
+fi;
 
 touch ./custom/features/$category/$feature/apply-feature.sh
 
