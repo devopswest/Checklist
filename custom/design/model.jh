@@ -1,6 +1,6 @@
 /**
   * Retrention (7y +1 = 8y), Purge, review steps needs to be cofigured
-  * CLient Metadata... MDM ?
+  * CLient Tag... MDM ?
   * Business Engine. Business engine cicle, workflow, wizzard.
   *
   * quetions matriz vs disculose requirements
@@ -11,12 +11,12 @@
 /**
  * Types
  **/
-enum ChecklistStatus {
+enum ChecklistTemplateStatus {
     DRAFT,
     RELEASED
 }
 
-enum QuestionStatus {
+enum DisclosureRequirementStatus {
     DRAFT,
     RELEASED
 }
@@ -65,7 +65,7 @@ enum EngagementAuthorities {
  **/
 
 entity Taxonomy {
-    code String  required  minlength(1)  maxlength(20) ,
+    code String,
     label String  required  minlength(1)  maxlength(50)
 }
 
@@ -77,43 +77,40 @@ relationship OneToMany {
 /**
  * Client
  *
- * TODO: Additional Metadata. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)
+ * TODO: Additional Tag. LOS, etc, Client Profile ( i have cache, recibables, invenmtory this drive the requirements)
  *
  **/
 entity Client {
     code String,
-    name String
-}
-
-entity ClientProfile {
-
-}
-relationship OneToOne{
-    ClientProfile{client(name)} to Client
+    name String,
+    duns String,
+    partyId String,
+    cesId String
 }
 
 
-entity ClientMetadata {
-    metadataValue String
+
+entity ClientTag {
+    tagValue String
 }
 
 relationship ManyToOne {
-    ClientMetadata{metadataProperty(label)} to Taxonomy
+    ClientTag{tagProperty(label)} to Taxonomy
 }
 
 
 relationship OneToMany {
-    ClientProfile{metadata} to ClientMetadata{client(name)}
+    Client{tags} to ClientTag{client(name)}
 }
 
 
 
 /**
- * Licenses
+ * ClientLicenses
  **/
 
 
-entity License {
+entity ClientLicense {
      contactName String,
      contactEmail String,
      expirationDate ZonedDateTime,
@@ -121,34 +118,13 @@ entity License {
 }
 
 relationship ManyToOne {
-    License{client(name)} to Client
+    ClientLicense{client(name)} to Client
 }
 
 relationship ManyToOne {
-    License{licenseType(label)} to Taxonomy
+    ClientLicense{clientLicenseType(label)} to Taxonomy
 }
 
-
-/**
- * Library
- *
- * TODO: Matrix vs Client metaada
- *
- **/
-
-entity Question {
-    code String,
-    question String
-}
-
-entity Requirement {
-    code String,
-    description String
-}
-
-relationship ManyToMany {
-    Requirement{question(question)} to Question{requirement}
-}
 
 
 /**
@@ -203,41 +179,79 @@ relationship ManyToOne{
 
 
 /**
- * Checklist
+ * Library
  *
- * TODO: Questions help or guidance fields.
- * Main/core checlists, Supplemental Checklists
+ * TODO: Matrix vs Client metaada
+ *
+ * TODO: DisclosureRequirements help or guidance fields.
+ * Main/core checlists, Supplemental ChecklistTemplates
  *
  **/
-entity Checklist {
+entity ChecklistTemplate {
     name String,
     description String,
     version String,
-    status ChecklistStatus
+    status ChecklistTemplateStatus
 }
 
-entity ChecklistQuestion {
+
+/*
+ * This is the future/next definition where ChecklistTemplate is not longer needed
+ */
+entity Requirement {
+    name String,
+    description String
+}
+
+
+entity DisclosureRequirement {
     code String,
     description String minlength(1) maxlength(4000)
 }
 
 relationship OneToMany {
-    Checklist to ChecklistQuestion{checklist(name)}
-}
-
-relationship ManyToOne {
-    Checklist{country(label)} to Taxonomy
-}
-
-relationship OneToMany {
-    ChecklistQuestion{child} to ChecklistQuestion{parent(description)}
+    ChecklistTemplate{disclosureRequirements} to DisclosureRequirement{checklistTemplate(name)}
 }
 
 /*
-relationship ManyToOne {
-    ChecklistQuestion{question(question)} to Question
+ * DisclosureRequirements/Questions will be reused across Requirements
+ */
+relationship ManyToMany {
+    Requirement{disclosureRequirement(description)} to DisclosureRequirement{requirement}
 }
-*/
+
+
+
+
+relationship ManyToOne {
+    ChecklistTemplate{territory(label)} to Taxonomy
+}
+
+relationship ManyToOne {
+    ChecklistTemplate{formType(label)} to Taxonomy
+}
+
+relationship OneToMany {
+    DisclosureRequirement{child} to DisclosureRequirement{parent(description)}
+}
+
+
+entity DisclosureRequirementTag {
+    tagValue String
+}
+
+relationship ManyToOne {
+    DisclosureRequirementTag{tagProperty(label)} to Taxonomy
+}
+
+
+relationship OneToMany {
+    DisclosureRequirement{tags} to DisclosureRequirementTag{disclosureRequirement(description)}
+}
+
+
+
+
 
 /**
  * Engagement
@@ -255,8 +269,20 @@ relationship ManyToOne{
 }
 
 relationship ManyToOne{
-    Engagement{checklist(name)} to Checklist
+    Engagement{workflow(name)} to Workflow
 }
+
+entity EngagementChecklistTemplate {
+}
+
+relationship ManyToOne{
+    EngagementChecklistTemplate{checklistTemplate(name)} to ChecklistTemplate
+}
+
+relationship ManyToOne{
+    EngagementChecklistTemplate{workflow(name)} to Workflow
+}
+
 
 entity EngagementMember {
     authority EngagementAuthorities
@@ -269,68 +295,97 @@ relationship OneToMany {
     Engagement{members} to EngagementMember{engagement(description)}
 }
 
-relationship ManyToOne{
-    Engagement{workflow(name)} to Workflow
+relationship OneToMany {
+    Engagement{checklistTemplate} to EngagementChecklistTemplate{engagement(description)}
 }
+
+
 
 /**
  * Response Responses
  *
  *
  **/
-entity AuditProfile {
+entity Checklist {
     description String,
     status ResponseStatus
 }
 
 relationship ManyToOne{
-    AuditProfile{engagement(description)} to Engagement
+    Checklist{engagement(description)} to Engagement
+}
+
+relationship ManyToOne{
+    Checklist{owner(login)} to User
 }
 
 /*
-relationship ManyToOne{
-    AuditProfile{workflow(description)} to Workflow
+relationship ManyToOne {
+    Checklist{checklistTemplate(name)} to ChecklistTemplate
 }
 */
 
-/**
-  *
-  * How to handle question responses as part of the relaqionship?
-  *
-  */
 /*
-relationship ManyToMany {
-    AuditProfile{question(question)} to ChecklistQuestion{auditProfile}
+ * TODO: Answer might be N/A, Yes, No + comments
+ *
+ */
+entity ChecklistAnswer {
+    answer  String,
+    comments String
 }
-*/
 
-
-
-entity AuditQuestionResponse {
-    questionResponse String
-}
 relationship ManyToOne{
-    AuditQuestionResponse{question(description)} to ChecklistQuestion
+    ChecklistAnswer{DisclosureRequirement(description)} to DisclosureRequirement
 }
 
 
 relationship ManyToMany {
-    AuditProfile{auditQuestionResponse(questionResponse)} to AuditQuestionResponse{auditProfile}
+    Checklist{checklistAnswer(answer)} to ChecklistAnswer{checklist}
 }
 
 
-entity AuditProfileLogEntry {
+entity ChecklistHistoryChanges {
     happened ZonedDateTime,
     description String
 }
 
-relationship OneToOne{
-    AuditProfileLogEntry{who(login)} to User
+relationship ManyToOne{
+    ChecklistHistoryChanges{who(login)} to User
 }
 
 relationship OneToMany {
-    AuditProfile{log(description)} to AuditProfileLogEntry
+    Checklist{log(description)} to ChecklistHistoryChanges
 }
+
+
+entity ChecklistWorkflow {
+    happened ZonedDateTime,
+    status WorkflowTaskStatus,
+    comments String
+}
+
+relationship ManyToOne{
+    ChecklistWorkflow{who(login)} to User
+}
+
+relationship ManyToOne{
+    ChecklistWorkflow{workflow(name)} to Workflow
+}
+
+relationship OneToMany {
+    Checklist{review} to ChecklistWorkflow
+}
+
+
+/**
+  * To allow review workflow per DisclosureRequirement/section answer
+  */
+relationship ManyToOne{
+    ChecklistWorkflow{checklistAnswer(answer)} to ChecklistAnswer
+}
+
+
+
 
 
 /**
@@ -338,7 +393,7 @@ relationship OneToMany {
  **/
 
 entity UserProfile {
-
+   PPID String
 }
 relationship OneToOne{
     UserProfile{user(login)} to User
@@ -375,6 +430,28 @@ relationship OneToMany{
 
 
 /**
+  * Notifications
+  *
+  **/
+entity Notification {
+   content String
+}
+relationship OneToOne{
+    Notification{from(login)} to User
+}
+relationship OneToOne{
+    Notification{to(login)} to User
+}
+entity NotificationAction {
+   action String
+}
+relationship OneToMany{
+    Notification{actions} to NotificationAction{notification}
+}
+
+
+
+/**
  * Options
  * NOTE: https://jhipster.github.io/jdl/
  *
@@ -389,9 +466,11 @@ relationship OneToMany{
  *
  **/
 paginate * with pager
+dto * with mapstruct
+service * with serviceImpl
 
 
-dto Checklist with mapstruct
-dto ChecklistQuestion with mapstruct
-dto AuditProfile with mapstruct
-dto AuditQuestionResponse with mapstruct
+//dto ChecklistTemplate with mapstruct
+//dto DisclosureRequirement with mapstruct
+//dto Checklist with mapstruct
+//dto ChecklistAnswer with mapstruct
