@@ -1,0 +1,35 @@
+parent_id;id;label
+4;401;Insurance
+4;402;Investment
+4;403;Savings and Loan (Article 9)
+4;404;Savings and Loan (Guide 3)
+4;405;Utility
+4;406;Not for Profit
+4;407;Healthcare
+4;408;Yellowbook
+4;409;Credit Union
+4;410;Mortgage Banking
+4;411;FI
+5;501;Quarter
+5;502;Year End
+6;601;PCAOB
+6;602;AICPA
+6;603;GAO
+6;604;IFRS
+7;701;Public
+7;702;Private
+7;703;EBP
+8;801;Government - Federal
+8;802;Government - State
+8;803;Government - local
+8;804;Government - Insurance - State
+8;805;International-Jurisdictions
+8;806;International-GAAP
+8;807;International-Checker Input
+8;808;International-FP1
+9;901;Public
+9;902;Non-Public
+9;903;EBP
+9;904;Supplements
+
+
