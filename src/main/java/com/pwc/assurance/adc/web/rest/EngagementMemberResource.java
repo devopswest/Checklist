@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.EngagementMember;
-
-import com.pwc.assurance.adc.repository.EngagementMemberRepository;
-import com.pwc.assurance.adc.repository.search.EngagementMemberSearchRepository;
+import com.pwc.assurance.adc.service.EngagementMemberService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.EngagementMemberDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,29 +36,25 @@ public class EngagementMemberResource {
     private final Logger log = LoggerFactory.getLogger(EngagementMemberResource.class);
         
     @Inject
-    private EngagementMemberRepository engagementMemberRepository;
-
-    @Inject
-    private EngagementMemberSearchRepository engagementMemberSearchRepository;
+    private EngagementMemberService engagementMemberService;
 
     /**
      * POST  /engagement-members : Create a new engagementMember.
      *
-     * @param engagementMember the engagementMember to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new engagementMember, or with status 400 (Bad Request) if the engagementMember has already an ID
+     * @param engagementMemberDTO the engagementMemberDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new engagementMemberDTO, or with status 400 (Bad Request) if the engagementMember has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/engagement-members",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<EngagementMember> createEngagementMember(@RequestBody EngagementMember engagementMember) throws URISyntaxException {
-        log.debug("REST request to save EngagementMember : {}", engagementMember);
-        if (engagementMember.getId() != null) {
+    public ResponseEntity<EngagementMemberDTO> createEngagementMember(@RequestBody EngagementMemberDTO engagementMemberDTO) throws URISyntaxException {
+        log.debug("REST request to save EngagementMember : {}", engagementMemberDTO);
+        if (engagementMemberDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("engagementMember", "idexists", "A new engagementMember cannot already have an ID")).body(null);
         }
-        EngagementMember result = engagementMemberRepository.save(engagementMember);
-        engagementMemberSearchRepository.save(result);
+        EngagementMemberDTO result = engagementMemberService.save(engagementMemberDTO);
         return ResponseEntity.created(new URI("/api/engagement-members/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("engagementMember", result.getId().toString()))
             .body(result);
@@ -68,25 +63,24 @@ public class EngagementMemberResource {
     /**
      * PUT  /engagement-members : Updates an existing engagementMember.
      *
-     * @param engagementMember the engagementMember to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated engagementMember,
-     * or with status 400 (Bad Request) if the engagementMember is not valid,
-     * or with status 500 (Internal Server Error) if the engagementMember couldnt be updated
+     * @param engagementMemberDTO the engagementMemberDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated engagementMemberDTO,
+     * or with status 400 (Bad Request) if the engagementMemberDTO is not valid,
+     * or with status 500 (Internal Server Error) if the engagementMemberDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/engagement-members",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<EngagementMember> updateEngagementMember(@RequestBody EngagementMember engagementMember) throws URISyntaxException {
-        log.debug("REST request to update EngagementMember : {}", engagementMember);
-        if (engagementMember.getId() == null) {
-            return createEngagementMember(engagementMember);
+    public ResponseEntity<EngagementMemberDTO> updateEngagementMember(@RequestBody EngagementMemberDTO engagementMemberDTO) throws URISyntaxException {
+        log.debug("REST request to update EngagementMember : {}", engagementMemberDTO);
+        if (engagementMemberDTO.getId() == null) {
+            return createEngagementMember(engagementMemberDTO);
         }
-        EngagementMember result = engagementMemberRepository.save(engagementMember);
-        engagementMemberSearchRepository.save(result);
+        EngagementMemberDTO result = engagementMemberService.save(engagementMemberDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("engagementMember", engagementMember.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("engagementMember", engagementMemberDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,10 +95,10 @@ public class EngagementMemberResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<EngagementMember>> getAllEngagementMembers(Pageable pageable)
+    public ResponseEntity<List<EngagementMemberDTO>> getAllEngagementMembers(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of EngagementMembers");
-        Page<EngagementMember> page = engagementMemberRepository.findAll(pageable);
+        Page<EngagementMemberDTO> page = engagementMemberService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/engagement-members");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -112,17 +106,17 @@ public class EngagementMemberResource {
     /**
      * GET  /engagement-members/:id : get the "id" engagementMember.
      *
-     * @param id the id of the engagementMember to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the engagementMember, or with status 404 (Not Found)
+     * @param id the id of the engagementMemberDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the engagementMemberDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/engagement-members/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<EngagementMember> getEngagementMember(@PathVariable Long id) {
+    public ResponseEntity<EngagementMemberDTO> getEngagementMember(@PathVariable Long id) {
         log.debug("REST request to get EngagementMember : {}", id);
-        EngagementMember engagementMember = engagementMemberRepository.findOne(id);
-        return Optional.ofNullable(engagementMember)
+        EngagementMemberDTO engagementMemberDTO = engagementMemberService.findOne(id);
+        return Optional.ofNullable(engagementMemberDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +126,7 @@ public class EngagementMemberResource {
     /**
      * DELETE  /engagement-members/:id : delete the "id" engagementMember.
      *
-     * @param id the id of the engagementMember to delete
+     * @param id the id of the engagementMemberDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/engagement-members/{id}",
@@ -141,8 +135,7 @@ public class EngagementMemberResource {
     @Timed
     public ResponseEntity<Void> deleteEngagementMember(@PathVariable Long id) {
         log.debug("REST request to delete EngagementMember : {}", id);
-        engagementMemberRepository.delete(id);
-        engagementMemberSearchRepository.delete(id);
+        engagementMemberService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("engagementMember", id.toString())).build();
     }
 
@@ -159,10 +152,10 @@ public class EngagementMemberResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<EngagementMember>> searchEngagementMembers(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<EngagementMemberDTO>> searchEngagementMembers(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of EngagementMembers for query {}", query);
-        Page<EngagementMember> page = engagementMemberSearchRepository.search(queryStringQuery(query), pageable);
+        Page<EngagementMemberDTO> page = engagementMemberService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/engagement-members");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

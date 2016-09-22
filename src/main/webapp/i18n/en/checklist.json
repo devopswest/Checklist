@@ -5,8 +5,7 @@
                 "title": "Checklists",
                 "createLabel": "Create a new Checklist",
                 "createOrEditLabel": "Create or edit a Checklist",
-                "search": "Search for Checklist",
-                "manageMetaDataLabel": "Manage Metadata"
+                "search": "Search for Checklist"
             },
             "created": "A new Checklist is created with identifier {{ param }}",
             "updated": "A Checklist is updated with identifier {{ param }}",
@@ -17,12 +16,13 @@
             "detail": {
                 "title": "Checklist"
             },
-            "name": "Name",
             "description": "Description",
-            "version": "Version",
             "status": "Status",
-            "checklistQuestion": "Checklist Question",
-            "country": "Country"
+            "log": "Log",
+            "review": "Review",
+            "engagement": "Engagement",
+            "owner": "Owner",
+            "checklistAnswer": "Checklist Answer"
         }
     }
 }

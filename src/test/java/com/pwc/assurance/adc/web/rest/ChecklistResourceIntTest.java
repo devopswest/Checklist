@@ -3,6 +3,7 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Checklist;
 import com.pwc.assurance.adc.repository.ChecklistRepository;
+import com.pwc.assurance.adc.service.ChecklistService;
 import com.pwc.assurance.adc.repository.search.ChecklistSearchRepository;
 import com.pwc.assurance.adc.service.dto.ChecklistDTO;
 import com.pwc.assurance.adc.service.mapper.ChecklistMapper;
@@ -31,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
+import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 /**
  * Test class for the ChecklistResource REST controller.
  *
@@ -40,21 +41,20 @@ import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class ChecklistResourceIntTest {
-    private static final String DEFAULT_NAME = "AAAAA";
-    private static final String UPDATED_NAME = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
-    private static final String DEFAULT_VERSION = "AAAAA";
-    private static final String UPDATED_VERSION = "BBBBB";
 
-    private static final ChecklistStatus DEFAULT_STATUS = ChecklistStatus.DRAFT;
-    private static final ChecklistStatus UPDATED_STATUS = ChecklistStatus.RELEASED;
+    private static final ResponseStatus DEFAULT_STATUS = ResponseStatus.DRAFT;
+    private static final ResponseStatus UPDATED_STATUS = ResponseStatus.FINAL;
 
     @Inject
     private ChecklistRepository checklistRepository;
 
     @Inject
     private ChecklistMapper checklistMapper;
+
+    @Inject
+    private ChecklistService checklistService;
 
     @Inject
     private ChecklistSearchRepository checklistSearchRepository;
@@ -76,9 +76,7 @@ public class ChecklistResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ChecklistResource checklistResource = new ChecklistResource();
-        ReflectionTestUtils.setField(checklistResource, "checklistSearchRepository", checklistSearchRepository);
-        ReflectionTestUtils.setField(checklistResource, "checklistRepository", checklistRepository);
-        ReflectionTestUtils.setField(checklistResource, "checklistMapper", checklistMapper);
+        ReflectionTestUtils.setField(checklistResource, "checklistService", checklistService);
         this.restChecklistMockMvc = MockMvcBuilders.standaloneSetup(checklistResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -93,9 +91,7 @@ public class ChecklistResourceIntTest {
     public static Checklist createEntity(EntityManager em) {
         Checklist checklist = new Checklist();
         checklist = new Checklist()
-                .name(DEFAULT_NAME)
                 .description(DEFAULT_DESCRIPTION)
-                .version(DEFAULT_VERSION)
                 .status(DEFAULT_STATUS);
         return checklist;
     }
@@ -123,9 +119,7 @@ public class ChecklistResourceIntTest {
         List<Checklist> checklists = checklistRepository.findAll();
         assertThat(checklists).hasSize(databaseSizeBeforeCreate + 1);
         Checklist testChecklist = checklists.get(checklists.size() - 1);
-        assertThat(testChecklist.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testChecklist.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testChecklist.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testChecklist.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the Checklist in ElasticSearch
@@ -144,9 +138,7 @@ public class ChecklistResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(checklist.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
@@ -161,9 +153,7 @@ public class ChecklistResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(checklist.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
@@ -186,9 +176,7 @@ public class ChecklistResourceIntTest {
         // Update the checklist
         Checklist updatedChecklist = checklistRepository.findOne(checklist.getId());
         updatedChecklist
-                .name(UPDATED_NAME)
                 .description(UPDATED_DESCRIPTION)
-                .version(UPDATED_VERSION)
                 .status(UPDATED_STATUS);
         ChecklistDTO checklistDTO = checklistMapper.checklistToChecklistDTO(updatedChecklist);
 
@@ -201,9 +189,7 @@ public class ChecklistResourceIntTest {
         List<Checklist> checklists = checklistRepository.findAll();
         assertThat(checklists).hasSize(databaseSizeBeforeUpdate);
         Checklist testChecklist = checklists.get(checklists.size() - 1);
-        assertThat(testChecklist.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testChecklist.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testChecklist.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testChecklist.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the Checklist in ElasticSearch
@@ -245,9 +231,7 @@ public class ChecklistResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(checklist.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 }

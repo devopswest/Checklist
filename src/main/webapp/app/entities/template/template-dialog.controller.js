@@ -41,13 +41,6 @@
             vm.isSaving = false;
         }
 
-//NEW
-
-vm.editorOptions = {
-    // settings more at http://docs.ckeditor.com/#!/guide/dev_configuration
-};
-
-//NEW
 
     }
 })();

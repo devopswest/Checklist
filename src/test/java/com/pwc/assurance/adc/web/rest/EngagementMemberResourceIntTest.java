@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.EngagementMember;
 import com.pwc.assurance.adc.repository.EngagementMemberRepository;
+import com.pwc.assurance.adc.service.EngagementMemberService;
 import com.pwc.assurance.adc.repository.search.EngagementMemberSearchRepository;
+import com.pwc.assurance.adc.service.dto.EngagementMemberDTO;
+import com.pwc.assurance.adc.service.mapper.EngagementMemberMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,12 @@ public class EngagementMemberResourceIntTest {
     private EngagementMemberRepository engagementMemberRepository;
 
     @Inject
+    private EngagementMemberMapper engagementMemberMapper;
+
+    @Inject
+    private EngagementMemberService engagementMemberService;
+
+    @Inject
     private EngagementMemberSearchRepository engagementMemberSearchRepository;
 
     @Inject
@@ -65,8 +74,7 @@ public class EngagementMemberResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         EngagementMemberResource engagementMemberResource = new EngagementMemberResource();
-        ReflectionTestUtils.setField(engagementMemberResource, "engagementMemberSearchRepository", engagementMemberSearchRepository);
-        ReflectionTestUtils.setField(engagementMemberResource, "engagementMemberRepository", engagementMemberRepository);
+        ReflectionTestUtils.setField(engagementMemberResource, "engagementMemberService", engagementMemberService);
         this.restEngagementMemberMockMvc = MockMvcBuilders.standaloneSetup(engagementMemberResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -97,10 +105,11 @@ public class EngagementMemberResourceIntTest {
         int databaseSizeBeforeCreate = engagementMemberRepository.findAll().size();
 
         // Create the EngagementMember
+        EngagementMemberDTO engagementMemberDTO = engagementMemberMapper.engagementMemberToEngagementMemberDTO(engagementMember);
 
         restEngagementMemberMockMvc.perform(post("/api/engagement-members")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(engagementMember)))
+                .content(TestUtil.convertObjectToJsonBytes(engagementMemberDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the EngagementMember in the database
@@ -162,10 +171,11 @@ public class EngagementMemberResourceIntTest {
         EngagementMember updatedEngagementMember = engagementMemberRepository.findOne(engagementMember.getId());
         updatedEngagementMember
                 .authority(UPDATED_AUTHORITY);
+        EngagementMemberDTO engagementMemberDTO = engagementMemberMapper.engagementMemberToEngagementMemberDTO(updatedEngagementMember);
 
         restEngagementMemberMockMvc.perform(put("/api/engagement-members")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedEngagementMember)))
+                .content(TestUtil.convertObjectToJsonBytes(engagementMemberDTO)))
                 .andExpect(status().isOk());
 
         // Validate the EngagementMember in the database

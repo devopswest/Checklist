@@ -2,3 +2,9 @@ id;code;label
 1;TERRITORY;Territory
 2;LOS;Line Of Service
 3;LICENCE-TYPE;Licence Type
+4;INDUSTRY;Industry
+5;REVIEW-PERIOD;Review Period
+6;ACCOUNTING-FRAMEWORK;Accounting Framework
+7;ENTITY-TYPE;Entity Type
+8;FORM-TYPE;Form Type
+9;CHECKLIST-TYPE;Checklist Type

@@ -48,11 +48,13 @@ public class Engagement implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<EngagementMember> members = new HashSet<>();
 
-    @ManyToOne
-    private Client client;
+    @OneToMany(mappedBy = "engagement")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<EngagementChecklistTemplate> checklistTemplates = new HashSet<>();
 
     @ManyToOne
-    private Checklist checklist;
+    private Client client;
 
     @ManyToOne
     private Workflow workflow;
@@ -129,6 +131,31 @@ public class Engagement implements Serializable {
         this.members = engagementMembers;
     }
 
+    public Set<EngagementChecklistTemplate> getChecklistTemplates() {
+        return checklistTemplates;
+    }
+
+    public Engagement checklistTemplates(Set<EngagementChecklistTemplate> engagementChecklistTemplates) {
+        this.checklistTemplates = engagementChecklistTemplates;
+        return this;
+    }
+
+    public Engagement addEngagementChecklistTemplate(EngagementChecklistTemplate engagementChecklistTemplate) {
+        checklistTemplates.add(engagementChecklistTemplate);
+        engagementChecklistTemplate.setEngagement(this);
+        return this;
+    }
+
+    public Engagement removeEngagementChecklistTemplate(EngagementChecklistTemplate engagementChecklistTemplate) {
+        checklistTemplates.remove(engagementChecklistTemplate);
+        engagementChecklistTemplate.setEngagement(null);
+        return this;
+    }
+
+    public void setChecklistTemplates(Set<EngagementChecklistTemplate> engagementChecklistTemplates) {
+        this.checklistTemplates = engagementChecklistTemplates;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -140,19 +167,6 @@ public class Engagement implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Checklist getChecklist() {
-        return checklist;
-    }
-
-    public Engagement checklist(Checklist checklist) {
-        this.checklist = checklist;
-        return this;
-    }
-
-    public void setChecklist(Checklist checklist) {
-        this.checklist = checklist;
     }
 
     public Workflow getWorkflow() {

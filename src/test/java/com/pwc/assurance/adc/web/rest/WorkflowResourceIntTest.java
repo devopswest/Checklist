@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Workflow;
 import com.pwc.assurance.adc.repository.WorkflowRepository;
+import com.pwc.assurance.adc.service.WorkflowService;
 import com.pwc.assurance.adc.repository.search.WorkflowSearchRepository;
+import com.pwc.assurance.adc.service.dto.WorkflowDTO;
+import com.pwc.assurance.adc.service.mapper.WorkflowMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,12 @@ public class WorkflowResourceIntTest {
     private WorkflowRepository workflowRepository;
 
     @Inject
+    private WorkflowMapper workflowMapper;
+
+    @Inject
+    private WorkflowService workflowService;
+
+    @Inject
     private WorkflowSearchRepository workflowSearchRepository;
 
     @Inject
@@ -65,8 +74,7 @@ public class WorkflowResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         WorkflowResource workflowResource = new WorkflowResource();
-        ReflectionTestUtils.setField(workflowResource, "workflowSearchRepository", workflowSearchRepository);
-        ReflectionTestUtils.setField(workflowResource, "workflowRepository", workflowRepository);
+        ReflectionTestUtils.setField(workflowResource, "workflowService", workflowService);
         this.restWorkflowMockMvc = MockMvcBuilders.standaloneSetup(workflowResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -98,10 +106,11 @@ public class WorkflowResourceIntTest {
         int databaseSizeBeforeCreate = workflowRepository.findAll().size();
 
         // Create the Workflow
+        WorkflowDTO workflowDTO = workflowMapper.workflowToWorkflowDTO(workflow);
 
         restWorkflowMockMvc.perform(post("/api/workflows")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(workflow)))
+                .content(TestUtil.convertObjectToJsonBytes(workflowDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Workflow in the database
@@ -167,10 +176,11 @@ public class WorkflowResourceIntTest {
         updatedWorkflow
                 .name(UPDATED_NAME)
                 .description(UPDATED_DESCRIPTION);
+        WorkflowDTO workflowDTO = workflowMapper.workflowToWorkflowDTO(updatedWorkflow);
 
         restWorkflowMockMvc.perform(put("/api/workflows")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedWorkflow)))
+                .content(TestUtil.convertObjectToJsonBytes(workflowDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Workflow in the database

@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tagProperty",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "disclosureRequirement",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityField": "description"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tagValue",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203149",
+    "entityTableName": "disclosure_requirement_tag",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

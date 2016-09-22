@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Engagement;
 import com.pwc.assurance.adc.repository.EngagementRepository;
+import com.pwc.assurance.adc.service.EngagementService;
 import com.pwc.assurance.adc.repository.search.EngagementSearchRepository;
+import com.pwc.assurance.adc.service.dto.EngagementDTO;
+import com.pwc.assurance.adc.service.mapper.EngagementMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +53,12 @@ public class EngagementResourceIntTest {
     private EngagementRepository engagementRepository;
 
     @Inject
+    private EngagementMapper engagementMapper;
+
+    @Inject
+    private EngagementService engagementService;
+
+    @Inject
     private EngagementSearchRepository engagementSearchRepository;
 
     @Inject
@@ -69,8 +78,7 @@ public class EngagementResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         EngagementResource engagementResource = new EngagementResource();
-        ReflectionTestUtils.setField(engagementResource, "engagementSearchRepository", engagementSearchRepository);
-        ReflectionTestUtils.setField(engagementResource, "engagementRepository", engagementRepository);
+        ReflectionTestUtils.setField(engagementResource, "engagementService", engagementService);
         this.restEngagementMockMvc = MockMvcBuilders.standaloneSetup(engagementResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -103,10 +111,11 @@ public class EngagementResourceIntTest {
         int databaseSizeBeforeCreate = engagementRepository.findAll().size();
 
         // Create the Engagement
+        EngagementDTO engagementDTO = engagementMapper.engagementToEngagementDTO(engagement);
 
         restEngagementMockMvc.perform(post("/api/engagements")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(engagement)))
+                .content(TestUtil.convertObjectToJsonBytes(engagementDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Engagement in the database
@@ -176,10 +185,11 @@ public class EngagementResourceIntTest {
                 .fiscalYear(UPDATED_FISCAL_YEAR)
                 .description(UPDATED_DESCRIPTION)
                 .status(UPDATED_STATUS);
+        EngagementDTO engagementDTO = engagementMapper.engagementToEngagementDTO(updatedEngagement);
 
         restEngagementMockMvc.perform(put("/api/engagements")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedEngagement)))
+                .content(TestUtil.convertObjectToJsonBytes(engagementDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Engagement in the database

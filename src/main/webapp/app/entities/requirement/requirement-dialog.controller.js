@@ -5,15 +5,15 @@
         .module('checklistApp')
         .controller('RequirementDialogController', RequirementDialogController);
 
-    RequirementDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Requirement', 'Question'];
+    RequirementDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Requirement', 'DisclosureRequirement'];
 
-    function RequirementDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Requirement, Question) {
+    function RequirementDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Requirement, DisclosureRequirement) {
         var vm = this;
 
         vm.requirement = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.questions = Question.query();
+        vm.disclosurerequirements = DisclosureRequirement.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

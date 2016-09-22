@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.Requirement;
-
-import com.pwc.assurance.adc.repository.RequirementRepository;
-import com.pwc.assurance.adc.repository.search.RequirementSearchRepository;
+import com.pwc.assurance.adc.service.RequirementService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.RequirementDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,29 +36,25 @@ public class RequirementResource {
     private final Logger log = LoggerFactory.getLogger(RequirementResource.class);
         
     @Inject
-    private RequirementRepository requirementRepository;
-
-    @Inject
-    private RequirementSearchRepository requirementSearchRepository;
+    private RequirementService requirementService;
 
     /**
      * POST  /requirements : Create a new requirement.
      *
-     * @param requirement the requirement to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new requirement, or with status 400 (Bad Request) if the requirement has already an ID
+     * @param requirementDTO the requirementDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new requirementDTO, or with status 400 (Bad Request) if the requirement has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/requirements",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Requirement> createRequirement(@RequestBody Requirement requirement) throws URISyntaxException {
-        log.debug("REST request to save Requirement : {}", requirement);
-        if (requirement.getId() != null) {
+    public ResponseEntity<RequirementDTO> createRequirement(@RequestBody RequirementDTO requirementDTO) throws URISyntaxException {
+        log.debug("REST request to save Requirement : {}", requirementDTO);
+        if (requirementDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("requirement", "idexists", "A new requirement cannot already have an ID")).body(null);
         }
-        Requirement result = requirementRepository.save(requirement);
-        requirementSearchRepository.save(result);
+        RequirementDTO result = requirementService.save(requirementDTO);
         return ResponseEntity.created(new URI("/api/requirements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("requirement", result.getId().toString()))
             .body(result);
@@ -68,25 +63,24 @@ public class RequirementResource {
     /**
      * PUT  /requirements : Updates an existing requirement.
      *
-     * @param requirement the requirement to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated requirement,
-     * or with status 400 (Bad Request) if the requirement is not valid,
-     * or with status 500 (Internal Server Error) if the requirement couldnt be updated
+     * @param requirementDTO the requirementDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated requirementDTO,
+     * or with status 400 (Bad Request) if the requirementDTO is not valid,
+     * or with status 500 (Internal Server Error) if the requirementDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/requirements",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Requirement> updateRequirement(@RequestBody Requirement requirement) throws URISyntaxException {
-        log.debug("REST request to update Requirement : {}", requirement);
-        if (requirement.getId() == null) {
-            return createRequirement(requirement);
+    public ResponseEntity<RequirementDTO> updateRequirement(@RequestBody RequirementDTO requirementDTO) throws URISyntaxException {
+        log.debug("REST request to update Requirement : {}", requirementDTO);
+        if (requirementDTO.getId() == null) {
+            return createRequirement(requirementDTO);
         }
-        Requirement result = requirementRepository.save(requirement);
-        requirementSearchRepository.save(result);
+        RequirementDTO result = requirementService.save(requirementDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("requirement", requirement.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("requirement", requirementDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,10 +95,10 @@ public class RequirementResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Requirement>> getAllRequirements(Pageable pageable)
+    public ResponseEntity<List<RequirementDTO>> getAllRequirements(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Requirements");
-        Page<Requirement> page = requirementRepository.findAll(pageable);
+        Page<RequirementDTO> page = requirementService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/requirements");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -112,17 +106,17 @@ public class RequirementResource {
     /**
      * GET  /requirements/:id : get the "id" requirement.
      *
-     * @param id the id of the requirement to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the requirement, or with status 404 (Not Found)
+     * @param id the id of the requirementDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the requirementDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/requirements/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Requirement> getRequirement(@PathVariable Long id) {
+    public ResponseEntity<RequirementDTO> getRequirement(@PathVariable Long id) {
         log.debug("REST request to get Requirement : {}", id);
-        Requirement requirement = requirementRepository.findOneWithEagerRelationships(id);
-        return Optional.ofNullable(requirement)
+        RequirementDTO requirementDTO = requirementService.findOne(id);
+        return Optional.ofNullable(requirementDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +126,7 @@ public class RequirementResource {
     /**
      * DELETE  /requirements/:id : delete the "id" requirement.
      *
-     * @param id the id of the requirement to delete
+     * @param id the id of the requirementDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/requirements/{id}",
@@ -141,8 +135,7 @@ public class RequirementResource {
     @Timed
     public ResponseEntity<Void> deleteRequirement(@PathVariable Long id) {
         log.debug("REST request to delete Requirement : {}", id);
-        requirementRepository.delete(id);
-        requirementSearchRepository.delete(id);
+        requirementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("requirement", id.toString())).build();
     }
 
@@ -159,10 +152,10 @@ public class RequirementResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Requirement>> searchRequirements(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<RequirementDTO>> searchRequirements(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Requirements for query {}", query);
-        Page<Requirement> page = requirementSearchRepository.search(queryStringQuery(query), pageable);
+        Page<RequirementDTO> page = requirementService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/requirements");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

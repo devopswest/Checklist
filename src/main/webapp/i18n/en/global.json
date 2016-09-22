@@ -7,26 +7,29 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "checklistQuestion": "Checklist Question",
-                "engagement": "Engagement",
-                "engagementMember": "Engagement Member",
-                "auditProfile": "Audit Profile",
-                "auditQuestionResponse": "Audit Question Response",
-                "auditProfileLogEntry": "Audit Profile Log Entry",
-                "userProfile": "User Profile",
-                "feature": "Feature",
-                "featureAuthority": "Feature Authority",
+                "notification": "Notification",
+                "notificationAction": "Notification Action",
                 "taxonomy": "Taxonomy",
                 "client": "Client",
-                "clientProfile": "Client Profile",
-                "clientMetadata": "Client Metadata",
-                "license": "License",
-                "question": "Question",
-                "requirement": "Requirement",
+                "clientTag": "Client Tag",
+                "clientLicense": "Client License",
                 "template": "Template",
                 "workflow": "Workflow",
                 "workflowStep": "Workflow Step",
+                "checklistTemplate": "Checklist Template",
+                "requirement": "Requirement",
+                "disclosureRequirement": "Disclosure Requirement",
+                "disclosureRequirementTag": "Disclosure Requirement Tag",
+                "engagement": "Engagement",
+                "engagementChecklistTemplate": "Engagement Checklist Template",
+                "engagementMember": "Engagement Member",
                 "checklist": "Checklist",
+                "checklistAnswer": "Checklist Answer",
+                "checklistHistoryChanges": "Checklist History Changes",
+                "checklistWorkflow": "Checklist Workflow",
+                "userProfile": "User Profile",
+                "feature": "Feature",
+                "featureAuthority": "Feature Authority",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -95,7 +98,7 @@
             "id": "ID"
         },
         "ribbon": {
-            "dev": "Development"
+            "dev":"Development"
         }
     },
     "entity": {
@@ -139,8 +142,5 @@
         "emailexists": "E-mail is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID"
     },
-    "footer": "&copy; 2015-2016 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms, each of which is a separate legal entity.Please see www.pwc.com/structure  for further details. ",
-    "bootswatch": {
-        "themeSelector": "Theme"
-    }
+    "footer": "&copy; 2015-2016 PwC. All rights reserved. PwC refers to the PwC network and/or one or more of its member firms, each of which is a separate legal entity.Please see www.pwc.com/structure  for further details. "
 }

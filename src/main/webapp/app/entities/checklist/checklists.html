@@ -1,13 +1,13 @@
 <div>
-    <h2 translatexx="checklistApp.checklist.home.title">Checklist Templates</h2>
+    <h2 translate="checklistApp.checklist.home.title">Checklists</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="checklist.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  translatexx="checklistApp.checklist.home.createLabel">
-                        Create new Checklist Template
+                    <span class="hidden-xs"  translate="checklistApp.checklist.home.createLabel">
+                        Create new Checklist
                     </span>
                 </button>
             </div>
@@ -36,23 +36,23 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span translate="checklistApp.checklist.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.checklist.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="version"><span translate="checklistApp.checklist.version">Version</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="checklistApp.checklist.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="countryLabel"><span translate="checklistApp.checklist.country">Country</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="engagementDescription"><span translate="checklistApp.checklist.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ownerLogin"><span translate="checklistApp.checklist.owner">Owner</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="checklist in vm.checklists track by checklist.id">
                     <td><a ui-sref="checklist-detail({id:checklist.id})">{{checklist.id}}</a></td>
-                    <td>{{checklist.name}}</td>
                     <td>{{checklist.description}}</td>
-                    <td>{{checklist.version}}</td>
-                    <td translate="{{'checklistApp.ChecklistStatus.' + checklist.status}}">{{checklist.status}}</td>
+                    <td translate="{{'checklistApp.ResponseStatus.' + checklist.status}}">{{checklist.status}}</td>
                     <td>
-                        <a ui-sref="taxonomy-detail({id:checklist.countryId})">{{checklist.countryLabel}}</a>
+                        <a ui-sref="engagement-detail({id:checklist.engagementId})">{{checklist.engagementDescription}}</a>
+                    </td>
+                    <td>
+                        {{checklist.ownerLogin}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

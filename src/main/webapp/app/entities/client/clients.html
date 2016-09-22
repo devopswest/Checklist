@@ -38,6 +38,9 @@
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="code"><span translate="checklistApp.client.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="checklistApp.client.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="duns"><span translate="checklistApp.client.duns">Duns</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="partyId"><span translate="checklistApp.client.partyId">Party Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cesId"><span translate="checklistApp.client.cesId">Ces Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,6 +49,9 @@
                     <td><a ui-sref="client-detail({id:client.id})">{{client.id}}</a></td>
                     <td>{{client.code}}</td>
                     <td>{{client.name}}</td>
+                    <td>{{client.duns}}</td>
+                    <td>{{client.partyId}}</td>
+                    <td>{{client.cesId}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

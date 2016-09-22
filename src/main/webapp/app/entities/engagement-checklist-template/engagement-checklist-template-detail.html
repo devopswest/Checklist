@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span translate="checklistApp.engagementChecklistTemplate.detail.title">Engagement Checklist Template</span> {{vm.engagementChecklistTemplate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.engagementChecklistTemplate.checklistTemplate">Checklist Template</span></dt>
+        <dd>
+            <a ui-sref="checklist-template-detail({id:vm.engagementChecklistTemplate.checklistTemplateId})">{{vm.engagementChecklistTemplate.checklistTemplateName}}</a>
+        </dd>
+        <dt><span translate="checklistApp.engagementChecklistTemplate.workflow">Workflow</span></dt>
+        <dd>
+            <a ui-sref="workflow-detail({id:vm.engagementChecklistTemplate.workflowId})">{{vm.engagementChecklistTemplate.workflowName}}</a>
+        </dd>
+        <dt><span translate="checklistApp.engagementChecklistTemplate.engagement">Engagement</span></dt>
+        <dd>
+            <a ui-sref="engagement-detail({id:vm.engagementChecklistTemplate.engagementId})">{{vm.engagementChecklistTemplate.engagementDescription}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="engagement-checklist-template-detail.edit({id:vm.engagementChecklistTemplate.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

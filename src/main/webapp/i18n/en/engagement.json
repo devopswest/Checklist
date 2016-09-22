@@ -20,8 +20,8 @@
             "description": "Description",
             "status": "Status",
             "members": "Members",
+            "checklistTemplate": "Checklist Template",
             "client": "Client",
-            "checklist": "Checklist",
             "workflow": "Workflow"
         }
     }

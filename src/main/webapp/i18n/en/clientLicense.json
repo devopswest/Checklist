@@ -1,0 +1,27 @@
+{
+    "checklistApp": {
+        "clientLicense" : {
+            "home": {
+                "title": "Client Licenses",
+                "createLabel": "Create a new Client License",
+                "createOrEditLabel": "Create or edit a Client License",
+                "search": "Search for Client License"
+            },
+            "created": "A new Client License is created with identifier {{ param }}",
+            "updated": "A Client License is updated with identifier {{ param }}",
+            "deleted": "A Client License is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Client License {{ id }}?"
+            },
+            "detail": {
+                "title": "Client License"
+            },
+            "contactName": "Contact Name",
+            "contactEmail": "Contact Email",
+            "expirationDate": "Expiration Date",
+            "activationToken": "Activation Token",
+            "client": "Client",
+            "clientLicenseType": "Client License Type"
+        }
+    }
+}

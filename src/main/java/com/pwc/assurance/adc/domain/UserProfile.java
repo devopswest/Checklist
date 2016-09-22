@@ -28,6 +28,9 @@ public class UserProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "p_pid")
+    private String pPid;
+
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
@@ -41,6 +44,19 @@ public class UserProfile implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getpPid() {
+        return pPid;
+    }
+
+    public UserProfile pPid(String pPid) {
+        this.pPid = pPid;
+        return this;
+    }
+
+    public void setpPid(String pPid) {
+        this.pPid = pPid;
     }
 
     public User getUser() {
@@ -93,6 +109,7 @@ public class UserProfile implements Serializable {
     public String toString() {
         return "UserProfile{" +
             "id=" + id +
+            ", pPid='" + pPid + "'" +
             '}';
     }
 }

@@ -1,0 +1,97 @@
+<div>
+    <h2 translate="checklistApp.checklistWorkflow.home.title">Checklist Workflows</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="checklist-workflow.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs"  translate="checklistApp.checklistWorkflow.home.createLabel">
+                        Create new Checklist Workflow
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'checklistApp.checklistWorkflow.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                            <button class="btn btn-info" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="happened"><span translate="checklistApp.checklistWorkflow.happened">Happened</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status"><span translate="checklistApp.checklistWorkflow.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="comments"><span translate="checklistApp.checklistWorkflow.comments">Comments</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="checklistId"><span translate="checklistApp.checklistWorkflow.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="whoLogin"><span translate="checklistApp.checklistWorkflow.who">Who</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflowName"><span translate="checklistApp.checklistWorkflow.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="checklistAnswerAnswer"><span translate="checklistApp.checklistWorkflow.checklistAnswer">Checklist Answer</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="checklistWorkflow in vm.checklistWorkflows track by checklistWorkflow.id">
+                    <td><a ui-sref="checklist-workflow-detail({id:checklistWorkflow.id})">{{checklistWorkflow.id}}</a></td>
+                    <td>{{checklistWorkflow.happened | date:'medium'}}</td>
+                    <td translate="{{'checklistApp.WorkflowTaskStatus.' + checklistWorkflow.status}}">{{checklistWorkflow.status}}</td>
+                    <td>{{checklistWorkflow.comments}}</td>
+                    <td>
+                        <a ui-sref="checklist-detail({id:checklistWorkflow.checklistId})">{{checklistWorkflow.checklistId}}</a>
+                    </td>
+                    <td>
+                        {{checklistWorkflow.whoLogin}}
+                    </td>
+                    <td>
+                        <a ui-sref="workflow-detail({id:checklistWorkflow.workflowId})">{{checklistWorkflow.workflowName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="checklist-answer-detail({id:checklistWorkflow.checklistAnswerId})">{{checklistWorkflow.checklistAnswerAnswer}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="checklist-workflow-detail({id:checklistWorkflow.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="checklist-workflow.edit({id:checklistWorkflow.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="checklist-workflow.delete({id:checklistWorkflow.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

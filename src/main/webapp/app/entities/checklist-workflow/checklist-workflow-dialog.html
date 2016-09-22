@@ -1,0 +1,73 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myChecklistWorkflowLabel" translate="checklistApp.checklistWorkflow.home.createOrEditLabel">Create or edit a Checklist Workflow</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.checklistWorkflow.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.checklistWorkflow.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistWorkflow.happened" for="field_happened">Happened</label>
+                <div class="input-group">
+                    <input id="field_happened" type="text" class="form-control" name="happened" datetime-picker="{{dateformat}}" ng-model="vm.checklistWorkflow.happened" is-open="vm.datePickerOpenStatus.happened"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('happened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistWorkflow.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.checklistWorkflow.status" id="field_status">
+                <option value="PENDING" translate="checklistApp.WorkflowTaskStatus.PENDING">PENDING</option>
+                <option value="COMPLETED" translate="checklistApp.WorkflowTaskStatus.COMPLETED">COMPLETED</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistWorkflow.comments" for="field_comments">Comments</label>
+            <input type="text" class="form-control" name="comments" id="field_comments"
+                    ng-model="vm.checklistWorkflow.comments"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="checklistApp.checklistWorkflow.checklist" for="field_checklist">Checklist</label>
+            <select class="form-control" id="field_checklist" name="checklist" ng-model="vm.checklistWorkflow.checklistId" ng-options="checklist.id as checklist.id for checklist in vm.checklists"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.checklistWorkflow.who" for="field_who">Who</label>
+            <select class="form-control" id="field_who" name="who" ng-model="vm.checklistWorkflow.whoId" ng-options="user.id as user.login for user in vm.users"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.checklistWorkflow.workflow" for="field_workflow">Workflow</label>
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.checklistWorkflow.workflowId" ng-options="workflow.id as workflow.name for workflow in vm.workflows"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.checklistWorkflow.checklistAnswer" for="field_checklistAnswer">Checklist Answer</label>
+            <select class="form-control" id="field_checklistAnswer" name="checklistAnswer" ng-model="vm.checklistWorkflow.checklistAnswerId" ng-options="checklistAnswer.id as checklistAnswer.answer for checklistAnswer in vm.checklistanswers"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

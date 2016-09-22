@@ -33,7 +33,7 @@
 
         <div class="form-group">
             <label translate="checklistApp.featureAuthority.feature" for="field_feature">Feature</label>
-            <select class="form-control" id="field_feature" name="feature" ng-model="vm.featureAuthority.feature" ng-options="feature as feature.label for feature in vm.features track by feature.id">
+            <select class="form-control" id="field_feature" name="feature" ng-model="vm.featureAuthority.featureId" ng-options="feature.id as feature.label for feature in vm.features"            >
                 <option value=""></option>
             </select>
         </div>

@@ -1,0 +1,28 @@
+{
+    "checklistApp": {
+        "disclosureRequirement" : {
+            "home": {
+                "title": "Disclosure Requirements",
+                "createLabel": "Create a new Disclosure Requirement",
+                "createOrEditLabel": "Create or edit a Disclosure Requirement",
+                "search": "Search for Disclosure Requirement"
+            },
+            "created": "A new Disclosure Requirement is created with identifier {{ param }}",
+            "updated": "A Disclosure Requirement is updated with identifier {{ param }}",
+            "deleted": "A Disclosure Requirement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Disclosure Requirement {{ id }}?"
+            },
+            "detail": {
+                "title": "Disclosure Requirement"
+            },
+            "code": "Code",
+            "description": "Description",
+            "child": "Child",
+            "tags": "Tags",
+            "checklistTemplate": "Checklist Template",
+            "parent": "Parent",
+            "requirement": "Requirement"
+        }
+    }
+}

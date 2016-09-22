@@ -1,0 +1,24 @@
+{
+    "checklistApp": {
+        "disclosureRequirementTag" : {
+            "home": {
+                "title": "Disclosure Requirement Tags",
+                "createLabel": "Create a new Disclosure Requirement Tag",
+                "createOrEditLabel": "Create or edit a Disclosure Requirement Tag",
+                "search": "Search for Disclosure Requirement Tag"
+            },
+            "created": "A new Disclosure Requirement Tag is created with identifier {{ param }}",
+            "updated": "A Disclosure Requirement Tag is updated with identifier {{ param }}",
+            "deleted": "A Disclosure Requirement Tag is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Disclosure Requirement Tag {{ id }}?"
+            },
+            "detail": {
+                "title": "Disclosure Requirement Tag"
+            },
+            "tagValue": "Tag Value",
+            "tagProperty": "Tag Property",
+            "disclosureRequirement": "Disclosure Requirement"
+        }
+    }
+}

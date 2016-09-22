@@ -36,19 +36,21 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="user.login"><span translate="checklistApp.userProfile.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="client.name"><span translate="checklistApp.userProfile.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="pPid"><span translate="checklistApp.userProfile.pPid">P Pid</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userLogin"><span translate="checklistApp.userProfile.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="clientName"><span translate="checklistApp.userProfile.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="userProfile in vm.userProfiles track by userProfile.id">
                     <td><a ui-sref="user-profile-detail({id:userProfile.id})">{{userProfile.id}}</a></td>
+                    <td>{{userProfile.pPid}}</td>
                     <td>
-                        {{userProfile.user.login}}
+                        {{userProfile.userLogin}}
                     </td>
                     <td>
-                        <a ui-sref="client-detail({id:userProfile.client.id})">{{userProfile.client.name}}</a>
+                        <a ui-sref="client-detail({id:userProfile.clientId})">{{userProfile.clientName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

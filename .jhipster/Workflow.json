@@ -18,9 +18,9 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907134457",
+    "changelogDate": "20160922203144",
     "entityTableName": "workflow",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

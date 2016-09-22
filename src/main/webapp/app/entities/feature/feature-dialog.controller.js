@@ -42,38 +42,7 @@
         function onSaveError () {
             vm.isSaving = false;
         }
-///NEW
-vm.children = [
-  {
-    "id": 1,
-    "title": "PWC_ROLE_ENGAGEMENT_TEAM"
-  },
-  {
-    "id": 2,
-    "title": "PWC_ROLE_ADMIN"
-  },
-  {
-    "id": 3,
-    "title": "PWC_ROLE_MANAGER"
-  }
-];
 
-
-vm.newItem = function () {
-        var nodeData = vm.children[vm.children.length - 1];
-        vm.children.push({
-          id: vm.children.length + 1,
-          title: 'node ' + (vm.children.length + 1)
-        });
-      };
-
-
-vm.removeItem = function (scope) {
-        scope.remove();
-      };
-
-
-///NEW
 
     }
 })();

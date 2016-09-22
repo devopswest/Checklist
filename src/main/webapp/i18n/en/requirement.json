@@ -16,9 +16,9 @@
             "detail": {
                 "title": "Requirement"
             },
-            "code": "Code",
+            "name": "Name",
             "description": "Description",
-            "question": "Question"
+            "disclosureRequirement": "Disclosure Requirement"
         }
     }
 }

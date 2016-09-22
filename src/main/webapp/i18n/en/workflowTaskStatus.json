@@ -1,0 +1,9 @@
+{
+    "checklistApp": {
+        "WorkflowTaskStatus" : {
+            "null": "",
+            "PENDING": "PENDING",
+            "COMPLETED": "COMPLETED"
+        }
+    }
+}

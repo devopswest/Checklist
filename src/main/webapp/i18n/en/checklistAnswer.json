@@ -1,0 +1,25 @@
+{
+    "checklistApp": {
+        "checklistAnswer" : {
+            "home": {
+                "title": "Checklist Answers",
+                "createLabel": "Create a new Checklist Answer",
+                "createOrEditLabel": "Create or edit a Checklist Answer",
+                "search": "Search for Checklist Answer"
+            },
+            "created": "A new Checklist Answer is created with identifier {{ param }}",
+            "updated": "A Checklist Answer is updated with identifier {{ param }}",
+            "deleted": "A Checklist Answer is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Checklist Answer {{ id }}?"
+            },
+            "detail": {
+                "title": "Checklist Answer"
+            },
+            "answer": "Answer",
+            "comments": "Comments",
+            "disclosureRequirement": "Disclosure Requirement",
+            "checklist": "Checklist"
+        }
+    }
+}

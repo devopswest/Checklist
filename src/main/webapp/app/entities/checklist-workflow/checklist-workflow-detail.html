@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span translate="checklistApp.checklistWorkflow.detail.title">Checklist Workflow</span> {{vm.checklistWorkflow.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.checklistWorkflow.happened">Happened</span></dt>
+        <dd>
+            <span>{{vm.checklistWorkflow.happened | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.status">Status</span></dt>
+        <dd>
+            <span translate="{{'checklistApp.WorkflowTaskStatus.' + vm.checklistWorkflow.status}}">{{vm.checklistWorkflow.status}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.comments">Comments</span></dt>
+        <dd>
+            <span>{{vm.checklistWorkflow.comments}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.checklist">Checklist</span></dt>
+        <dd>
+            <a ui-sref="checklist-detail({id:vm.checklistWorkflow.checklistId})">{{vm.checklistWorkflow.checklistId}}</a>
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.who">Who</span></dt>
+        <dd>
+            {{vm.checklistWorkflow.whoLogin}}
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.workflow">Workflow</span></dt>
+        <dd>
+            <a ui-sref="workflow-detail({id:vm.checklistWorkflow.workflowId})">{{vm.checklistWorkflow.workflowName}}</a>
+        </dd>
+        <dt><span translate="checklistApp.checklistWorkflow.checklistAnswer">Checklist Answer</span></dt>
+        <dd>
+            <a ui-sref="checklist-answer-detail({id:vm.checklistWorkflow.checklistAnswerId})">{{vm.checklistWorkflow.checklistAnswerAnswer}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="checklist-workflow-detail.edit({id:vm.checklistWorkflow.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

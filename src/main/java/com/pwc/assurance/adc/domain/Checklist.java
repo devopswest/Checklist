@@ -12,14 +12,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
+import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 
 /**
- * ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists
- *
+ * Response Responses                                                          
+ * 
  */
 @ApiModel(description = ""
-    + "ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists"
+    + "Response Responses                                                     "
     + "")
 @Entity
 @Table(name = "checklist")
@@ -33,26 +33,35 @@ public class Checklist implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "description")
     private String description;
 
-    @Column(name = "version")
-    private String version;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private ChecklistStatus status;
+    private ResponseStatus status;
 
-    @OneToMany(mappedBy = "checklist", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "checklist")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ChecklistQuestion> checklistQuestions = new HashSet<>();
+    private Set<ChecklistHistoryChanges> logs = new HashSet<>();
+
+    @OneToMany(mappedBy = "checklist")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ChecklistWorkflow> reviews = new HashSet<>();
 
     @ManyToOne
-    private Taxonomy country;
+    private Engagement engagement;
+
+    @ManyToOne
+    private User owner;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "checklist_checklist_answer",
+               joinColumns = @JoinColumn(name="checklists_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="checklist_answers_id", referencedColumnName="ID"))
+    private Set<ChecklistAnswer> checklistAnswers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,19 +69,6 @@ public class Checklist implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Checklist name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
@@ -88,68 +84,118 @@ public class Checklist implements Serializable {
         this.description = description;
     }
 
-    public String getVersion() {
-        return version;
-    }
-
-    public Checklist version(String version) {
-        this.version = version;
-        return this;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public ChecklistStatus getStatus() {
+    public ResponseStatus getStatus() {
         return status;
     }
 
-    public Checklist status(ChecklistStatus status) {
+    public Checklist status(ResponseStatus status) {
         this.status = status;
         return this;
     }
 
-    public void setStatus(ChecklistStatus status) {
+    public void setStatus(ResponseStatus status) {
         this.status = status;
     }
 
-    public Set<ChecklistQuestion> getChecklistQuestions() {
-        return checklistQuestions;
+    public Set<ChecklistHistoryChanges> getLogs() {
+        return logs;
     }
 
-    public Checklist checklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
-        this.checklistQuestions = checklistQuestions;
+    public Checklist logs(Set<ChecklistHistoryChanges> checklistHistoryChanges) {
+        this.logs = checklistHistoryChanges;
         return this;
     }
 
-    public Checklist addChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        checklistQuestions.add(checklistQuestion);
-        checklistQuestion.setChecklist(this);
+    public Checklist addChecklistHistoryChanges(ChecklistHistoryChanges checklistHistoryChanges) {
+        logs.add(checklistHistoryChanges);
+        checklistHistoryChanges.setChecklist(this);
         return this;
     }
 
-    public Checklist removeChecklistQuestion(ChecklistQuestion checklistQuestion) {
-        checklistQuestions.remove(checklistQuestion);
-        checklistQuestion.setChecklist(null);
+    public Checklist removeChecklistHistoryChanges(ChecklistHistoryChanges checklistHistoryChanges) {
+        logs.remove(checklistHistoryChanges);
+        checklistHistoryChanges.setChecklist(null);
         return this;
     }
 
-    public void setChecklistQuestions(Set<ChecklistQuestion> checklistQuestions) {
-        this.checklistQuestions = checklistQuestions;
+    public void setLogs(Set<ChecklistHistoryChanges> checklistHistoryChanges) {
+        this.logs = checklistHistoryChanges;
     }
 
-    public Taxonomy getCountry() {
-        return country;
+    public Set<ChecklistWorkflow> getReviews() {
+        return reviews;
     }
 
-    public Checklist country(Taxonomy taxonomy) {
-        this.country = taxonomy;
+    public Checklist reviews(Set<ChecklistWorkflow> checklistWorkflows) {
+        this.reviews = checklistWorkflows;
         return this;
     }
 
-    public void setCountry(Taxonomy taxonomy) {
-        this.country = taxonomy;
+    public Checklist addChecklistWorkflow(ChecklistWorkflow checklistWorkflow) {
+        reviews.add(checklistWorkflow);
+        checklistWorkflow.setChecklist(this);
+        return this;
+    }
+
+    public Checklist removeChecklistWorkflow(ChecklistWorkflow checklistWorkflow) {
+        reviews.remove(checklistWorkflow);
+        checklistWorkflow.setChecklist(null);
+        return this;
+    }
+
+    public void setReviews(Set<ChecklistWorkflow> checklistWorkflows) {
+        this.reviews = checklistWorkflows;
+    }
+
+    public Engagement getEngagement() {
+        return engagement;
+    }
+
+    public Checklist engagement(Engagement engagement) {
+        this.engagement = engagement;
+        return this;
+    }
+
+    public void setEngagement(Engagement engagement) {
+        this.engagement = engagement;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public Checklist owner(User user) {
+        this.owner = user;
+        return this;
+    }
+
+    public void setOwner(User user) {
+        this.owner = user;
+    }
+
+    public Set<ChecklistAnswer> getChecklistAnswers() {
+        return checklistAnswers;
+    }
+
+    public Checklist checklistAnswers(Set<ChecklistAnswer> checklistAnswers) {
+        this.checklistAnswers = checklistAnswers;
+        return this;
+    }
+
+    public Checklist addChecklistAnswer(ChecklistAnswer checklistAnswer) {
+        checklistAnswers.add(checklistAnswer);
+        checklistAnswer.getChecklists().add(this);
+        return this;
+    }
+
+    public Checklist removeChecklistAnswer(ChecklistAnswer checklistAnswer) {
+        checklistAnswers.remove(checklistAnswer);
+        checklistAnswer.getChecklists().remove(this);
+        return this;
+    }
+
+    public void setChecklistAnswers(Set<ChecklistAnswer> checklistAnswers) {
+        this.checklistAnswers = checklistAnswers;
     }
 
     @Override
@@ -176,9 +222,7 @@ public class Checklist implements Serializable {
     public String toString() {
         return "Checklist{" +
             "id=" + id +
-            ", name='" + name + "'" +
             ", description='" + description + "'" +
-            ", version='" + version + "'" +
             ", status='" + status + "'" +
             '}';
     }

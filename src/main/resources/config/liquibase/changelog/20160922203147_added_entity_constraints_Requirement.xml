@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Requirement.
+    -->
+    <changeSet id="20160922203147-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="requirements_id"
+                                 baseTableName="requirement_disclosure_requirement"
+                                 constraintName="fk_requirement_disclosure_requirement_requirements_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="requirement"/>
+        <addForeignKeyConstraint baseColumnNames="disclosure_requirements_id"
+                                 baseTableName="requirement_disclosure_requirement"
+                                 constraintName="fk_requirement_disclosure_requirement_disclosure_requirements_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="disclosure_requirement"/>
+        
+    </changeSet>
+</databaseChangeLog>

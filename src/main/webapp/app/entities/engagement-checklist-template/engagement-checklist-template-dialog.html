@@ -1,0 +1,44 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myEngagementChecklistTemplateLabel" translate="checklistApp.engagementChecklistTemplate.home.createOrEditLabel">Create or edit a Engagement Checklist Template</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.engagementChecklistTemplate.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.engagementChecklistTemplate.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label translate="checklistApp.engagementChecklistTemplate.checklistTemplate" for="field_checklistTemplate">Checklist Template</label>
+            <select class="form-control" id="field_checklistTemplate" name="checklistTemplate" ng-model="vm.engagementChecklistTemplate.checklistTemplateId" ng-options="checklistTemplate.id as checklistTemplate.name for checklistTemplate in vm.checklisttemplates"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.engagementChecklistTemplate.workflow" for="field_workflow">Workflow</label>
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.engagementChecklistTemplate.workflowId" ng-options="workflow.id as workflow.name for workflow in vm.workflows"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.engagementChecklistTemplate.engagement" for="field_engagement">Engagement</label>
+            <select class="form-control" id="field_engagement" name="engagement" ng-model="vm.engagementChecklistTemplate.engagementId" ng-options="engagement.id as engagement.description for engagement in vm.engagements"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

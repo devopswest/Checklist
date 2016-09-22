@@ -126,6 +126,9 @@
                             return {
                                 code: null,
                                 name: null,
+                                duns: null,
+                                partyId: null,
+                                cesId: null,
                                 id: null
                             };
                         }

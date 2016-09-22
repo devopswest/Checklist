@@ -67,7 +67,7 @@ class ChecklistGatlingTest extends Simulation {
             .exec(http("Create new checklist")
             .post("/api/checklists")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "version":"SAMPLE_TEXT", "status":null}""")).asJSON
+            .body(StringBody("""{"id":null, "description":"SAMPLE_TEXT", "status":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_checklist_url"))).exitHereIfFailed
             .pause(10)

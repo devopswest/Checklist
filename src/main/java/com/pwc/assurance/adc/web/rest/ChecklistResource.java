@@ -1,14 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.Checklist;
-
-import com.pwc.assurance.adc.repository.ChecklistRepository;
-import com.pwc.assurance.adc.repository.search.ChecklistSearchRepository;
+import com.pwc.assurance.adc.service.ChecklistService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
 import com.pwc.assurance.adc.service.dto.ChecklistDTO;
-import com.pwc.assurance.adc.service.mapper.ChecklistMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -40,13 +36,7 @@ public class ChecklistResource {
     private final Logger log = LoggerFactory.getLogger(ChecklistResource.class);
         
     @Inject
-    private ChecklistRepository checklistRepository;
-
-    @Inject
-    private ChecklistMapper checklistMapper;
-
-    @Inject
-    private ChecklistSearchRepository checklistSearchRepository;
+    private ChecklistService checklistService;
 
     /**
      * POST  /checklists : Create a new checklist.
@@ -64,10 +54,7 @@ public class ChecklistResource {
         if (checklistDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("checklist", "idexists", "A new checklist cannot already have an ID")).body(null);
         }
-        Checklist checklist = checklistMapper.checklistDTOToChecklist(checklistDTO);
-        checklist = checklistRepository.save(checklist);
-        ChecklistDTO result = checklistMapper.checklistToChecklistDTO(checklist);
-        checklistSearchRepository.save(checklist);
+        ChecklistDTO result = checklistService.save(checklistDTO);
         return ResponseEntity.created(new URI("/api/checklists/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("checklist", result.getId().toString()))
             .body(result);
@@ -91,10 +78,7 @@ public class ChecklistResource {
         if (checklistDTO.getId() == null) {
             return createChecklist(checklistDTO);
         }
-        Checklist checklist = checklistMapper.checklistDTOToChecklist(checklistDTO);
-        checklist = checklistRepository.save(checklist);
-        ChecklistDTO result = checklistMapper.checklistToChecklistDTO(checklist);
-        checklistSearchRepository.save(checklist);
+        ChecklistDTO result = checklistService.save(checklistDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("checklist", checklistDTO.getId().toString()))
             .body(result);
@@ -114,9 +98,9 @@ public class ChecklistResource {
     public ResponseEntity<List<ChecklistDTO>> getAllChecklists(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Checklists");
-        Page<Checklist> page = checklistRepository.findAll(pageable);
+        Page<ChecklistDTO> page = checklistService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/checklists");
-        return new ResponseEntity<>(checklistMapper.checklistsToChecklistDTOs(page.getContent()), headers, HttpStatus.OK);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -131,8 +115,7 @@ public class ChecklistResource {
     @Timed
     public ResponseEntity<ChecklistDTO> getChecklist(@PathVariable Long id) {
         log.debug("REST request to get Checklist : {}", id);
-        Checklist checklist = checklistRepository.findOne(id);
-        ChecklistDTO checklistDTO = checklistMapper.checklistToChecklistDTO(checklist);
+        ChecklistDTO checklistDTO = checklistService.findOne(id);
         return Optional.ofNullable(checklistDTO)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -152,8 +135,7 @@ public class ChecklistResource {
     @Timed
     public ResponseEntity<Void> deleteChecklist(@PathVariable Long id) {
         log.debug("REST request to delete Checklist : {}", id);
-        checklistRepository.delete(id);
-        checklistSearchRepository.delete(id);
+        checklistService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("checklist", id.toString())).build();
     }
 
@@ -173,9 +155,9 @@ public class ChecklistResource {
     public ResponseEntity<List<ChecklistDTO>> searchChecklists(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Checklists for query {}", query);
-        Page<Checklist> page = checklistSearchRepository.search(queryStringQuery(query), pageable);
+        Page<ChecklistDTO> page = checklistService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/checklists");
-        return new ResponseEntity<>(checklistMapper.checklistsToChecklistDTOs(page.getContent()), headers, HttpStatus.OK);
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 

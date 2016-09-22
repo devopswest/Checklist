@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.UserProfile;
 import com.pwc.assurance.adc.repository.UserProfileRepository;
+import com.pwc.assurance.adc.service.UserProfileService;
 import com.pwc.assurance.adc.repository.search.UserProfileSearchRepository;
+import com.pwc.assurance.adc.service.dto.UserProfileDTO;
+import com.pwc.assurance.adc.service.mapper.UserProfileMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +40,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class UserProfileResourceIntTest {
+    private static final String DEFAULT_P_PID = "AAAAA";
+    private static final String UPDATED_P_PID = "BBBBB";
 
     @Inject
     private UserProfileRepository userProfileRepository;
+
+    @Inject
+    private UserProfileMapper userProfileMapper;
+
+    @Inject
+    private UserProfileService userProfileService;
 
     @Inject
     private UserProfileSearchRepository userProfileSearchRepository;
@@ -61,8 +72,7 @@ public class UserProfileResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         UserProfileResource userProfileResource = new UserProfileResource();
-        ReflectionTestUtils.setField(userProfileResource, "userProfileSearchRepository", userProfileSearchRepository);
-        ReflectionTestUtils.setField(userProfileResource, "userProfileRepository", userProfileRepository);
+        ReflectionTestUtils.setField(userProfileResource, "userProfileService", userProfileService);
         this.restUserProfileMockMvc = MockMvcBuilders.standaloneSetup(userProfileResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -76,7 +86,8 @@ public class UserProfileResourceIntTest {
      */
     public static UserProfile createEntity(EntityManager em) {
         UserProfile userProfile = new UserProfile();
-        userProfile = new UserProfile();
+        userProfile = new UserProfile()
+                .pPid(DEFAULT_P_PID);
         return userProfile;
     }
 
@@ -92,16 +103,18 @@ public class UserProfileResourceIntTest {
         int databaseSizeBeforeCreate = userProfileRepository.findAll().size();
 
         // Create the UserProfile
+        UserProfileDTO userProfileDTO = userProfileMapper.userProfileToUserProfileDTO(userProfile);
 
         restUserProfileMockMvc.perform(post("/api/user-profiles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(userProfile)))
+                .content(TestUtil.convertObjectToJsonBytes(userProfileDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the UserProfile in the database
         List<UserProfile> userProfiles = userProfileRepository.findAll();
         assertThat(userProfiles).hasSize(databaseSizeBeforeCreate + 1);
         UserProfile testUserProfile = userProfiles.get(userProfiles.size() - 1);
+        assertThat(testUserProfile.getpPid()).isEqualTo(DEFAULT_P_PID);
 
         // Validate the UserProfile in ElasticSearch
         UserProfile userProfileEs = userProfileSearchRepository.findOne(testUserProfile.getId());
@@ -118,7 +131,8 @@ public class UserProfileResourceIntTest {
         restUserProfileMockMvc.perform(get("/api/user-profiles?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(userProfile.getId().intValue())));
+                .andExpect(jsonPath("$.[*].id").value(hasItem(userProfile.getId().intValue())))
+                .andExpect(jsonPath("$.[*].pPid").value(hasItem(DEFAULT_P_PID.toString())));
     }
 
     @Test
@@ -131,7 +145,8 @@ public class UserProfileResourceIntTest {
         restUserProfileMockMvc.perform(get("/api/user-profiles/{id}", userProfile.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(userProfile.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(userProfile.getId().intValue()))
+            .andExpect(jsonPath("$.pPid").value(DEFAULT_P_PID.toString()));
     }
 
     @Test
@@ -152,16 +167,20 @@ public class UserProfileResourceIntTest {
 
         // Update the userProfile
         UserProfile updatedUserProfile = userProfileRepository.findOne(userProfile.getId());
+        updatedUserProfile
+                .pPid(UPDATED_P_PID);
+        UserProfileDTO userProfileDTO = userProfileMapper.userProfileToUserProfileDTO(updatedUserProfile);
 
         restUserProfileMockMvc.perform(put("/api/user-profiles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedUserProfile)))
+                .content(TestUtil.convertObjectToJsonBytes(userProfileDTO)))
                 .andExpect(status().isOk());
 
         // Validate the UserProfile in the database
         List<UserProfile> userProfiles = userProfileRepository.findAll();
         assertThat(userProfiles).hasSize(databaseSizeBeforeUpdate);
         UserProfile testUserProfile = userProfiles.get(userProfiles.size() - 1);
+        assertThat(testUserProfile.getpPid()).isEqualTo(UPDATED_P_PID);
 
         // Validate the UserProfile in ElasticSearch
         UserProfile userProfileEs = userProfileSearchRepository.findOne(testUserProfile.getId());
@@ -201,6 +220,7 @@ public class UserProfileResourceIntTest {
         restUserProfileMockMvc.perform(get("/api/_search/user-profiles?query=id:" + userProfile.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(userProfile.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(userProfile.getId().intValue())))
+            .andExpect(jsonPath("$.[*].pPid").value(hasItem(DEFAULT_P_PID.toString())));
     }
 }

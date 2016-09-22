@@ -124,6 +124,7 @@
                     resolve: {
                         entity: function () {
                             return {
+                                pPid: null,
                                 id: null
                             };
                         }

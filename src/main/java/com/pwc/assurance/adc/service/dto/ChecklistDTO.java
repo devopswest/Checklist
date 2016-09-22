@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-import java.util.List;
-import java.util.Collections;
-import com.pwc.assurance.adc.domain.enumeration.ChecklistStatus;
+
+import com.pwc.assurance.adc.domain.enumeration.ResponseStatus;
 
 /**
  * A DTO for the Checklist entity.
@@ -15,19 +14,22 @@ public class ChecklistDTO implements Serializable {
 
     private Long id;
 
-    private String name;
-
     private String description;
 
-    private String version;
-
-    private ChecklistStatus status;
+    private ResponseStatus status;
 
 
-    private Long countryId;
+    private Long engagementId;
+    
 
+    private String engagementDescription;
 
-    private String countryLabel;
+    private Long ownerId;
+    
+
+    private String ownerLogin;
+
+    private Set<ChecklistAnswerDTO> checklistAnswers = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -36,13 +38,6 @@ public class ChecklistDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getDescription() {
         return description;
     }
@@ -50,36 +45,54 @@ public class ChecklistDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-    public ChecklistStatus getStatus() {
+    public ResponseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ChecklistStatus status) {
+    public void setStatus(ResponseStatus status) {
         this.status = status;
     }
 
-    public Long getCountryId() {
-        return countryId;
+    public Long getEngagementId() {
+        return engagementId;
     }
 
-    public void setCountryId(Long taxonomyId) {
-        this.countryId = taxonomyId;
+    public void setEngagementId(Long engagementId) {
+        this.engagementId = engagementId;
     }
 
 
-    public String getCountryLabel() {
-        return countryLabel;
+    public String getEngagementDescription() {
+        return engagementDescription;
     }
 
-    public void setCountryLabel(String taxonomyLabel) {
-        this.countryLabel = taxonomyLabel;
+    public void setEngagementDescription(String engagementDescription) {
+        this.engagementDescription = engagementDescription;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long userId) {
+        this.ownerId = userId;
+    }
+
+
+    public String getOwnerLogin() {
+        return ownerLogin;
+    }
+
+    public void setOwnerLogin(String userLogin) {
+        this.ownerLogin = userLogin;
+    }
+
+    public Set<ChecklistAnswerDTO> getChecklistAnswers() {
+        return checklistAnswers;
+    }
+
+    public void setChecklistAnswers(Set<ChecklistAnswerDTO> checklistAnswers) {
+        this.checklistAnswers = checklistAnswers;
     }
 
     @Override
@@ -107,24 +120,8 @@ public class ChecklistDTO implements Serializable {
     public String toString() {
         return "ChecklistDTO{" +
             "id=" + id +
-            ", name='" + name + "'" +
             ", description='" + description + "'" +
-            ", version='" + version + "'" +
             ", status='" + status + "'" +
             '}';
-    }
-
-    List<ChecklistQuestionDTO> checklistQuestions;
-
-    public List<ChecklistQuestionDTO> getChecklistQuestions() {
-        if(checklistQuestions != null){
-            Collections.sort(checklistQuestions);
-            return checklistQuestions;
-        }
-        return checklistQuestions;
-    }
-
-    public void setChecklistQuestions(List<ChecklistQuestionDTO> checklistQuestions) {
-        this.checklistQuestions = checklistQuestions;
     }
 }

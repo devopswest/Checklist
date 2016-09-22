@@ -39,8 +39,8 @@
                     <th jh-sort-by="name"><span translate="checklistApp.workflowStep.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.workflowStep.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="authority"><span translate="checklistApp.workflowStep.authority">Authority</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="template.description"><span translate="checklistApp.workflowStep.template">Template</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="workflow.name"><span translate="checklistApp.workflowStep.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="templateDescription"><span translate="checklistApp.workflowStep.template">Template</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflowName"><span translate="checklistApp.workflowStep.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -51,10 +51,10 @@
                     <td>{{workflowStep.description}}</td>
                     <td translate="{{'checklistApp.ApplicationAuthorities.' + workflowStep.authority}}">{{workflowStep.authority}}</td>
                     <td>
-                        <a ui-sref="template-detail({id:workflowStep.template.id})">{{workflowStep.template.description}}</a>
+                        <a ui-sref="template-detail({id:workflowStep.templateId})">{{workflowStep.templateDescription}}</a>
                     </td>
                     <td>
-                        <a ui-sref="workflow-detail({id:workflowStep.workflow.id})">{{workflowStep.workflow.name}}</a>
+                        <a ui-sref="workflow-detail({id:workflowStep.workflowId})">{{workflowStep.workflowName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

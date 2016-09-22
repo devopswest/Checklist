@@ -44,9 +44,9 @@
             "fieldValidateRulesMaxlength": 50
         }
     ],
-    "changelogDate": "20160907134407",
+    "changelogDate": "20160922203158",
     "entityTableName": "feature",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

@@ -109,7 +109,7 @@
                         "authorities" : "ROLE_ADMIN"
                     },
                     {
-                        "id":"license",
+                        "id":"client-license",
                         "label": "License",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"

@@ -27,13 +27,9 @@
         </div>
         <div class="form-group">
             <label class="control-label" translate="checklistApp.template.content" for="field_content">Content</label>
-<!--             <input type="text" class="form-control" name="content" id="field_content"
+            <input type="text" class="form-control" name="content" id="field_content"
                     ng-model="vm.template.content"
-                    ng-minlength="1" ng-maxlength="4000" /> -->
-
-            <textarea  id="thisEditor" ckeditor="vm.editorOptions" ng-model="vm.template.content"></textarea>
-
-
+                    ng-minlength="1" ng-maxlength="4000" />
             <div ng-show="editForm.content.$invalid">
                 <p class="help-block"
                     ng-show="editForm.content.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">

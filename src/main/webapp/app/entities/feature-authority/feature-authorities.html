@@ -37,7 +37,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="authority"><span translate="checklistApp.featureAuthority.authority">Authority</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="feature.label"><span translate="checklistApp.featureAuthority.feature">Feature</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="featureLabel"><span translate="checklistApp.featureAuthority.feature">Feature</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,7 +46,7 @@
                     <td><a ui-sref="feature-authority-detail({id:featureAuthority.id})">{{featureAuthority.id}}</a></td>
                     <td translate="{{'checklistApp.ApplicationAuthorities.' + featureAuthority.authority}}">{{featureAuthority.authority}}</td>
                     <td>
-                        <a ui-sref="feature-detail({id:featureAuthority.feature.id})">{{featureAuthority.feature.label}}</a>
+                        <a ui-sref="feature-detail({id:featureAuthority.featureId})">{{featureAuthority.featureLabel}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

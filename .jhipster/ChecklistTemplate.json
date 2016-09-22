@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "disclosureRequirements",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityRelationshipName": "checklistTemplate"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "territory",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "formType",
+            "otherEntityName": "taxonomy",
+            "otherEntityField": "label"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "version",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ChecklistTemplateStatus",
+            "fieldValues": "DRAFT,RELEASED"
+        }
+    ],
+    "changelogDate": "20160922203146",
+    "javadoc": "LibraryTODO: Matrix vs Client metaadaTODO: DisclosureRequirements help or guidance fields.Main/core checlists, Supplemental ChecklistTemplates",
+    "entityTableName": "checklist_template",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

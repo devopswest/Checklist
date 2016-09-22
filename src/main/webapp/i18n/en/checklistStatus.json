@@ -1,9 +1,0 @@
-{
-    "checklistApp": {
-        "ChecklistStatus" : {
-            "null": "",
-            "DRAFT": "DRAFT",
-            "RELEASED": "RELEASED"
-        }
-    }
-}

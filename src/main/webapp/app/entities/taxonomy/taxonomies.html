@@ -38,7 +38,7 @@
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="code"><span translate="checklistApp.taxonomy.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="label"><span translate="checklistApp.taxonomy.label">Label</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="parent.label"><span translate="checklistApp.taxonomy.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="parentLabel"><span translate="checklistApp.taxonomy.parent">Parent</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
                     <td>{{taxonomy.code}}</td>
                     <td>{{taxonomy.label}}</td>
                     <td>
-                        <a ui-sref="taxonomy-detail({id:taxonomy.parent.id})">{{taxonomy.parent.label}}</a>
+                        <a ui-sref="taxonomy-detail({id:taxonomy.parentId})">{{taxonomy.parentLabel}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

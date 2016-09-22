@@ -18,15 +18,11 @@
         </dd>
         <dt><span translate="checklistApp.engagement.client">Client</span></dt>
         <dd>
-            <a ui-sref="client-detail({id:vm.engagement.client.id})">{{vm.engagement.client.name}}</a>
-        </dd>
-        <dt><span translate="checklistApp.engagement.checklist">Checklist</span></dt>
-        <dd>
-            <a ui-sref="checklist-detail({id:vm.engagement.checklist.id})">{{vm.engagement.checklist.name}}</a>
+            <a ui-sref="client-detail({id:vm.engagement.clientId})">{{vm.engagement.clientName}}</a>
         </dd>
         <dt><span translate="checklistApp.engagement.workflow">Workflow</span></dt>
         <dd>
-            <a ui-sref="workflow-detail({id:vm.engagement.workflow.id})">{{vm.engagement.workflow.name}}</a>
+            <a ui-sref="workflow-detail({id:vm.engagement.workflowId})">{{vm.engagement.workflowName}}</a>
         </dd>
     </dl>
 

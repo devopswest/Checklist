@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "from",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "notification"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "to",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "notification"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "actions",
+            "otherEntityName": "notificationAction",
+            "otherEntityRelationshipName": "notification"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "content",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203100",
+    "javadoc": "Notifications",
+    "entityTableName": "notification",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

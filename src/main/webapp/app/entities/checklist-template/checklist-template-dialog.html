@@ -1,0 +1,63 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myChecklistTemplateLabel" translate="checklistApp.checklistTemplate.home.createOrEditLabel">Create or edit a Checklist Template</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.checklistTemplate.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.checklistTemplate.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistTemplate.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.checklistTemplate.name"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistTemplate.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.checklistTemplate.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistTemplate.version" for="field_version">Version</label>
+            <input type="text" class="form-control" name="version" id="field_version"
+                    ng-model="vm.checklistTemplate.version"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.checklistTemplate.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="vm.checklistTemplate.status" id="field_status">
+                <option value="DRAFT" translate="checklistApp.ChecklistTemplateStatus.DRAFT">DRAFT</option>
+                <option value="RELEASED" translate="checklistApp.ChecklistTemplateStatus.RELEASED">RELEASED</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="checklistApp.checklistTemplate.territory" for="field_territory">Territory</label>
+            <select class="form-control" id="field_territory" name="territory" ng-model="vm.checklistTemplate.territoryId" ng-options="taxonomy.id as taxonomy.label for taxonomy in vm.taxonomies"            >
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="checklistApp.checklistTemplate.formType" for="field_formType">Form Type</label>
+            <select class="form-control" id="field_formType" name="formType" ng-model="vm.checklistTemplate.formTypeId" ng-options="taxonomy.id as taxonomy.label for taxonomy in vm.taxonomies"            >
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -16,17 +16,22 @@
 
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/taxonomy_children.csv"
+                  file="config/liquibase/taxonomy_children_with_codes.csv"
                   separator=";"
                   tableName="taxonomy">
         </loadData>
 
-
-<!--         <loadData encoding="UTF-8"
-                  file="config/liquibase/country.csv"
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/taxonomy_children_without_codes.csv"
                   separator=";"
-                  tableName="country">
-        </loadData> -->
+                  tableName="taxonomy">
+        </loadData>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/template.csv"
+                  separator="~"
+                  tableName="template">
+        </loadData>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/client.csv"
@@ -35,22 +40,22 @@
         </loadData>
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/checklist.csv"
+                  file="config/liquibase/checklist_template.csv"
                   separator=";"
-                  tableName="checklist">
+                  tableName="checklist_template">
         </loadData>
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/checklist_question.csv"
+                  file="config/liquibase/disclosure_requirement.csv"
                   separator="~"
-                  tableName="checklist_question">
+                  tableName="disclosure_requirement">
         </loadData>
 
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/checklist_question_deep.csv"
+                  file="config/liquibase/disclosure_requirement_deep.csv"
                   separator="~"
-                  tableName="checklist_question">
+                  tableName="disclosure_requirement">
         </loadData>
 
 
@@ -76,24 +81,6 @@
 
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/engagement.csv"
-                  separator=";"
-                  tableName="engagement">
-        </loadData>
-
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/engagement_member.csv"
-                  separator=";"
-                  tableName="engagement_member">
-        </loadData>
-
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/template.csv"
-                  separator="~"
-                  tableName="template">
-        </loadData>
-
-        <loadData encoding="UTF-8"
                   file="config/liquibase/workflow.csv"
                   separator=";"
                   tableName="workflow">
@@ -106,20 +93,36 @@
         </loadData>
 
         <loadData encoding="UTF-8"
-                  file="config/liquibase/audit_profile.csv"
+                  file="config/liquibase/engagement.csv"
                   separator=";"
-                  tableName="audit_profile">
+                  tableName="engagement">
         </loadData>
+
         <loadData encoding="UTF-8"
-                  file="config/liquibase/audit_question_response.csv"
+                  file="config/liquibase/engagement_member.csv"
                   separator=";"
-                  tableName="audit_question_response">
+                  tableName="engagement_member">
         </loadData>
+
         <loadData encoding="UTF-8"
-                  file="config/liquibase/audit_profile_audit_question_response.csv"
+                  file="config/liquibase/engagement_checklist_template.csv"
                   separator=";"
-                  tableName="audit_profile_audit_question_response">
-        </loadData>        
+                  tableName="engagement_checklist_template">
+        </loadData>
+
+
+
+
+
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/checklist.csv"
+                  separator=";"
+                  tableName="checklist">
+        </loadData>
+
+
 
     </changeSet>
 

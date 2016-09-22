@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Taxonomy;
 import com.pwc.assurance.adc.repository.TaxonomyRepository;
+import com.pwc.assurance.adc.service.TaxonomyService;
 import com.pwc.assurance.adc.repository.search.TaxonomySearchRepository;
+import com.pwc.assurance.adc.service.dto.TaxonomyDTO;
+import com.pwc.assurance.adc.service.mapper.TaxonomyMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,13 +40,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class TaxonomyResourceIntTest {
-    private static final String DEFAULT_CODE = "A";
-    private static final String UPDATED_CODE = "B";
+    private static final String DEFAULT_CODE = "AAAAA";
+    private static final String UPDATED_CODE = "BBBBB";
     private static final String DEFAULT_LABEL = "A";
     private static final String UPDATED_LABEL = "B";
 
     @Inject
     private TaxonomyRepository taxonomyRepository;
+
+    @Inject
+    private TaxonomyMapper taxonomyMapper;
+
+    @Inject
+    private TaxonomyService taxonomyService;
 
     @Inject
     private TaxonomySearchRepository taxonomySearchRepository;
@@ -65,8 +74,7 @@ public class TaxonomyResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         TaxonomyResource taxonomyResource = new TaxonomyResource();
-        ReflectionTestUtils.setField(taxonomyResource, "taxonomySearchRepository", taxonomySearchRepository);
-        ReflectionTestUtils.setField(taxonomyResource, "taxonomyRepository", taxonomyRepository);
+        ReflectionTestUtils.setField(taxonomyResource, "taxonomyService", taxonomyService);
         this.restTaxonomyMockMvc = MockMvcBuilders.standaloneSetup(taxonomyResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -98,10 +106,11 @@ public class TaxonomyResourceIntTest {
         int databaseSizeBeforeCreate = taxonomyRepository.findAll().size();
 
         // Create the Taxonomy
+        TaxonomyDTO taxonomyDTO = taxonomyMapper.taxonomyToTaxonomyDTO(taxonomy);
 
         restTaxonomyMockMvc.perform(post("/api/taxonomies")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(taxonomy)))
+                .content(TestUtil.convertObjectToJsonBytes(taxonomyDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Taxonomy in the database
@@ -118,34 +127,17 @@ public class TaxonomyResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = taxonomyRepository.findAll().size();
-        // set the field null
-        taxonomy.setCode(null);
-
-        // Create the Taxonomy, which fails.
-
-        restTaxonomyMockMvc.perform(post("/api/taxonomies")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(taxonomy)))
-                .andExpect(status().isBadRequest());
-
-        List<Taxonomy> taxonomies = taxonomyRepository.findAll();
-        assertThat(taxonomies).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkLabelIsRequired() throws Exception {
         int databaseSizeBeforeTest = taxonomyRepository.findAll().size();
         // set the field null
         taxonomy.setLabel(null);
 
         // Create the Taxonomy, which fails.
+        TaxonomyDTO taxonomyDTO = taxonomyMapper.taxonomyToTaxonomyDTO(taxonomy);
 
         restTaxonomyMockMvc.perform(post("/api/taxonomies")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(taxonomy)))
+                .content(TestUtil.convertObjectToJsonBytes(taxonomyDTO)))
                 .andExpect(status().isBadRequest());
 
         List<Taxonomy> taxonomies = taxonomyRepository.findAll();
@@ -203,10 +195,11 @@ public class TaxonomyResourceIntTest {
         updatedTaxonomy
                 .code(UPDATED_CODE)
                 .label(UPDATED_LABEL);
+        TaxonomyDTO taxonomyDTO = taxonomyMapper.taxonomyToTaxonomyDTO(updatedTaxonomy);
 
         restTaxonomyMockMvc.perform(put("/api/taxonomies")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedTaxonomy)))
+                .content(TestUtil.convertObjectToJsonBytes(taxonomyDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Taxonomy in the database

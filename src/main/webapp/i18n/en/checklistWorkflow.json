@@ -1,0 +1,28 @@
+{
+    "checklistApp": {
+        "checklistWorkflow" : {
+            "home": {
+                "title": "Checklist Workflows",
+                "createLabel": "Create a new Checklist Workflow",
+                "createOrEditLabel": "Create or edit a Checklist Workflow",
+                "search": "Search for Checklist Workflow"
+            },
+            "created": "A new Checklist Workflow is created with identifier {{ param }}",
+            "updated": "A Checklist Workflow is updated with identifier {{ param }}",
+            "deleted": "A Checklist Workflow is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Checklist Workflow {{ id }}?"
+            },
+            "detail": {
+                "title": "Checklist Workflow"
+            },
+            "happened": "Happened",
+            "status": "Status",
+            "comments": "Comments",
+            "checklist": "Checklist",
+            "who": "Who",
+            "workflow": "Workflow",
+            "checklistAnswer": "Checklist Answer"
+        }
+    }
+}

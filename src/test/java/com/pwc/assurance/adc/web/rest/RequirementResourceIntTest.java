@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Requirement;
 import com.pwc.assurance.adc.repository.RequirementRepository;
+import com.pwc.assurance.adc.service.RequirementService;
 import com.pwc.assurance.adc.repository.search.RequirementSearchRepository;
+import com.pwc.assurance.adc.service.dto.RequirementDTO;
+import com.pwc.assurance.adc.service.mapper.RequirementMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,13 +40,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ChecklistApp.class)
 public class RequirementResourceIntTest {
-    private static final String DEFAULT_CODE = "AAAAA";
-    private static final String UPDATED_CODE = "BBBBB";
+    private static final String DEFAULT_NAME = "AAAAA";
+    private static final String UPDATED_NAME = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
 
     @Inject
     private RequirementRepository requirementRepository;
+
+    @Inject
+    private RequirementMapper requirementMapper;
+
+    @Inject
+    private RequirementService requirementService;
 
     @Inject
     private RequirementSearchRepository requirementSearchRepository;
@@ -65,8 +74,7 @@ public class RequirementResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         RequirementResource requirementResource = new RequirementResource();
-        ReflectionTestUtils.setField(requirementResource, "requirementSearchRepository", requirementSearchRepository);
-        ReflectionTestUtils.setField(requirementResource, "requirementRepository", requirementRepository);
+        ReflectionTestUtils.setField(requirementResource, "requirementService", requirementService);
         this.restRequirementMockMvc = MockMvcBuilders.standaloneSetup(requirementResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -81,7 +89,7 @@ public class RequirementResourceIntTest {
     public static Requirement createEntity(EntityManager em) {
         Requirement requirement = new Requirement();
         requirement = new Requirement()
-                .code(DEFAULT_CODE)
+                .name(DEFAULT_NAME)
                 .description(DEFAULT_DESCRIPTION);
         return requirement;
     }
@@ -98,17 +106,18 @@ public class RequirementResourceIntTest {
         int databaseSizeBeforeCreate = requirementRepository.findAll().size();
 
         // Create the Requirement
+        RequirementDTO requirementDTO = requirementMapper.requirementToRequirementDTO(requirement);
 
         restRequirementMockMvc.perform(post("/api/requirements")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(requirement)))
+                .content(TestUtil.convertObjectToJsonBytes(requirementDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Requirement in the database
         List<Requirement> requirements = requirementRepository.findAll();
         assertThat(requirements).hasSize(databaseSizeBeforeCreate + 1);
         Requirement testRequirement = requirements.get(requirements.size() - 1);
-        assertThat(testRequirement.getCode()).isEqualTo(DEFAULT_CODE);
+        assertThat(testRequirement.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testRequirement.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
 
         // Validate the Requirement in ElasticSearch
@@ -127,7 +136,7 @@ public class RequirementResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(requirement.getId().intValue())))
-                .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 
@@ -142,7 +151,7 @@ public class RequirementResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(requirement.getId().intValue()))
-            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
@@ -165,19 +174,20 @@ public class RequirementResourceIntTest {
         // Update the requirement
         Requirement updatedRequirement = requirementRepository.findOne(requirement.getId());
         updatedRequirement
-                .code(UPDATED_CODE)
+                .name(UPDATED_NAME)
                 .description(UPDATED_DESCRIPTION);
+        RequirementDTO requirementDTO = requirementMapper.requirementToRequirementDTO(updatedRequirement);
 
         restRequirementMockMvc.perform(put("/api/requirements")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedRequirement)))
+                .content(TestUtil.convertObjectToJsonBytes(requirementDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Requirement in the database
         List<Requirement> requirements = requirementRepository.findAll();
         assertThat(requirements).hasSize(databaseSizeBeforeUpdate);
         Requirement testRequirement = requirements.get(requirements.size() - 1);
-        assertThat(testRequirement.getCode()).isEqualTo(UPDATED_CODE);
+        assertThat(testRequirement.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testRequirement.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 
         // Validate the Requirement in ElasticSearch
@@ -219,7 +229,7 @@ public class RequirementResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(requirement.getId().intValue())))
-            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
 }

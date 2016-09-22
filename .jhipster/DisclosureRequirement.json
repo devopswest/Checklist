@@ -1,0 +1,57 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "child",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityRelationshipName": "parent"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "tags",
+            "otherEntityName": "disclosureRequirementTag",
+            "otherEntityRelationshipName": "disclosureRequirement"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklistTemplate",
+            "otherEntityName": "checklistTemplate",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "parent",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityField": "description"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "requirement",
+            "otherEntityName": "requirement",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "disclosureRequirement"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 4000
+        }
+    ],
+    "changelogDate": "20160922203148",
+    "entityTableName": "disclosure_requirement",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

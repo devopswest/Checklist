@@ -17,14 +17,7 @@
     "fields": [
         {
             "fieldName": "code",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "minlength",
-                "maxlength"
-            ],
-            "fieldValidateRulesMinlength": 1,
-            "fieldValidateRulesMaxlength": 20
+            "fieldType": "String"
         },
         {
             "fieldName": "label",
@@ -38,10 +31,10 @@
             "fieldValidateRulesMaxlength": 50
         }
     ],
-    "changelogDate": "20160907134449",
+    "changelogDate": "20160922203139",
     "javadoc": "Lookups",
     "entityTableName": "taxonomy",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

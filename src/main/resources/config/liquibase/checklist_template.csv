@@ -1,0 +1,31 @@
+id;form_type_id;name;description;version;status;territory_id
+1;901;Smaller Registrants (Form 10-K) and Other Public Entities;Disclosure checklist used to audit small public companies;1.0.0;RELEASED;102
+2;901;SEC 10-K;Current Form;1.0.0;RELEASED;102
+3;901;SEC 10-Q;Current Form;1.0.0;RELEASED;102
+4;901;Small Reporting Company;Current Form;1.0.0;RELEASED;102
+5;901;Registered Investment Company;Current Form;1.0.0;RELEASED;102
+6;901;Insurance Company;Current Form;1.0.0;RELEASED;102
+7;901;RIC Reg Statements;Current Form;1.0.0;RELEASED;102
+8;902;Non-public main;Current Form;1.0.0;RELEASED;102
+9;902;Non-public Investment Company;Current Form;1.0.0;RELEASED;102
+10;902;State and Local Government;Current Form;1.0.0;RELEASED;102
+11;902;Government Agencies;Current Form;1.0.0;RELEASED;102
+12;902;Federal Acct;Current Form;1.0.0;RELEASED;102
+13;902;Insurance Company - Stat;Current Form;1.0.0;RELEASED;102
+14;903;Defined Benefit;Current Form;1.0.0;RELEASED;102
+15;903;Defined Compensation;Current Form;1.0.0;RELEASED;102
+16;903;Health and Welfare;Current Form;1.0.0;RELEASED;102
+17;903;Savings and Loan (Article 9);Current Form;1.0.0;RELEASED;102
+18;904; Supplement - Savings and Loan (Guide 3);Current Form;1.0.0;RELEASED;102
+19;904; Supplement - FI;Current Form;1.0.0;RELEASED;102
+20;904; Supplement - FP1;Current Form;1.0.0;RELEASED;102
+21;904; Supplement - S-1;Current Form;1.0.0;RELEASED;102
+22;904; Supplement - Insurance;Current Form;1.0.0;RELEASED;102
+23;904; Supplement - Mortgage Banking;Current Form;1.0.0;RELEASED;102
+24;904; Supplement - Oil and Gas;Current Form;1.0.0;RELEASED;102
+25;904; Supplement - Public Utility;Current Form;1.0.0;RELEASED;102
+26;904; Supplement - REIT;Current Form;1.0.0;RELEASED;102
+27;904; Supplement - Credit Union;Current Form;1.0.0;RELEASED;102
+28;904; Supplement - Not For Profit;Current Form;1.0.0;RELEASED;102
+29;904; Supplement - Not for Profit Healthcare;Current Form;1.0.0;RELEASED;102
+30;904; Supplement - Yellowbook;Current Form;1.0.0;RELEASED;102

@@ -67,7 +67,7 @@ class UserProfileGatlingTest extends Simulation {
             .exec(http("Create new userProfile")
             .post("/api/user-profiles")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null}""")).asJSON
+            .body(StringBody("""{"id":null, "pPid":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_userProfile_url"))).exitHereIfFailed
             .pause(10)

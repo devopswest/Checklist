@@ -4,15 +4,15 @@
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "requirement",
-            "relationshipName": "question",
-            "otherEntityName": "question",
-            "otherEntityField": "question",
+            "relationshipName": "disclosureRequirement",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityField": "description",
             "ownerSide": true
         }
     ],
     "fields": [
         {
-            "fieldName": "code",
+            "fieldName": "name",
             "fieldType": "String"
         },
         {
@@ -20,9 +20,10 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20160907134455",
+    "changelogDate": "20160922203147",
+    "javadoc": "This is the future/next definition where ChecklistTemplate is not longer needed",
     "entityTableName": "requirement",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

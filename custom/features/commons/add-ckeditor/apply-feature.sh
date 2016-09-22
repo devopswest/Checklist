@@ -10,7 +10,11 @@ echo "**************************"
 #
 #sed -i "s/\"resolutions\": {/\"resolutions\": { \"angular\": \"1.5.8\",/" bower.json
 
-bower install ckeditor --save
+
+#
+# NOTE: Order is important
+#
 bower install ng-ckeditor --save
+bower install ckeditor --save
 
 sed -i "s/angular-loading-bar/angular-loading-bar',\n\t\t\t'ngCkeditor/" src/main/webapp/app/app.module.js

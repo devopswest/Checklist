@@ -1,5 +1,6 @@
 package com.pwc.assurance.adc.domain;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -11,8 +12,12 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Requirement.
+ * This is the future/next definition where ChecklistTemplate is not longer needed
+ * 
  */
+@ApiModel(description = ""
+    + "This is the future/next definition where ChecklistTemplate is not longer needed"
+    + "")
 @Entity
 @Table(name = "requirement")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -25,18 +30,18 @@ public class Requirement implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "code")
-    private String code;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "description")
     private String description;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "requirement_question",
+    @JoinTable(name = "requirement_disclosure_requirement",
                joinColumns = @JoinColumn(name="requirements_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="questions_id", referencedColumnName="ID"))
-    private Set<Question> questions = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name="disclosure_requirements_id", referencedColumnName="ID"))
+    private Set<DisclosureRequirement> disclosureRequirements = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -46,17 +51,17 @@ public class Requirement implements Serializable {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getName() {
+        return name;
     }
 
-    public Requirement code(String code) {
-        this.code = code;
+    public Requirement name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -72,29 +77,29 @@ public class Requirement implements Serializable {
         this.description = description;
     }
 
-    public Set<Question> getQuestions() {
-        return questions;
+    public Set<DisclosureRequirement> getDisclosureRequirements() {
+        return disclosureRequirements;
     }
 
-    public Requirement questions(Set<Question> questions) {
-        this.questions = questions;
+    public Requirement disclosureRequirements(Set<DisclosureRequirement> disclosureRequirements) {
+        this.disclosureRequirements = disclosureRequirements;
         return this;
     }
 
-    public Requirement addQuestion(Question question) {
-        questions.add(question);
-        question.getRequirements().add(this);
+    public Requirement addDisclosureRequirement(DisclosureRequirement disclosureRequirement) {
+        disclosureRequirements.add(disclosureRequirement);
+        disclosureRequirement.getRequirements().add(this);
         return this;
     }
 
-    public Requirement removeQuestion(Question question) {
-        questions.remove(question);
-        question.getRequirements().remove(this);
+    public Requirement removeDisclosureRequirement(DisclosureRequirement disclosureRequirement) {
+        disclosureRequirements.remove(disclosureRequirement);
+        disclosureRequirement.getRequirements().remove(this);
         return this;
     }
 
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
+    public void setDisclosureRequirements(Set<DisclosureRequirement> disclosureRequirements) {
+        this.disclosureRequirements = disclosureRequirements;
     }
 
     @Override
@@ -121,7 +126,7 @@ public class Requirement implements Serializable {
     public String toString() {
         return "Requirement{" +
             "id=" + id +
-            ", code='" + code + "'" +
+            ", name='" + name + "'" +
             ", description='" + description + "'" +
             '}';
     }

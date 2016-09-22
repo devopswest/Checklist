@@ -16,11 +16,16 @@
             "otherEntityField": "name"
         }
     ],
-    "fields": [],
-    "changelogDate": "20160907134406",
+    "fields": [
+        {
+            "fieldName": "pPid",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203157",
     "javadoc": "Access Control",
     "entityTableName": "user_profile",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

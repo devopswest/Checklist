@@ -8,15 +8,15 @@
             "otherEntityRelationshipName": "engagement"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "client",
-            "otherEntityName": "client",
-            "otherEntityField": "name"
+            "relationshipType": "one-to-many",
+            "relationshipName": "checklistTemplate",
+            "otherEntityName": "engagementChecklistTemplate",
+            "otherEntityRelationshipName": "engagement"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "checklist",
-            "otherEntityName": "checklist",
+            "relationshipName": "client",
+            "otherEntityName": "client",
             "otherEntityField": "name"
         },
         {
@@ -41,10 +41,10 @@
             "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160907134401",
+    "changelogDate": "20160922203150",
     "javadoc": "Engagement",
     "entityTableName": "engagement",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

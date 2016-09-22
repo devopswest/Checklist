@@ -25,13 +25,39 @@
         vm.$state = $state;
 
         vm.menu = [
+          {
+                "id":"my",
+                "label":"My",
+                "uiclass":"glyphicon glyphicon-th-list",
+                "options" : [
+                    {
+                        "id":"dashboard",
+                        "label":"Dashboard",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
+                    },
+                    {
+                        "id":"notification",
+                        "label":"Inbox",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
+                    },
+                    {
+                        "id":"report",
+                        "label":"Report",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
+                    }
+                ],
+                "authorities" : "ROLE_USER"
+           },
            {
                 "id":"library",
                 "label":"Library",
                 "uiclass":"glyphicon glyphicon-th-list",
                 "options" : [
                     {
-                        "id":"checklist",
+                        "id":"checklist-template",
                         "label":"Checklist Template",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"
@@ -40,8 +66,8 @@
                 "authorities" : "ROLE_ADMIN"
            },
            {
-                "id":"audit",
-                "label":"Engagement",
+                "id":"checklist",
+                "label":"Checklist",
                 "uiclass":"glyphicon glyphicon-th-list",
                 "options" : [
                     {
@@ -52,12 +78,12 @@
                     },
                                         {
                         "id":"engagement",
-                        "label": "Engagement Profile",
+                        "label": "Engagements",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_USER"
                     },
                     {
-                        "id":"audit-profile",
+                        "id":"checklist",
                         "label": "Checklist",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_USER"
@@ -83,7 +109,7 @@
                         "authorities" : "ROLE_ADMIN"
                     },
                     {
-                        "id":"license",
+                        "id":"client-license",
                         "label": "License",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_ADMIN"

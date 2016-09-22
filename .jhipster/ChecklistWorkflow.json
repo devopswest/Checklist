@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "checklist",
+            "otherEntityName": "checklist",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "who",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "workflow",
+            "otherEntityName": "workflow",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklistAnswer",
+            "otherEntityName": "checklistAnswer",
+            "otherEntityField": "answer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "happened",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "WorkflowTaskStatus",
+            "fieldValues": "PENDING,COMPLETED"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203156",
+    "entityTableName": "checklist_workflow",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

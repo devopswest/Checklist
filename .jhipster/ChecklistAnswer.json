@@ -1,0 +1,34 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "disclosureRequirement",
+            "otherEntityName": "disclosureRequirement",
+            "otherEntityField": "description"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "checklist",
+            "otherEntityName": "checklist",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "checklistAnswer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "answer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "comments",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203154",
+    "javadoc": "TODO: Answer might be N/A, Yes, No + comments",
+    "entityTableName": "checklist_answer",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,24 @@
+{
+    "checklistApp": {
+        "clientTag" : {
+            "home": {
+                "title": "Client Tags",
+                "createLabel": "Create a new Client Tag",
+                "createOrEditLabel": "Create or edit a Client Tag",
+                "search": "Search for Client Tag"
+            },
+            "created": "A new Client Tag is created with identifier {{ param }}",
+            "updated": "A Client Tag is updated with identifier {{ param }}",
+            "deleted": "A Client Tag is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Client Tag {{ id }}?"
+            },
+            "detail": {
+                "title": "Client Tag"
+            },
+            "tagValue": "Tag Value",
+            "tagProperty": "Tag Property",
+            "client": "Client"
+        }
+    }
+}

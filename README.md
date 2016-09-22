@@ -28,54 +28,6 @@ Bower is used to manage CSS and JavaScript dependencies used in this application
 specifying a newer version in `bower.json`. You can also run `bower update` and `bower install` to manage dependencies.
 Add the `-h` flag on any command to see how you can use it. For example, `bower update -h`.
 
-## Overview and Steps to introduce collaboration
-1. Google Realtime API is used for collaborating audit profile responses across multiple users
-2. Realtime API is based on concept of Google docs, and can be done using following steps extracted from Realtime Quickstart
-    1. Register a user (If we do not have it earlier) Google Cloud Platform  (this would be the billing account for this service)
-    2. Create a project using google developer console
-    3. Enable the OAuth for this project under credentials
-    4. Copy the client ID post OAuth enable which would be used in application
-3. Once client ID is copied from above step, use this in the web application which needs Realtime API integration
-    1. Include two javascripts in the application
-        <script src="https://apis.google.com/js/api.js"></script>
-        <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
-    2. Create AngularJS service similar to the one in `src/main/webapp/app/entities/audit-profile/audit-profile.realtime.service.js`
-    3. Points to concentrate during creating service
-         a) Define your custom Object as used in function `defineAuditQuestionResponseModel()`
-         b) Update input parameters which needs to be collaborated as per the application.
-         c) Make sure we use unique `driveFileName` as this is a physical file stored in google drive and used for collaboration
-         d) Write your custom logic in `onNewFileCreated` which needs creates and populates data correctly in the drive file
-         e) Update custom loginc in `onFileLoaded` which will continuosuly invoked if we change or collaborater change data
-    4. Collabortation can be started or stopped using methods 
-         a) `collaborate` : Starts collaboration and prompts login to google for OAuth (if not logged in)
-         b) `stopCollaborate` : Ends collaboration and sign out thes OAuth (on localhost, signOut has no impact...ie signout doesn't not work)
-
-
-### Realtime API observations
-1. For Colloboration work : Google Cloud Platform, Drive Enablement are prerequisite
-2. Realtime API accepts only Google Account registered users for OAuth. It can not be integrated with other OAuth
-3. Latest Drive API is v3 (version 3), but realtime API only works in v2 (i.e., version 2)
-
-[Overview and Steps to introduce collaboration]:https://developers.google.com/google-apps/realtime/overview
-[Realtime Quickstart]:https://developers.google.com/google-apps/realtime/realtime-quickstart
-
-
-### Building Docker Image
-
-In the Checklist root folder:
-
-1. docker login -u emmanuel16
-2. enter password
-3. ./custom/build.sh 
- 
-### Deploying Image to lriczfinnapd003
-
-1. use [pgadmin](https://www.pgadmin.org/download/) to create a new db on lriczfinnapd002:5432.  Name of the new db should be checklistnewdbversion.  Where newdbversion is a new version number.
-2. ssh into lriczfinnapd002.  If its the first time login in, run sudo usermod -aG docker YOUR_GUID
-3. Run the command below, but first make the following changes to the command: change NEWCONTAINERVERSION to a new container name change NEWPORT to a new application port and NEWDBVERSION to a new database name created above.
-
-`sudo docker pull emmanuel16/checklist;docker rm -f checklistNEWCONTAINERVERSION;docker run -d -p NEWPORT:9090 --restart=always --name checklistNEWCONTAINERVERSION -e SERVICE_ENV=prod,swagger -e DB_USER=postgres -e DB_PASSWORD=password -e SERVICE_DB=jdbc:postgresql://lriczfinnapd002:5432/ChecklistNEWDBVERSION -e SERVICE_ES_CLUSTER=elasticsearch -e SERVICE_ES_NODE=lriczfinnapd003:9300 emmanuel16/checklist`
-
 
 ## Building for production
 

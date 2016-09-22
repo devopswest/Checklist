@@ -37,8 +37,8 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="authority"><span translate="checklistApp.engagementMember.authority">Authority</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="user.login"><span translate="checklistApp.engagementMember.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="engagement.description"><span translate="checklistApp.engagementMember.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userLogin"><span translate="checklistApp.engagementMember.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="engagementDescription"><span translate="checklistApp.engagementMember.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -47,10 +47,10 @@
                     <td><a ui-sref="engagement-member-detail({id:engagementMember.id})">{{engagementMember.id}}</a></td>
                     <td translate="{{'checklistApp.EngagementAuthorities.' + engagementMember.authority}}">{{engagementMember.authority}}</td>
                     <td>
-                        {{engagementMember.user.login}}
+                        {{engagementMember.userLogin}}
                     </td>
                     <td>
-                        <a ui-sref="engagement-detail({id:engagementMember.engagement.id})">{{engagementMember.engagement.description}}</a>
+                        <a ui-sref="engagement-detail({id:engagementMember.engagementId})">{{engagementMember.engagementDescription}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

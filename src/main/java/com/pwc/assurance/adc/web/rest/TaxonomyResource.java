@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.Taxonomy;
-
-import com.pwc.assurance.adc.repository.TaxonomyRepository;
-import com.pwc.assurance.adc.repository.search.TaxonomySearchRepository;
+import com.pwc.assurance.adc.service.TaxonomyService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.TaxonomyDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -21,6 +19,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,29 +37,25 @@ public class TaxonomyResource {
     private final Logger log = LoggerFactory.getLogger(TaxonomyResource.class);
         
     @Inject
-    private TaxonomyRepository taxonomyRepository;
-
-    @Inject
-    private TaxonomySearchRepository taxonomySearchRepository;
+    private TaxonomyService taxonomyService;
 
     /**
      * POST  /taxonomies : Create a new taxonomy.
      *
-     * @param taxonomy the taxonomy to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new taxonomy, or with status 400 (Bad Request) if the taxonomy has already an ID
+     * @param taxonomyDTO the taxonomyDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new taxonomyDTO, or with status 400 (Bad Request) if the taxonomy has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/taxonomies",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Taxonomy> createTaxonomy(@Valid @RequestBody Taxonomy taxonomy) throws URISyntaxException {
-        log.debug("REST request to save Taxonomy : {}", taxonomy);
-        if (taxonomy.getId() != null) {
+    public ResponseEntity<TaxonomyDTO> createTaxonomy(@Valid @RequestBody TaxonomyDTO taxonomyDTO) throws URISyntaxException {
+        log.debug("REST request to save Taxonomy : {}", taxonomyDTO);
+        if (taxonomyDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("taxonomy", "idexists", "A new taxonomy cannot already have an ID")).body(null);
         }
-        Taxonomy result = taxonomyRepository.save(taxonomy);
-        taxonomySearchRepository.save(result);
+        TaxonomyDTO result = taxonomyService.save(taxonomyDTO);
         return ResponseEntity.created(new URI("/api/taxonomies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("taxonomy", result.getId().toString()))
             .body(result);
@@ -69,25 +64,24 @@ public class TaxonomyResource {
     /**
      * PUT  /taxonomies : Updates an existing taxonomy.
      *
-     * @param taxonomy the taxonomy to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated taxonomy,
-     * or with status 400 (Bad Request) if the taxonomy is not valid,
-     * or with status 500 (Internal Server Error) if the taxonomy couldnt be updated
+     * @param taxonomyDTO the taxonomyDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated taxonomyDTO,
+     * or with status 400 (Bad Request) if the taxonomyDTO is not valid,
+     * or with status 500 (Internal Server Error) if the taxonomyDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/taxonomies",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Taxonomy> updateTaxonomy(@Valid @RequestBody Taxonomy taxonomy) throws URISyntaxException {
-        log.debug("REST request to update Taxonomy : {}", taxonomy);
-        if (taxonomy.getId() == null) {
-            return createTaxonomy(taxonomy);
+    public ResponseEntity<TaxonomyDTO> updateTaxonomy(@Valid @RequestBody TaxonomyDTO taxonomyDTO) throws URISyntaxException {
+        log.debug("REST request to update Taxonomy : {}", taxonomyDTO);
+        if (taxonomyDTO.getId() == null) {
+            return createTaxonomy(taxonomyDTO);
         }
-        Taxonomy result = taxonomyRepository.save(taxonomy);
-        taxonomySearchRepository.save(result);
+        TaxonomyDTO result = taxonomyService.save(taxonomyDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("taxonomy", taxonomy.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("taxonomy", taxonomyDTO.getId().toString()))
             .body(result);
     }
 
@@ -102,10 +96,10 @@ public class TaxonomyResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Taxonomy>> getAllTaxonomies(Pageable pageable)
+    public ResponseEntity<List<TaxonomyDTO>> getAllTaxonomies(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Taxonomies");
-        Page<Taxonomy> page = taxonomyRepository.findAll(pageable);
+        Page<TaxonomyDTO> page = taxonomyService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/taxonomies");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -113,17 +107,17 @@ public class TaxonomyResource {
     /**
      * GET  /taxonomies/:id : get the "id" taxonomy.
      *
-     * @param id the id of the taxonomy to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the taxonomy, or with status 404 (Not Found)
+     * @param id the id of the taxonomyDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the taxonomyDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/taxonomies/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Taxonomy> getTaxonomy(@PathVariable Long id) {
+    public ResponseEntity<TaxonomyDTO> getTaxonomy(@PathVariable Long id) {
         log.debug("REST request to get Taxonomy : {}", id);
-        Taxonomy taxonomy = taxonomyRepository.findOne(id);
-        return Optional.ofNullable(taxonomy)
+        TaxonomyDTO taxonomyDTO = taxonomyService.findOne(id);
+        return Optional.ofNullable(taxonomyDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -133,7 +127,7 @@ public class TaxonomyResource {
     /**
      * DELETE  /taxonomies/:id : delete the "id" taxonomy.
      *
-     * @param id the id of the taxonomy to delete
+     * @param id the id of the taxonomyDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/taxonomies/{id}",
@@ -142,8 +136,7 @@ public class TaxonomyResource {
     @Timed
     public ResponseEntity<Void> deleteTaxonomy(@PathVariable Long id) {
         log.debug("REST request to delete Taxonomy : {}", id);
-        taxonomyRepository.delete(id);
-        taxonomySearchRepository.delete(id);
+        taxonomyService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("taxonomy", id.toString())).build();
     }
 
@@ -160,10 +153,10 @@ public class TaxonomyResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Taxonomy>> searchTaxonomies(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<TaxonomyDTO>> searchTaxonomies(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Taxonomies for query {}", query);
-        Page<Taxonomy> page = taxonomySearchRepository.search(queryStringQuery(query), pageable);
+        Page<TaxonomyDTO> page = taxonomyService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/taxonomies");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

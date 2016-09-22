@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.Client;
-
-import com.pwc.assurance.adc.repository.ClientRepository;
-import com.pwc.assurance.adc.repository.search.ClientSearchRepository;
+import com.pwc.assurance.adc.service.ClientService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.ClientDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,29 +36,25 @@ public class ClientResource {
     private final Logger log = LoggerFactory.getLogger(ClientResource.class);
         
     @Inject
-    private ClientRepository clientRepository;
-
-    @Inject
-    private ClientSearchRepository clientSearchRepository;
+    private ClientService clientService;
 
     /**
      * POST  /clients : Create a new client.
      *
-     * @param client the client to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new client, or with status 400 (Bad Request) if the client has already an ID
+     * @param clientDTO the clientDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new clientDTO, or with status 400 (Bad Request) if the client has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/clients",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Client> createClient(@RequestBody Client client) throws URISyntaxException {
-        log.debug("REST request to save Client : {}", client);
-        if (client.getId() != null) {
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) throws URISyntaxException {
+        log.debug("REST request to save Client : {}", clientDTO);
+        if (clientDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("client", "idexists", "A new client cannot already have an ID")).body(null);
         }
-        Client result = clientRepository.save(client);
-        clientSearchRepository.save(result);
+        ClientDTO result = clientService.save(clientDTO);
         return ResponseEntity.created(new URI("/api/clients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("client", result.getId().toString()))
             .body(result);
@@ -68,25 +63,24 @@ public class ClientResource {
     /**
      * PUT  /clients : Updates an existing client.
      *
-     * @param client the client to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated client,
-     * or with status 400 (Bad Request) if the client is not valid,
-     * or with status 500 (Internal Server Error) if the client couldnt be updated
+     * @param clientDTO the clientDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated clientDTO,
+     * or with status 400 (Bad Request) if the clientDTO is not valid,
+     * or with status 500 (Internal Server Error) if the clientDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/clients",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Client> updateClient(@RequestBody Client client) throws URISyntaxException {
-        log.debug("REST request to update Client : {}", client);
-        if (client.getId() == null) {
-            return createClient(client);
+    public ResponseEntity<ClientDTO> updateClient(@RequestBody ClientDTO clientDTO) throws URISyntaxException {
+        log.debug("REST request to update Client : {}", clientDTO);
+        if (clientDTO.getId() == null) {
+            return createClient(clientDTO);
         }
-        Client result = clientRepository.save(client);
-        clientSearchRepository.save(result);
+        ClientDTO result = clientService.save(clientDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("client", client.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("client", clientDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,10 +95,10 @@ public class ClientResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Client>> getAllClients(Pageable pageable)
+    public ResponseEntity<List<ClientDTO>> getAllClients(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Clients");
-        Page<Client> page = clientRepository.findAll(pageable);
+        Page<ClientDTO> page = clientService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/clients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -112,17 +106,17 @@ public class ClientResource {
     /**
      * GET  /clients/:id : get the "id" client.
      *
-     * @param id the id of the client to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the client, or with status 404 (Not Found)
+     * @param id the id of the clientDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the clientDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/clients/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Client> getClient(@PathVariable Long id) {
+    public ResponseEntity<ClientDTO> getClient(@PathVariable Long id) {
         log.debug("REST request to get Client : {}", id);
-        Client client = clientRepository.findOne(id);
-        return Optional.ofNullable(client)
+        ClientDTO clientDTO = clientService.findOne(id);
+        return Optional.ofNullable(clientDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +126,7 @@ public class ClientResource {
     /**
      * DELETE  /clients/:id : delete the "id" client.
      *
-     * @param id the id of the client to delete
+     * @param id the id of the clientDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/clients/{id}",
@@ -141,8 +135,7 @@ public class ClientResource {
     @Timed
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         log.debug("REST request to delete Client : {}", id);
-        clientRepository.delete(id);
-        clientSearchRepository.delete(id);
+        clientService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("client", id.toString())).build();
     }
 
@@ -159,10 +152,10 @@ public class ClientResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Client>> searchClients(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<ClientDTO>> searchClients(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Clients for query {}", query);
-        Page<Client> page = clientSearchRepository.search(queryStringQuery(query), pageable);
+        Page<ClientDTO> page = clientService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/clients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

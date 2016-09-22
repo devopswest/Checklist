@@ -16,42 +16,27 @@
     <!-- endinject -->
     <link rel="stylesheet" href="content/css/vendor.css">
     <!-- endbuild -->
-    <!-- placeholder link to load bootswatch themes, title holds the current applied theme name-->
-<link rel="stylesheet" href="" id="bootswatch-css" title="Default">
-
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 	<!-- build:css content/css/custom.css -->
-	<link rel="stylesheet" href="content/css/custom.css">
+	<link rel=stylesheet href=content/css/custom.css>
 	<!-- endbuild -->
 </head>
-<body ng-app="checklistApp" ng-strict-di="">
+<body ng-app="checklistApp" ng-strict-di>
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak=""></div>
+    <div ui-view="navbar" ng-cloak></div>
     <div class="container">
         <div class="well" ui-view="content">
             <!-- Angular views -->
         </div>
 
-        <div class="footer" ng-cloak="">
+        <div class="footer" ng-cloak>
             <p translate="footer">This is your footer</p>
-            <div ng-controller="BootswatchController as vm" id="bootswatch-theme-switcher" uib-dropdown="" class="dropup pull-right">
-                    <a class="btn btn-default dropdown-toggle" uib-dropdown-toggle="">
-                        <span class="glyphicon glyphicon-adjust"></span>
-                        <span class="hidden-tablet" translate="bootswatch.themeSelector">Theme</span>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" uib-dropdown-menu="">
-                        <li class="theme-link" ng-repeat="theme in vm.themes">
-                            <a href="" jh-switch-theme="theme">{{theme.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        </div>
     </div>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -95,10 +80,10 @@
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-    <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
     <script src="bower_components/textAngular/dist/textAngular.js"></script>
     <script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
     <script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
+    <script src="bower_components/ng-ckeditor/ng-ckeditor.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -168,20 +153,20 @@
     <script src="app/entities/requirement/requirement.service.js"></script>
     <script src="app/entities/requirement/requirement.search.service.js"></script>
     <script src="app/entities/requirement/requirement.controller.js"></script>
-    <script src="app/entities/question/question-dialog.controller.js"></script>
-    <script src="app/entities/question/question-detail.controller.js"></script>
-    <script src="app/entities/question/question-delete-dialog.controller.js"></script>
-    <script src="app/entities/question/question.state.js"></script>
-    <script src="app/entities/question/question.service.js"></script>
-    <script src="app/entities/question/question.search.service.js"></script>
-    <script src="app/entities/question/question.controller.js"></script>
-    <script src="app/entities/license/license-dialog.controller.js"></script>
-    <script src="app/entities/license/license-detail.controller.js"></script>
-    <script src="app/entities/license/license-delete-dialog.controller.js"></script>
-    <script src="app/entities/license/license.state.js"></script>
-    <script src="app/entities/license/license.service.js"></script>
-    <script src="app/entities/license/license.search.service.js"></script>
-    <script src="app/entities/license/license.controller.js"></script>
+    <script src="app/entities/notification-action/notification-action-dialog.controller.js"></script>
+    <script src="app/entities/notification-action/notification-action-detail.controller.js"></script>
+    <script src="app/entities/notification-action/notification-action-delete-dialog.controller.js"></script>
+    <script src="app/entities/notification-action/notification-action.state.js"></script>
+    <script src="app/entities/notification-action/notification-action.service.js"></script>
+    <script src="app/entities/notification-action/notification-action.search.service.js"></script>
+    <script src="app/entities/notification-action/notification-action.controller.js"></script>
+    <script src="app/entities/notification/notification-dialog.controller.js"></script>
+    <script src="app/entities/notification/notification-detail.controller.js"></script>
+    <script src="app/entities/notification/notification-delete-dialog.controller.js"></script>
+    <script src="app/entities/notification/notification.state.js"></script>
+    <script src="app/entities/notification/notification.service.js"></script>
+    <script src="app/entities/notification/notification.search.service.js"></script>
+    <script src="app/entities/notification/notification.controller.js"></script>
     <script src="app/entities/feature-authority/feature-authority-dialog.controller.js"></script>
     <script src="app/entities/feature-authority/feature-authority-detail.controller.js"></script>
     <script src="app/entities/feature-authority/feature-authority-delete-dialog.controller.js"></script>
@@ -204,6 +189,13 @@
     <script src="app/entities/engagement-member/engagement-member.service.js"></script>
     <script src="app/entities/engagement-member/engagement-member.search.service.js"></script>
     <script src="app/entities/engagement-member/engagement-member.controller.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template-dialog.controller.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template-detail.controller.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template-delete-dialog.controller.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template.state.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template.service.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template.search.service.js"></script>
+    <script src="app/entities/engagement-checklist-template/engagement-checklist-template.controller.js"></script>
     <script src="app/entities/engagement/engagement-dialog.controller.js"></script>
     <script src="app/entities/engagement/engagement-detail.controller.js"></script>
     <script src="app/entities/engagement/engagement-delete-dialog.controller.js"></script>
@@ -211,20 +203,34 @@
     <script src="app/entities/engagement/engagement.service.js"></script>
     <script src="app/entities/engagement/engagement.search.service.js"></script>
     <script src="app/entities/engagement/engagement.controller.js"></script>
-    <script src="app/entities/client-profile/client-profile-dialog.controller.js"></script>
-    <script src="app/entities/client-profile/client-profile-detail.controller.js"></script>
-    <script src="app/entities/client-profile/client-profile-delete-dialog.controller.js"></script>
-    <script src="app/entities/client-profile/client-profile.state.js"></script>
-    <script src="app/entities/client-profile/client-profile.service.js"></script>
-    <script src="app/entities/client-profile/client-profile.search.service.js"></script>
-    <script src="app/entities/client-profile/client-profile.controller.js"></script>
-    <script src="app/entities/client-metadata/client-metadata-dialog.controller.js"></script>
-    <script src="app/entities/client-metadata/client-metadata-detail.controller.js"></script>
-    <script src="app/entities/client-metadata/client-metadata-delete-dialog.controller.js"></script>
-    <script src="app/entities/client-metadata/client-metadata.state.js"></script>
-    <script src="app/entities/client-metadata/client-metadata.service.js"></script>
-    <script src="app/entities/client-metadata/client-metadata.search.service.js"></script>
-    <script src="app/entities/client-metadata/client-metadata.controller.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag-dialog.controller.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag-detail.controller.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag-delete-dialog.controller.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag.state.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag.service.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag.search.service.js"></script>
+    <script src="app/entities/disclosure-requirement-tag/disclosure-requirement-tag.controller.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement-dialog.controller.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement-detail.controller.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement-delete-dialog.controller.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement.state.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement.service.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement.search.service.js"></script>
+    <script src="app/entities/disclosure-requirement/disclosure-requirement.controller.js"></script>
+    <script src="app/entities/client-tag/client-tag-dialog.controller.js"></script>
+    <script src="app/entities/client-tag/client-tag-detail.controller.js"></script>
+    <script src="app/entities/client-tag/client-tag-delete-dialog.controller.js"></script>
+    <script src="app/entities/client-tag/client-tag.state.js"></script>
+    <script src="app/entities/client-tag/client-tag.service.js"></script>
+    <script src="app/entities/client-tag/client-tag.search.service.js"></script>
+    <script src="app/entities/client-tag/client-tag.controller.js"></script>
+    <script src="app/entities/client-license/client-license-dialog.controller.js"></script>
+    <script src="app/entities/client-license/client-license-detail.controller.js"></script>
+    <script src="app/entities/client-license/client-license-delete-dialog.controller.js"></script>
+    <script src="app/entities/client-license/client-license.state.js"></script>
+    <script src="app/entities/client-license/client-license.service.js"></script>
+    <script src="app/entities/client-license/client-license.search.service.js"></script>
+    <script src="app/entities/client-license/client-license.controller.js"></script>
     <script src="app/entities/client/client-dialog.controller.js"></script>
     <script src="app/entities/client/client-detail.controller.js"></script>
     <script src="app/entities/client/client-delete-dialog.controller.js"></script>
@@ -232,13 +238,34 @@
     <script src="app/entities/client/client.service.js"></script>
     <script src="app/entities/client/client.search.service.js"></script>
     <script src="app/entities/client/client.controller.js"></script>
-    <script src="app/entities/checklist-question/checklist-question-dialog.controller.js"></script>
-    <script src="app/entities/checklist-question/checklist-question-detail.controller.js"></script>
-    <script src="app/entities/checklist-question/checklist-question-delete-dialog.controller.js"></script>
-    <script src="app/entities/checklist-question/checklist-question.state.js"></script>
-    <script src="app/entities/checklist-question/checklist-question.service.js"></script>
-    <script src="app/entities/checklist-question/checklist-question.search.service.js"></script>
-    <script src="app/entities/checklist-question/checklist-question.controller.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow-dialog.controller.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow-detail.controller.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow-delete-dialog.controller.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow.state.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow.service.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow.search.service.js"></script>
+    <script src="app/entities/checklist-workflow/checklist-workflow.controller.js"></script>
+    <script src="app/entities/checklist-template/checklist-template-dialog.controller.js"></script>
+    <script src="app/entities/checklist-template/checklist-template-detail.controller.js"></script>
+    <script src="app/entities/checklist-template/checklist-template-delete-dialog.controller.js"></script>
+    <script src="app/entities/checklist-template/checklist-template.state.js"></script>
+    <script src="app/entities/checklist-template/checklist-template.service.js"></script>
+    <script src="app/entities/checklist-template/checklist-template.search.service.js"></script>
+    <script src="app/entities/checklist-template/checklist-template.controller.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes-dialog.controller.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes-detail.controller.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes-delete-dialog.controller.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes.state.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes.service.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes.search.service.js"></script>
+    <script src="app/entities/checklist-history-changes/checklist-history-changes.controller.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer-dialog.controller.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer-detail.controller.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer-delete-dialog.controller.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer.state.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer.service.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer.search.service.js"></script>
+    <script src="app/entities/checklist-answer/checklist-answer.controller.js"></script>
     <script src="app/entities/checklist/checklist-dialog.controller.js"></script>
     <script src="app/entities/checklist/checklist-detail.controller.js"></script>
     <script src="app/entities/checklist/checklist-delete-dialog.controller.js"></script>
@@ -246,29 +273,6 @@
     <script src="app/entities/checklist/checklist.service.js"></script>
     <script src="app/entities/checklist/checklist.search.service.js"></script>
     <script src="app/entities/checklist/checklist.controller.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response-dialog.controller.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response-detail.controller.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response-delete-dialog.controller.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response.state.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response.service.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response.search.service.js"></script>
-    <script src="app/entities/audit-question-response/audit-question-response.controller.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-dialog.controller.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-detail.controller.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry-delete-dialog.controller.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.state.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.service.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.search.service.js"></script>
-    <script src="app/entities/audit-profile-log-entry/audit-profile-log-entry.controller.js"></script>
-    <script src="app/entities/audit-profile/audit-profile-dialog.controller.js"></script>
-    <script src="app/entities/audit-profile/audit-profile-detail.controller.js"></script>
-    <script src="app/entities/audit-profile/audit-profile-delete-dialog.controller.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.state.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.service.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.search.service.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.rollover.service.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.realtime.service.js"></script>
-    <script src="app/entities/audit-profile/audit-profile.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
@@ -290,11 +294,6 @@
     <script src="app/components/form/pagination.constants.js"></script>
     <script src="app/components/form/minbytes.directive.js"></script>
     <script src="app/components/form/maxbytes.directive.js"></script>
-    <script src="app/components/custom-directives/adc-metadata.js"></script>
-    <script src="app/components/custom-directives/adc-taxonomy.js"></script>
-    <script src="app/components/bootswatch/bootswatch.service.js"></script>
-    <script src="app/components/bootswatch/bootswatch.directive.js"></script>
-    <script src="app/components/bootswatch/bootswatch.controller.js"></script>
     <script src="app/components/alert/alert-error.directive.js"></script>
     <script src="app/components/alert/alert.service.js"></script>
     <script src="app/components/alert/alert.directive.js"></script>
@@ -354,8 +353,6 @@
     <script src="app/account/activate/activate.controller.js"></script>
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>    
     <!-- endbuild -->
 
 </body>

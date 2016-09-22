@@ -45,13 +45,13 @@
 
         <div class="form-group">
             <label translate="checklistApp.workflowStep.template" for="field_template">Template</label>
-            <select class="form-control" id="field_template" name="template" ng-model="vm.workflowStep.template" ng-options="template as template.description for template in vm.templates track by template.id">
+            <select class="form-control" id="field_template" name="template" ng-model="vm.workflowStep.templateId" ng-options="template.id as template.description for template in vm.templates"            >
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
             <label translate="checklistApp.workflowStep.workflow" for="field_workflow">Workflow</label>
-            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.workflowStep.workflow" ng-options="workflow as workflow.name for workflow in vm.workflows track by workflow.id">
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.workflowStep.workflowId" ng-options="workflow.id as workflow.name for workflow in vm.workflows"            >
                 <option value=""></option>
             </select>
         </div>

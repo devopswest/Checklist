@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Engagement Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockEngagement, MockEngagementMember, MockClient, MockChecklist, MockWorkflow;
+        var MockEntity, MockPreviousState, MockEngagement, MockEngagementMember, MockEngagementChecklistTemplate, MockClient, MockWorkflow;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -14,8 +14,8 @@ describe('Controller Tests', function() {
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockEngagement = jasmine.createSpy('MockEngagement');
             MockEngagementMember = jasmine.createSpy('MockEngagementMember');
+            MockEngagementChecklistTemplate = jasmine.createSpy('MockEngagementChecklistTemplate');
             MockClient = jasmine.createSpy('MockClient');
-            MockChecklist = jasmine.createSpy('MockChecklist');
             MockWorkflow = jasmine.createSpy('MockWorkflow');
             
 
@@ -26,8 +26,8 @@ describe('Controller Tests', function() {
                 'previousState': MockPreviousState,
                 'Engagement': MockEngagement,
                 'EngagementMember': MockEngagementMember,
+                'EngagementChecklistTemplate': MockEngagementChecklistTemplate,
                 'Client': MockClient,
-                'Checklist': MockChecklist,
                 'Workflow': MockWorkflow
             };
             createController = function() {

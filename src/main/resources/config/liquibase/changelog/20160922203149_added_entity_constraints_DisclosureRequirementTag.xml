@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity DisclosureRequirementTag.
+    -->
+    <changeSet id="20160922203149-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tag_property_id"
+                                 baseTableName="disclosure_requirement_tag"
+                                 constraintName="fk_disclosure_requirement_tag_tag_property_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="taxonomy"/>
+
+        <addForeignKeyConstraint baseColumnNames="disclosure_requirement_id"
+                                 baseTableName="disclosure_requirement_tag"
+                                 constraintName="fk_disclosure_requirement_tag_disclosure_requirement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="disclosure_requirement"/>
+
+    </changeSet>
+</databaseChangeLog>

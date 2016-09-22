@@ -1,3 +1,4 @@
+
 <form name="editForm" role="form" novalidate ng-submit="vm.save()">
 
     <div class="modal-header">
@@ -24,37 +25,25 @@
                     ng-model="vm.client.name"
                      />
         </div>
-        
         <div class="form-group">
-			<label>Metadata</label>
-			<div class="row">
-				<div class="col-sm-2"> </div>
-  				<div class="col-sm-8">
-      				<adc-metadata type="metadata" tree-data="vm.treeMetaData"></adc-metadata>
-  				</div>
-  				<div class="col-sm-2"> </div>
-			</div>
-		</div>
+            <label class="control-label" translate="checklistApp.client.duns" for="field_duns">Duns</label>
+            <input type="text" class="form-control" name="duns" id="field_duns"
+                    ng-model="vm.client.duns"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.client.partyId" for="field_partyId">Party Id</label>
+            <input type="text" class="form-control" name="partyId" id="field_partyId"
+                    ng-model="vm.client.partyId"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="checklistApp.client.cesId" for="field_cesId">Ces Id</label>
+            <input type="text" class="form-control" name="cesId" id="field_cesId"
+                    ng-model="vm.client.cesId"
+                     />
+        </div>
 
-<!-- NEW -->
-
- <!-- <div class="form-group">
-
-
-<div class="row">
-
-
-<spam style="padding: 10px 20px 5px 10px;"></spam>
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.newItem()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Add Authority</span>
-        </button>
-
-
-</div>
-
-</div> -->
-
-<!-- NEW -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
@@ -63,10 +52,5 @@
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
-
-                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.save">Licence Management</span>
-        </button>
-
     </div>
 </form>

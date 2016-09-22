@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span translate="checklistApp.disclosureRequirement.detail.title">Disclosure Requirement</span> {{vm.disclosureRequirement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.disclosureRequirement.code">Code</span></dt>
+        <dd>
+            <span>{{vm.disclosureRequirement.code}}</span>
+        </dd>
+        <dt><span translate="checklistApp.disclosureRequirement.description">Description</span></dt>
+        <dd>
+            <span>{{vm.disclosureRequirement.description}}</span>
+        </dd>
+        <dt><span translate="checklistApp.disclosureRequirement.checklistTemplate">Checklist Template</span></dt>
+        <dd>
+            <a ui-sref="checklist-template-detail({id:vm.disclosureRequirement.checklistTemplateId})">{{vm.disclosureRequirement.checklistTemplateName}}</a>
+        </dd>
+        <dt><span translate="checklistApp.disclosureRequirement.parent">Parent</span></dt>
+        <dd>
+            <a ui-sref="disclosure-requirement-detail({id:vm.disclosureRequirement.parentId})">{{vm.disclosureRequirement.parentDescription}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="disclosure-requirement-detail.edit({id:vm.disclosureRequirement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

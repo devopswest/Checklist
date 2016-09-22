@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ChecklistTemplate.
+    -->
+    <changeSet id="20160922203146-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="territory_id"
+                                 baseTableName="checklist_template"
+                                 constraintName="fk_checklist_template_territory_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="taxonomy"/>
+
+        <addForeignKeyConstraint baseColumnNames="form_type_id"
+                                 baseTableName="checklist_template"
+                                 constraintName="fk_checklist_template_form_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="taxonomy"/>
+
+    </changeSet>
+</databaseChangeLog>

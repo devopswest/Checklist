@@ -36,7 +36,7 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="code"><span translate="checklistApp.requirement.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="checklistApp.requirement.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.requirement.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -44,7 +44,7 @@
             <tbody>
                 <tr ng-repeat="requirement in vm.requirements track by requirement.id">
                     <td><a ui-sref="requirement-detail({id:requirement.id})">{{requirement.id}}</a></td>
-                    <td>{{requirement.code}}</td>
+                    <td>{{requirement.name}}</td>
                     <td>{{requirement.description}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

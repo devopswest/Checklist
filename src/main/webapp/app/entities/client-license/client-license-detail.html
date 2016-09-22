@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span translate="checklistApp.clientLicense.detail.title">Client License</span> {{vm.clientLicense.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.clientLicense.contactName">Contact Name</span></dt>
+        <dd>
+            <span>{{vm.clientLicense.contactName}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientLicense.contactEmail">Contact Email</span></dt>
+        <dd>
+            <span>{{vm.clientLicense.contactEmail}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientLicense.expirationDate">Expiration Date</span></dt>
+        <dd>
+            <span>{{vm.clientLicense.expirationDate | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientLicense.activationToken">Activation Token</span></dt>
+        <dd>
+            <span>{{vm.clientLicense.activationToken}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientLicense.client">Client</span></dt>
+        <dd>
+            <a ui-sref="client-detail({id:vm.clientLicense.clientId})">{{vm.clientLicense.clientName}}</a>
+        </dd>
+        <dt><span translate="checklistApp.clientLicense.clientLicenseType">Client License Type</span></dt>
+        <dd>
+            <a ui-sref="taxonomy-detail({id:vm.clientLicense.clientLicenseTypeId})">{{vm.clientLicense.clientLicenseTypeLabel}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="client-license-detail.edit({id:vm.clientLicense.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -35,153 +35,16 @@
 
         <div class="form-group">
             <label translate="checklistApp.engagement.client" for="field_client">Client</label>
-            <select class="form-control" id="field_client" name="client" ng-model="vm.engagement.client" ng-options="client as client.name for client in vm.clients track by client.id">
+            <select class="form-control" id="field_client" name="client" ng-model="vm.engagement.clientId" ng-options="client.id as client.name for client in vm.clients"            >
                 <option value=""></option>
             </select>
         </div>
-<!--         <div class="form-group">
-            <label translate="checklistApp.engagement.checklist" for="field_checklist">Checklist</label>
-            <select class="form-control" id="field_checklist" name="checklist" ng-model="vm.engagement.checklist" ng-options="checklist as checklist.name for checklist in vm.checklists track by checklist.id">
+        <div class="form-group">
+            <label translate="checklistApp.engagement.workflow" for="field_workflow">Workflow</label>
+            <select class="form-control" id="field_workflow" name="workflow" ng-model="vm.engagement.workflowId" ng-options="workflow.id as workflow.name for workflow in vm.workflows"            >
                 <option value=""></option>
             </select>
-        </div> -->
-
-
-<!-- NEW -->
-
- <!-- <div class="form-group">
-
-
-<div class="row">
-
-
-<spam style="padding: 10px 20px 5px 10px;"></spam>
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.newItem()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Add Authority</span>
-        </button>
-
-
-</div>
-
-</div> -->
-
-<div class="form-group">
-
-
-<div class="row">
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
-
-
-<table ui-tree id="tree-root" class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Sort</th>
-          <th width="40%">Checklist</th>
-
-          <th width="40%">Workflow</th>
-          <th>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newItem2()" style="margin-right: 8px;"><span
-            class="glyphicon glyphicon-plus"></span></a>
-          </th>
-        </tr>
-      </thead>
-      <tbody ui-tree-nodes ng-model="vm.children2">
-        <tr ng-repeat="node in vm.children2" ui-tree-node>
-          <td>
-            <i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i>
-          </td>
-          <td>
-            <strong>{{node.title1}}</strong>
-          </td>
-          <td>
-            <strong>{{node.title2}}</strong>
-          </td>
-          <td>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.removeItem2(this)">
-              <span class="glyphicon glyphicon-remove"></span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
-  </div>
-  <div class="col-sm-1"> </div>
-
-</div>
-</div>
-
-<!-- NEW -->
-
-<!-- NEW -->
-
- <!-- <div class="form-group">
-
-
-<div class="row">
-
-
-<spam style="padding: 10px 20px 5px 10px;"></spam>
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.newItem()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Add Authority</span>
-        </button>
-
-
-</div>
-
-</div> -->
-
-<div class="form-group">
-
-
-<div class="row">
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
-
-
-<table ui-tree id="tree-root" class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Sort</th>
-          <th width="40%">Member</th>
-
-          <th width="40%">Authority</th>
-          <th>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newItem1()" style="margin-right: 8px;"><span
-            class="glyphicon glyphicon-plus"></span></a>
-          </th>
-        </tr>
-      </thead>
-      <tbody ui-tree-nodes ng-model="vm.children1">
-        <tr ng-repeat="node in vm.children1" ui-tree-node>
-          <td>
-            <i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i>
-          </td>
-          <td>
-            <strong>{{node.title1}}</strong>
-          </td>
-          <td>
-            <strong>{{node.title2}}</strong>
-          </td>
-          <td>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.removeItem1(this)">
-              <span class="glyphicon glyphicon-remove"></span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
-  </div>
-  <div class="col-sm-1"> </div>
-
-</div>
-</div>
-
-<!-- NEW -->
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
@@ -190,20 +53,5 @@
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
-
-        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Flag as Complete</span>
-        </button>
-
-                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Generate PDF</span>
-        </button>
-
-
-        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translateXX="entity.action.publish">Rollover</span>
-        </button>
-
-
     </div>
 </form>

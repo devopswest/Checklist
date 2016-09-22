@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span translate="checklistApp.clientTag.detail.title">Client Tag</span> {{vm.clientTag.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.clientTag.tagValue">Tag Value</span></dt>
+        <dd>
+            <span>{{vm.clientTag.tagValue}}</span>
+        </dd>
+        <dt><span translate="checklistApp.clientTag.tagProperty">Tag Property</span></dt>
+        <dd>
+            <a ui-sref="taxonomy-detail({id:vm.clientTag.tagPropertyId})">{{vm.clientTag.tagPropertyLabel}}</a>
+        </dd>
+        <dt><span translate="checklistApp.clientTag.client">Client</span></dt>
+        <dd>
+            <a ui-sref="client-detail({id:vm.clientTag.clientId})">{{vm.clientTag.clientName}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="client-tag-detail.edit({id:vm.clientTag.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

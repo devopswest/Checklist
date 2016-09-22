@@ -4,18 +4,18 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span translate="checklistApp.requirement.code">Code</span></dt>
+        <dt><span translate="checklistApp.requirement.name">Name</span></dt>
         <dd>
-            <span>{{vm.requirement.code}}</span>
+            <span>{{vm.requirement.name}}</span>
         </dd>
         <dt><span translate="checklistApp.requirement.description">Description</span></dt>
         <dd>
             <span>{{vm.requirement.description}}</span>
         </dd>
-        <dt><span translate="checklistApp.requirement.question">Question</span></dt>
+        <dt><span translate="checklistApp.requirement.disclosureRequirement">Disclosure Requirement</span></dt>
         <dd>
-            <span ng-repeat="question in vm.requirement.questions">
-                <a ui-sref="question-detail({id: question.id})">{{question.question}}</a>{{$last ? '' : ', '}}
+            <span ng-repeat="disclosureRequirement in vm.requirement.disclosureRequirements">
+                <a ui-sref="disclosure-requirement-detail({id: disclosureRequirement.id})">{{disclosureRequirement.description}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
     </dl>

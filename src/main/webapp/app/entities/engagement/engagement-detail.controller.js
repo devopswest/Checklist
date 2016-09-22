@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('EngagementDetailController', EngagementDetailController);
 
-    EngagementDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Engagement', 'EngagementMember', 'Client', 'Checklist', 'Workflow'];
+    EngagementDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Engagement', 'EngagementMember', 'EngagementChecklistTemplate', 'Client', 'Workflow'];
 
-    function EngagementDetailController($scope, $rootScope, $stateParams, previousState, entity, Engagement, EngagementMember, Client, Checklist, Workflow) {
+    function EngagementDetailController($scope, $rootScope, $stateParams, previousState, entity, Engagement, EngagementMember, EngagementChecklistTemplate, Client, Workflow) {
         var vm = this;
 
         vm.engagement = entity;

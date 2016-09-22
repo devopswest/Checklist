@@ -1,0 +1,23 @@
+{
+    "checklistApp": {
+        "notificationAction" : {
+            "home": {
+                "title": "Notification Actions",
+                "createLabel": "Create a new Notification Action",
+                "createOrEditLabel": "Create or edit a Notification Action",
+                "search": "Search for Notification Action"
+            },
+            "created": "A new Notification Action is created with identifier {{ param }}",
+            "updated": "A Notification Action is updated with identifier {{ param }}",
+            "deleted": "A Notification Action is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Notification Action {{ id }}?"
+            },
+            "detail": {
+                "title": "Notification Action"
+            },
+            "action": "Action",
+            "notification": "Notification"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "notification",
+            "otherEntityName": "notification",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "action",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160922203101",
+    "entityTableName": "notification_action",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

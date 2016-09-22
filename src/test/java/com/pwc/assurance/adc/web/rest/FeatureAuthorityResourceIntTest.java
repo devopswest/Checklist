@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.FeatureAuthority;
 import com.pwc.assurance.adc.repository.FeatureAuthorityRepository;
+import com.pwc.assurance.adc.service.FeatureAuthorityService;
 import com.pwc.assurance.adc.repository.search.FeatureAuthoritySearchRepository;
+import com.pwc.assurance.adc.service.dto.FeatureAuthorityDTO;
+import com.pwc.assurance.adc.service.mapper.FeatureAuthorityMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,12 @@ public class FeatureAuthorityResourceIntTest {
     private FeatureAuthorityRepository featureAuthorityRepository;
 
     @Inject
+    private FeatureAuthorityMapper featureAuthorityMapper;
+
+    @Inject
+    private FeatureAuthorityService featureAuthorityService;
+
+    @Inject
     private FeatureAuthoritySearchRepository featureAuthoritySearchRepository;
 
     @Inject
@@ -65,8 +74,7 @@ public class FeatureAuthorityResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         FeatureAuthorityResource featureAuthorityResource = new FeatureAuthorityResource();
-        ReflectionTestUtils.setField(featureAuthorityResource, "featureAuthoritySearchRepository", featureAuthoritySearchRepository);
-        ReflectionTestUtils.setField(featureAuthorityResource, "featureAuthorityRepository", featureAuthorityRepository);
+        ReflectionTestUtils.setField(featureAuthorityResource, "featureAuthorityService", featureAuthorityService);
         this.restFeatureAuthorityMockMvc = MockMvcBuilders.standaloneSetup(featureAuthorityResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -97,10 +105,11 @@ public class FeatureAuthorityResourceIntTest {
         int databaseSizeBeforeCreate = featureAuthorityRepository.findAll().size();
 
         // Create the FeatureAuthority
+        FeatureAuthorityDTO featureAuthorityDTO = featureAuthorityMapper.featureAuthorityToFeatureAuthorityDTO(featureAuthority);
 
         restFeatureAuthorityMockMvc.perform(post("/api/feature-authorities")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(featureAuthority)))
+                .content(TestUtil.convertObjectToJsonBytes(featureAuthorityDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the FeatureAuthority in the database
@@ -162,10 +171,11 @@ public class FeatureAuthorityResourceIntTest {
         FeatureAuthority updatedFeatureAuthority = featureAuthorityRepository.findOne(featureAuthority.getId());
         updatedFeatureAuthority
                 .authority(UPDATED_AUTHORITY);
+        FeatureAuthorityDTO featureAuthorityDTO = featureAuthorityMapper.featureAuthorityToFeatureAuthorityDTO(updatedFeatureAuthority);
 
         restFeatureAuthorityMockMvc.perform(put("/api/feature-authorities")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedFeatureAuthority)))
+                .content(TestUtil.convertObjectToJsonBytes(featureAuthorityDTO)))
                 .andExpect(status().isOk());
 
         // Validate the FeatureAuthority in the database

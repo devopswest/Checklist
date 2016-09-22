@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "checklistTemplate",
+            "otherEntityName": "checklistTemplate",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "workflow",
+            "otherEntityName": "workflow",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "engagement",
+            "otherEntityName": "engagement",
+            "otherEntityField": "description"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20160922203151",
+    "entityTableName": "engagement_checklist_template",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}

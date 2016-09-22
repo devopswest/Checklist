@@ -67,7 +67,7 @@ class RequirementGatlingTest extends Simulation {
             .exec(http("Create new requirement")
             .post("/api/requirements")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "code":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "description":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_requirement_url"))).exitHereIfFailed
             .pause(10)

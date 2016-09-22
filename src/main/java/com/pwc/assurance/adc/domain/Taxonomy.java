@@ -32,9 +32,7 @@ public class Taxonomy implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "code", length = 20, nullable = false)
+    @Column(name = "code")
     private String code;
 
     @NotNull

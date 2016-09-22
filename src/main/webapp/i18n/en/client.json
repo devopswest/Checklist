@@ -17,7 +17,11 @@
                 "title": "Client"
             },
             "code": "Code",
-            "name": "Name"
+            "name": "Name",
+            "duns": "Duns",
+            "partyId": "Party Id",
+            "cesId": "Ces Id",
+            "tags": "Tags"
         }
     }
 }

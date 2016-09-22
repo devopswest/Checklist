@@ -42,42 +42,6 @@
             vm.isSaving = false;
         }
 
-///NEW
-vm.children = [
-  {
-    "id": 1,
-    "title1": "Step 1",
-    "title2": "PWC_ROLE_ENGAGEMENT_TEAM"
-  },
-  {
-    "id": 2,
-    "title1": "Step 2",
-    "title2": "PWC_ROLE_ADMIN"
-  },
-  {
-    "id": 3,
-    "title1": "Step 3",
-    "title2": "PWC_ROLE_MANAGER"
-  }
-];
-
-
-vm.newItem = function () {
-        var nodeData = vm.children[vm.children.length - 1];
-        vm.children.push({
-          id: vm.children.length + 1,
-          title1: 'node ' + (vm.children.length + 1),
-          title2: 'node ' + (vm.children.length + 1)
-        });
-      };
-
-
-vm.removeItem = function (scope) {
-        scope.remove();
-      };
-
-
-///NEW
 
     }
 })();

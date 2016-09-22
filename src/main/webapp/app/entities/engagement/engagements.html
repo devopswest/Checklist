@@ -39,9 +39,8 @@
                     <th jh-sort-by="fiscalYear"><span translate="checklistApp.engagement.fiscalYear">Fiscal Year</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span translate="checklistApp.engagement.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="checklistApp.engagement.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="client.name"><span translate="checklistApp.engagement.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="checklist.name"><span translate="checklistApp.engagement.checklist">Checklist</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="workflow.name"><span translate="checklistApp.engagement.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="clientName"><span translate="checklistApp.engagement.client">Client</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="workflowName"><span translate="checklistApp.engagement.workflow">Workflow</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -52,13 +51,10 @@
                     <td>{{engagement.description}}</td>
                     <td translate="{{'checklistApp.ResponseStatus.' + engagement.status}}">{{engagement.status}}</td>
                     <td>
-                        <a ui-sref="client-detail({id:engagement.client.id})">{{engagement.client.name}}</a>
+                        <a ui-sref="client-detail({id:engagement.clientId})">{{engagement.clientName}}</a>
                     </td>
                     <td>
-                        <a ui-sref="checklist-detail({id:engagement.checklist.id})">{{engagement.checklist.name}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="workflow-detail({id:engagement.workflow.id})">{{engagement.workflow.name}}</a>
+                        <a ui-sref="workflow-detail({id:engagement.workflowId})">{{engagement.workflowName}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

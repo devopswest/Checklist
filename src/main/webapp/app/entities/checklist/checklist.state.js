@@ -46,7 +46,7 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('checklist');
-                    $translatePartialLoader.addPart('checklistStatus');
+                    $translatePartialLoader.addPart('responseStatus');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -69,7 +69,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('checklist');
-                    $translatePartialLoader.addPart('checklistStatus');
+                    $translatePartialLoader.addPart('responseStatus');
                     return $translate.refresh();
                 }],
                 entity: ['$stateParams', 'Checklist', function($stateParams, Checklist) {
@@ -126,9 +126,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
                                 description: null,
-                                version: null,
                                 status: null,
                                 id: null
                             };

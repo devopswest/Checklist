@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Feature;
 import com.pwc.assurance.adc.repository.FeatureRepository;
+import com.pwc.assurance.adc.service.FeatureService;
 import com.pwc.assurance.adc.repository.search.FeatureSearchRepository;
+import com.pwc.assurance.adc.service.dto.FeatureDTO;
+import com.pwc.assurance.adc.service.mapper.FeatureMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,12 @@ public class FeatureResourceIntTest {
     private FeatureRepository featureRepository;
 
     @Inject
+    private FeatureMapper featureMapper;
+
+    @Inject
+    private FeatureService featureService;
+
+    @Inject
     private FeatureSearchRepository featureSearchRepository;
 
     @Inject
@@ -65,8 +74,7 @@ public class FeatureResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         FeatureResource featureResource = new FeatureResource();
-        ReflectionTestUtils.setField(featureResource, "featureSearchRepository", featureSearchRepository);
-        ReflectionTestUtils.setField(featureResource, "featureRepository", featureRepository);
+        ReflectionTestUtils.setField(featureResource, "featureService", featureService);
         this.restFeatureMockMvc = MockMvcBuilders.standaloneSetup(featureResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -98,10 +106,11 @@ public class FeatureResourceIntTest {
         int databaseSizeBeforeCreate = featureRepository.findAll().size();
 
         // Create the Feature
+        FeatureDTO featureDTO = featureMapper.featureToFeatureDTO(feature);
 
         restFeatureMockMvc.perform(post("/api/features")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(feature)))
+                .content(TestUtil.convertObjectToJsonBytes(featureDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Feature in the database
@@ -124,10 +133,11 @@ public class FeatureResourceIntTest {
         feature.setCode(null);
 
         // Create the Feature, which fails.
+        FeatureDTO featureDTO = featureMapper.featureToFeatureDTO(feature);
 
         restFeatureMockMvc.perform(post("/api/features")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(feature)))
+                .content(TestUtil.convertObjectToJsonBytes(featureDTO)))
                 .andExpect(status().isBadRequest());
 
         List<Feature> features = featureRepository.findAll();
@@ -142,10 +152,11 @@ public class FeatureResourceIntTest {
         feature.setLabel(null);
 
         // Create the Feature, which fails.
+        FeatureDTO featureDTO = featureMapper.featureToFeatureDTO(feature);
 
         restFeatureMockMvc.perform(post("/api/features")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(feature)))
+                .content(TestUtil.convertObjectToJsonBytes(featureDTO)))
                 .andExpect(status().isBadRequest());
 
         List<Feature> features = featureRepository.findAll();
@@ -203,10 +214,11 @@ public class FeatureResourceIntTest {
         updatedFeature
                 .code(UPDATED_CODE)
                 .label(UPDATED_LABEL);
+        FeatureDTO featureDTO = featureMapper.featureToFeatureDTO(updatedFeature);
 
         restFeatureMockMvc.perform(put("/api/features")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedFeature)))
+                .content(TestUtil.convertObjectToJsonBytes(featureDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Feature in the database

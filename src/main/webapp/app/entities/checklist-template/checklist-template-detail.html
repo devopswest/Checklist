@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span translate="checklistApp.checklistTemplate.detail.title">Checklist Template</span> {{vm.checklistTemplate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.checklistTemplate.name">Name</span></dt>
+        <dd>
+            <span>{{vm.checklistTemplate.name}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistTemplate.description">Description</span></dt>
+        <dd>
+            <span>{{vm.checklistTemplate.description}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistTemplate.version">Version</span></dt>
+        <dd>
+            <span>{{vm.checklistTemplate.version}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistTemplate.status">Status</span></dt>
+        <dd>
+            <span translate="{{'checklistApp.ChecklistTemplateStatus.' + vm.checklistTemplate.status}}">{{vm.checklistTemplate.status}}</span>
+        </dd>
+        <dt><span translate="checklistApp.checklistTemplate.territory">Territory</span></dt>
+        <dd>
+            <a ui-sref="taxonomy-detail({id:vm.checklistTemplate.territoryId})">{{vm.checklistTemplate.territoryLabel}}</a>
+        </dd>
+        <dt><span translate="checklistApp.checklistTemplate.formType">Form Type</span></dt>
+        <dd>
+            <a ui-sref="taxonomy-detail({id:vm.checklistTemplate.formTypeId})">{{vm.checklistTemplate.formTypeLabel}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="checklist-template-detail.edit({id:vm.checklistTemplate.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

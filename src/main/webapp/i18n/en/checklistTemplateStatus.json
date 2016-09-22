@@ -1,0 +1,9 @@
+{
+    "checklistApp": {
+        "ChecklistTemplateStatus" : {
+            "null": "",
+            "DRAFT": "DRAFT",
+            "RELEASED": "RELEASED"
+        }
+    }
+}

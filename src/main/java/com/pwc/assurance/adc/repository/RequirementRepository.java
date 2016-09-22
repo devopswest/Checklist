@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface RequirementRepository extends JpaRepository<Requirement,Long> {
 
-    @Query("select distinct requirement from Requirement requirement left join fetch requirement.questions")
+    @Query("select distinct requirement from Requirement requirement left join fetch requirement.disclosureRequirements")
     List<Requirement> findAllWithEagerRelationships();
 
-    @Query("select requirement from Requirement requirement left join fetch requirement.questions where requirement.id =:id")
+    @Query("select requirement from Requirement requirement left join fetch requirement.disclosureRequirements where requirement.id =:id")
     Requirement findOneWithEagerRelationships(@Param("id") Long id);
 
 }

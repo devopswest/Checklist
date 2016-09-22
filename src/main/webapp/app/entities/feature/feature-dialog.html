@@ -56,80 +56,11 @@
 
         <div class="form-group">
             <label translate="checklistApp.feature.parent" for="field_parent">Parent</label>
-            <select class="form-control" id="field_parent" name="parent" ng-model="vm.feature.parent" ng-options="feature as feature.label for feature in vm.features track by feature.id">
+            <select class="form-control" id="field_parent" name="parent" ng-model="vm.feature.parentId" ng-options="feature.id as feature.label for feature in vm.features"            >
                 <option value=""></option>
             </select>
         </div>
-
-<!-- NEW -->
-
- <!-- <div class="form-group">
-
-
-<div class="row">
-
-
-<spam style="padding: 10px 20px 5px 10px;"></spam>
-      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.newItem()">
-            <span class="glyphicon glyphicon-ban-save"></span>&nbsp;<span translateXX="entity.action.cancel">Add Authority</span>
-        </button>
-
-
-</div>
-
-</div> -->
-
-<div class="form-group">
-
-
-<div class="row">
-  <div class="col-sm-1"> </div>
-  <div class="col-sm-10">
-
-
-<table ui-tree id="tree-root" class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Sort</th>
-          <th width="80%">Authority</th>
-          <th>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="vm.newItem()" style="margin-right: 8px;"><span
-            class="glyphicon glyphicon-plus"></span></a>
-          </th>
-        </tr>
-      </thead>
-      <tbody ui-tree-nodes ng-model="vm.children">
-        <tr ng-repeat="node in vm.children" ui-tree-node>
-          <td>
-            <i class="glyphicon glyphicon-resize-vertical" ui-tree-handle></i>
-          </td>
-          <td>
-            <strong>{{node.title}}</strong>
-          </td>
-          <td>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.removeItem(this)">
-              <span class="glyphicon glyphicon-remove"></span>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-
-  </div>
-  <div class="col-sm-1"> </div>
-
-</div>
-</div>
-
-<!-- NEW -->
-
-
     </div>
-
-
-
-
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

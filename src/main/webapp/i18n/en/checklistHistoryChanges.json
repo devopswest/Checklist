@@ -1,0 +1,25 @@
+{
+    "checklistApp": {
+        "checklistHistoryChanges" : {
+            "home": {
+                "title": "Checklist History Changes",
+                "createLabel": "Create a new Checklist History Changes",
+                "createOrEditLabel": "Create or edit a Checklist History Changes",
+                "search": "Search for Checklist History Changes"
+            },
+            "created": "A new Checklist History Changes is created with identifier {{ param }}",
+            "updated": "A Checklist History Changes is updated with identifier {{ param }}",
+            "deleted": "A Checklist History Changes is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Checklist History Changes {{ id }}?"
+            },
+            "detail": {
+                "title": "Checklist History Changes"
+            },
+            "happened": "Happened",
+            "description": "Description",
+            "checklist": "Checklist",
+            "who": "Who"
+        }
+    }
+}

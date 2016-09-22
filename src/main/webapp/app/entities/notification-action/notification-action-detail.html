@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span translate="checklistApp.notificationAction.detail.title">Notification Action</span> {{vm.notificationAction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="checklistApp.notificationAction.action">Action</span></dt>
+        <dd>
+            <span>{{vm.notificationAction.action}}</span>
+        </dd>
+        <dt><span translate="checklistApp.notificationAction.notification">Notification</span></dt>
+        <dd>
+            <a ui-sref="notification-detail({id:vm.notificationAction.notificationId})">{{vm.notificationAction.notificationId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="notification-action-detail.edit({id:vm.notificationAction.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

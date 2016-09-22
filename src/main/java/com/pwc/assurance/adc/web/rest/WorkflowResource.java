@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.Workflow;
-
-import com.pwc.assurance.adc.repository.WorkflowRepository;
-import com.pwc.assurance.adc.repository.search.WorkflowSearchRepository;
+import com.pwc.assurance.adc.service.WorkflowService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.WorkflowDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,29 +36,25 @@ public class WorkflowResource {
     private final Logger log = LoggerFactory.getLogger(WorkflowResource.class);
         
     @Inject
-    private WorkflowRepository workflowRepository;
-
-    @Inject
-    private WorkflowSearchRepository workflowSearchRepository;
+    private WorkflowService workflowService;
 
     /**
      * POST  /workflows : Create a new workflow.
      *
-     * @param workflow the workflow to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new workflow, or with status 400 (Bad Request) if the workflow has already an ID
+     * @param workflowDTO the workflowDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new workflowDTO, or with status 400 (Bad Request) if the workflow has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/workflows",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Workflow> createWorkflow(@RequestBody Workflow workflow) throws URISyntaxException {
-        log.debug("REST request to save Workflow : {}", workflow);
-        if (workflow.getId() != null) {
+    public ResponseEntity<WorkflowDTO> createWorkflow(@RequestBody WorkflowDTO workflowDTO) throws URISyntaxException {
+        log.debug("REST request to save Workflow : {}", workflowDTO);
+        if (workflowDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("workflow", "idexists", "A new workflow cannot already have an ID")).body(null);
         }
-        Workflow result = workflowRepository.save(workflow);
-        workflowSearchRepository.save(result);
+        WorkflowDTO result = workflowService.save(workflowDTO);
         return ResponseEntity.created(new URI("/api/workflows/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("workflow", result.getId().toString()))
             .body(result);
@@ -68,25 +63,24 @@ public class WorkflowResource {
     /**
      * PUT  /workflows : Updates an existing workflow.
      *
-     * @param workflow the workflow to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated workflow,
-     * or with status 400 (Bad Request) if the workflow is not valid,
-     * or with status 500 (Internal Server Error) if the workflow couldnt be updated
+     * @param workflowDTO the workflowDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated workflowDTO,
+     * or with status 400 (Bad Request) if the workflowDTO is not valid,
+     * or with status 500 (Internal Server Error) if the workflowDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/workflows",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Workflow> updateWorkflow(@RequestBody Workflow workflow) throws URISyntaxException {
-        log.debug("REST request to update Workflow : {}", workflow);
-        if (workflow.getId() == null) {
-            return createWorkflow(workflow);
+    public ResponseEntity<WorkflowDTO> updateWorkflow(@RequestBody WorkflowDTO workflowDTO) throws URISyntaxException {
+        log.debug("REST request to update Workflow : {}", workflowDTO);
+        if (workflowDTO.getId() == null) {
+            return createWorkflow(workflowDTO);
         }
-        Workflow result = workflowRepository.save(workflow);
-        workflowSearchRepository.save(result);
+        WorkflowDTO result = workflowService.save(workflowDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("workflow", workflow.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("workflow", workflowDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,10 +95,10 @@ public class WorkflowResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Workflow>> getAllWorkflows(Pageable pageable)
+    public ResponseEntity<List<WorkflowDTO>> getAllWorkflows(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Workflows");
-        Page<Workflow> page = workflowRepository.findAll(pageable);
+        Page<WorkflowDTO> page = workflowService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/workflows");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -112,17 +106,17 @@ public class WorkflowResource {
     /**
      * GET  /workflows/:id : get the "id" workflow.
      *
-     * @param id the id of the workflow to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the workflow, or with status 404 (Not Found)
+     * @param id the id of the workflowDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the workflowDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/workflows/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Workflow> getWorkflow(@PathVariable Long id) {
+    public ResponseEntity<WorkflowDTO> getWorkflow(@PathVariable Long id) {
         log.debug("REST request to get Workflow : {}", id);
-        Workflow workflow = workflowRepository.findOne(id);
-        return Optional.ofNullable(workflow)
+        WorkflowDTO workflowDTO = workflowService.findOne(id);
+        return Optional.ofNullable(workflowDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +126,7 @@ public class WorkflowResource {
     /**
      * DELETE  /workflows/:id : delete the "id" workflow.
      *
-     * @param id the id of the workflow to delete
+     * @param id the id of the workflowDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/workflows/{id}",
@@ -141,8 +135,7 @@ public class WorkflowResource {
     @Timed
     public ResponseEntity<Void> deleteWorkflow(@PathVariable Long id) {
         log.debug("REST request to delete Workflow : {}", id);
-        workflowRepository.delete(id);
-        workflowSearchRepository.delete(id);
+        workflowService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("workflow", id.toString())).build();
     }
 
@@ -159,10 +152,10 @@ public class WorkflowResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Workflow>> searchWorkflows(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<WorkflowDTO>> searchWorkflows(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Workflows for query {}", query);
-        Page<Workflow> page = workflowSearchRepository.search(queryStringQuery(query), pageable);
+        Page<WorkflowDTO> page = workflowService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/workflows");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

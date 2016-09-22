@@ -1,0 +1,24 @@
+{
+    "checklistApp": {
+        "engagementChecklistTemplate" : {
+            "home": {
+                "title": "Engagement Checklist Templates",
+                "createLabel": "Create a new Engagement Checklist Template",
+                "createOrEditLabel": "Create or edit a Engagement Checklist Template",
+                "search": "Search for Engagement Checklist Template"
+            },
+            "created": "A new Engagement Checklist Template is created with identifier {{ param }}",
+            "updated": "A Engagement Checklist Template is updated with identifier {{ param }}",
+            "deleted": "A Engagement Checklist Template is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Engagement Checklist Template {{ id }}?"
+            },
+            "detail": {
+                "title": "Engagement Checklist Template"
+            },
+            "checklistTemplate": "Checklist Template",
+            "workflow": "Workflow",
+            "engagement": "Engagement"
+        }
+    }
+}

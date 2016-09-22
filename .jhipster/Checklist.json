@@ -3,40 +3,52 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "checklistQuestion",
-            "otherEntityName": "checklistQuestion",
+            "relationshipName": "log",
+            "otherEntityName": "checklistHistoryChanges",
+            "otherEntityRelationshipName": "checklist"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "review",
+            "otherEntityName": "checklistWorkflow",
             "otherEntityRelationshipName": "checklist"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "country",
-            "otherEntityName": "taxonomy",
-            "otherEntityField": "label"
+            "relationshipName": "engagement",
+            "otherEntityName": "engagement",
+            "otherEntityField": "description"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "owner",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "checklist",
+            "relationshipName": "checklistAnswer",
+            "otherEntityName": "checklistAnswer",
+            "otherEntityField": "answer",
+            "ownerSide": true
         }
     ],
     "fields": [
-        {
-            "fieldName": "name",
-            "fieldType": "String"
-        },
         {
             "fieldName": "description",
             "fieldType": "String"
         },
         {
-            "fieldName": "version",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "status",
-            "fieldType": "ChecklistStatus",
-            "fieldValues": "DRAFT,RELEASED"
+            "fieldType": "ResponseStatus",
+            "fieldValues": "DRAFT,FINAL"
         }
     ],
-    "changelogDate": "20160907134459",
-    "javadoc": "ChecklistTODO: Questions help or guidance fields.Main/core checlists, Supplemental Checklists",
+    "changelogDate": "20160922203153",
+    "javadoc": "Response Responses",
     "entityTableName": "checklist",
     "dto": "mapstruct",
     "pagination": "pager",
-    "service": "no"
+    "service": "serviceImpl"
 }

@@ -3,7 +3,10 @@ package com.pwc.assurance.adc.web.rest;
 import com.pwc.assurance.adc.ChecklistApp;
 import com.pwc.assurance.adc.domain.Template;
 import com.pwc.assurance.adc.repository.TemplateRepository;
+import com.pwc.assurance.adc.service.TemplateService;
 import com.pwc.assurance.adc.repository.search.TemplateSearchRepository;
+import com.pwc.assurance.adc.service.dto.TemplateDTO;
+import com.pwc.assurance.adc.service.mapper.TemplateMapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +51,12 @@ public class TemplateResourceIntTest {
     private TemplateRepository templateRepository;
 
     @Inject
+    private TemplateMapper templateMapper;
+
+    @Inject
+    private TemplateService templateService;
+
+    @Inject
     private TemplateSearchRepository templateSearchRepository;
 
     @Inject
@@ -67,8 +76,7 @@ public class TemplateResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         TemplateResource templateResource = new TemplateResource();
-        ReflectionTestUtils.setField(templateResource, "templateSearchRepository", templateSearchRepository);
-        ReflectionTestUtils.setField(templateResource, "templateRepository", templateRepository);
+        ReflectionTestUtils.setField(templateResource, "templateService", templateService);
         this.restTemplateMockMvc = MockMvcBuilders.standaloneSetup(templateResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -101,10 +109,11 @@ public class TemplateResourceIntTest {
         int databaseSizeBeforeCreate = templateRepository.findAll().size();
 
         // Create the Template
+        TemplateDTO templateDTO = templateMapper.templateToTemplateDTO(template);
 
         restTemplateMockMvc.perform(post("/api/templates")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(template)))
+                .content(TestUtil.convertObjectToJsonBytes(templateDTO)))
                 .andExpect(status().isCreated());
 
         // Validate the Template in the database
@@ -174,10 +183,11 @@ public class TemplateResourceIntTest {
                 .code(UPDATED_CODE)
                 .description(UPDATED_DESCRIPTION)
                 .content(UPDATED_CONTENT);
+        TemplateDTO templateDTO = templateMapper.templateToTemplateDTO(updatedTemplate);
 
         restTemplateMockMvc.perform(put("/api/templates")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedTemplate)))
+                .content(TestUtil.convertObjectToJsonBytes(templateDTO)))
                 .andExpect(status().isOk());
 
         // Validate the Template in the database

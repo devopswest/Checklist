@@ -1,12 +1,10 @@
 package com.pwc.assurance.adc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.FeatureAuthority;
-
-import com.pwc.assurance.adc.repository.FeatureAuthorityRepository;
-import com.pwc.assurance.adc.repository.search.FeatureAuthoritySearchRepository;
+import com.pwc.assurance.adc.service.FeatureAuthorityService;
 import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
 import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import com.pwc.assurance.adc.service.dto.FeatureAuthorityDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,29 +36,25 @@ public class FeatureAuthorityResource {
     private final Logger log = LoggerFactory.getLogger(FeatureAuthorityResource.class);
         
     @Inject
-    private FeatureAuthorityRepository featureAuthorityRepository;
-
-    @Inject
-    private FeatureAuthoritySearchRepository featureAuthoritySearchRepository;
+    private FeatureAuthorityService featureAuthorityService;
 
     /**
      * POST  /feature-authorities : Create a new featureAuthority.
      *
-     * @param featureAuthority the featureAuthority to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new featureAuthority, or with status 400 (Bad Request) if the featureAuthority has already an ID
+     * @param featureAuthorityDTO the featureAuthorityDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new featureAuthorityDTO, or with status 400 (Bad Request) if the featureAuthority has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/feature-authorities",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<FeatureAuthority> createFeatureAuthority(@RequestBody FeatureAuthority featureAuthority) throws URISyntaxException {
-        log.debug("REST request to save FeatureAuthority : {}", featureAuthority);
-        if (featureAuthority.getId() != null) {
+    public ResponseEntity<FeatureAuthorityDTO> createFeatureAuthority(@RequestBody FeatureAuthorityDTO featureAuthorityDTO) throws URISyntaxException {
+        log.debug("REST request to save FeatureAuthority : {}", featureAuthorityDTO);
+        if (featureAuthorityDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("featureAuthority", "idexists", "A new featureAuthority cannot already have an ID")).body(null);
         }
-        FeatureAuthority result = featureAuthorityRepository.save(featureAuthority);
-        featureAuthoritySearchRepository.save(result);
+        FeatureAuthorityDTO result = featureAuthorityService.save(featureAuthorityDTO);
         return ResponseEntity.created(new URI("/api/feature-authorities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("featureAuthority", result.getId().toString()))
             .body(result);
@@ -68,25 +63,24 @@ public class FeatureAuthorityResource {
     /**
      * PUT  /feature-authorities : Updates an existing featureAuthority.
      *
-     * @param featureAuthority the featureAuthority to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated featureAuthority,
-     * or with status 400 (Bad Request) if the featureAuthority is not valid,
-     * or with status 500 (Internal Server Error) if the featureAuthority couldnt be updated
+     * @param featureAuthorityDTO the featureAuthorityDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated featureAuthorityDTO,
+     * or with status 400 (Bad Request) if the featureAuthorityDTO is not valid,
+     * or with status 500 (Internal Server Error) if the featureAuthorityDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/feature-authorities",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<FeatureAuthority> updateFeatureAuthority(@RequestBody FeatureAuthority featureAuthority) throws URISyntaxException {
-        log.debug("REST request to update FeatureAuthority : {}", featureAuthority);
-        if (featureAuthority.getId() == null) {
-            return createFeatureAuthority(featureAuthority);
+    public ResponseEntity<FeatureAuthorityDTO> updateFeatureAuthority(@RequestBody FeatureAuthorityDTO featureAuthorityDTO) throws URISyntaxException {
+        log.debug("REST request to update FeatureAuthority : {}", featureAuthorityDTO);
+        if (featureAuthorityDTO.getId() == null) {
+            return createFeatureAuthority(featureAuthorityDTO);
         }
-        FeatureAuthority result = featureAuthorityRepository.save(featureAuthority);
-        featureAuthoritySearchRepository.save(result);
+        FeatureAuthorityDTO result = featureAuthorityService.save(featureAuthorityDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("featureAuthority", featureAuthority.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("featureAuthority", featureAuthorityDTO.getId().toString()))
             .body(result);
     }
 
@@ -101,10 +95,10 @@ public class FeatureAuthorityResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<FeatureAuthority>> getAllFeatureAuthorities(Pageable pageable)
+    public ResponseEntity<List<FeatureAuthorityDTO>> getAllFeatureAuthorities(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of FeatureAuthorities");
-        Page<FeatureAuthority> page = featureAuthorityRepository.findAll(pageable);
+        Page<FeatureAuthorityDTO> page = featureAuthorityService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/feature-authorities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -112,17 +106,17 @@ public class FeatureAuthorityResource {
     /**
      * GET  /feature-authorities/:id : get the "id" featureAuthority.
      *
-     * @param id the id of the featureAuthority to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the featureAuthority, or with status 404 (Not Found)
+     * @param id the id of the featureAuthorityDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the featureAuthorityDTO, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/feature-authorities/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<FeatureAuthority> getFeatureAuthority(@PathVariable Long id) {
+    public ResponseEntity<FeatureAuthorityDTO> getFeatureAuthority(@PathVariable Long id) {
         log.debug("REST request to get FeatureAuthority : {}", id);
-        FeatureAuthority featureAuthority = featureAuthorityRepository.findOne(id);
-        return Optional.ofNullable(featureAuthority)
+        FeatureAuthorityDTO featureAuthorityDTO = featureAuthorityService.findOne(id);
+        return Optional.ofNullable(featureAuthorityDTO)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -132,7 +126,7 @@ public class FeatureAuthorityResource {
     /**
      * DELETE  /feature-authorities/:id : delete the "id" featureAuthority.
      *
-     * @param id the id of the featureAuthority to delete
+     * @param id the id of the featureAuthorityDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/feature-authorities/{id}",
@@ -141,8 +135,7 @@ public class FeatureAuthorityResource {
     @Timed
     public ResponseEntity<Void> deleteFeatureAuthority(@PathVariable Long id) {
         log.debug("REST request to delete FeatureAuthority : {}", id);
-        featureAuthorityRepository.delete(id);
-        featureAuthoritySearchRepository.delete(id);
+        featureAuthorityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("featureAuthority", id.toString())).build();
     }
 
@@ -159,10 +152,10 @@ public class FeatureAuthorityResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<FeatureAuthority>> searchFeatureAuthorities(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<FeatureAuthorityDTO>> searchFeatureAuthorities(@RequestParam String query, Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of FeatureAuthorities for query {}", query);
-        Page<FeatureAuthority> page = featureAuthoritySearchRepository.search(queryStringQuery(query), pageable);
+        Page<FeatureAuthorityDTO> page = featureAuthorityService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/feature-authorities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

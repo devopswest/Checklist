@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Checklist Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockChecklist, MockChecklistQuestion, MockTaxonomy;
+        var MockEntity, MockPreviousState, MockChecklist, MockChecklistHistoryChanges, MockChecklistWorkflow, MockEngagement, MockUser, MockChecklistAnswer;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -13,8 +13,11 @@ describe('Controller Tests', function() {
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
             MockChecklist = jasmine.createSpy('MockChecklist');
-            MockChecklistQuestion = jasmine.createSpy('MockChecklistQuestion');
-            MockTaxonomy = jasmine.createSpy('MockTaxonomy');
+            MockChecklistHistoryChanges = jasmine.createSpy('MockChecklistHistoryChanges');
+            MockChecklistWorkflow = jasmine.createSpy('MockChecklistWorkflow');
+            MockEngagement = jasmine.createSpy('MockEngagement');
+            MockUser = jasmine.createSpy('MockUser');
+            MockChecklistAnswer = jasmine.createSpy('MockChecklistAnswer');
             
 
             var locals = {
@@ -23,8 +26,11 @@ describe('Controller Tests', function() {
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
                 'Checklist': MockChecklist,
-                'ChecklistQuestion': MockChecklistQuestion,
-                'Taxonomy': MockTaxonomy
+                'ChecklistHistoryChanges': MockChecklistHistoryChanges,
+                'ChecklistWorkflow': MockChecklistWorkflow,
+                'Engagement': MockEngagement,
+                'User': MockUser,
+                'ChecklistAnswer': MockChecklistAnswer
             };
             createController = function() {
                 $injector.get('$controller')("ChecklistDetailController", locals);
