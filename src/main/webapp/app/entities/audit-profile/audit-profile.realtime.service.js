@@ -17,6 +17,7 @@
     	var scopes            = 'profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file profile';        
         var auditQuestionResponseModel     = function(){    };
         var auditquestionResponseMapCollab = [];
+        var isDirtyQuestionIdMap = {};
         
         //User Specific information
         var isCustomModelRegistered = false;
@@ -27,10 +28,11 @@
         var driveFileId;
         var templateQuestions;
         
-        var collaborate = function(profileId,responseMap,treedata){
+        var collaborate = function(profileId, responseMap, treedata, isDirtyMap){
         	auditProfileId           = profileId;
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
+        	isDirtyQuestionIdMap     = isDirtyMap;
         	driveFileName            = 'audit_profile_' + auditProfileId;
         	realtimeUtils.authorize(loginSuccess, false);
         	return true;
@@ -164,10 +166,15 @@
 		var attachCollaborateResponseToTemplate = function(templateQuestions){	
 			for(var l=0;l<templateQuestions.length;l++){
 				var questionId = String(templateQuestions[l].id);
+				//Update if drive has value and only when it is not locally dirty
 				if(auditquestionResponseMapCollab.has(questionId)){
-					templateQuestions[l].response = auditquestionResponseMapCollab.get(questionId);
-					attachCollaborateResponseToTemplate(templateQuestions[l].children);					
+					if(!isDirtyQuestionIdMap[questionId]){
+						templateQuestions[l].response = auditquestionResponseMapCollab.get(questionId);
+					}else{
+						auditquestionResponseMapCollab.get(questionId).questionResponse = isDirtyQuestionIdMap[questionId];
+					}
 				}
+				attachCollaborateResponseToTemplate(templateQuestions[l].children);		
 			}
 		}  
 		

@@ -71,6 +71,7 @@
         vm.engagementId = 0;
         vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
+        vm.dirtyQuestionResponsesMap = {}
         vm.maxResponseId = 0;
         vm.isCollabrate = false;
         vm.isSignedIn = false;
@@ -160,7 +161,8 @@
 		/**
 		 * Recursively traverse child arrays and update current selection
 		 */
-		function updateChildResponses(node,currentSelection){	
+		function updateChildResponses(node,currentSelection){
+			vm.dirtyQuestionResponsesMap[node.response.questionId] = currentSelection;
 			node.response.questionResponse = currentSelection;	
 			if(node.children.length > 0){
 				for( var l=0;l<node.children.length;l++){
@@ -219,7 +221,7 @@
 		
 		vm.handleCollaborateOn=handleCollaborateOn;
 		function handleCollaborateOn(){
-			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap);
 		}
 		
 		vm.handleCollaborateOFF=handleCollaborateOFF;
