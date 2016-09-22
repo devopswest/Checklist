@@ -6,7 +6,7 @@ echo "**************************"
 #
 # Navigator
 #
-cp -r custom/features/development/dynamic-menu/src/main/webapp/app/layouts/navbar src/main/webapp/app/layouts
+cp -r custom/features/commons/dynamic-menu/src/main/webapp/app/layouts/navbar src/main/webapp/app/layouts
 
 #
 # style="visibility:hidden;display:none" ng-class="{active: vm.$state.includes('entity')}"

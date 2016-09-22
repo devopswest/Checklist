@@ -5,7 +5,7 @@
         "id": "configure-git-ignore",
         "name":"Configure Gitignore",
         "description": "Remove bower_components from git repo",
-        "path": "development/configure-git-ignore",
+        "path": "commons/configure-git-ignore",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -19,7 +19,7 @@
         "id": "change-banner",
         "name":"Change Banner",
         "description": "Change banner",
-        "path": "development/change-banner",
+        "path": "commons/change-banner",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -33,7 +33,7 @@
         "id" : "application-settings",
         "name":"Application Settings Changes",
         "description": "This Feature changes default settings configuration",
-        "path": "development/application-settings",
+        "path": "commons/application-settings",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -48,7 +48,7 @@
         "id": "css-theme",
         "name":"CSS There",
         "description": "This feature modify default JHIPSTER theme and customize it based on PwC brand colors and logo",
-        "path": "development/css-theme",
+        "path": "commons/css-theme",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -62,7 +62,7 @@
         "id": "change-footer",
         "name":"CSS There",
         "description": "Change Footer",
-        "path": "development/change-footer",
+        "path": "commons/change-footer",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -76,7 +76,7 @@
         "id" : "dynamic-menu",
         "name":"Dynamic Menu",
         "description": "This feature change the default menu andrender the application options from the controller",
-        "path": "development/dynamic-menu",
+        "path": "commons/dynamic-menu",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -90,7 +90,7 @@
         "id" : "add-angular-tree",
         "name":"Add angular-tree dependencies",
         "description": "This feature add the capability to use the angular-tree component",
-        "path": "development/add-angular-tree",
+        "path": "commons/add-angular-tree",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -104,7 +104,7 @@
         "id" : "add-rich-text-editor",
         "name":"Add textAngular dependencies",
         "description": "This feature add the capability to use the textAngular component",
-        "path": "development/add-rich-text-editor",
+        "path": "commons/add-rich-text-editor",
         "scripts": {
             "apply": "apply-feature.sh",
             "rollback": "rollback-feature.sh"
@@ -165,7 +165,7 @@
          "id" : "increase-version",
          "name":"increase-version",
          "description": "increase-version",
-         "path": "development/increase-version",
+         "path": "commons/increase-version",
          "scripts": {
              "apply": "apply-feature.sh",
              "rollback": "rollback-feature.sh"
@@ -179,7 +179,7 @@
          "id" : "add-ckeditor",
          "name":"add-ckeditor",
          "description": "add-ckeditor",
-         "path": "development/add-ckeditor",
+         "path": "commons/add-ckeditor",
          "scripts": {
              "apply": "apply-feature.sh",
              "rollback": "rollback-feature.sh"
@@ -220,7 +220,7 @@
          "id" : "add-theme-dropdown",
          "name":"add-theme-dropdown",
          "description": "add-theme-dropdown",
-         "path": "development/add-theme-dropdown",
+         "path": "commons/add-theme-dropdown",
          "scripts": {
              "apply": "apply-feature.sh",
              "rollback": "rollback-feature.sh"
