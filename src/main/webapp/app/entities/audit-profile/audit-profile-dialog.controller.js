@@ -65,7 +65,7 @@
         //Step 2: To present complete list of template questions, use enagegementId, then find the template ID (i.e., in DB it is checklistId)
         //Step 3: Retrieve all the template questions based the templateId
         //Step 4: Create empty placeholder for answers not found in auditProfile
-        //Step 5: Link the object to collaborate object in drive and add them to tree
+        //Step 5: Link the responses stored in database and add them to tree
         //Step 6: Collapse tree when started
         vm.questionTemplate = [];
         vm.engagementId = 0;
@@ -92,7 +92,7 @@
             				//Step 4
             				createEmptyResponseForMissingQuestion(vm.questionTemplate);
             				//Step 5
-            				//AuditProfileRealtime.collaborate(vm.auditProfile.id,vm.auditquestionResponseMap,vm.questionTemplate);
+            				setResponsesOnLoad(vm.questionTemplate);
             				//Step 6
             				collapseAll();
             				});
@@ -102,6 +102,17 @@
         		
         	});       
         }
+        
+        /**
+         * On Loading the tree, show the responses which are stored in database. 
+         * Later when user clicks collaborate button these changes would be merged with drive changes 
+         */
+        var setResponsesOnLoad = function setResponsesOnLoad(node){	
+			for(var l=0;l<node.length;l++){
+				node[l].response = vm.auditquestionResponseMap[node[l].id];
+				setResponsesOnLoad(node[l].children);
+			}
+		}
 
     	/**
     	 * Prepares and HashMap of the Responses Array for easy retrieval
