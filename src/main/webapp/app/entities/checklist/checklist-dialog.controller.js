@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('ChecklistDialogController', ChecklistDialogController);
 
-    ChecklistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Checklist', 'ChecklistQuestion', 'Taxonomy'];
+    ChecklistDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Checklist', 'ChecklistQuestion', 'Taxonomy', 'TaxonomyCoreSearch'];
 
-    function ChecklistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Checklist, ChecklistQuestion, Taxonomy) {
+    function ChecklistDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Checklist, ChecklistQuestion, Taxonomy, TaxonomyCoreSearch) {
         var vm = this;
 
         vm.checklist = entity;
@@ -17,10 +17,10 @@
         
         vm.loadData = loadData;
         function loadData(type) {
-        	vm.taxonomies = Taxonomy.query();
+        	vm.taxonomies = TaxonomyCoreSearch.query({code: type});
         }
         
-        vm.taxonomies = Taxonomy.query();
+        //vm.taxonomies = Taxonomy.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

@@ -167,6 +167,22 @@ public class TaxonomyResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/taxonomies");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * GET  /taxonomies/parent/:code : get the "code" taxonomy.
+     * 
+     * @param code the code of the taxonomy parent
+     * @return list of taxonomies associated with the parent
+     */
+    @RequestMapping(value = "/taxonomies/parent/{code}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Taxonomy>> getTaxonomiesByParent(@PathVariable String code) {
+    	log.debug("REST request to get the taxonomies list by parent code");
+    	List<Taxonomy> taxonomies = taxonomyRepository.getTaxonomiesByParent(code);
+    	return new ResponseEntity<>(taxonomies, HttpStatus.OK);
+    }
 
 
 }

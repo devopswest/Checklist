@@ -3,6 +3,7 @@ package com.pwc.assurance.adc.repository;
 import com.pwc.assurance.adc.domain.Taxonomy;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,5 +12,8 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface TaxonomyRepository extends JpaRepository<Taxonomy,Long> {
+	
+	@Query("select t from Taxonomy t where t.parent.code = :parentCode")
+	public List<Taxonomy> getTaxonomiesByParent(@Param("parentCode") String parentCode);
 
 }
