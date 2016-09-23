@@ -1,8 +1,6 @@
 package com.pwc.assurance.adc.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 
@@ -63,8 +61,14 @@ public class AuditQuestionResponseDTO implements Serializable {
         }
 
         AuditQuestionResponseDTO auditQuestionResponseDTO = (AuditQuestionResponseDTO) o;
-
-        if ( ! Objects.equals(id, auditQuestionResponseDTO.id)) return false;
+        
+        //Included questionId also in equals comparison.
+        //AuditProfile stores question responses in java.util.Set and if question Id is not included 
+        //then during adding new responses (where id is null) it holds only first response with null 
+        if ( !Objects.equals(id, auditQuestionResponseDTO.id) || 
+        		!Objects.equals(questionId, auditQuestionResponseDTO.questionId)){
+        	return false;
+        }
 
         return true;
     }

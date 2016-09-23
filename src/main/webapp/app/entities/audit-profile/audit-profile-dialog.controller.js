@@ -27,22 +27,23 @@
 
         function save () {
             vm.isSaving = true;
-            if (vm.auditProfile.id !== null) {
-            	clearBlankResponses();
+            if (vm.auditProfile.id != null) {            	
+            	var saveQuestionResponse = [];
+            	createResponseArray(saveQuestionResponse, vm.questionTemplate);
+            	vm.auditProfile.auditQuestionResponses = saveQuestionResponse;
                 AuditProfile.update(vm.auditProfile, onSaveSuccess, onSaveError);
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
             }
         }   
 
-        function clearBlankResponses(){
-        	var saveQuestionResponse = [];
-    		for(var l=0;l<vm.auditProfile.auditQuestionResponses.length;l++){
-    			if(vm.auditProfile.auditQuestionResponses[l].questionResponse != null){
-    				saveQuestionResponse.push(vm.auditProfile.auditQuestionResponses[l]);
+        function createResponseArray(saveQuestionResponse, node){
+    		for(var l=0;l<node.length;l++){    			
+    			if(node[l].response.questionResponse != null){
+    				saveQuestionResponse.push(node[l].response);
     			}
-    		}
-    		vm.auditProfile.auditQuestionResponses = saveQuestionResponse;
+    			createResponseArray(saveQuestionResponse, node[l].children);
+    		}    		
     	}
         
         function rollover(){
@@ -179,7 +180,7 @@
 			for(var l=0; l<node.length; l++){
 				if(node[l].id == parentId){	
 					if(node[l].response != currentSelection){				
-						node[l].response.questionResponse = "";
+						node[l].response.questionResponse = null;
 					}
 				}
 				
