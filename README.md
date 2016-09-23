@@ -133,3 +133,21 @@ To setup this project in Jenkins, use the following configuration:
 [Karma]: http://karma-runner.github.io/
 [Jasmine]: http://jasmine.github.io/2.0/introduction.html
 [Protractor]: https://angular.github.io/protractor/
+
+## Custom Directives
+
+Following custom directives have been developed as part of the application till now:
+
+* adc-metadata: directive created for templating meta data tree currently present on 'Create or edit a Checklist' and 'Create or edit a Client' screens. This directive internally makes use of [angular-ui-tree](https://github.com/angular-ui-tree/angular-ui-tree) tree component for constructing the tree control with custom nodes. Usage of the directive is provided below:
+    
+    `<adc-metadata type="metadata" tree-data="vm.treeMetaData"></adc-metadata>`
+
+    where:
+    
+    * type: type of the tree which needs to be rendered. As of now, the directive supports only 'metadata' type
+    * tree-data: attribute used for referencing the model (in the parent controller) required for constructing the nodes of the tree. The example shows the usage of `vm'treeMetaData' model for constructing the tree
+    
+    Source files for the directive can be located at:
+    
+    https://github.com/andresfuentes/Checklist/tree/master/src/main/webapp/app/components/custom-directives
+
