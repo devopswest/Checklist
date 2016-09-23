@@ -7,5 +7,5 @@ rm -R build
 gulp build
 gradle assemble
 docker-compose build app
-docker tag andresfuentes/checklist emmanuel16/checklist
-docker push emmanuel16/checklist
+docker tag andresfuentes/checklist adcpoc/checklist
+docker push adcpoc/checklist
