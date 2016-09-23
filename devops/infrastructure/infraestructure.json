@@ -91,6 +91,11 @@
                             ]
                         },
 
+                        "disks": [
+                            {"type":"OS", "size":"300"},
+                            {"type":"DATA", "size":"1000"}
+                        ],
+
                         "ports": {
                             "public": ["80", "8080", "4243"],
                             "private": ["22", "2377"]
@@ -119,6 +124,11 @@
                                 "docker swarm join --secret ${secret} ${vn-name}-swarm-master:2377"
                             ]
                         },
+
+                        "disks": [
+                            {"type":"OS", "size":"300"},
+                            {"type":"DATA", "size":"1000"}
+                        ],
 
                         "ports": {
                             "public": ["80", "8080"],
