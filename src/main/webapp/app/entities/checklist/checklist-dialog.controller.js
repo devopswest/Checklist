@@ -17,7 +17,9 @@
         
         vm.loadData = loadData;
         function loadData(type) {
-        	vm.taxonomies = TaxonomyCoreSearch.query({code: type});
+        	if(type == 'TERRITORY') {
+        		vm.taxonomies = TaxonomyCoreSearch.query({code: type});
+        	}
         }
         
         //vm.taxonomies = Taxonomy.query();

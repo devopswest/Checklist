@@ -59,10 +59,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label translate="checklistApp.license.licenseType" for="field_licenseType">License Type</label>
-            <select class="form-control" id="field_licenseType" name="licenseType" ng-model="vm.license.licenseType" ng-options="taxonomy as taxonomy.label for taxonomy in vm.taxonomies track by taxonomy.id">
-                <option value=""></option>
-            </select>
+            <label translate="checklistApp.license.licenseType">License Type</label>
+            <adc-taxonomy model="vm.license.licenseType.id" options-data="vm.taxonomies" load-data="vm.loadData('LICENCE-TYPE')"></adc-taxonomy>
         </div>
     </div>
     <div class="modal-footer">

@@ -5,9 +5,9 @@
         .module('checklistApp')
         .controller('LicenseDialogController', LicenseDialogController);
 
-    LicenseDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'License', 'Client', 'Taxonomy'];
+    LicenseDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'License', 'Client', 'Taxonomy', 'TaxonomyCoreSearch'];
 
-    function LicenseDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, License, Client, Taxonomy) {
+    function LicenseDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, License, Client, Taxonomy, TaxonomyCoreSearch) {
         var vm = this;
 
         vm.license = entity;
@@ -16,7 +16,15 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.clients = Client.query();
-        vm.taxonomies = Taxonomy.query();
+        
+        vm.loadData = loadData;
+        function loadData(type) {
+        	if(type == 'LICENCE-TYPE') {
+        		vm.taxonomies = TaxonomyCoreSearch.query({code: type});
+        	}
+        }
+        
+        //vm.taxonomies = Taxonomy.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
