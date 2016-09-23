@@ -138,16 +138,28 @@ To setup this project in Jenkins, use the following configuration:
 
 Following custom directives have been developed as part of the application till now:
 
-* adc-metadata: directive created for templating meta data tree currently present on 'Create or edit a Checklist' and 'Create or edit a Client' screens. This directive internally makes use of [angular-ui-tree](https://github.com/angular-ui-tree/angular-ui-tree) tree component for constructing the tree control with custom nodes. Usage of the directive is provided below:
+* adc-metadata: directive created for templating meta data tree control. This directive has been used on 'Create or edit a Checklist' and 'Create or edit a Client' screens. This directive makes use of [angular-ui-tree](https://github.com/angular-ui-tree/angular-ui-tree) component internally for constructing the tree control with custom nodes. Usage of the directive is provided below:
     
     `<adc-metadata type="metadata" tree-data="vm.treeMetaData"></adc-metadata>`
 
     where:
     
-    * type: type of the tree which needs to be rendered. As of now, the directive supports only 'metadata' type
-    * tree-data: attribute used for referencing the model (in the parent controller) required for constructing the nodes of the tree. The example shows the usage of `vm'treeMetaData' model for constructing the tree
+    * type: attribute for specifying the type of tree which needs to be rendered. As of now, the directive supports only `metadata` type
+    * tree-data: attribute for referencing the model (in the parent controller) required for constructing the nodes of the tree. The example shows the usage of `vm.treeMetaData` model for constructing the tree
     
     Source files for the directive can be located at:
+    https://github.com/andresfuentes/Checklist/tree/master/src/main/webapp/app/components/custom-directives
     
+* adc-taxonomy: directive created for templating taxonomy dependent dropdown control. This directive has been used on 'Create or edit a Checklist' (for 'Country' dropdown control) and 'Create or edit a License' (for 'License Type' dropdown control) screens. This directive makes use of select control internally for constructing the taxonomy dependent dropdown control. Usage of the directive is provided below:
+
+    `<adc-taxonomy model="vm.checklist.countryId" options-data="vm.taxonomies" load-data="vm.loadData('TERRITORY')"></adc-taxonomy>`
+    
+    where:
+    
+    * model: attribute for referencing the selected value model (in the parent controller) of the select control. The example shows the usage of `vm.checklist.countryId` model for constructing the dropdown
+    * options-data: attribute for referencing the options model (in the parent controller) of the select control. The example shows the usage of `vm.taxonomies` model for constructing options in the dropdown
+    * load-data: attribute for referencing the function (in the parent controller) used to populate taxonomy specific values in the dropdown. Taxonomy type ('TERRITORY') is provided as an input to the function call so that taxonomy specific values are loaded in the dropdown
+    
+    Source files for the directive can be located at:
     https://github.com/andresfuentes/Checklist/tree/master/src/main/webapp/app/components/custom-directives
 
