@@ -1,0 +1,167 @@
+{
+
+    "project-name": "ADC",
+    "datacenter": "AZURE",
+    "vnets": [{
+        "vnet-name": "NON-PROD-VNET",
+        "subnets": [
+
+            {
+                "subnet-name": "{project-name}-desktops",
+                "vm": [{
+                    "name": "{project-name}-desktop{count}",
+                    "type": "ununtu-desktop",
+                    "size": "SMALL",
+                    "count": 5,
+                    "region": "uses",
+                    "public-dns": true,
+                    "credentials": {
+                        "username": "${username}",
+                        "password": "${passeword}"
+                    },
+
+                    "post-creation-shell": {
+                        "url": "http://github//abc.sh",
+                        "commands": [
+                            "curl -fsSL https://experimental.docker.com/ | sudo sh",
+                            "sudo gpasswd -a pwc docker",
+                            "curl -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose",
+                            "chmod +x /usr/local/bin/docker-compose",
+                            "sudo apt-get install -y parallel",
+                            "echo 'Installing Desktop'",
+                            "sudo apt-get install -y xrdp",
+                            "sudo apt-get update",
+                            "sudo apt-get install -y xfce4",
+                            "sudo service xrdp restart",
+                            "echo 'installing eclipse'",
+                            "sudo 'pt-get install -y eclipse",
+                            "echo 'Installing dev tools'",
+                            "sudo apt-get install -y nodejs",
+                            "sudo ln -s `which nodejs` /usr/bin/node",
+                            "sudo apt-get install -y maven",
+                            "sudo apt-get install -y gradle",
+                            "echo 'Installing JHIpster tools'",
+                            "sudo npm install -g yo",
+                            "sudo npm install -g bower",
+                            "sudo npm install -g gulp-cli",
+                            "sudo npm install -g generator-jhipster",
+                            "echo 'Install Cloud Tools'",
+                            "sudp npm install -g azure-cli",
+                            "sudo apt-get -y install jq",
+                        ]
+                    },
+
+                    "ports": {
+                        "public": ["80", "8080"],
+                        "private": ["22"]
+                    }
+                }]
+
+                //...
+            },
+
+            {
+                "subnet": "{project-name}-dev",
+                "vip" : [
+                    {"dns":"{project-name}-dev.pwc.com", "target":"{vn-name}-swarm-master:8080"}
+                ],
+                "vm": [
+                    {
+                        "name": "{vn-name}-swarm-master",
+                        "type": "ubuntu",
+                        "size": "MEDIUM",
+                        "count": 1,
+                        "region": "uses",
+                        "public-dns": true,
+                        "credentials": {
+                            "username": "${username}",
+                            "password": "${passeword}"
+                        },
+
+                        "post-creation-shell": {
+                            "url": "http://github//abc.sh",
+                            "commands": [
+                                "sed -i 's/ExecStart=\/usr\/bin\/dockerd -H fd:\/\//ExecStart=\/usr\/bin\/docker daemon -H fd:\/\/ -H tcp:\/\/0.0.0.0:4243/' /lib/systemd/system/docker.service ",
+                                "cat /lib/systemd/system/docker.service",
+                                "systemctl daemon-reload",
+                                "service docker stop",
+                                "service docker start",
+                                "docker swarm init --listen-addr ${vn-name}-swarm-master:2377"
+                                "secret=[SOMETHING FROM PREVIOUS coomand]"
+                            ]
+                        },
+
+                        "ports": {
+                            "public": ["80", "8080", "4243"],
+                            "private": ["22", "2377"]
+                        }
+                    },
+
+                    {
+                        "name": "{vn-name}-swarm-node{count}",
+                        "type": "ubuntu",
+                        "size": "MEDIUM",
+                        "count": 5,
+                        "region": "uses",
+                        "public-dns": true,
+                        "credentials": {
+                            "username": "${username}",
+                            "password": "${passeword}"
+                        },
+
+                        "post-creation-shell": {
+                            "url": "http://github//abc.sh",
+                            "commands": [
+                                "curl -fsSL https://experimental.docker.com/ | sudo sh",
+                                "sudo gpasswd -a pwc docker",
+                                "curl -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose",
+                                "chmod +x /usr/local/bin/docker-compose",
+                                "docker swarm join --secret ${secret} ${vn-name}-swarm-master:2377"
+                            ]
+                        },
+
+                        "ports": {
+                            "public": ["80", "8080"],
+                            "private": ["22", "2377"]
+                        }
+                    }
+
+                ],
+                "ports": {
+                    "public": ["80", "8080"],
+                    "private": ["22"]
+                }
+
+            }, {
+                "subnet": "{project-name}-tst"
+                //...
+            },
+        ]
+    }, {
+        "vnet-name": "STAGE-VNET",
+        "subnets": [{
+            "subnet": "{project-name}-stage"
+            //...
+        }]
+    }, {
+        "vnet-name": "PROD-VNET",
+        "subnets": [{
+            "subnet": "{project-name}-prod"
+            //...
+        }]
+    }, {
+        "vnet-name": "ADMINISTRATIVE-VNET",
+        "subnets": [{
+            "subnet": "{project-name}-ci",
+            "vip" : [
+                    {"dns":"{project-name}-ci-builder.pwc.com", "target":"{subnet}-swarm-master:8080"},
+                    {"dns":"{project-name}-ci-dashboard.pwc.com", "target":"{subnet}-swarm-master:8080"}
+                ],
+
+            //...
+        }, {
+            "subnet": "{project-name}-ops"
+            //...
+        }]
+    }]
+}
