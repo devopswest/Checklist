@@ -61,43 +61,28 @@
 
 
         var loginSuccess = function(response){
-        	if(!response.error){
-        		defineAuditQuestionResponseModel();
-        		gapi.client.load('drive', 'v3', searchDriveIfFileExist);
+        	defineAuditQuestionResponseModel();
+        	if(!response.error){     
+        		console.log('Method:loginSuccess....login success');
+        		loadFileOrCreateFile();
         	}else{
-        		realtimeUtils.authorize(loginSuccess, true);
+        		console.log('Method:loginSuccess....Error in login');
+        		realtimeUtils.authorize(function(response){ loadFileOrCreateFile(); }, true);
         	}
         }
-
-        /**
-         * Search file in the google drive
-         */
-        var searchDriveIfFileExist = function(){
-        	gapi.client.drive.files.list({ 'pageSize': 10, 'fields': 'nextPageToken, files(id, name)' }).execute(loadFileOrCreateFile);
-        }
+        
+     
 
         /**
          * If File is found in drive load the file or otherwise create the file in drive
          */
-        var loadFileOrCreateFile = function(response){
-    		var files = response.files;
-    		if (files && files.length > 0) {
-    			for (var i = 0; i < files.length; i++) {
-    				if(files[i].name == driveFileName){
-    					console.log('Method:loadFileOrCreateFile ..searching file ' + driveFileName + ' already exists in drive');
-    					driveFileId = files[i].id.replace('/', '');
-    					realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
-    					break;
-    				}
-    			}
-    		}
-
-    		if(!driveFileId){
-    			console.log('Method:loadFileOrCreateFile ..searching file ' + driveFileName + ' need to be CREATED');
-
-    			var fileMetadata = { 'name' : driveFileName, 'mimeType' : fileMimeType };
-    			gapi.client.drive.files.create({ 'resource': fileMetadata, 'fields': 'id'}).execute(loadDataPostCreation);
-    		}
+        var loadFileOrCreateFile = function(){        	
+        	if(driveFileId){        		
+        		realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
+        	}else{
+        		console.log('Method:loadFileOrCreateFile ..' + driveFileName + ' need to be CREATED');
+        		realtimeUtils.createRealtimeFile(driveFileName, loadDataPostCreation);
+        	}
         }
 
         /**
@@ -106,7 +91,6 @@
         var loadDataPostCreation = function(creationResponse){
         	if(creationResponse){
         		driveFileId = creationResponse.id;
-        		window.history.pushState(null, null, '?id=' + driveFileId);
         		realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
         	}else{
         		console.log('Method:loadDataPostCreation ..error in creating file ' + JSON.stringify(creationResponse));
@@ -184,8 +168,7 @@
 
         return {
         	collaborate                      : collaborate,
-        	stopCollaborate                  : stopCollaborate,
-        	searchDriveIfFileExist           : searchDriveIfFileExist
+        	stopCollaborate                  : stopCollaborate
         };
     }
 })();
