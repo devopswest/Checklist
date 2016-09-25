@@ -40,7 +40,15 @@
         function createResponseArray(saveQuestionResponse, node){
     		for(var l=0;l<node.length;l++){    			
     			if(node[l].response.questionResponse != null){
-    				saveQuestionResponse.push(node[l].response);
+    				//There was cyclic conversion error when directly passing response object. 
+    				//Hence created a clone to avoid this error
+    				var qResp = {
+    						'id' : node[l].response.id,
+    						'questionResponse' : node[l].response.questionResponse,
+    						'questionId':node[l].response.questionId,
+    						'questionDescription':node[l].response.questionDescription
+    				}
+    				saveQuestionResponse.push(qResp);
     			}
     			createResponseArray(saveQuestionResponse, node[l].children);
     		}    		
@@ -223,7 +231,7 @@
 		
 		vm.handleCollaborateOn=handleCollaborateOn;
 		function handleCollaborateOn(){
-			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap);
+			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditProfile.responseFileId, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap);
 		}
 		
 		vm.handleCollaborateOFF=handleCollaborateOFF;

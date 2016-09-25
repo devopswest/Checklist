@@ -15,6 +15,7 @@
                 method: 'GET',
                 transformResponse: function (data) {
                     if (data) {
+                    	console.log('Error in fromJson....');
                         data = angular.fromJson(data);
                     }
                     return data;

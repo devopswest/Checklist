@@ -11,7 +11,7 @@
 
     	var clientId          = '370295086792-2c0r6ve8mm7ot16ie1tq2ne9fe705ugg.apps.googleusercontent.com';
     	var fileMimeType      = 'application/vnd.google-apps.drive-sdk';
-      var realtimeUtils     = new utils.RealtimeUtils({ clientId: clientId });
+    	var realtimeUtils     = new utils.RealtimeUtils({ clientId: clientId });
     	var apiKey            = '579021b7897ec0165309794dd5394ea7985d0752';
     	var authScopes        = 'profile';
     	var scopes            = 'profile https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file profile';
@@ -28,8 +28,9 @@
         var driveFileId;
         var templateQuestions;
 
-        var collaborate = function(profileId, responseMap, treedata, isDirtyMap){
+        var collaborate = function(profileId, googleDocumentId, responseMap, treedata, isDirtyMap){
         	auditProfileId           = profileId;
+        	driveFileId              = googleDocumentId;
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
         	isDirtyQuestionIdMap     = isDirtyMap;
@@ -78,6 +79,7 @@
          */
         var loadFileOrCreateFile = function(){        	
         	if(driveFileId){        		
+        		console.log('Method:loadFileOrCreateFile ..' + driveFileId + ' is being used');
         		realtimeUtils.load(driveFileId, onFileLoaded, onNewFileCreated);
         	}else{
         		console.log('Method:loadFileOrCreateFile ..' + driveFileName + ' need to be CREATED');

@@ -16,6 +16,8 @@ public class AuditProfileDTO implements Serializable {
 
     private String description;
 
+    private String responseFileId;
+    
     private ResponseStatus status;
 
 
@@ -73,7 +75,15 @@ public class AuditProfileDTO implements Serializable {
         this.auditQuestionResponses = auditQuestionResponses;
     }
 
-    @Override
+    public String getResponseFileId() {
+		return responseFileId;
+	}
+
+	public void setResponseFileId(String responseFileId) {
+		this.responseFileId = responseFileId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -100,6 +110,7 @@ public class AuditProfileDTO implements Serializable {
             "id=" + id +
             ", description='" + description + "'" +
             ", status='" + status + "'" +
+            ", responseFileId='" + responseFileId + "'" +
             '}';
     }
 }

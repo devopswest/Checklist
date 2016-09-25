@@ -164,6 +164,7 @@ public class AuditProfileResource {
         log.debug("REST request to get AuditProfile : {}", id);
         AuditProfile auditProfile = auditProfileRepository.findOneWithEagerRelationships(id);
         AuditProfileDTO auditProfileDTO = auditProfileMapper.auditProfileToAuditProfileDTO(auditProfile);
+        auditProfileDTO.setResponseFileId("0BwnpBWDt6Xb7aGVQNEdwcWNhM1U");
         return Optional.ofNullable(auditProfileDTO)
             .map(result -> new ResponseEntity<>(
                 result,
