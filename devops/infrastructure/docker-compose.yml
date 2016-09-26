@@ -13,6 +13,7 @@ services:
             - "/var/data/jenkins/workspace:/var/jenkins_home/workspace"
         ports:
             - '8080:8080'
+            - '50000:50000'
         restart: always
 
     sonarq:
