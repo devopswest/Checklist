@@ -5,17 +5,32 @@
         .module('checklistApp')
         .controller('AuditProfileDialogController', AuditProfileDialogController);
 
-    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'AuditProfile', 'AuditProfileRollover', 'AuditProfileLogEntry', 'Engagement', 'AuditQuestionResponse','AuditProfileRealtime', 'ChecklistQuestion', 'Checklist'];
+    AuditProfileDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Principal', 'AuditProfile', 'AuditProfileRollover', 'AuditProfileLogEntry', 'AuditProfileLogEntryArray', 'Engagement', 'AuditQuestionResponse','AuditProfileRealtime', 'ChecklistQuestion', 'Checklist'];
 
-    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, AuditProfile, AuditProfileRollover, AuditProfileLogEntry, Engagement, AuditQuestionResponse, AuditProfileRealtime, ChecklistQuestion, Checklist ) {
+    function AuditProfileDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Principal, AuditProfile, AuditProfileRollover, AuditProfileLogEntry, AuditProfileLogEntryArray, Engagement, AuditQuestionResponse, AuditProfileRealtime, ChecklistQuestion, Checklist ) {
         var vm = this;
 
         vm.auditProfile = entity;
         vm.clear = clear;
         vm.save = save;
         vm.rollover = rollover;
-        vm.auditprofilelogentries = AuditProfileLogEntry.query();
         vm.engagements = Engagement.query();
+        vm.user;
+        vm.userName;
+        
+        Principal.identity().then(function (user) {
+        	  //For reference pasted the user object string below
+        	  /*{	"login":"admin",
+        	  		"firstName":"Administrator",
+        	  		"lastName":"Administrator",
+        	  		"email":"admin@localhost",
+        	  		"activated":true,
+        	  		"langKey":"en",
+        	  		"authorities":["ROLE_USER","ROLE_ADMIN"]
+        	  	}*/
+        	  vm.user = user;
+        	  vm.userName = user.firstName + ' ' + user.lastName;
+         });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -35,6 +50,13 @@
             } else {
                 AuditProfile.save(vm.auditProfile, onSaveSuccess, onSaveError);
             }
+            
+            //Save the audit profile log entry
+            var auditProfileLogEntryArray = [];
+            vm.auditProfileLogEntryMap.forEach(function (logEntry, questionId, mapObj) {
+            	auditProfileLogEntryArray.push(logEntry);
+            });
+            AuditProfileLogEntryArray.save(auditProfileLogEntryArray);            
         }   
 
         function createResponseArray(saveQuestionResponse, node){
@@ -68,6 +90,7 @@
             vm.isSaving = false;
         }
         
+       
         //Logic to display template questions and their responses
         //Steps:- 
         //Step 1: From auditProfile retrieve engagement Id and answered (responded) questions and responses
@@ -80,6 +103,7 @@
         vm.engagementId = 0;
         vm.auditQuestionResponses = [];
         vm.auditquestionResponseMap = {};
+        vm.auditProfileLogEntryMap = [];
         vm.dirtyQuestionResponsesMap = {}
         vm.maxResponseId = 0;
         vm.isCollabrate = false;
@@ -161,30 +185,52 @@
 		 * Logic to update child and parent nodes based on new changed value
 		 */
 		vm.updateResponse = updateResponse;
-		function updateResponse(node,btnValue){
-			updateChildResponses(node,btnValue);
-			//Revalidate parent Response
-			updateParentNode(vm.questionTemplate,node.parentId);
-				
+		function updateResponse(modifiedUser, node, btnValue){
+			updateChildResponses(modifiedUser, node, btnValue);
+			//Re-validate parent Response
+			updateParentNode(modifiedUser, vm.questionTemplate,node.parentId);				
 		}
 
 		/**
 		 * Recursively traverse child arrays and update current selection
 		 */
-		function updateChildResponses(node,currentSelection){
+		function updateChildResponses(modifiedUser, node,currentSelection){
+			createLogEntry(modifiedUser, node.response.questionId, node.response.questionResponse,currentSelection);
+			
 			vm.dirtyQuestionResponsesMap[node.response.questionId] = currentSelection;
 			node.response.questionResponse = currentSelection;	
 			if(node.children.length > 0){
 				for( var l=0;l<node.children.length;l++){
-					updateChildResponses(node.children[l],currentSelection);
+					updateChildResponses(modifiedUser, node.children[l],currentSelection);
 				}
 			}
+			
+		}
+		
+		/**
+		 * Prepares the string which can be stored to database for audit logging about modifications
+		 */
+		vm.createLogEntry = createLogEntry;
+		function createLogEntry(modifiedUser, questionId, fromResponse,toResponse){
+			var description = '[' + modifiedUser + '] has modified  question (' + questionId +'). [OLD :' +   fromResponse + '] [NEW: ' + toResponse +"]";
+			console.log('Audit history ' + description);
+			var auditProfileLogEntry = {
+					'id':null,
+					'description':description,
+					'auditProfileId':vm.auditProfile.id,
+					'userLogin':vm.user.login
+					};
+			vm.auditProfileLogEntryMap[questionId] = auditProfileLogEntry;
 		}
 	
 		/**
 		 * Turn off parent selection criteria if any child deviated their state from parent
 		 */
-		function updateParentNode(node,parentId,currentSelection){	
+		function updateParentNode(modifiedUser, node, parentId, currentSelection){	
+			if(node.response){
+				createLogEntry(modifiedUser, node.response.questionId, node.response.questionResponse,currentSelection);
+			}
+			
 			for(var l=0; l<node.length; l++){
 				if(node[l].id == parentId){	
 					if(node[l].response != currentSelection){				
@@ -193,7 +239,7 @@
 				}
 				
 				//If not found check-in child nodes
-				updateParentNode(node[l].children,parentId,currentSelection);
+				updateParentNode(modifiedUser, node[l].children, parentId, currentSelection);
 			}
 		}
 		
@@ -231,7 +277,7 @@
 		
 		vm.handleCollaborateOn=handleCollaborateOn;
 		function handleCollaborateOn(){
-			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditProfile.responseFileId, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap);
+			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditProfile.responseFileId, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap, vm.createLogEntry);
 		}
 		
 		vm.handleCollaborateOFF=handleCollaborateOFF;

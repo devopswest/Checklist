@@ -14,6 +14,7 @@ public interface AuditProfileMapper {
 
     @Mapping(source = "engagement.id", target = "engagementId")
     @Mapping(source = "engagement.description", target = "engagementDescription")
+    @Mapping(target = "responseFileId", ignore = true)
     AuditProfileDTO auditProfileToAuditProfileDTO(AuditProfile auditProfile);
 
     List<AuditProfileDTO> auditProfilesToAuditProfileDTOs(List<AuditProfile> auditProfiles);

@@ -1,12 +1,16 @@
 package com.pwc.assurance.adc.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.pwc.assurance.adc.domain.AuditProfileLogEntry;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import com.pwc.assurance.adc.repository.AuditProfileLogEntryRepository;
-import com.pwc.assurance.adc.repository.search.AuditProfileLogEntrySearchRepository;
-import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
-import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,17 +19,23 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import com.codahale.metrics.annotation.Timed;
+import com.pwc.assurance.adc.domain.AuditProfileLogEntry;
+import com.pwc.assurance.adc.domain.User;
+import com.pwc.assurance.adc.repository.AuditProfileLogEntryRepository;
+import com.pwc.assurance.adc.repository.UserRepository;
+import com.pwc.assurance.adc.repository.search.AuditProfileLogEntrySearchRepository;
+import com.pwc.assurance.adc.service.dto.AuditProfileLogEntryDTO;
+import com.pwc.assurance.adc.service.mapper.AuditProfileLogEntryMapper;
+import com.pwc.assurance.adc.web.rest.util.HeaderUtil;
+import com.pwc.assurance.adc.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing AuditProfileLogEntry.
@@ -41,6 +51,12 @@ public class AuditProfileLogEntryResource {
 
     @Inject
     private AuditProfileLogEntrySearchRepository auditProfileLogEntrySearchRepository;
+    
+    @Inject
+    private AuditProfileLogEntryMapper auditProfileLogEntryMapper;
+    
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * POST  /audit-profile-log-entries : Create a new auditProfileLogEntry.
@@ -64,6 +80,56 @@ public class AuditProfileLogEntryResource {
             .headers(HeaderUtil.createEntityCreationAlert("auditProfileLogEntry", result.getId().toString()))
             .body(result);
     }
+    
+    /**
+     * POST  /audit-profile-log-entries/array : Create a multiple auditProfileLogEntry.
+     *
+     * @param auditProfileLogEntryDTOs List of auditProfileLogEntry to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new auditProfileLogEntry, or with status 400 (Bad Request) if the auditProfileLogEntry has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/audit-profile-log-entries/array",  method = RequestMethod.POST)
+    @Timed
+    public void createAuditProfileLogEntryArray(@RequestBody AuditProfileLogEntryDTOList auditProfileLogEntryDTOs) throws URISyntaxException {
+
+        log.debug("REST request to save AuditProfileLogEntry : {}", auditProfileLogEntryDTOs);
+        List<AuditProfileLogEntry> auditProfileLogEntryList = auditProfileLogEntryMapper.auditProfileLongEntryDTOToAuditProfileLogEntrys(auditProfileLogEntryDTOs);
+        ZonedDateTime now = ZonedDateTime.now();
+        User user = null;
+        //Finding the user Id based on his login details
+        for(AuditProfileLogEntryDTO dto: auditProfileLogEntryDTOs){
+        	Long userId = getUserId(dto.getUserLogin());
+        	if(userId != null){
+        		user = new User();
+        		user.setId(userId);
+        	}
+        	break;
+        }
+        for(AuditProfileLogEntry logEntry: auditProfileLogEntryList){
+        	logEntry.setHappened(now);
+        	logEntry.setWho(user);
+        }
+        List<AuditProfileLogEntry> result = auditProfileLogEntryRepository.save(auditProfileLogEntryList);
+    	auditProfileLogEntrySearchRepository.save(result);
+    	
+    }
+    
+    /**
+     * Look up login user based on Id
+     * @param login
+     * @return
+     */
+    private Long getUserId(String login){
+    	 Optional<User> userObj = userRepository.findOneByLogin(login);
+         if(userObj != null && userObj.isPresent()){
+         	return userObj.get().getId();
+         }
+         return null;
+    }
+   
+    static class AuditProfileLogEntryDTOList extends ArrayList<AuditProfileLogEntryDTO> {
+		private static final long serialVersionUID = -6169807428647014244L; 
+    };
 
     /**
      * PUT  /audit-profile-log-entries : Updates an existing auditProfileLogEntry.

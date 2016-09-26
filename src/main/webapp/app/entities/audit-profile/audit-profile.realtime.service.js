@@ -27,14 +27,16 @@
         var driveFileName;
         var driveFileId;
         var templateQuestions;
+        var createLogEntry; //Call back function to create log entry
 
-        var collaborate = function(profileId, googleDocumentId, responseMap, treedata, isDirtyMap){
+        var collaborate = function(profileId, googleDocumentId, responseMap, treedata, isDirtyMap, logEntryCallback){
         	auditProfileId           = profileId;
         	driveFileId              = googleDocumentId;
         	auditquestionResponseMap = responseMap;
         	templateQuestions        = treedata;
         	isDirtyQuestionIdMap     = isDirtyMap;
         	driveFileName            = 'audit_profile_' + auditProfileId;
+        	createLogEntry           = logEntryCallback;
         	realtimeUtils.authorize(loginSuccess, false);
         	return true;
         }
@@ -127,31 +129,51 @@
         var onFileLoaded = function(doc){
         	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
         	attachCollaborateResponseToTemplate(templateQuestions);
+        	
+        	var collaborators = doc.getCollaborators();
+        	console.log('All collaborators: ' + JSON.stringify(collaborators));
+        	
         	//Refresh the tree once the data is retrieved and update in the tree
         	$('#template_questions').scope().$apply();
         	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
+        	auditquestionResponseMapCollab.addEventListener('COLLABORATOR_JOINED', collaborateJoinCallback);
+        	auditquestionResponseMapCollab.addEventListener('COLLABORATOR_LEFT', collaborateLeftCallback);
+        	//
+        	//
+        }
+        
+        var collaborateJoinCallback = function(document, collaborator){
+        	console.log('Collaborator joined : ' + collaborator.displayName);
+        }
+        
+        var collaborateLeftCallback = function(document, collaborator){
+        	console.log('Collaborator left :  ' + collaborator.displayName);
         }
 
-        var refreshQuestionResponses = function(evt){
-			  var isValueChange = false;
-			  for (var i = 0; i < evt.events.length; i++) {
-          if(!evt.events[i].isLocal && (evt.events[i].type ==  'value_changed')){
-			    	console.log('Values Are changed...refesh'
-                   + ', Name : ' + evt.events[i].session.displayName
-                   + ', photoUrl :' + evt.events[i].session.photoUrl);
-			    	isValueChange = true;
-			    	break;
-			    }
-			  }
+		var refreshQuestionResponses = function(evt) {
+			var isValueChange = false;
+			console.log('Object which initiated change ' + evt.target.id);
+			
+			for (var i = 0; i < evt.events.length; i++) {
+				if (!evt.events[i].isLocal
+						&& (evt.events[i].type == 'value_changed')) {
+		
+					var collaborativeObject = evt.events[i].target;
+					
+					createLogEntry(evt.events[i].session.displayName, 'QuestionID', evt.events[i].oldValue, evt.events[i].newValue);
+					isValueChange = true;
+				}
+			}
 
-			  if(isValueChange){
-				  $('#template_questions').scope().$apply();
-			  }
+			if (isValueChange) {
+				$('#template_questions').scope().$apply();
+			}
 		}
 
         /**
-		 * A recursive method to prepare empty responses for template questions which are not yet answered.
-		 * These empty responses act as place holder when the template questions are displayed and buttons are toggled
+		 * A recursive method to prepare empty responses for template questions
+		 * which are not yet answered. These empty responses act as place holder
+		 * when the template questions are displayed and buttons are toggled
 		 */
 		var attachCollaborateResponseToTemplate = function(templateQuestions){
 			for(var l=0;l<templateQuestions.length;l++){

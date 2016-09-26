@@ -61,6 +61,12 @@
                         "label": "Checklist",
                         "uiclass" : "glyphicon glyphicon-asterisk",
                         "authorities" : "ROLE_USER"
+                    },
+                    {
+                        "id":"audit-profile-log-entry",
+                        "label": "Profile-log",
+                        "uiclass" : "glyphicon glyphicon-asterisk",
+                        "authorities" : "ROLE_USER"
                     }
                 ],
                 "authorities" : "ROLE_ADMIN,ROLE_USER"

@@ -11,9 +11,9 @@
         <input type="text" readonly data-nodrag size="42%" name="nodeValue" id="field_nodeValue" ng-model="node.description" style="background-color:transparent; border:none"/>
 
 		<span class="pull-right btn btn-xs" data-nodrag  data-toggle="buttons">
-			<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_na"  value="Not Applicable" ng-model="node.response.questionResponse" ng-change="vm.updateResponse(node,'Not Applicable')" >N/A</label>
-        	<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_yes" value="Yes" ng-model="node.response.questionResponse"            ng-change="vm.updateResponse(node,'Yes')">Yes</label>
-        	<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_no"  value="No"  ng-model="node.response.questionResponse"            ng-change="vm.updateResponse(node,'No')">No</label>
+			<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_na"  value="Not Applicable" ng-model="node.response.questionResponse" ng-change="vm.updateResponse(vm.userName, node,'Not Applicable')" >N/A</label>
+        	<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_yes" value="Yes" ng-model="node.response.questionResponse"            ng-change="vm.updateResponse(vm.userName, node,'Yes')">Yes</label>
+        	<label class="btn-default"><input type="radio" name="{{node.id}}" id="radio_{{node.id}}_no"  value="No"  ng-model="node.response.questionResponse"            ng-change="vm.updateResponse(vm.userName, node,'No')">No</label>
        		<a data-nodrag ng-click="vm.openEditor(this,node)" style="margin-right: 4px;">
            		<span class="glyphicon glyphicon-comment"></span>
  	    	</a>
