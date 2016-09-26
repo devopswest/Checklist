@@ -34,7 +34,7 @@ services:
             echo "***************************************" &&
             echo "***         COMPILING CODE          ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
@@ -42,9 +42,9 @@ services:
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
-            - "$PWD:/var/app"
-            - "$HOME/.m2:/root/.m2"
-            #- "./volumen:/var/app/adc"
+            #- "$PWD:/var/app"
+            #- "$HOME/.m2:/root/.m2"
+            #- "./volumen:/var/app/Checklist"
 
     scan:
         build:
@@ -66,7 +66,7 @@ services:
             echo "***            4. sonarq            ***" &&
             echo "***            5. fortify           ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
@@ -94,7 +94,7 @@ services:
             echo "***            3. cucumber          ***" &&
             echo "***            4. protractor        ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
@@ -102,7 +102,7 @@ services:
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/Checklist/target"
 
     static-analisys:
         build:
@@ -123,7 +123,7 @@ services:
             echo "***            3. pmd               ***" &&
             echo "***            4. fortify           ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
@@ -132,7 +132,7 @@ services:
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/Checklist/target"
 
     package:
         build:
@@ -154,7 +154,7 @@ services:
             echo "***            3. create image      ***" &&
             echo "***            4. push image        ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
@@ -222,7 +222,7 @@ services:
             echo "***            4. healthcheck       ***" &&
             echo "***            5. closr RFC|Revert  ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
@@ -286,7 +286,7 @@ services:
             - 'closureComments="RFC Implemented Successfully."'
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/adc/target"
+            - "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/Checklist/target"
         command: >
             bash -c '
             echo "***************************************" &&
@@ -297,7 +297,7 @@ services:
             echo "***            4. healthcheck       ***" &&
             echo "***            5. closr RFC|Revert  ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
@@ -324,7 +324,7 @@ services:
             echo "***            4. healthcheck       ***" &&
             echo "***            5. closr RFC|Revert  ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
@@ -353,7 +353,7 @@ services:
             echo "***            4. healthcheck       ***" &&
             echo "***            5. closr RFC|Revert  ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
@@ -382,7 +382,7 @@ services:
             echo "***            4. healthcheck       ***" &&
             echo "***            5. closr RFC|Revert  ***" &&
             echo "***************************************" &&
-            cd /var/app/adc &&
+            cd /var/app/Checklist &&
             git checkout *.sh &&
             git pull &&
             chmod +x *.sh &&
