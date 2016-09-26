@@ -79,8 +79,9 @@ RUN \
    chmod -R 777 /var/cache && \
    chmod -R 777 /var/lib
 
-#COmment for now
-#USER ${user}
+#Comment for now
+USER ${user}
+RUN chown -R ${user} "$APP_HOME"
 
 #
 # Work folder
@@ -89,8 +90,10 @@ RUN \
 WORKDIR /var/app
 
 
+
 RUN cd /var/app
 RUN git clone https://github.com/andresfuentes/Checklist.git
+
 
 RUN \
     echo "Installing Gulp" && \
