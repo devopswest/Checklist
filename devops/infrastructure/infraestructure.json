@@ -62,7 +62,7 @@
 
             {
                 "subnet": "{project-name}-dev",
-                "vip" : [
+                "fqdn" : [
                     {"dns":"{project-name}-dev.pwc.com", "target":"{vn-name}-swarm-master:8080"}
                 ],
                 "vm": [
@@ -163,13 +163,12 @@
         "vnet-name": "ADMINISTRATIVE-VNET",
         "subnets": [{
             "subnet": "{project-name}-ci",
-            "vip" : [
+            "fqdn" : [
                     {"dns":"{project-name}-ci-builder.pwc.com", "target":"{subnet}-swarm-master:8080"},
                     {"dns":"{project-name}-ci-dashboard.pwc.com", "target":"{subnet}-swarm-master:8080"}
                 ],
-
-            //...
-        }, {
+        },
+        {
             "subnet": "{project-name}-ops"
             //...
         }]
