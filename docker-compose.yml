@@ -70,7 +70,7 @@ services:
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
-            gradle sonar:sonar
+            mvn sonar:sonar
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
@@ -98,7 +98,7 @@ services:
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
-            gradle test
+            mvn test
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
@@ -160,7 +160,7 @@ services:
             chmod +x *.sh &&
             chmod +x cicd/*.sh &&
             apt-get clean &&
-            gradle assemble &&
+            mvn -Dmaven.test.skip=true package &&
             ./devops/cicd/package.sh
             '
         volumes:
