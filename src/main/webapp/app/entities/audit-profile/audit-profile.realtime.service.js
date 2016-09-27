@@ -131,33 +131,35 @@
         var onFileLoaded = function(doc){
         	auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
         	attachCollaborateResponseToTemplate(templateQuestions);
-        	
-        	var collaborators = doc.getCollaborators();
-        	console.log('All collaborators: ' + JSON.stringify(collaborators));
-        	for(var l=0;l<collaborators.length;l++){
-        		registerCollaborator(collaborators[l].userId, collaborators[l].displayName, collaborators[l].photoUrl, collaborators[l].color, collaborators[l].isMe);
-        	}
-        	
+        	        	
         	//Refresh the tree once the data is retrieved and update in the tree
         	$('#template_questions').scope().$apply();
         	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
-        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_JOINED, collaborateJoinCallback);
-        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_LEFT, collaborateLeftCallback);
-
+        	doc.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_JOINED, collaborateJoinCallback);
+        	doc.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_LEFT, collaborateLeftCallback);
         }
         
+        /**
+         * A callback operation with event object when a user sign-in
+         */
         var collaborateJoinCallback = function(evt){
-        	console.log('Collaborator joined : ' + evt.collaborator.displayName + '-----' + evt.collaborator.photoUrl);
-        	console.log('Active collaborators : ' +  evt.document.getCollaborators().length);
+        	var user = evt.collaborator;
+        	registerCollaborator(user.userId, user.displayName, user.photoUrl, user.color, user.isMe);
         }
         
+        /**
+         * A callback operation with event object when a user sign-off
+         */
         var collaborateLeftCallback = function(evt){
-        	console.log('Collaborator Left : ' + evt.collaborator.displayName + '-----' + evt.collaborator.photoUrl);
-        	console.log('Active collaborators : ' +  evt.document.getCollaborators().length);
+        	var user = evt.collaborator;
+        	unRegisterCollaborator(user.userId);
         }
 
+        /**
+         * Enrolls the signed-in user the collaborators list of AngularJS presentation model
+         */
         var registerCollaborator = function(userId, displayName, photoUrl, color, isMe){
-        	console.log(userId + ' - ' +displayName + ' - ' +photoUrl + ' - ' +color + ' - ' +isMe);
+        	console.log('Method:registerCollaborator....' + userId + ' - ' +displayName + ' - ' +photoUrl + ' - ' +color + ' - ' +isMe);
         	collaboratorList[userId] = {
 				'displayName':displayName,
 				'photo':photoUrl,
@@ -167,6 +169,18 @@
         	$('#btn_display_container').scope().$apply();        	
         }
         
+        /**
+         * Removes the signed-out user from the collaborators list of AngularJS presentation model
+         */
+        var unRegisterCollaborator = function(userId){
+        	console.log('Method:deRegisterCollaborator .....' + userId);
+        	delete collaboratorList[userId];
+        	$('#btn_display_container').scope().$apply();        	
+        }
+        
+        /**
+         * Refresh the change when any one of the collaborator updated the responses
+         */
 		var refreshQuestionResponses = function(evt) {
 			var isValueChange = false;
 				
@@ -174,11 +188,11 @@
 				var event = evt.events[i];
 				if (!event.isLocal
 						&& (event.type == 'value_changed')) {
-		
-					var collaborativeObject = event.target;
 					
+					var collaborativeObject = event.target;					
 					createLogEntry(event.session.displayName, event.target.questionId, event.oldValue, event.newValue);
 					registerCollaborator(event.session.userId, event.session.displayName, event.session.photoUrl, event.session.color, false);
+					
 					isValueChange = true;
 				}
 			}
