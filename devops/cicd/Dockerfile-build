@@ -105,6 +105,6 @@ VOLUME ["/var/app/Checklist"]
 
 RUN chmod +x /var/app/Checklist/*.sh
 
-CMD ["/var/app/Checklist/build.sh"]
+CMD ["/var/app/Checklist/devops/cli.sh"]
 
 
