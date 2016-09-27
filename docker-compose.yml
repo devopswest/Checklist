@@ -17,6 +17,23 @@ services:
     #     #     - 'database:database-mysql'
     #     restart: always
 
+    cicd:
+        build:
+            context: devops/cicd
+            dockerfile: Dockerfile-build
+        environment:
+            - 'APP_NAME=Checklist'
+            - 'DEPLOY_TO_SERVER=dev'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_USER={docker-user}'
+            - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
+
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            #- "$PWD:/var/app"
+            #- "$HOME/.m2:/root/.m2"
+            #- "./volumen:/var/app/Checklist"
 
     compile:
         build:
