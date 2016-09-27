@@ -141,18 +141,19 @@
         	//Refresh the tree once the data is retrieved and update in the tree
         	$('#template_questions').scope().$apply();
         	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
-        	auditquestionResponseMapCollab.addEventListener('collaborator_joined', collaborateJoinCallback);
-        	auditquestionResponseMapCollab.addEventListener('collaborator_left', collaborateLeftCallback);
-        	//
-        	//
+        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_JOINED, collaborateJoinCallback);
+        	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_LEFT, collaborateLeftCallback);
+
         }
         
-        var collaborateJoinCallback = function(){
-        	console.log('Collaborator joined : ');
+        var collaborateJoinCallback = function(evt){
+        	console.log('Collaborator joined : ' + evt.collaborator.displayName + '-----' + evt.collaborator.photoUrl);
+        	console.log('Active collaborators : ' +  evt.document.getCollaborators().length);
         }
         
-        var collaborateLeftCallback = function(){
-        	console.log('Collaborator left :  ');
+        var collaborateLeftCallback = function(evt){
+        	console.log('Collaborator Left : ' + evt.collaborator.displayName + '-----' + evt.collaborator.photoUrl);
+        	console.log('Active collaborators : ' +  evt.document.getCollaborators().length);
         }
 
         var registerCollaborator = function(userId, displayName, photoUrl, color, isMe){
@@ -163,6 +164,7 @@
 				'color':color,
 				'isMe':isMe
 			};
+        	$('#btn_display_container').scope().$apply();        	
         }
         
 		var refreshQuestionResponses = function(evt) {
