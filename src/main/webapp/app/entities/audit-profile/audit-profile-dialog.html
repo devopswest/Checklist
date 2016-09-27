@@ -95,15 +95,17 @@
                 <span>Collapse All</span>
             </button>
         </div>
-        <div class="col-sm-6 col-xs-6 pull-right" ng-show="!vm.isCollabrate">
+        <div class="col-sm-8 col-xs-8 pull-right" ng-show="!vm.isCollabrate">
            	<button type="button" class="pull-right btn btn-default" data-dismiss="modal" ng-click="vm.handleCollaborateOn()">
               	<span class="glyphicon glyphicon-share"></span>&nbsp;<span translateXX="entity.action.collaborateOn">Collaborate</span>
             </button>
         </div>
-        <div class="col-sm-5 col-xs-5 pull-centre" ng-show="vm.isCollabrate" ng-repeat="collaborator in vm.collaboratorList">
-        	<img src="{{collaborator.photo}}" alt="{{collaborator.displayName}}" class="img-circle img-responsive" style="display:inline-block;width:32px;height:32px;"></img>
+        <div class="col-sm-5 col-xs-5" ng-show="vm.isCollabrate">
+        	<span ng-repeat="collaborator in vm.collaboratorList">
+        		<img src="{{collaborator.photo}}" alt="{{collaborator.displayName}}" class="img-circle img-responsive" style="display:inline-block;width:32px;height:32px;"></img>
+        	</span>
         </div>
-	    <div class="col-sm-1 col-xs-1 pull-right" ng-show="vm.isCollabrate">
+	    <div class="col-sm-3 col-xs-3 pull-right" ng-show="vm.isCollabrate">
 	        <button type="button" class="btn btn-default" style="display:inline-block" data-dismiss="modal" ng-click="vm.handleCollaborateOFF()">
 	            <span class="glyphicon glyphicon-pause"></span>&nbsp;<span>Stop</span>
 	        </button>
