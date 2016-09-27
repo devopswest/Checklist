@@ -27,6 +27,7 @@ services:
             - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
             - 'DOCKER_USER={docker-user}'
             - 'DOCKER_PASSWORD={docker-app-key}'
+            - 'GIT_URL=https://github.com/andresfuentes/Checklist.git'
             - 'SONAR_SERVER=http://adc-builder.eastus.cloudapp.azure.com:9000'
 
         volumes:
