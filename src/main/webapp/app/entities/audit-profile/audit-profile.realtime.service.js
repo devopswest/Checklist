@@ -28,8 +28,9 @@
         var driveFileId;
         var templateQuestions;
         var createLogEntry; //Call back function to create log entry
+        var collaboratorList;
 
-        var collaborate = function(profileId, googleDocumentId, responseMap, treedata, isDirtyMap, logEntryCallback){
+        var collaborate = function(profileId, googleDocumentId, responseMap, treedata, isDirtyMap, logEntryCallback, activeCollaboratorList){
         	auditProfileId           = profileId;
         	driveFileId              = googleDocumentId;
         	auditquestionResponseMap = responseMap;
@@ -37,6 +38,7 @@
         	isDirtyQuestionIdMap     = isDirtyMap;
         	driveFileName            = 'audit_profile_' + auditProfileId;
         	createLogEntry           = logEntryCallback;
+        	collaboratorList         = activeCollaboratorList;
         	realtimeUtils.authorize(loginSuccess, false);
         	return true;
         }
@@ -132,35 +134,49 @@
         	
         	var collaborators = doc.getCollaborators();
         	console.log('All collaborators: ' + JSON.stringify(collaborators));
+        	for(var l=0;l<collaborators.length;l++){
+        		registerCollaborator(collaborators[l].userId, collaborators[l].displayName, collaborators[l].photoUrl, collaborators[l].color, collaborators[l].isMe);
+        	}
         	
         	//Refresh the tree once the data is retrieved and update in the tree
         	$('#template_questions').scope().$apply();
         	auditquestionResponseMapCollab.addEventListener(gapi.drive.realtime.EventType.OBJECT_CHANGED, refreshQuestionResponses);
-        	auditquestionResponseMapCollab.addEventListener('COLLABORATOR_JOINED', collaborateJoinCallback);
-        	auditquestionResponseMapCollab.addEventListener('COLLABORATOR_LEFT', collaborateLeftCallback);
+        	auditquestionResponseMapCollab.addEventListener('collaborator_joined', collaborateJoinCallback);
+        	auditquestionResponseMapCollab.addEventListener('collaborator_left', collaborateLeftCallback);
         	//
         	//
         }
         
-        var collaborateJoinCallback = function(document, collaborator){
-        	console.log('Collaborator joined : ' + collaborator.displayName);
+        var collaborateJoinCallback = function(){
+        	console.log('Collaborator joined : ');
         }
         
-        var collaborateLeftCallback = function(document, collaborator){
-        	console.log('Collaborator left :  ' + collaborator.displayName);
+        var collaborateLeftCallback = function(){
+        	console.log('Collaborator left :  ');
         }
 
+        var registerCollaborator = function(userId, displayName, photoUrl, color, isMe){
+        	console.log(userId + ' - ' +displayName + ' - ' +photoUrl + ' - ' +color + ' - ' +isMe);
+        	collaboratorList[userId] = {
+				'displayName':displayName,
+				'photo':photoUrl,
+				'color':color,
+				'isMe':isMe
+			};
+        }
+        
 		var refreshQuestionResponses = function(evt) {
 			var isValueChange = false;
-			console.log('Object which initiated change ' + evt.target.id);
-			
+				
 			for (var i = 0; i < evt.events.length; i++) {
-				if (!evt.events[i].isLocal
-						&& (evt.events[i].type == 'value_changed')) {
+				var event = evt.events[i];
+				if (!event.isLocal
+						&& (event.type == 'value_changed')) {
 		
-					var collaborativeObject = evt.events[i].target;
+					var collaborativeObject = event.target;
 					
-					createLogEntry(evt.events[i].session.displayName, 'QuestionID', evt.events[i].oldValue, evt.events[i].newValue);
+					createLogEntry(event.session.displayName, event.target.questionId, event.oldValue, event.newValue);
+					registerCollaborator(event.session.userId, event.session.displayName, event.session.photoUrl, event.session.color, false);
 					isValueChange = true;
 				}
 			}
@@ -189,6 +205,7 @@
 				attachCollaborateResponseToTemplate(templateQuestions[l].children);
 			}
 		}
+		
 
         return {
         	collaborate                      : collaborate,

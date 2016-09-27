@@ -39,6 +39,7 @@
                     <th jh-sort-by="description"><span translate="checklistApp.auditProfile.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span translate="checklistApp.auditProfile.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="engagementDescription"><span translate="checklistApp.auditProfile.engagement">Engagement</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Audit Log</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -50,6 +51,9 @@
                     <td>
                         <a ui-sref="engagement-detail({id:auditProfile.engagementId})">{{auditProfile.engagementDescription}}</a>
                     </td>
+                    <td>
+                        <a ui-sref="audit-profile-log-entry({id:auditProfile.id})">Log</a>
+                    </td>                    
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

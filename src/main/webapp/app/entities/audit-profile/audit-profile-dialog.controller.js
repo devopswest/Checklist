@@ -108,6 +108,7 @@
         vm.maxResponseId = 0;
         vm.isCollabrate = false;
         vm.isSignedIn = false;
+        vm.collaboratorList = {};
       	
         //Step 1
         if (vm.auditProfile.engagementId) {
@@ -277,7 +278,13 @@
 		
 		vm.handleCollaborateOn=handleCollaborateOn;
 		function handleCollaborateOn(){
-			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, vm.auditProfile.responseFileId, vm.auditquestionResponseMap, vm.questionTemplate, vm.dirtyQuestionResponsesMap, vm.createLogEntry);
+			vm.isCollabrate = AuditProfileRealtime.collaborate(vm.auditProfile.id, 
+					                                                vm.auditProfile.responseFileId, 
+					                                                vm.auditquestionResponseMap,
+					                                                vm.questionTemplate, 
+					                                                vm.dirtyQuestionResponsesMap, 
+					                                                vm.createLogEntry, 
+					                                                vm.collaboratorList);
 		}
 		
 		vm.handleCollaborateOFF=handleCollaborateOFF;
