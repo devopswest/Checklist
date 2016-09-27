@@ -38,7 +38,7 @@ services:
             git checkout *.sh &&
             git pull &&
             apt-get clean &&
-            gradle compileJava
+            mvn compile
             '
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
