@@ -35,16 +35,20 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
     2. Create a project using google developer console
     3. Enable the OAuth for this project under credentials
     4. Copy the client ID post OAuth enable which would be used in application
+
 3. Once client ID is copied from above step, use this in the web application which needs Realtime API integration
-    1. Include following two javascripts in the application `index.html`
-```
+    1. Include following two javascripts in the application `index.html`.
+
+    ```html
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
-```
+    ```
+
     2. Create AngularJS service similar to the one in `src/main/webapp/app/entities/audit-profile/audit-profile.realtime.service.js`
     3. Points to concentrate during creating service
     4. Define your custom Object as used in function `defineAuditQuestionResponseModel()`
-```
+
+    ```javascript
     //Sample JSON to created
     {
       'id' :1,
@@ -52,18 +56,21 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
       'questionId':34,
       'questionDescription':'Sample description for the question'
     }
-```
-```
+    ```
+
+    ```javascript
     //Google API model definition to create above JSON
     gapi.drive.realtime.custom.registerType(auditQuestionResponseModel, 'auditQuestionResponse');
     auditQuestionResponseModel.prototype.id = gapi.drive.realtime.custom.collaborativeField('id');
     auditQuestionResponseModel.prototype.questionResponse = gapi.drive.realtime.custom.collaborativeField('questionResponse');
     auditQuestionResponseModel.prototype.questionId = gapi.drive.realtime.custom.collaborativeField('questionId');
     auditQuestionResponseModel.prototype.questionDescription = gapi.drive.realtime.custom.collaborativeField('questionDescription');
-```
+    ```
+
     5. Make sure we use unique `driveFileName` as this is a physical file stored in google drive and used for collaboration. As google drive allows duplicate files with same name (google uses fileId for unique).
     6. Write your custom logic in `onNewFileCreated` which creates and populates data correctly in the drive file
-```
+
+    ```javascript
     var onNewFileCreated = function(model){
         auditquestionResponseMapCollab = model.createMap();
         for(var l in auditquestionResponseMap){
@@ -76,9 +83,11 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
         }
         model.getRoot().set(modelName, auditquestionResponseMapCollab);
     }    
-```
+    ```
+    
     7. Update custom logic in `onFileLoaded` which will Continuously invoked if we change or collaborator change model object
-```
+
+    ```
     var onFileLoaded = function(doc){
       auditquestionResponseMapCollab = doc.getModel().getRoot().get(modelName);
       attachCollaborateResponseToTemplate(templateQuestions);
@@ -90,26 +99,30 @@ Add the `-h` flag on any command to see how you can use it. For example, `bower 
       doc.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_JOINED, collaborateJoinCallback);
 	    doc.addEventListener(gapi.drive.realtime.EventType.COLLABORATOR_LEFT, collaborateLeftCallback);
     }
-```
-```
+    ```
+    ```
     //Collaborator information can be retrieve as follows
     var collaborateJoinCallback = function(evt){
       var user = evt.collaborator;
       console.log(user.userId + ' - ' + user.displayName + ' - ' + user.photoUrl + ' - ' + user.color + ' - ' + user.isMe);
     }
-```
+    ```
+
     8. Start: `collaborate` Starts collaboration and prompts login to google for OAuth (if not logged in)
-```
+
+    ```
     //No login prompt dialog would be displayed
     realtimeUtils.authorize(loginSuccessCallback, false);
     //OR
     //To have login prompt dialog to be displayed
     realtimeUtils.authorize(loginSuccessCallback, true);
-```
+    ```
+
     9. Stop: `stopCollaborate` - End collaboration and sign out OAuth (on localhost, signOut has no impact, so to test it host it on some external IP)
-```
+
+    ```
     window.gapi.auth.signOut();
-```
+    ```
 
 ### Realtime API observations
 1. For Colloboration work : Google Cloud Platform, Google Drive are prerequisite (incurs cost, not open source).
