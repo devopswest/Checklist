@@ -9,21 +9,34 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get -y install sudo apt-utils
 
+#
+# Create User
+#
+ENV APP_HOME /var/app
+ARG user=buildmaster
+ARG group=buildmaster
+ARG uid=1000
+ARG gid=1000
 
-#RUN echo "builder ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+RUN \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    groupadd -g ${gid} ${group} && \
+    useradd -d "$APP_HOME" -u ${uid} -g ${gid} -G users,sudo -s /bin/bash -m ${user}
+
+    #echo "secret\nsecret" | passwd ${user} && \
 
 #
 # Configure Docker client
 #
 RUN apt-get -y install curl sudo procps wget && \
-    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    useradd -u 1100 -G users,sudo -d /home/user --shell /bin/bash -m user && \
-    echo "secret\nsecret" | passwd user && \
     curl -fsSL https://experimental.docker.com/ | sh && \
-    usermod -aG docker user && sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-    #&& \
-    #usermod -aG docker builder
+
+RUN usermod -aG docker ${user}
+RUN gpasswd -a ${user} docker
+
 
 #
 # Install Docker Compose, Docker Machine in case we need them
@@ -60,17 +73,12 @@ RUN \
 RUN \
    apt-get install -y gradle
 
+#
+# Install JQ
+#
+RUN apt-get install -y jq
 
-#
-# Create User
-#
-ENV APP_HOME /var/app
-ARG user=buildmaster
-ARG group=buildmaster
-ARG uid=1000
-ARG gid=1000
-RUN groupadd -g ${gid} ${group} \
-    && useradd -d "$APP_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+
 
 #
 # Give special permissions to ${user}
@@ -79,32 +87,45 @@ RUN \
    chmod -R 777 /var/cache && \
    chmod -R 777 /var/lib
 
-#Comment for now
-USER ${user}
-RUN chown -R ${user} "$APP_HOME"
 
 #
 # Work folder
 #
-#RUN mkdir -p /var/app
-WORKDIR /var/app
+RUN \
+   mkdir -p /var/app && \
+   mkdir -p /var/devops
 
-
-
-RUN cd /var/app
-RUN git clone https://github.com/andresfuentes/Checklist.git
-
+COPY ./devops /var/devops
 
 RUN \
-    echo "Installing Gulp" && \
-    cd /var/app/Checklist && \
-    gradle installGulp
+   chmod -R +x /var/devops/*.sh && \
+   chmod -R +x /var/devops/cicd/*.sh
 
-VOLUME ["/var/app/Checklist"]
+WORKDIR /var/app
+
+VOLUME ["/var/app/"]
 
 
-RUN chmod +x /var/app/Checklist/*.sh
+RUN chown -R ${user} $APP_HOME && \
+    chgrp -R ${user} $APP_HOME && \
+    chown -R ${user} /var/devops && \
+    chgrp -R ${user} /var/devops
 
-CMD ["/var/app/Checklist/devops/cli.sh"]
+#USER ${user}
+
+#
+# App Specific
+#
+#RUN cd /var/app
+#RUN git clone https://github.com/andresfuentes/Checklist.git
+
+#RUN \
+#    echo "Installing Gulp" && \
+#    cd /var/app/Checklist && \
+#    gradle installGulp
+
+
+ENTRYPOINT ["/var/devops/cli.sh"]
+#CMD ["/var/devops/cli.sh"]
 
 

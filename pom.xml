@@ -20,6 +20,7 @@
     </prerequisites>
 
     <properties>
+	<sonar.host.url>http://adc-builder.eastus.cloudapp.azure.com:9000</sonar.host.url>
         <hikaricp.version>2.4.6</hikaricp.version>
         <assertj-core.version>3.5.2</assertj-core.version>
         <awaitility.version>1.7.0</awaitility.version>
@@ -749,12 +750,14 @@
         <profile>
             <id>no-liquibase</id>
             <properties>
+	<sonar.host.url>http://adc-builder.eastus.cloudapp.azure.com:9000</sonar.host.url>
                 <profile.no-liquibase>,no-liquibase</profile.no-liquibase>
             </properties>
         </profile>
         <profile>
             <id>swagger</id>
             <properties>
+	<sonar.host.url>http://adc-builder.eastus.cloudapp.azure.com:9000</sonar.host.url>
                 <profile.swagger>,swagger</profile.swagger>
             </properties>
         </profile>
@@ -787,6 +790,7 @@
                 </plugins>
             </build>
             <properties>
+	<sonar.host.url>http://adc-builder.eastus.cloudapp.azure.com:9000</sonar.host.url>
                 <!-- log configuration -->
                 <logback.loglevel>DEBUG</logback.loglevel>
                 <!-- default Spring profiles -->
@@ -895,6 +899,7 @@
                 </plugins>
             </build>
             <properties>
+	<sonar.host.url>http://adc-builder.eastus.cloudapp.azure.com:9000</sonar.host.url>
                 <!-- log configuration -->
                 <logback.loglevel>INFO</logback.loglevel>
                 <!-- default Spring profiles -->

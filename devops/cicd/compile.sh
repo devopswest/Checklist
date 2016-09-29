@@ -1,5 +1,10 @@
 #!/bin/sh
 
+echo "***************************************"
+echo "***         COMPILING CODE          ***"
+echo "***************************************"
+git pull
+
 npm update
 bower update --allow-root
 

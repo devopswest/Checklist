@@ -1,10 +1,21 @@
 #!/bin/sh
+echo "***************************************"
+echo "***         PACKAGING CODE          ***"
+echo "***            1. create war        ***"
+echo "***            2. version war       ***"
+echo "***            3. create image      ***"
+echo "***            4. push image        ***"
+echo "***************************************"
+
 
 appname=$APP_NAME
+
+mvn -Dmaven.test.skip=true package
+
 #
 # Create Docker Image
 #
-docker-compose build package-app
+docker-compose build app
 
 #
 # For Maven BUilds

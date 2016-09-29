@@ -333,7 +333,21 @@
          ],
          "active" : "false"
      },
+      {
+         "id" : "update-sonar-host",
+         "name":"update-sonar-host",
+         "description": "update-sonar-host",
+         "path": "commons/update-sonar-host",
+         "scripts": {
+             "apply": "apply-feature.sh",
+             "rollback": "rollback-feature.sh"
+         },
+         "dependencies": [
+         ],
+         "active" : "true"
+     },
      {"id":"NEW"}
+
 
 
 

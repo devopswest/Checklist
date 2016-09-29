@@ -8,7 +8,8 @@ ENV SERVICE_PORT 9090
 
 EXPOSE 9090
 
-COPY build/libs/*.war /app.war
+#COPY build/libs/*.war /app.war
+COPY target/*.war /app.war
 
 
 COPY  run.sh /run.sh
