@@ -65,154 +65,45 @@ services:
     compile:
         extends:
            service: cicd
-
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***         COMPILING CODE          ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            apt-get clean &&
-            mvn compile
+            ./devops/cicd/compile.sh
             '
-
     scan:
         extends:
            service: cicd
-
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***          SCANNING CODE          ***" &&
-            echo "***            1. checkstyle        ***" &&
-            echo "***            2. lint              ***" &&
-            echo "***            3. findbugs          ***" &&
-            echo "***            4. sonarq            ***" &&
-            echo "***            5. fortify           ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            apt-get clean &&
-            mvn sonar:sonar
+            ./devops/cicd/scan.sh
             '
-
     test:
         extends:
            service: cicd
-
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***           TESTING CODE          ***" &&
-            echo "***            1. junit             ***" &&
-            echo "***            2. karma             ***" &&
-            echo "***            3. cucumber          ***" &&
-            echo "***            4. protractor        ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            apt-get clean &&
-            mvn test
+            ./devops/cicd/test.sh
             '
-
     static-analisys:
         extends:
            service: cicd
-
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***         DEEP CODE ANALISYS      ***" &&
-            echo "***            1. findbugs          ***" &&
-            echo "***            2. checkstyle        ***" &&
-            echo "***            3. pmd               ***" &&
-            echo "***            4. fortify           ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            apt-get clean &&
-            npm update &&
-            gradle findbugsMain checkstyleMain checkThePMD fortifyReport
+            ./devops/cicd/scan.sh
             '
-
     package:
         extends:
            service: cicd
-
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***         PACKAGING CODE          ***" &&
-            echo "***            1. create war        ***" &&
-            echo "***            2. version war       ***" &&
-            echo "***            3. create image      ***" &&
-            echo "***            4. push image        ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            chmod +x *.sh &&
-            chmod +x cicd/*.sh &&
-            apt-get clean &&
-            mvn -Dmaven.test.skip=true package &&
             ./devops/cicd/package.sh
             '
-
-
     deploy:
         extends:
            service: cicd
 
         command: >
             bash -c '
-            echo "***************************************" &&
-            echo "***           DEPLOY APP            ***" &&
-            echo "***            1. create RFC        ***" &&
-            echo "***            2. pull image        ***" &&
-            echo "***            3. deploy to swarm   ***" &&
-            echo "***            4. healthcheck       ***" &&
-            echo "***            5. closr RFC|Revert  ***" &&
-            echo "***************************************" &&
-            cd /var/app/Checklist &&
-            git checkout *.sh &&
-            git pull &&
-            chmod +x *.sh &&
-            chmod +x cicd/*.sh &&
             ./devops/cicd/deploy.sh
             '
-
-
-    develop:
-        extends:
-           service: deploy
-        environment:
-            - 'DOCKER_TARGET=tcp://[prefix]-swarm-master.eastus.cloudapp.azure.com:4243'
-
-    qa:
-        extends:
-           service: deploy
-
-        environment:
-            - 'DOCKER_TARGET=tcp://[prefix]-swarm-master.eastus.cloudapp.azure.com:4243'
-
-    uat:
-        extends:
-           service: deploy
-
-        environment:
-            - 'DOCKER_TARGET=tcp://[prefix]-swarm-master.eastus.cloudapp.azure.com:4243'
-
-    master:
-        extends:
-           service: deploy
-        environment:
-            - 'DOCKER_TARGET=tcp://[prefix]-swarm-master.eastus.cloudapp.azure.com:4243'
-
-
 
 

@@ -1,0 +1,47 @@
+version: '2'
+services:
+
+    app1:
+        build:
+            context: .
+            dockerfile: Dockerfile
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: 'andresfuentes/checklist:dev'
+        #image: 'andresfuentes/checklist'
+        #hostname: $HOSTNAME
+        environment:
+            - 'SERVICE_ENV=prod,swagger'
+            - 'SERVICE_PORT=9090'
+            - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
+            - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
+            - 'DB_USER=postgres'
+            - 'DB_PASSWORD=pwc123'
+
+
+            - 'SERVICE_ES_CLUSTER=elasticsearch'
+            - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
+            - 'constraint:tier.app==true'
+            - 'affinity:container!=~*app*'
+        ports:
+            - '8080:9090'
+        networks:
+            - front
+            - back
+
+
+volumes:
+  db-data:
+    driver: local
+
+
+networks:
+  front:
+    driver: overlay
+  back:
+    driver: overlay
+  default:
+    driver: overlay

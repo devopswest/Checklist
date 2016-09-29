@@ -14,7 +14,7 @@ services:
             - 'GIT_URL=https://github.com/andresfuentes/Checklist.git'
             - 'HEALTH_CHECK=http://adc-swarm-master.eastus.cloudapp.azure.com:8080/management/health'
 
-            - 'SERVICE_ENV=dev,swagger'
+            - 'SERVICE_ENV=prod,swagger'
             - 'SERVICE_PORT=9090'
             - 'SERVICE_ES_CLUSTER=elasticsearch'
             - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
@@ -23,12 +23,53 @@ services:
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
             - 'DB_PASSWORD=pwc123'
+
+
+
+    develop:
+        extends:
+           service: cicd
+        environment:
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+        command: >
+            bash -c '
+            ./devops/cicd/deploy.sh
+            '
+    qa:
+        extends:
+           service: cicd
+        environment:
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+        command: >
+            bash -c '
+            ./devops/cicd/deploy.sh
+            '
+    uat:
+        extends:
+           service: cicd
+        environment:
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+        command: >
+            bash -c '
+            ./devops/cicd/deploy.sh
+            '
+    master:
+        extends:
+           service: cicd
+        environment:
+            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+        command: >
+            bash -c '
+            ./devops/cicd/deploy.sh
+            '
+
+
     app:
         build:
             context: .
             dockerfile: Dockerfile
-        #image: 'andresfuentes/checklist:{version}'
-        image: 'andresfuentes/checklist'
+        image: 'andresfuentes/checklist:{version}'
+        #image: 'andresfuentes/checklist'
         #hostname: $HOSTNAME
         environment:
             - 'SERVICE_ENV=prod,swagger'
@@ -43,10 +84,29 @@ services:
             - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
             - 'constraint:tier.app==true'
             - 'affinity:container!=~*app*'
-        #network_mode: "service:checklist"
         ports:
             - '8080:9090'
         #restart: always
 
 
+    local:
+        extends:
+           service: app
+        image: 'andresfuentes/checklist:dev'
+        # networks:
+        #     - front
+        #     - back
 
+
+# volumes:
+#   db-data:
+#     driver: local
+
+
+# networks:
+#   front:
+#     driver: overlay
+#   back:
+#     driver: overlay
+#   default:
+#     driver: overlay

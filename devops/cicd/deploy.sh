@@ -20,14 +20,16 @@ fi;
 #
 # Pull & Deploy
 #
+
+cp docker-compose.yml docker-compose-tmp.yml
+sed -i 's/{version}/'"$branch"'/' docker-compose-tmp.yml
+cat docker-compose-tmp.yml
+
 if [ "$DOCKER_TARGET" = "" ]; then
     echo "Deploying at localhost"
-
-    sed -i 's/{version}/$branch/' docker-compose.yml
-
-    docker-compose rm -f app
+    docker-compose --file docker-compose-tmp.yml rm -f app
     docker pull $DOCKER_USER/$appname:$branch
-    docker-compose up -d app
+    docker-compose --file docker-compose-tmp.yml up -d app
 else
     echo "Deploying at $DOCKER_TARGET"
 
@@ -59,21 +61,37 @@ else
         # TODO: since docker-compose is not used. pls check all env variables are passed
         #
 
-
+        #export DOCKER_HOST=$DOCKER_TARGET
         #docker -H $DOCKER_TARGET service create --replicas 1 --update-delay 10s --update-parallelism 1 -p 8080:8080 -e SERVICE_PORT=8080 -e SERVICE_ENV=dev --name $appname $DOCKER_USER/$appname
 
-        #docker-compose -H $DOCKER_TARGET service create app
+        #docker-compose service create app
+
+        xxports=`yaml2json docker-compose-tmp.yml|jq '.services["app"].ports[]'|awk '{system("echo -p "$1)}'|awk '/START/{if (NR!=1)print " ";next}{printf $0" "}END{print " ";}'`
+        xxargs=`yaml2json docker-compose-tmp.yml|jq '.services["app"].environment[]'|awk '{system("echo -e "$1)}'|awk '/START/{if (NR!=1)print " ";next}{printf $0" "}END{print " ";}'`
+        echo "*****"
+        echo $xxports
+        echo "*****"
+        echo $xxargs
+        echo "*****"
+        echo "docker -H $DOCKER_TARGET service create --replicas 1 $xxports $xxargs --name $appname $DOCKER_USER/$appname:$branch"
 
         docker -H $DOCKER_TARGET service create \
-             --replicas 1 -p $SERVICE_PORT:$SERVICE_PORT \
-             -e SERVICE_PORT=$SERVICE_PORT \
-             -e SERVICE_ENV=$SERVICE_ENV \
-             -e SERVICE_DB=$SERVICE_DB \
-             -e DB_USER=$DB_USER \
-             -e DB_PASSWORD=$DB_PASSWORD \
-             -e SERVICE_ES_CLUSTER=$SERVICE_ES_CLUSTER \
-             -e SERVICE_ES_NODE=$SERVICE_ES_NODE \
+             --replicas 1 \
+             $xxports \
+             $xxargs \
              --name $appname $DOCKER_USER/$appname:$branch
+
+        # docker -H $DOCKER_TARGET service create \
+        #      --replicas 1 -p $SERVICE_PORT:$SERVICE_PORT \
+        #      -e SERVICE_PORT=$SERVICE_PORT \
+        #      -e SERVICE_ENV=$SERVICE_ENV \
+        #      -e SERVICE_DB=$SERVICE_DB \
+        #      -e DB_USER=$DB_USER \
+        #      -e DB_PASSWORD=$DB_PASSWORD \
+        #      -e SERVICE_ES_CLUSTER=$SERVICE_ES_CLUSTER \
+        #      -e SERVICE_ES_NODE=$SERVICE_ES_NODE \
+        #      --name $appname $DOCKER_USER/$appname:$branch
+
         docker -H $DOCKER_TARGET service scale $appname=3
     else
         echo "***UPDATE Service"
@@ -116,3 +134,4 @@ else
 
 fi;
 
+rm docker-compose-tmp.yml

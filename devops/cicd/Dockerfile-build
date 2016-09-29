@@ -42,7 +42,7 @@ RUN gpasswd -a ${user} docker
 # Install Docker Compose, Docker Machine in case we need them
 #
 RUN \
-    curl --insecure -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && \
+    curl --insecure -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
 
 
@@ -78,6 +78,10 @@ RUN \
 #
 RUN apt-get install -y jq
 
+#
+# Install YAML2JSON and asciidoctor.jr to partes yaml files
+#
+RUN npm install -g yaml-to-json asciidoctor.js
 
 
 #
@@ -106,12 +110,15 @@ WORKDIR /var/app
 VOLUME ["/var/app/"]
 
 
-RUN chown -R ${user} $APP_HOME && \
-    chgrp -R ${user} $APP_HOME && \
-    chown -R ${user} /var/devops && \
-    chgrp -R ${user} /var/devops
+#RUN chown -R ${user} $APP_HOME && \
+#    chgrp -R ${user} $APP_HOME && \
+#    chown -R ${user} /var/devops && \
+#    chgrp -R ${user} /var/devops
 
 #USER ${user}
+
+
+
 
 #
 # App Specific
