@@ -89,7 +89,8 @@ RUN npm install -g yaml-to-json asciidoctor.js
 #
 RUN \
    chmod -R 777 /var/cache && \
-   chmod -R 777 /var/lib
+   chmod -R 777 /var/lib && \
+   chmod -R 777 /var/app
 
 
 #
