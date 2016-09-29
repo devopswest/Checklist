@@ -13,16 +13,16 @@ RUN apt-get update && \
 # Create User
 #
 ENV APP_HOME /var/app
-ARG user=buildmaster
-ARG group=buildmaster
+ARG user=jenkins
+ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
 
 
-#RUN \
-#    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-#    groupadd -g ${gid} ${group} && \
-#    useradd -d "$APP_HOME" -u ${uid} -g ${gid} -G users,sudo -s /bin/bash -m ${user}
+RUN \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    groupadd -g ${gid} ${group} && \
+    useradd -d "$APP_HOME" -u ${uid} -g ${gid} -G users,sudo -s /bin/bash -m ${user}
 
     #echo "secret\nsecret" | passwd ${user} && \
 
@@ -34,8 +34,8 @@ RUN apt-get -y install curl sudo procps wget && \
     sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-#RUN usermod -aG docker ${user}
-#RUN gpasswd -a ${user} docker
+RUN usermod -aG docker ${user}
+RUN gpasswd -a ${user} docker
 
 
 #

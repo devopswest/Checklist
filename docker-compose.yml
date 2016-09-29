@@ -8,11 +8,17 @@ services:
         environment:
             - 'APP_NAME=checklist'
             - 'DEPLOY_TO_SERVER=dev'
+
             - 'DOCKER_USER=andresfuentes'
-            - 'DOCKER_PASSWORD=tresm1104'
+
+
             - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
             - 'GIT_URL=https://github.com/andresfuentes/Checklist.git'
             - 'HEALTH_CHECK=http://adc-swarm-master.eastus.cloudapp.azure.com:8080/management/health'
+
+            - 'RFC_CREATE_IMPLEMENTATION_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/changeImplementation'
+            - 'RFC_EVALUATION_CLOSED_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/closeWithEvaluation'
+
 
             - 'SERVICE_ENV=prod,swagger'
             - 'SERVICE_PORT=9090'
@@ -22,6 +28,9 @@ services:
             - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
+
+
+            - 'DOCKER_PASSWORD=tresm1104'
             - 'DB_PASSWORD=pwc123'
 
 
@@ -30,7 +39,7 @@ services:
         extends:
            service: cicd
         environment:
-            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master-dev.eastus.cloudapp.azure.com:4243'
         command: >
             bash -c '
             ./devops/cicd/deploy.sh
@@ -39,7 +48,7 @@ services:
         extends:
            service: cicd
         environment:
-            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master-qa.eastus.cloudapp.azure.com:4243'
         command: >
             bash -c '
             ./devops/cicd/deploy.sh
@@ -48,7 +57,7 @@ services:
         extends:
            service: cicd
         environment:
-            - 'DOCKER_TARGET=tcp://adc-swarm-master.eastus.cloudapp.azure.com:4243'
+            - 'DOCKER_TARGET=tcp://adc-swarm-master-uat.eastus.cloudapp.azure.com:4243'
         command: >
             bash -c '
             ./devops/cicd/deploy.sh
