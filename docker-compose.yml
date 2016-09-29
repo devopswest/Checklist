@@ -16,8 +16,8 @@ services:
             - 'GIT_URL=https://github.com/andresfuentes/Checklist.git'
             - 'HEALTH_CHECK=http://adc-swarm-master.eastus.cloudapp.azure.com:8080/management/health'
 
-            - 'RFC_CREATE_IMPLEMENTATION_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/changeImplementation'
-            - 'RFC_EVALUATION_CLOSED_API_URL=http://adc-builder.eastus.cloudapp.azure.com:9993/api/rfc/closeWithEvaluation'
+            - 'RFC_CREATE_IMPLEMENTATION_API_URL=http://pirates-builder.eastus.cloudapp.azure.com:9993/api/rfc/changeImplementation'
+            - 'RFC_EVALUATION_CLOSED_API_URL=http://pirates-builder.eastus.cloudapp.azure.com:9993/api/rfc/closeWithEvaluation'
 
 
             - 'SERVICE_ENV=prod,swagger'

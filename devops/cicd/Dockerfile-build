@@ -107,13 +107,13 @@ RUN \
 
 WORKDIR /var/app
 
-VOLUME ["/var/app/"]
+#VOLUME ["/var/app/"]
 
 
-#RUN chown -R ${user} $APP_HOME && \
-#    chgrp -R ${user} $APP_HOME && \
-#    chown -R ${user} /var/devops && \
-#    chgrp -R ${user} /var/devops
+RUN chown -R ${user} $APP_HOME && \
+    chgrp -R ${user} $APP_HOME && \
+    chown -R ${user} /var/devops && \
+    chgrp -R ${user} /var/devops
 
 #USER ${user}
 
