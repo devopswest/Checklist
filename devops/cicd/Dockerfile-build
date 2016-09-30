@@ -90,14 +90,14 @@ RUN npm install -g yaml-to-json asciidoctor.js
 RUN \
    chmod -R 777 /var/cache && \
    chmod -R 777 /var/lib && \
-   chmod -R 777 /var/app
+   chmod -R 777 $APP_HOME
 
 
 #
 # Work folder
 #
 RUN \
-   mkdir -p /var/app && \
+   mkdir -p $APP_HOME && \
    mkdir -p /var/devops
 
 COPY ./devops /var/devops
@@ -111,29 +111,18 @@ WORKDIR /var/app
 #VOLUME ["/var/app/"]
 
 
-RUN chown -R ${user} $APP_HOME && \
-    chgrp -R ${user} $APP_HOME && \
-    chown -R ${user} /var/devops && \
+#RUN chown -R ${user} $APP_HOME && \
+#    chgrp -R ${user} $APP_HOME && \
+#    chown -R ${user} /var/devops && \
+#    chgrp -R ${user} /var/devops
+
+RUN chown -R ${user} /var/devops && \
     chgrp -R ${user} /var/devops
 
 #USER ${user}
 
 
-
-
-#
-# App Specific
-#
-#RUN cd /var/app
-#RUN git clone https://github.com/andresfuentes/Checklist.git
-
-#RUN \
-#    echo "Installing Gulp" && \
-#    cd /var/app/Checklist && \
-#    gradle installGulp
-
-
 ENTRYPOINT ["/var/devops/cli.sh"]
-#CMD ["/var/devops/cli.sh"]
+
 
 
