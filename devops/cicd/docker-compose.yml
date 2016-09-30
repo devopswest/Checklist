@@ -55,6 +55,12 @@ services:
             context: ../../
             dockerfile: devops/cicd/Dockerfile-build
 
+        #
+        # NOTE: Volumes are relative to the HOST  (not to the container in this case jenkins)
+        # that is why the jenkins container needs to expose the worspace in the host
+        # the resolution of $PWD will resolve in the same path but in the host, that is why we are using
+        # the same mapping path onthe host that is on the jenkins so it matches.
+        #
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
             #- "/var/data/jenkins/workspace/{jenkins-project}/target:/var/app/Checklist/target"
