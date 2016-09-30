@@ -8,7 +8,19 @@ fi;
 
 echo "Current Folder: $PWD"
 
+echo 'num of args: '$#
+i=0
+xxargs=""
+for arg in "$@"; do
+   #echo 'arg: '$arg;
+   if [ $i -gt "0" ]; then
+      xxargs=$xxargs" "$arg
+   fi;
+   i=$((i + 1))
+done
+
+echo "../devops/cicd/"$command".sh"$xxargs
 #./devops/cicd/pull.sh
 
-echo $command|awk '{system("../devops/cicd/"$command".sh")}'
+echo "../devops/cicd/"$command".sh"$xxargs|sh -
 
