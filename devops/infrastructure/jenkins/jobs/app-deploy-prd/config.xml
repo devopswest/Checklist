@@ -37,7 +37,7 @@ sed -i &apos;s/{api-secret}/4c74e71cd74243b8a3d63bc96e602126/&apos; docker-compo
 sed -i &apos;s/{version}/latest/&apos; docker-compose.yml </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run develop</command>
+      <command>docker-compose run cicd develop</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

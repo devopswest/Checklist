@@ -41,10 +41,16 @@ sed -i &apos;s/{version}/latest/&apos; docker-compose.yml
       <command>docker-compose run compile</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run test-deep</command>
+      <command>docker-compose run test deep</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>docker-compose run scan</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>docker-compose run package</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>docker-compose run deploy</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

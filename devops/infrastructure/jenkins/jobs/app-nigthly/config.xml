@@ -42,13 +42,19 @@ sed -i &apos;s/{api-secret}/4c74e71cd74243b8a3d63bc96e602126/&apos; docker-compo
 sed -i &apos;s/{version}/latest/&apos; docker-compose.yml </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run compile</command>
+      <command>docker-compose run cicd compile</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run test</command>
+      <command>docker-compose run cicd test</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run scan</command>
+      <command>docker-compose run cicd scan</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>docker-compose run cicd package</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>docker-compose run cicd deploy</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>

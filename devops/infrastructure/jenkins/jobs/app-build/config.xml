@@ -8,7 +8,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/andresfuentes/ToDos.git</url>
+        <url>https://github.com/andresfuentes/Checklist.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -33,7 +33,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>sed -i &apos;s/{jenkins-project}/todo-build/&apos; docker-compose.yml
+      <command>sed -i &apos;s/{jenkins-project}/app-build/&apos; docker-compose.yml
 sed -i &apos;s/{password}/tresm1104/&apos; docker-compose.yml
 sed -i &apos;s/{pwc-password}/pwc123/&apos; docker-compose.yml
 sed -i &apos;s/{hp9-password}/1qaz2wsx/&apos; docker-compose.yml
@@ -43,14 +43,17 @@ sed -i &apos;s/{version}/latest/&apos; docker-compose.yml
 </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run compile</command>
+      <command>docker-compose run cicd compile</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run test
-#docker-compose run static-analisys</command>
+      <command>docker-compose run cicd test
+#docker-compose run cicd scan</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>docker-compose run deploy</command>
+      <command>docker-compose run cicd package</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>docker-compose run cicd deploy</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
