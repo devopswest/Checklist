@@ -16,7 +16,7 @@ enum ChecklistTemplateStatus {
     RELEASED
 }
 
-enum DisclosureRequirementStatus {
+enum DisclosureRequireacmentStatus {
     DRAFT,
     RELEASED
 }

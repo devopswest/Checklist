@@ -1,0 +1,136 @@
+/**
+  * Retrention (7y +1 = 8y), Purge, review steps needs to be cofigured
+  * CLient Tag... MDM ?
+  * Business Engine. Business engine cicle, workflow, wizzard.
+  *
+  * quetions matriz vs disculose requirements
+  *
+  **/
+
+
+enum ApplicationAuthorities {
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_PWC_ENGAGEMENT_TEAM,
+    ROLE_PWC_PERSSONEL_US,
+    ROLE_PWC_PERSSONEL_TERRITORY,
+    ROLE_PWC_MANAGEMENT,
+    ROLE_CLIENT_ADMIN,
+    ROLE_CLIENT_USER,
+    ROLE_LICENSED_ADMIN,
+    ROLE_LICENSED_USER,
+    ROLE_LPS_ADMIN,s
+    ROLE_LPS_USER
+}
+
+/**
+ * Lookups
+ **/
+
+entity Taxonomy {
+    code String,
+    label String  required  minlength(1)  maxlength(50)
+}
+
+relationship OneToMany {
+    Taxonomy{child} to Taxonomy{parent(label)}
+}
+
+
+/**
+ * Library
+ *
+ * TODO: Matrix vs Client metaada
+ *
+ * TODO: DisclosureRequirements help or guidance fields.
+ * Main/core checlists, Supplemental ChecklistTemplates
+ *
+ **/
+entity ChecklistTemplate {
+    name String,
+    description String,
+    version String,
+    status ChecklistTemplateStatus
+}
+
+
+/*
+ * This is the future/next definition where ChecklistTemplate is not longer needed
+ */
+entity Requirement {
+    name String,
+    description String
+}
+
+
+entity DisclosureRequirement {
+    code String,
+    description String minlength(1) maxlength(4000)
+}
+
+relationship OneToMany {
+    ChecklistTemplate{disclosureRequirements} to DisclosureRequirement{checklistTemplate(name)}
+}
+
+/*
+ * DisclosureRequirements/Questions will be reused across Requirements
+ */
+relationship ManyToMany {
+    Requirement{disclosureRequirement(description)} to DisclosureRequirement{requirement}
+}
+
+
+
+
+relationship ManyToOne {
+    ChecklistTemplate{territory(label)} to Taxonomy
+}
+
+relationship ManyToOne {
+    ChecklistTemplate{formType(label)} to Taxonomy
+}
+
+relationship OneToMany {
+    DisclosureRequirement{child} to DisclosureRequirement{parent(description)}
+}
+
+
+entity DisclosureRequirementTag {
+    tagValue String
+}
+
+relationship ManyToOne {
+    DisclosureRequirementTag{tagProperty(label)} to Taxonomy
+}
+
+
+relationship OneToMany {
+    DisclosureRequirement{tags} to DisclosureRequirementTag{disclosureRequirement(description)}
+}
+
+
+
+
+/**
+ * Options
+ * NOTE: https://jhipster.github.io/jdl/
+ *
+ * paginate * with pager | infinite-scroll [except ?]
+ * dto * with mapstruct [except ?]
+ * service * with serviceClass | serviceImpl [except ?]
+ * microservice * with <app-name> [except ?]
+ * search * with elasticsearch [except ?]
+ * skipClient for A
+ * skipServer for B
+ * angularSuffix * with mySuperEntities
+ *
+ **/
+paginate * with pager
+dto * with mapstruct
+service * with serviceImpl
+
+
+//dto ChecklistTemplate with mapstruct
+//dto DisclosureRequirement with mapstruct
+//dto Checklist with mapstruct
+//dto ChecklistAnswer with mapstruct
