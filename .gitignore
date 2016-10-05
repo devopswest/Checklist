@@ -139,3 +139,10 @@ Desktop.ini
 /build/**
 /target/**
 /src/main/webapp/bower_components/**
+
+#############################
+#Vagrant
+######################
+**/.vagrant/
+!**/vagrant/bin
+**/vagrant/data/**
