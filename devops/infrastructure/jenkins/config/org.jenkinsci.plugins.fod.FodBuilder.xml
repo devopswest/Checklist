@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<org.jenkinsci.plugins.fod.FodBuilder_-DescriptorImpl plugin="fortify-on-demand-uploader@1.10">
-  <clientId>621712f9-c0e7-4b73-8afe-35726ec4ef37</clientId>
-  <clientSecret>NX8PtMEb3H%5moOR;Q!ZtI0UqIw6zA</clientSecret>
-  <fodUrl>https://hpfod.com</fodUrl>
-  <pollingInterval>30</pollingInterval>
-</org.jenkinsci.plugins.fod.FodBuilder_-DescriptorImpl>
