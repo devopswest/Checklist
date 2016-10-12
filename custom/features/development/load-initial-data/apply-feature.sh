@@ -11,6 +11,6 @@ sed -i "s|<\/databaseChangeLog>| \
 \n</databaseChangeLog> \
 |" src/main/resources/config/liquibase/master.xml
 
-export PGPASSWORD='pwc123';
+export PGPASSWORD='{password}';
 
 #psql -h adc-database.eastus.cloudapp.azure.com -p 5432 -U postgres

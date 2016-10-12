@@ -398,7 +398,7 @@ services:
             - 'SERVICE_PORT=9090'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
-            - 'DB_PASSWORD=pwc123'
+            - 'DB_PASSWORD={password}'
 
             - 'SERVICE_ES_CLUSTER=elasticsearch'
             - 'SERVICE_ES_NODE=adc-database.eastus.cloudapp.azure.com:9300'
@@ -422,7 +422,7 @@ services:
             - 'SERVICE_DB=jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_URL=adc-database.eastus.cloudapp.azure.com:5432/Checklist'
             - 'DB_USER=postgres'
-            - 'DB_PASSWORD=pwc123'
+            - 'DB_PASSWORD={password}'
 
 
             - 'SERVICE_ES_CLUSTER=elasticsearch'

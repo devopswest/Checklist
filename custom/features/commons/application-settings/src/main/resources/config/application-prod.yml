@@ -22,7 +22,7 @@ spring:
         url: jdbc:postgresql://adc-database.eastus.cloudapp.azure.com:5432/Checklist
         name:
         username: postgres
-        password: pwc123
+        password: {password}
     jpa:
         database-platform: com.pwc.assurance.adc.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
