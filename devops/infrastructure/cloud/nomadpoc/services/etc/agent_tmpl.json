@@ -1,0 +1,22 @@
+{
+    "bootstrap": VAR_BOOTSTRAP_FLAG,
+    "server": VAR_SERVER_FLAG,
+    "datacenter": "dc1",
+    "data_dir": "/data",
+    "ui": true,
+    "recursors" : [ "8.8.8.8" ],
+    "encrypt": "Dt3P9SpKGAR/DIUN1cDirg==",
+    "log_level": "INFO",
+    "enable_syslog": false,
+    "bind_addr": "0.0.0.0",
+    "client_addr": "0.0.0.0",
+    "advertise_addr":"VAR_ADV_IP_ADDRESS",
+    "start_join": [VAR_JOIN_IP_ADDRESSES],
+    "leave_on_terminate": true,
+    "dns_config": {
+	  	"allow_stale": true,
+	  	"max_stale": "1s"
+  	}
+
+
+}

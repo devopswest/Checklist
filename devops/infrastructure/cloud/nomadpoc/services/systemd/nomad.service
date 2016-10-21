@@ -1,0 +1,13 @@
+[Unit]
+Description=Nomad Agent Service
+After=network.target
+
+[Service]
+Type=simple
+Environment="CHECKPOINT_DISABLE=true"
+ExecStart=/usr/local/bin/nomad agent -config /etc/nomad
+LimitNOFILE=65536
+
+
+[Install]
+WantedBy=multi-user.target

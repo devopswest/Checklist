@@ -1,0 +1,134 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#^syntax detection
+
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_version ">= 1.8.1"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+
+$cs01_ip="172.10.10.11"
+$slave01_ip="172.10.10.12"
+$slave02_ip="172.10.10.13"
+$slave03_ip="172.10.10.14"
+$lb01_ip="172.30.30.11"
+$lb02_ip="172.30.30.12"
+$splunk01_ip="172.40.40.11"
+$cd01_ip="172.50.50.11"
+$cd02_ip="172.50.50.12"
+$cd03_ip="172.50.50.13"
+
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "bento/ubuntu-16.04"
+
+  # Configure cached packages to be shared between instances of the same base box.
+  # More info on http://fgrehm.viewdocs.io/vagrant-cachier/usage
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.memory=1024
+    vb.cpus = 1
+  end
+
+  config.vm.provision "docker"
+
+
+  #config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh"
+
+  ################# Start :  Consul Servers ######################
+  config.vm.define "cs01" do |c|
+    c.vm.hostname="cs01"
+    c.vm.network "private_network", ip:$cs01_ip
+    config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh", args:["true"]
+    c.vm.provision "shell", privileged:false,path:"provision/scripts/consul_nomad.sh", args:["true","#{$cs01_ip}","#{$cs01_ip}"]
+  #  c.vm.provision "shell", privileged:true,path:"provision/scripts/provisioncontainers.sh", args:["#{$cs01_ip}","slave01","server"]
+  end
+
+  ################# End: Consul Servers###########################
+  ################# Start: Application Nodes###########################
+  config.vm.define "slave01" do |c|
+    c.vm.hostname="slave01"
+    c.vm.network "private_network", ip:$slave01_ip
+    config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh", args:["false","#{$cs01_ip}"]
+    c.vm.provision "shell", privileged:false,path:"provision/scripts/consul_nomad.sh", args:["false","#{$cs01_ip}","#{$slave01_ip}"]
+  end
+
+  config.vm.define "slave02" do |c|
+    c.vm.hostname="slave02"
+    c.vm.network "private_network", ip:$slave02_ip
+    config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh", args:["false","#{$cs01_ip}"]
+    c.vm.provision "shell", privileged:false,path:"provision/scripts/consul_nomad.sh", args:["false","#{$cs01_ip}","#{$slave02_ip}"]
+  end
+
+  config.vm.define "slave03" do |c|
+    c.vm.hostname="slave03"
+    c.vm.network "private_network", ip:$slave03_ip
+    config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh", args:["false","#{$cs01_ip}"]
+    c.vm.provision "shell", privileged:false,path:"provision/scripts/consul_nomad.sh", args:["false","#{$cs01_ip}","#{$slave03_ip}"]
+  end
+
+#TODO install consul-agent on lb
+  config.vm.define "lb01" do |c|
+    c.vm.hostname="lb01"
+    c.vm.provider :virtualbox do |vb|
+      vb.memory=512
+      vb.cpus = 1
+    end
+    c.vm.network "private_network", ip:$lb01_ip
+    config.vm.provision "shell", privileged:false,path:"provision/scripts/weave_install.sh", args:["false","#{$cs01_ip}"]
+    c.vm.provision "docker" do |d|
+         d.build_image "/vagrant/provision/docker_builds/haproxy-consultemplate" , args:"-t 'haproxy:consul-template'"
+         d.run   "haproxy" ,image:"haproxy:consul-template",
+         args:"-h haproxy-lb01 -p 80:80  -v '/vagrant/provision/consul/templates/haproxy.ctmpl:/templates/service.ctmpl' -e CONSUL_URL=#{$cs01_ip}:8500"
+      end
+  end
+
+  config.vm.define "splunk" do |n1|
+    n1.vm.hostname="splunk"
+      n1.vm.network 'private_network', ip: $splunk01_ip
+      n1.vm.provision "docker" do |d|
+      d.run "splunk", image:"splunk/splunk" ,args:"-e 'SPLUNK_START_ARGS=--accept-license' -e SPLUNK_USER=root -p 8000:8000 -p 1514:1514/tcp -p 1515:1515/udp"
+    end
+  end
+  #
+  # config.vm.define "cd" do |n1|
+  #   n1.vm.hostname="cd"
+  #   n1.vm.network 'private_network', ip: $cd02_ip
+  #   n1.vm.provision "docker" do |d|
+  #     d.run "gogs", image:"gogs/gogs" ,args:"-p 10022:22 -p 10080:3000 -v /vagrant/servers/cd/data/gogs:/data"
+  #     d.run "artifactory", image:"jfrog-docker-reg2.bintray.io/jfrog/artifactory-oss:latest",
+  #       args:"-p 8081:8081 -v /vagrant/servers/cd/data/artifactory/data:/var/opt/jfrog/artifactroy"
+  #     d.run "registry", image:"registry:0.9.1", args:"--restart=always -p 5000:5000 -v /vagrant/servers/cd/data/registry:/var/lib/registry"
+  #   end
+  # end
+  #
+  # config.vm.define "gocd" do |n1|
+  #   n1.vm.hostname="gocd"
+  #   n1.vm.network 'private_network', ip: $cd03_ip
+  #   n1.vm.provision "shell", privileged:false,path:"provision/scripts/cd.sh"
+  #   n1.vm.provision "docker" do |d|
+  #     d.run "gogs", image:"gogs/gogs" ,args:"-p 10022:22 -p 10080:3000 -v /vagrant/servers/cd/data/gogs:/data"
+  #     d.run "artifactory", image:"jfrog-docker-reg2.bintray.io/jfrog/artifactory-oss:latest",
+  #       args:"-p 8081:8081 -v /vagrant/servers/cd/data/artifactory/data:/var/opt/jfrog/artifactroy"
+  #   end
+  # end
+  #
+  # config.vm.define "jenkins" do |n1|
+  #   n1.vm.box = "bento/ubuntu-14.04"
+  #   n1.vm.hostname="jenkins"
+  #   n1.vm.provider :virtualbox do |vb|
+  #     vb.memory=1024
+  #     vb.cpus = 1
+  #   end
+  #   n1.vm.network 'private_network', ip: $cd01_ip
+  #   n1.vm.provision "docker" do |d|
+  #   #    d.build_image "/vagrant/provision/docker_builds/jenkins" , args:"-t 'jenkins:jdk8'"
+  #   #  d.run "jenkins", image:"jenkins:1.642.4",args:"-p 8080:8080 -p 50000:50000 -v '/var/run/docker.sock:/var/run/docker.sock'"
+  #    end
+  #   n1.vm.provision "shell", privileged:true,path:"provision/scripts/jenkins.sh"
+  # end
+end

@@ -1,0 +1,12 @@
+[Unit]
+Description=Weave Network
+Documentation=http://docs.weave.works/weave/latest_release/
+Requires=docker.service
+After=docker.service
+[Service]
+EnvironmentFile=-/etc/weave/weave.conf
+ExecStartPre=/usr/local/bin/weave launch --no-dns $PEERS
+ExecStart=/usr/bin/docker attach weave
+ExecStop=/usr/local/bin/weave stop
+[Install]
+WantedBy=multi-user.target

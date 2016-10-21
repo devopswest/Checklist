@@ -1,0 +1,24 @@
+
+global
+    log 172.40.40.11:1515 local0
+    #log-send-hostname
+    daemon
+    maxconn 256
+
+
+defaults
+    log global
+    mode http
+    option httplog
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+
+listen http-in
+    bind *:80{{range service "apps-frontend"}}
+    server {{.Node}} {{.Address}}:{{.Port}}{{end}}
+    {{range service "backend"}}
+    server {{.Node}} {{.Address}}:{{.Port}}{{end}}
+    {{range service "dbservice"}}
+    server {{.Node}} {{.Address}}:{{.Port}}{{end}}
