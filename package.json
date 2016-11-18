@@ -68,7 +68,11 @@
     "node": "^4.3"
   },
   "scripts": {
-    "test": "gulp test",
-    "postinstall": "webdriver-manager update"
+    "build": "gradle assemble",
+    "test": "gradle test",
+    "test:fast": "gradle test",
+    "postinstall": "gradle assemble",
+    "dev": "gradle"
   }
+
 }
