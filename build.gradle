@@ -30,6 +30,7 @@ apply plugin: 'war'
 apply plugin: 'propdeps'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'whitesource'
+apply plugin: 'checkstyle'
 /* downgrade Hibernate to 4.3 */
 ext['hibernate.version'] = '${hibernate_entitymanager_version}'
 defaultTasks 'bootRun'
@@ -44,6 +45,10 @@ war {
 
 whitesource {
     orgToken 'f350b639-e7cc-447b-a830-3737eee4a6c0' // replace with you organization token
+}
+
+checkstyle {
+    configFile = rootProject.file('checkstyle/checkstyle.xml')
 }
 
 springBoot {
