@@ -6,6 +6,7 @@ buildscript {
         maven { url "http://repo.spring.io/plugins-release" }
         maven { url "http://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "http://repo.kulya.info/content/groups/public/" }
     }
     dependencies {
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1"
@@ -17,7 +18,7 @@ buildscript {
         classpath "se.transmode.gradle:gradle-docker:1.2"
         classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
         classpath group: 'org.whitesource', name: 'whitesource-gradle-plugin', version: '0.4'
-		classpath "com.github.kulya:jmeter-gradle-plugin:1.3.1-2.6"
+		classpath "org.veil.gradle.plugins:jmeter-gradle-plugin:1.2-2.6"
         
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
