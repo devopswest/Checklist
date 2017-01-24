@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem
+
 buildscript {
     repositories {
         mavenLocal()
@@ -6,20 +8,13 @@ buildscript {
         maven { url "http://repo.spring.io/plugins-release" }
         maven { url "http://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "http://repo.kulya.info/content/groups/public/" }
     }
     dependencies {
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1"
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.6"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.1"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.9"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
         classpath "org.springframework.build.gradle:propdeps-plugin:0.0.7"
-        classpath "com.moowork.gradle:gradle-node-plugin:0.12"
-        classpath "com.moowork.gradle:gradle-gulp-plugin:0.12"
-        classpath "se.transmode.gradle:gradle-docker:1.2"
-        classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
-        classpath group: 'org.whitesource', name: 'whitesource-gradle-plugin', version: '0.4'
-		classpath "org.veil.gradle.plugins:jmeter-gradle-plugin:1.2-2.6"
-        
+        classpath "io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE"
         //jhipster-needle-gradle-buildscript-dependency - JHipster will add additional gradle build script plugins here
     }
 }
@@ -28,46 +23,67 @@ apply plugin: 'java'
 sourceCompatibility=1.8
 targetCompatibility=1.8
 apply plugin: 'maven'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 apply plugin: 'propdeps'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'whitesource'
-apply plugin: 'jmeter'
-/* downgrade Hibernate to 4.3 */
-ext['hibernate.version'] = '${hibernate_entitymanager_version}'
+apply plugin: "jacoco"
+
+dependencyManagement {
+  imports {
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:' + spring_cloud_version
+  }
+}
 defaultTasks 'bootRun'
 
 bootRepackage {
-   mainClass = 'com.pwc.assurance.adc.ChecklistApp'
+   mainClass = 'com.pwc.assurance.adc.client.AdcclientmsApp'
 }
 
 war {
-    rootSpec.exclude("**/tomcat-*.jar")
-}
 
-whitesource {
-    orgToken 'f350b639-e7cc-447b-a830-3737eee4a6c0' // replace with you organization token
-}
-
-jmeterRun {
-  jmeterTestFiles = [file("src/test/jmeter/MyPlan.jmx")] 
 }
 
 springBoot {
-    mainClass = 'com.pwc.assurance.adc.ChecklistApp'
+    mainClass = 'com.pwc.assurance.adc.client.AdcclientmsApp'
     executable = true
+    buildInfo()
 }
 
-bootRun {
-    addResources = false
+if (OperatingSystem.current().isWindows()) {
+    task pathingJar(type: Jar) {
+        dependsOn configurations.runtime
+        appendix = 'pathing'
+
+        doFirst {
+            manifest {
+                attributes 'Class-Path': configurations.runtime.files.collect {
+                    it.toURL().toString().replaceFirst(/file:\/+/, '/')
+                }.join(' ')
+            }
+        }
+    }
+
+    bootRun {
+        addResources = false
+        dependsOn pathingJar
+        doFirst {
+            classpath = files("$buildDir/classes/main", "$buildDir/resources/main", pathingJar.archivePath)
+        }
+    }
+} else {
+    bootRun {
+        addResources = false
+    }
 }
 
 test {
     include '**/*UnitTest*'
     include '**/*IntTest*'
 
-    ignoreFailures true
+    // uncomment if the tests reports are not generated
+    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
+    // ignoreFailures true
     reports.html.enabled = false
 }
 
@@ -75,7 +91,9 @@ test {
 task cucumberTest(type: Test) {
     include '**/CucumberTest*'
 
-    ignoreFailures true
+    // uncomment if the tests reports are not generated
+    // see https://github.com/jhipster/generator-jhipster/pull/2771 and https://github.com/jhipster/generator-jhipster/pull/4484
+    // ignoreFailures true
     reports.html.enabled = false
 }
 
@@ -90,12 +108,21 @@ task testReport(type: TestReport) {
 
 cucumberTest.finalizedBy(testReport)
 
-apply from: 'gradle/yeoman.gradle'
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/coverage"
+    }
+}
+
+testReport.finalizedBy(jacocoTestReport)
+
 apply from: 'gradle/sonar.gradle'
 
 apply from: 'gradle/liquibase.gradle'
 
-apply from: 'gradle/gatling.gradle'
 apply from: 'gradle/mapstruct.gradle'
 apply from: 'gradle/docker.gradle'
 //jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
@@ -106,13 +133,23 @@ if (project.hasProperty('prod')) {
     apply from: 'gradle/profile_dev.gradle'
 }
 
-group = 'com.pwc.assurance.adc'
-version = '0.0.7-SNAPSHOT'
+if (project.hasProperty('shell')) {
+    dependencies {
+        compile "org.springframework.boot:spring-boot-starter-remote-shell"
+    }
+}
+
+group = 'com.pwc.assurance.adc.client'
+version = '0.0.23'
 
 description = ''
 
 configurations {
     providedRuntime
+    compile.exclude module: "spring-boot-starter-tomcat"
+    // netty's native is pulled by spring-cloud-starter-ribbon, but is useless unless you explicitly add the native binary dependency.
+    // Having it in the classpath without the binary can cause warnings
+    all*.exclude group: 'io.netty', module: 'netty-transport-native-epoll'
 }
 
 repositories {
@@ -129,8 +166,6 @@ repositories {
 
 dependencies {
     compile "io.dropwizard.metrics:metrics-core"
-    compile "io.dropwizard.metrics:metrics-annotation:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-ehcache:${dropwizard_metrics_version}"
     compile "io.dropwizard.metrics:metrics-graphite:${dropwizard_metrics_version}"
     compile "io.dropwizard.metrics:metrics-healthchecks:${dropwizard_metrics_version}"
     compile "io.dropwizard.metrics:metrics-jvm:${dropwizard_metrics_version}"
@@ -139,32 +174,36 @@ dependencies {
     compile ("io.dropwizard.metrics:metrics-servlets:${dropwizard_metrics_version}") {
         exclude(module: 'metrics-healthchecks')
     }
+    compile "io.prometheus:simpleclient:${prometheus_simpleclient_version}"
+    compile "io.prometheus:simpleclient_servlet:${prometheus_simpleclient_version}"
+    compile "io.prometheus:simpleclient_dropwizard:${prometheus_simpleclient_version}"
     compile("net.logstash.logback:logstash-logback-encoder:${logstash_logback_encoder_version}") {
         exclude(module: 'ch.qos.logback')
     }
     compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org:${jackson_version}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc:${jackson_version}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jackson_version}"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
     compile "com.fasterxml.jackson.core:jackson-annotations:${jackson_version}"
     compile "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
     compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}") {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
     } 
-    compile "org.hibernate:hibernate-core:${hibernate_entitymanager_version}"
-    compile("com.zaxxer:HikariCP:${HikariCP_version}") {
+    compile "javax.cache:cache-api:${jcache_version}"
+    compile "org.hibernate:hibernate-core:${hibernate_version}"
+    compile("com.zaxxer:HikariCP:${hikari_version}") {
         exclude(module: 'tools')
     }
-    compile "commons-lang:commons-lang:${commons_lang_version}"
+    compile "org.apache.commons:commons-lang3:${commons_lang_version}"
     compile "commons-io:commons-io:${commons_io_version}"
     compile "javax.inject:javax.inject:${javax_inject_version}"
     compile "javax.transaction:javax.transaction-api"
     compile "org.apache.geronimo.javamail:geronimo-javamail_1.4_mail:${geronimo_javamail_1_4_mail_version}"
     
-    compile ("org.hibernate:hibernate-ehcache") {
-        exclude(module: 'ehcache-core')
-    }
+    compile ("org.ehcache:ehcache")
+    compile ("org.hibernate:hibernate-jcache:${hibernate_version}")
+    
     compile "org.hibernate:hibernate-envers"
     compile "org.hibernate:hibernate-validator"
     compile ("org.liquibase:liquibase-core:${liquibase_core_version}") {
@@ -182,39 +221,46 @@ dependencies {
     // https://github.com/elastic/elasticsearch/issues/13245
     compile "net.java.dev.jna:jna:${jna_version}"
     compile "org.springframework.boot:spring-boot-starter-security"
-    compile "org.springframework.boot:spring-boot-starter-web"
+    compile ("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile "org.springframework.boot:spring-boot-starter-undertow"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-    compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector"
-    compile "org.springframework.cloud:spring-cloud-spring-service-connector"
-    compile "org.springframework.cloud:spring-cloud-localconfig-connector"
+    compile "org.springframework.cloud:spring-cloud-starter"
+    compile "org.springframework.cloud:spring-cloud-starter-ribbon"
+    compile "org.springframework.cloud:spring-cloud-starter-consul-discovery"
+    compile "org.springframework.cloud:spring-cloud-starter-consul-config"
+    compile "org.springframework.cloud:spring-cloud-starter-hystrix"
+    compile "org.springframework.cloud:spring-cloud-starter-spectator"
+    compile "org.springframework.retry:spring-retry"
+    compile "org.springframework.cloud:spring-cloud-starter-feign"
+    compile "org.springframework.boot:spring-boot-starter-cloud-connectors"
     compile ("org.springframework:spring-context-support") {
         exclude(module: 'quartz')
     }
     compile "org.springframework.security:spring-security-config:${spring_security_version}"
     compile "org.springframework.security:spring-security-data:${spring_security_version}"
     compile "org.springframework.security:spring-security-web:${spring_security_version}"
-
+    compile "io.jsonwebtoken:jjwt:${jjwt_version}"
     compile("io.springfox:springfox-swagger2:${springfox_version}"){
         exclude module: 'mapstruct'
     }
-    
-    compile "org.postgresql:postgresql"
+    compile "io.springfox:springfox-bean-validators:${springfox_version}"
+    compile "org.postgresql:postgresql:${postgresql_version}"
     compile "com.h2database:h2"
-    compile "fr.ippon.spark.metrics:metrics-spark-reporter:${metrics_spark_reporter_version}"
     compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
     testCompile "com.jayway.awaitility:awaitility:${awaility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "info.cukes:cucumber-junit:${cucumber_version}"
     testCompile "info.cukes:cucumber-spring:${cucumber_version}"
     testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.springframework.security:spring-security-test"
     testCompile "org.springframework.boot:spring-boot-test"
     testCompile "org.assertj:assertj-core:${assertj_core_version}"
     testCompile "junit:junit"
     testCompile "org.mockito:mockito-core"
     testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
     testCompile "org.hamcrest:hamcrest-library"
-    
-    testCompile "io.gatling.highcharts:gatling-charts-highcharts:${gatling_version}"
     
     optional "org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
@@ -229,11 +275,13 @@ task cleanResources(type: Delete) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.2.1'
 }
 
 task stage(dependsOn: 'bootRepackage') {
 }
 
 compileJava.dependsOn processResources
-processResources.dependsOn cleanResources
+processResources.dependsOn cleanResources,bootBuildInfo
+bootBuildInfo.mustRunAfter cleanResources
+jacocoTestReport.dependsOn test
